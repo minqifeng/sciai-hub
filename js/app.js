@@ -53,7 +53,10 @@
             <div class="tool-card" data-category="${tool.category}" data-pricing="${tool.pricing}" data-region="${tool.region}" onclick="window.open('${tool.url}', '_blank')">
                 <div class="tool-card-header">
                     <div class="tool-icon" style="background:${tool.color}">
-                        <i class="${tool.icon}"></i>
+                        ${tool.logo
+                            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.parentElement.innerHTML='<span class=\\'icon-fallback\\'><i class=\\'${tool.icon}\\'></i></span>'">`
+                            : `<i class="${tool.icon}"></i>`
+                        }
                     </div>
                     <div class="tool-card-info">
                         <h4>${tool.name}</h4>
