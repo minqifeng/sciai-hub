@@ -305,8 +305,6 @@ const TOOLS_DATA = [
         tags: ["AI视频", "视频编辑"], pricing: "freemium", region: "foreign",
         rating: 4.5, users: "300万+", url: "https://runwayml.com"
     },
-];
-
     // ---- 文献管理 ----
     {
         id: 36, name: "Zotero", category: "reading",
