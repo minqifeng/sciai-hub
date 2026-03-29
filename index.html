@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciAI Hub - AI+科研导航平台</title>
+    <title>SciAI Hub - AI+科研导航平台 | 精选55+款AI科研工具</title>
+    <meta name="description" content="SciAI Hub 收录 55+ 款顶级 AI 科研工具，覆盖论文写作、文献阅读、数据分析、科研绘图、代码助手全流程，助力科研效率提升 10 倍。">
+    <meta name="keywords" content="AI科研工具,论文写作AI,文献阅读,数据分析,ChatGPT科研,DeepSeek,Kimi,学术AI">
+    <meta property="og:title" content="SciAI Hub - AI+科研导航平台">
+    <meta property="og:description" content="精选 55+ 款 AI 科研工具，让科研更智能">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sciai-hub.vercel.app">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -15,9 +22,6 @@
                 <i class="fas fa-atom"></i>
                 <span>SciAI Hub</span>
             </div>
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
 
         <div class="sidebar-search">
@@ -31,7 +35,7 @@
                 <div class="nav-section-title">发现</div>
                 <a href="#" class="nav-item active" data-category="all">
                     <i class="fas fa-compass"></i><span>全部工具</span>
-                    <span class="nav-badge" id="navBadgeAll">35</span>
+                    <span class="nav-badge" id="navBadgeAll">55</span>
                 </a>
                 <a href="#" class="nav-item" data-category="hot">
                     <i class="fas fa-fire"></i><span>热门推荐</span>
@@ -39,9 +43,12 @@
                 <a href="#" class="nav-item" data-category="new">
                     <i class="fas fa-sparkles"></i><span>最新上线</span>
                 </a>
-                <a href="#" class="nav-item" data-category="favorites" id="favNavItem">
+                <a href="#" class="nav-item" data-category="favorites">
                     <i class="fas fa-heart"></i><span>我的收藏</span>
                     <span class="nav-badge fav-badge" id="favCount" style="display:none">0</span>
+                </a>
+                <a href="#" class="nav-item" data-category="recent">
+                    <i class="fas fa-clock-rotate-left"></i><span>最近浏览</span>
                 </a>
             </div>
 
@@ -100,11 +107,11 @@
         <div class="sidebar-footer">
             <div class="stats-mini">
                 <div class="stat-item">
-                    <span class="stat-number" id="todayVisitors">3,284</span>
+                    <span class="stat-number">3,284</span>
                     <span class="stat-label">今日访客</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="totalTools">35</span>
+                    <span class="stat-number">55</span>
                     <span class="stat-label">收录工具</span>
                 </div>
             </div>
@@ -122,6 +129,11 @@
                 <h2 class="page-title" id="pageTitle">全部工具</h2>
             </div>
             <div class="top-bar-right">
+                <!-- 对比栏入口 -->
+                <button class="btn-compare-toggle" id="compareToggle" style="display:none" title="对比工具">
+                    <i class="fas fa-code-compare"></i>
+                    <span class="compare-count" id="compareCount">0</span>
+                </button>
                 <div class="theme-toggle" id="themeToggle" title="切换主题">
                     <i class="fas fa-moon"></i>
                 </div>
@@ -136,11 +148,11 @@
             <div class="hero-content">
                 <div class="hero-badge"><i class="fas fa-atom"></i> AI × 科研</div>
                 <h1 class="hero-title">发现最好用的 <span class="hero-highlight">AI 科研工具</span></h1>
-                <p class="hero-desc">精选 35+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、科研绘图全流程</p>
+                <p class="hero-desc">精选 55+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、科研绘图全流程</p>
                 <div class="hero-search">
                     <i class="fas fa-search"></i>
                     <input type="text" id="heroSearch" placeholder="搜索工具名称、功能、场景...">
-                    <button class="hero-search-btn">搜索</button>
+                    <button class="hero-search-btn" id="heroSearchBtn">搜索</button>
                 </div>
                 <div class="hero-tags">
                     <span class="hero-tag" data-category="writing"><i class="fas fa-pen-fancy"></i>论文写作</span>
@@ -151,6 +163,15 @@
                     <span class="hero-tag" data-category="llm"><i class="fas fa-brain"></i>大语言模型</span>
                 </div>
             </div>
+        </section>
+
+        <!-- 精选工具 Spotlight -->
+        <section class="featured-section" id="featuredSection">
+            <div class="section-header">
+                <h3><i class="fas fa-crown"></i> 编辑精选</h3>
+                <a href="#" class="view-all" data-category="hot">查看全部热门 →</a>
+            </div>
+            <div class="featured-grid" id="featuredGrid"></div>
         </section>
 
         <!-- 统计卡片 -->
@@ -165,21 +186,21 @@
             <div class="stats-card">
                 <div class="stats-icon green"><i class="fas fa-toolbox"></i></div>
                 <div class="stats-info">
-                    <span class="stats-value" data-target="35">0</span>
+                    <span class="stats-value" data-target="55">0</span>
                     <span class="stats-desc">收录工具</span>
                 </div>
             </div>
             <div class="stats-card">
                 <div class="stats-icon purple"><i class="fas fa-server"></i></div>
                 <div class="stats-info">
-                    <span class="stats-value" data-target="186432">0</span>
+                    <span class="stats-value" data-target="286432">0</span>
                     <span class="stats-desc">本月服务次数</span>
                 </div>
             </div>
             <div class="stats-card">
                 <div class="stats-icon orange"><i class="fas fa-heart"></i></div>
                 <div class="stats-info">
-                    <span class="stats-value" data-target="9847">0</span>
+                    <span class="stats-value" data-target="12847">0</span>
                     <span class="stats-desc">用户收藏</span>
                 </div>
             </div>
@@ -209,9 +230,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tools-grid" id="toolsGrid">
-                <!-- JS动态渲染 -->
-            </div>
+            <div class="tools-grid" id="toolsGrid"></div>
             <div class="empty-state" id="emptyState" style="display:none;">
                 <i class="fas fa-search"></i>
                 <p>未找到相关工具</p>
@@ -219,7 +238,7 @@
             </div>
         </section>
 
-        <!-- 提示词库板块 -->
+        <!-- 提示词库 -->
         <section class="prompts-section" id="promptsSection" style="display:none;">
             <div class="section-header">
                 <h3>科研提示词库</h3>
@@ -234,23 +253,43 @@
             <div class="prompts-grid" id="promptsGrid"></div>
         </section>
 
-        <!-- 教程板块 -->
+        <!-- 教程 -->
         <section class="tutorials-section" id="tutorialsSection" style="display:none;">
             <div class="section-header"><h3>学习教程</h3></div>
             <div class="tutorials-grid" id="tutorialsGrid"></div>
         </section>
 
-        <!-- 资讯板块 -->
+        <!-- 资讯 -->
         <section class="news-section" id="newsSection" style="display:none;">
             <div class="section-header"><h3>行业资讯</h3></div>
             <div class="news-list" id="newsList"></div>
         </section>
 
-        <!-- 页脚 -->
         <footer class="footer">
-            <p>© 2026 SciAI Hub - AI+科研导航平台 | 让科研更智能</p>
+            <p>© 2026 SciAI Hub - AI+科研导航平台 | 让科研更智能 | <a href="https://github.com/minqifeng/sciai-hub" target="_blank" style="color:var(--primary)">GitHub</a></p>
         </footer>
     </main>
+
+    <!-- 对比浮条 -->
+    <div class="compare-bar" id="compareBar" style="display:none;">
+        <div class="compare-bar-inner">
+            <span class="compare-bar-title"><i class="fas fa-code-compare"></i> 工具对比</span>
+            <div class="compare-slots" id="compareSlots"></div>
+            <button class="btn-do-compare" id="doCompare" disabled>开始对比</button>
+            <button class="btn-clear-compare" id="clearCompare">清空</button>
+        </div>
+    </div>
+
+    <!-- 对比弹窗 -->
+    <div class="modal-overlay" id="compareModal">
+        <div class="modal compare-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-code-compare"></i> 工具对比</h3>
+                <button class="modal-close" id="compareModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="compare-modal-body" id="compareModalBody"></div>
+        </div>
+    </div>
 
     <!-- 工具详情弹窗 -->
     <div class="modal-overlay" id="toolModal">
@@ -261,9 +300,7 @@
                     <h3 id="toolModalName"></h3>
                     <div class="tool-modal-tags" id="toolModalTags"></div>
                 </div>
-                <button class="fav-btn" id="toolModalFav" title="收藏">
-                    <i class="fas fa-heart"></i>
-                </button>
+                <button class="fav-btn" id="toolModalFav" title="收藏"><i class="fas fa-heart"></i></button>
                 <button class="modal-close" id="toolModalClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="tool-modal-body">
@@ -291,6 +328,9 @@
                 <button class="btn-fav-modal" id="toolModalFavBtn">
                     <i class="fas fa-heart"></i> <span id="toolModalFavText">收藏工具</span>
                 </button>
+                <button class="btn-add-compare" id="toolModalCompare">
+                    <i class="fas fa-code-compare"></i> <span id="toolModalCompareText">加入对比</span>
+                </button>
                 <a class="btn-visit" id="toolModalUrl" href="#" target="_blank" rel="noopener">
                     <i class="fas fa-external-link-alt"></i> 访问官网
                 </a>
@@ -306,12 +346,8 @@
                 <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <button class="btn-oauth github">
-                    <i class="fab fa-github"></i> GitHub 登录
-                </button>
-                <button class="btn-oauth google">
-                    <i class="fab fa-google"></i> Google 登录
-                </button>
+                <button class="btn-oauth github"><i class="fab fa-github"></i> GitHub 登录</button>
+                <button class="btn-oauth google"><i class="fab fa-google"></i> Google 登录</button>
                 <div class="divider"><span>或</span></div>
                 <div class="form-group">
                     <input type="email" placeholder="输入邮箱地址" class="form-input">
@@ -325,7 +361,6 @@
         </div>
     </div>
 
-    <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" title="回到顶部">
         <i class="fas fa-chevron-up"></i>
     </button>

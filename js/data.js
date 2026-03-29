@@ -307,6 +307,193 @@ const TOOLS_DATA = [
     },
 ];
 
+    // ---- 文献管理 ----
+    {
+        id: 36, name: "Zotero", category: "reading",
+        desc: "免费开源文献管理工具，支持一键抓取网页论文、自动生成引用格式，与 Word/LaTeX 深度集成，科研必备神器。",
+        logo: favicon("zotero.org"),
+        icon: "fas fa-book", color: "#cc2936",
+        tags: ["文献管理", "免费"], pricing: "free", region: "foreign",
+        rating: 4.7, users: "1000万+", url: "https://zotero.org", hot: true
+    },
+    {
+        id: 37, name: "Mendeley", category: "reading",
+        desc: "Elsevier 出品的文献管理和学术社交平台，支持 PDF 注释、引用生成，内置学术社交网络，可发现相关研究者。",
+        logo: favicon("mendeley.com"),
+        icon: "fas fa-book-bookmark", color: "#9b0000",
+        tags: ["文献管理", "学术社交"], pricing: "free", region: "foreign",
+        rating: 4.4, users: "800万+", url: "https://mendeley.com"
+    },
+    {
+        id: 38, name: "Litmaps", category: "reading",
+        desc: "可视化文献发现工具，以种子论文为起点构建动态引用地图，持续追踪领域新论文，自动推送相关文献。",
+        logo: favicon("litmaps.com"),
+        icon: "fas fa-map", color: "#2d6a4f",
+        tags: ["文献地图", "自动追踪"], pricing: "freemium", region: "foreign",
+        rating: 4.3, users: "20万+", url: "https://litmaps.com", isNew: true
+    },
+
+    // ---- 写作辅助 ----
+    {
+        id: 39, name: "Overleaf", category: "writing",
+        desc: "全球最流行的在线 LaTeX 编辑器，支持实时协作编写学术论文，内置数千个期刊模板，与 Zotero/Mendeley 无缝集成。",
+        logo: favicon("overleaf.com"),
+        icon: "fas fa-leaf", color: "#4cae4f",
+        tags: ["LaTeX", "协作写作"], pricing: "freemium", region: "foreign",
+        rating: 4.8, users: "1500万+", url: "https://overleaf.com", hot: true
+    },
+    {
+        id: 40, name: "Grammarly", category: "writing",
+        desc: "AI 英文写作助手，提供语法纠错、风格优化、学术语调调整，支持浏览器插件和 Word 集成，论文投稿前必用。",
+        logo: favicon("grammarly.com"),
+        icon: "fas fa-check-circle", color: "#15c39a",
+        tags: ["语法检查", "英文写作"], pricing: "freemium", region: "foreign",
+        rating: 4.6, users: "3000万+", url: "https://grammarly.com", hot: true
+    },
+    {
+        id: 41, name: "QuillBot", category: "writing",
+        desc: "AI 改写和润色工具，提供多种改写模式（学术/简洁/创意），内置语法检查和引用生成器，深受科研人员喜爱。",
+        logo: favicon("quillbot.com"),
+        icon: "fas fa-feather-alt", color: "#6ab04c",
+        tags: ["改写润色", "引用生成"], pricing: "freemium", region: "foreign",
+        rating: 4.5, users: "2000万+", url: "https://quillbot.com"
+    },
+
+    // ---- 数据分析 ----
+    {
+        id: 42, name: "JASP", category: "data",
+        desc: "免费开源统计软件，界面友好，支持频率统计和贝叶斯统计，是 SPSS 的最佳免费替代品，专为心理学和社科研究设计。",
+        logo: favicon("jasp-stats.org"),
+        icon: "fas fa-chart-bar", color: "#0073b7",
+        tags: ["统计分析", "免费"], pricing: "free", region: "foreign",
+        rating: 4.5, users: "50万+", url: "https://jasp-stats.org"
+    },
+    {
+        id: 43, name: "R Studio", category: "data",
+        desc: "R 语言最流行的 IDE，统计分析和科学可视化的标准工具，拥有数万个科研专用扩展包，学术界广泛使用。",
+        logo: favicon("posit.co"),
+        icon: "fas fa-registered", color: "#75aadb",
+        tags: ["R语言", "统计分析"], pricing: "free", region: "foreign",
+        rating: 4.7, users: "500万+", url: "https://posit.co/products/open-source/rstudio/", hot: true
+    },
+    {
+        id: 44, name: "Tableau", category: "data",
+        desc: "业界领先的数据可视化平台，拖拽操作即可创建专业图表，高校免费授权，适合展示复杂科研数据。",
+        logo: favicon("tableau.com"),
+        icon: "fas fa-chart-area", color: "#e8762b",
+        tags: ["数据可视化", "拖拽操作"], pricing: "paid", region: "foreign",
+        rating: 4.5, users: "1500万+", url: "https://tableau.com"
+    },
+
+    // ---- 科研绘图 ----
+    {
+        id: 45, name: "Figma", category: "figure",
+        desc: "专业协作设计工具，支持矢量绘图和原型设计，研究人员用于制作高质量论文配图、学术海报和汇报幻灯片。",
+        logo: favicon("figma.com"),
+        icon: "fab fa-figma", color: "#f24e1e",
+        tags: ["矢量设计", "协作"], pricing: "freemium", region: "foreign",
+        rating: 4.7, users: "4000万+", url: "https://figma.com", hot: true
+    },
+    {
+        id: 46, name: "Inkscape", category: "figure",
+        desc: "免费开源矢量绘图软件，功能堪比 Adobe Illustrator，可编辑 SVG 格式图形，制作高分辨率论文配图的免费选择。",
+        logo: favicon("inkscape.org"),
+        icon: "fas fa-vector-square", color: "#000",
+        tags: ["矢量绘图", "免费开源"], pricing: "free", region: "foreign",
+        rating: 4.3, users: "200万+", url: "https://inkscape.org"
+    },
+
+    // ---- 代码助手 ----
+    {
+        id: 47, name: "Jupyter Notebook", category: "code",
+        desc: "交互式计算笔记本，科研数据分析标准工具，支持 Python/R/Julia，代码、结果、可视化和文本混排，易于分享复现。",
+        logo: favicon("jupyter.org"),
+        icon: "fas fa-book-open", color: "#f37626",
+        tags: ["交互式计算", "数据科学"], pricing: "free", region: "foreign",
+        rating: 4.8, users: "2000万+", url: "https://jupyter.org", hot: true
+    },
+    {
+        id: 48, name: "VS Code", category: "code",
+        desc: "微软出品的免费开源代码编辑器，支持所有科研编程语言，丰富的 AI 插件生态（GitHub Copilot/Continue/Codeium），科研编程首选。",
+        logo: favicon("code.visualstudio.com"),
+        icon: "fas fa-code", color: "#007acc",
+        tags: ["代码编辑器", "免费"], pricing: "free", region: "foreign",
+        rating: 4.9, users: "1亿+", url: "https://code.visualstudio.com", hot: true
+    },
+
+    // ---- AI 搜索/问答 ----
+    {
+        id: 49, name: "ResearchRabbit", category: "reading",
+        desc: "号称学术界的 Spotify，输入论文后自动推荐相关文献，可视化作者合作网络，支持与 Zotero 同步，完全免费。",
+        logo: favicon("researchrabbit.ai"),
+        icon: "fas fa-rabbit", color: "#ff6b6b",
+        tags: ["文献推荐", "免费"], pricing: "free", region: "foreign",
+        rating: 4.5, users: "60万+", url: "https://researchrabbit.ai", isNew: true
+    },
+    {
+        id: 50, name: "Scite.ai", category: "reading",
+        desc: "智能引用分析平台，显示论文被引用时是「支持」还是「反驳」，帮助快速评估研究可靠性和学术争议。",
+        logo: favicon("scite.ai"),
+        icon: "fas fa-quote-right", color: "#5e35b1",
+        tags: ["引用分析", "可信度评估"], pricing: "freemium", region: "foreign",
+        rating: 4.4, users: "30万+", url: "https://scite.ai", isNew: true
+    },
+    {
+        id: 51, name: "Scholarcy", category: "reading",
+        desc: "AI 论文摘要工具，自动将长篇论文提炼为结构化摘要卡片，提取关键贡献、方法、数据，快速筛选文献必备。",
+        logo: favicon("scholarcy.com"),
+        icon: "fas fa-id-card", color: "#1565c0",
+        tags: ["自动摘要", "论文提炼"], pricing: "freemium", region: "foreign",
+        rating: 4.3, users: "15万+", url: "https://scholarcy.com"
+    },
+
+    // ---- 国产 AI ----
+    {
+        id: 52, name: "智谱清言", category: "llm",
+        desc: "清华大学技术加持的大模型，学术理解和推理能力突出，支持长文档分析和学术问答，有免费 API 供科研使用。",
+        logo: favicon("chatglm.cn"),
+        icon: "fas fa-brain", color: "#2a5ae0",
+        tags: ["大模型", "国产"], pricing: "free", region: "domestic",
+        rating: 4.4, users: "500万+", url: "https://chatglm.cn"
+    },
+    {
+        id: 53, name: "MiniMax", category: "llm",
+        desc: "国产多模态大模型，支持文本、图像和语音，长上下文表现优异，有完整 API 接口，适合科研项目二次开发。",
+        logo: favicon("minimaxi.com"),
+        icon: "fas fa-microchip", color: "#6200ea",
+        tags: ["多模态", "国产API"], pricing: "freemium", region: "domestic",
+        rating: 4.3, users: "200万+", url: "https://minimaxi.com", isNew: true
+    },
+
+    // ---- 实验设计 ----
+    {
+        id: 54, name: "LabArchives", category: "experiment",
+        desc: "云端电子实验记录本，支持实验数据安全存储、版本控制和团队协作，符合 FDA/GLP 合规要求，已被数千家机构采用。",
+        logo: favicon("labarchives.com"),
+        icon: "fas fa-clipboard-list", color: "#0277bd",
+        tags: ["实验记录", "合规管理"], pricing: "paid", region: "foreign",
+        rating: 4.3, users: "50万+", url: "https://labarchives.com"
+    },
+    {
+        id: 55, name: "Notion", category: "experiment",
+        desc: "全能型知识管理工具，科研人员用于实验记录、文献笔记、项目管理和团队协作，AI 功能支持智能总结和问答。",
+        logo: favicon("notion.so"),
+        icon: "fas fa-sticky-note", color: "#000",
+        tags: ["知识管理", "AI助手"], pricing: "freemium", region: "foreign",
+        rating: 4.6, users: "3000万+", url: "https://notion.so", hot: true
+    },
+];
+
+// ---- 精选工具（首页 Spotlight） ----
+const FEATURED_TOOLS = [
+    { id: 2,  reason: "200K 超长上下文，整篇论文一次读完" },
+    { id: 8,  reason: "系统综述效率提升 10 倍" },
+    { id: 18, reason: "5万+ 生物医学图标，顶刊御用绘图工具" },
+    { id: 16, reason: "免费开源，代码推理超越 GPT-4o" },
+    { id: 39, reason: "全球 1500万+ 科研人员在用的 LaTeX 编辑器" },
+    { id: 47, reason: "科研数据分析标准工具，支持多语言内核" },
+];
+
 const PROMPTS_DATA = [
     {
         id: 1, title: "论文摘要生成", category: "writing",

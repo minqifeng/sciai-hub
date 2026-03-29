@@ -1,37 +1,45 @@
 // ============================================
-// SciAI Hub - 应用逻辑 v2
+// SciAI Hub - 应用逻辑 v3
 // ============================================
-
 (function () {
     'use strict';
-
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
 
     // ---- DOM ----
-    const sidebar        = $('#sidebar');
-    const mainContent    = $('#mainContent');
-    const mobileMenuBtn  = $('#mobileMenuBtn');
-    const globalSearch   = $('#globalSearch');
-    const heroSearch     = $('#heroSearch');
-    const themeToggle    = $('#themeToggle');
-    const loginBtn       = $('#loginBtn');
-    const loginModal     = $('#loginModal');
-    const modalClose     = $('#modalClose');
-    const toolsGrid      = $('#toolsGrid');
-    const promptsGrid    = $('#promptsGrid');
-    const tutorialsGrid  = $('#tutorialsGrid');
-    const newsList       = $('#newsList');
-    const pageTitle      = $('#pageTitle');
-    const sortSelect     = $('#sortSelect');
-    const backToTop      = $('#backToTop');
-    const emptyState     = $('#emptyState');
-    const toolModal      = $('#toolModal');
-    const toolModalClose = $('#toolModalClose');
-    const favCount       = $('#favCount');
+    const sidebar         = $('#sidebar');
+    const mainContent     = $('#mainContent');
+    const mobileMenuBtn   = $('#mobileMenuBtn');
+    const globalSearch    = $('#globalSearch');
+    const heroSearch      = $('#heroSearch');
+    const heroSearchBtn   = $('#heroSearchBtn');
+    const themeToggle     = $('#themeToggle');
+    const loginBtn        = $('#loginBtn');
+    const loginModal      = $('#loginModal');
+    const modalClose      = $('#modalClose');
+    const toolsGrid       = $('#toolsGrid');
+    const promptsGrid     = $('#promptsGrid');
+    const tutorialsGrid   = $('#tutorialsGrid');
+    const newsList        = $('#newsList');
+    const featuredGrid    = $('#featuredGrid');
+    const pageTitle       = $('#pageTitle');
+    const sortSelect      = $('#sortSelect');
+    const backToTop       = $('#backToTop');
+    const emptyState      = $('#emptyState');
+    const toolModal       = $('#toolModal');
+    const toolModalClose  = $('#toolModalClose');
+    const favCount        = $('#favCount');
+    const compareToggle   = $('#compareToggle');
+    const compareBar      = $('#compareBar');
+    const compareSlots    = $('#compareSlots');
+    const doCompare       = $('#doCompare');
+    const clearCompare    = $('#clearCompare');
+    const compareModal    = $('#compareModal');
+    const compareModalClose = $('#compareModalClose');
 
     const sections = {
         hero:      $('#heroSection'),
+        featured:  $('#featuredSection'),
         tools:     $('#toolsSection'),
         stats:     $('#statsSection'),
         prompts:   $('#promptsSection'),
@@ -44,102 +52,174 @@
     let currentPricing  = 'all';
     let currentSort     = 'default';
     let currentToolId   = null;
-    let favorites       = loadFavorites();
+    let favorites       = loadLS('sciai-favs', []);
+    let recentlyViewed  = loadLS('sciai-recent', []);
+    let compareList     = [];   // max 3 ids
 
-    // ---- 初始化 ----
-    function init() {
-        renderTools(TOOLS_DATA);
-        renderPrompts(PROMPTS_DATA);
-        renderTutorials(TUTORIALS_DATA);
-        renderNews(NEWS_DATA);
-        bindEvents();
-        animateStats();
-        loadTheme();
-        updateFavBadge();
+    // ---- LS 工具 ----
+    function loadLS(key, def) {
+        try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(def)); }
+        catch { return def; }
     }
+    function saveLS(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
-    // ---- 收藏持久化 ----
-    function loadFavorites() {
-        try { return JSON.parse(localStorage.getItem('sciai-favs') || '[]'); }
-        catch { return []; }
-    }
-    function saveFavorites() {
-        localStorage.setItem('sciai-favs', JSON.stringify(favorites));
-        updateFavBadge();
-    }
-    function isFav(id) { return favorites.includes(id); }
+    // ---- 收藏 ----
+    function isFav(id)    { return favorites.includes(id); }
     function toggleFav(id) {
-        if (isFav(id)) {
-            favorites = favorites.filter(f => f !== id);
-            showToast('已取消收藏');
-        } else {
-            favorites.push(id);
-            showToast('已加入收藏 ❤️');
-        }
-        saveFavorites();
-        // 同步卡片和弹窗状态
+        favorites = isFav(id) ? favorites.filter(f => f !== id) : [...favorites, id];
+        saveLS('sciai-favs', favorites);
+        updateFavBadge();
         syncFavUI(id);
+        showToast(isFav(id) ? '已加入收藏 ❤️' : '已取消收藏');
     }
     function syncFavUI(id) {
-        // 卡片按钮
-        $$('.card-fav-btn').forEach(btn => {
-            if (parseInt(btn.dataset.id) === id) {
-                btn.classList.toggle('active', isFav(id));
-            }
-        });
-        // 弹窗按钮
+        $$('.card-fav-btn').forEach(b => { if (+b.dataset.id === id) b.classList.toggle('active', isFav(id)); });
         if (currentToolId === id) updateModalFavUI(id);
     }
     function updateFavBadge() {
-        const n = favorites.length;
-        favCount.textContent = n;
-        favCount.style.display = n > 0 ? '' : 'none';
+        favCount.textContent = favorites.length;
+        favCount.style.display = favorites.length ? '' : 'none';
+    }
+
+    // ---- 最近浏览 ----
+    function addRecent(id) {
+        recentlyViewed = [id, ...recentlyViewed.filter(r => r !== id)].slice(0, 12);
+        saveLS('sciai-recent', recentlyViewed);
+    }
+
+    // ---- 对比 ----
+    function isInCompare(id) { return compareList.includes(id); }
+    function toggleCompare(id) {
+        if (isInCompare(id)) {
+            compareList = compareList.filter(c => c !== id);
+        } else {
+            if (compareList.length >= 3) { showToast('最多对比 3 个工具'); return; }
+            compareList.push(id);
+        }
+        updateCompareBar();
+        syncCompareUI(id);
+    }
+    function updateCompareBar() {
+        const n = compareList.length;
+        compareToggle.style.display = n ? 'flex' : 'none';
+        $('#compareCount').textContent = n;
+        compareBar.style.display = n ? '' : 'none';
+        doCompare.disabled = n < 2;
+
+        compareSlots.innerHTML = '';
+        for (let i = 0; i < 3; i++) {
+            const slot = document.createElement('div');
+            slot.className = 'compare-slot' + (compareList[i] ? ' filled' : '');
+            if (compareList[i]) {
+                const t = TOOLS_DATA.find(t => t.id === compareList[i]);
+                slot.innerHTML = `<span class="compare-slot-name">${t ? t.name : ''}</span>
+                    <button class="compare-slot-remove" onclick="window._removeCompare(${compareList[i]})">×</button>`;
+            } else {
+                slot.innerHTML = `<span style="font-size:11px;color:var(--text-muted)">+ 添加工具</span>`;
+            }
+            compareSlots.appendChild(slot);
+        }
+    }
+    function syncCompareUI(id) {
+        $$('.card-compare-cb').forEach(b => { if (+b.dataset.id === id) b.classList.toggle('active', isInCompare(id)); });
+        if (currentToolId === id) updateModalCompareUI(id);
+    }
+    window._removeCompare = function(id) { compareList = compareList.filter(c => c !== id); updateCompareBar(); syncCompareUI(id); };
+
+    function openCompareModal() {
+        const tools = compareList.map(id => TOOLS_DATA.find(t => t.id === id)).filter(Boolean);
+        if (tools.length < 2) return;
+
+        const rows = [
+            ['描述', t => `<td>${t.desc}</td>`],
+            ['评分', t => `<td><span class="compare-stars">${'★'.repeat(Math.floor(t.rating))}${'☆'.repeat(5-Math.floor(t.rating))}</span> ${t.rating}</td>`],
+            ['用户数', t => `<td>${t.users}</td>`],
+            ['价格', t => `<td><span class="pricing-badge ${t.pricing}">${{free:'免费',freemium:'免费增值',paid:'付费'}[t.pricing]}</span></td>`],
+            ['地区', t => `<td>${t.region === 'domestic' ? '🇨🇳 国产' : '🌐 海外'}</td>`],
+            ['分类', t => `<td>${t.tags.join(', ')}</td>`],
+            ['官网', t => `<td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none">访问 →</a></td>`],
+        ];
+
+        const headerCells = tools.map(t => `
+            <th>
+                <div class="compare-tool-header">
+                    <div class="compare-tool-icon" style="background:${t.color}">
+                        ${t.logo ? `<img src="${t.logo}" alt="${t.name}">` : `<i class="${t.icon}"></i>`}
+                    </div>
+                    <span>${t.name}</span>
+                </div>
+            </th>`).join('');
+
+        const bodyRows = rows.map(([label, fn]) => `
+            <tr>
+                <td>${label}</td>
+                ${tools.map(fn).join('')}
+            </tr>`).join('');
+
+        $('#compareModalBody').innerHTML = `
+            <table class="compare-table">
+                <thead><tr><th>对比项</th>${headerCells}</tr></thead>
+                <tbody>${bodyRows}</tbody>
+            </table>`;
+        compareModal.classList.add('show');
+    }
+
+    // ---- 渲染精选 ----
+    function renderFeatured() {
+        featuredGrid.innerHTML = FEATURED_TOOLS.map(f => {
+            const t = TOOLS_DATA.find(tool => tool.id === f.id);
+            if (!t) return '';
+            return `
+            <div class="featured-card" style="--card-color:${t.color}" onclick="window._openTool(${t.id})">
+                <div class="featured-icon" style="background:${t.color}">
+                    ${t.logo ? `<img src="${t.logo}" alt="${t.name}" onerror="this.style.display='none'">` : `<i class="${t.icon}" style="color:#fff;font-size:18px"></i>`}
+                </div>
+                <div class="featured-info">
+                    <h4>${t.name}</h4>
+                    <div class="featured-reason">${f.reason}</div>
+                    <div class="featured-rating">${'★'.repeat(Math.floor(t.rating))} ${t.rating}</div>
+                </div>
+            </div>`;
+        }).join('');
     }
 
     // ---- 渲染工具卡片 ----
     function renderTools(tools) {
-        if (!tools.length) {
-            toolsGrid.innerHTML = '';
-            emptyState.style.display = 'block';
-            return;
-        }
+        if (!tools.length) { toolsGrid.innerHTML = ''; emptyState.style.display = 'block'; return; }
         emptyState.style.display = 'none';
         toolsGrid.innerHTML = tools.map(tool => `
-            <div class="tool-card" data-id="${tool.id}">
-                <button class="card-fav-btn ${isFav(tool.id) ? 'active' : ''}" data-id="${tool.id}" title="收藏" onclick="event.stopPropagation(); handleFav(${tool.id})">
+            <div class="tool-card ${tool.hot ? 'is-hot' : ''}" data-id="${tool.id}">
+                <button class="card-fav-btn ${isFav(tool.id) ? 'active' : ''}" data-id="${tool.id}" title="收藏" onclick="event.stopPropagation();window._toggleFav(${tool.id})">
                     <i class="fas fa-heart"></i>
+                </button>
+                <button class="card-compare-cb ${isInCompare(tool.id) ? 'active' : ''}" data-id="${tool.id}" title="加入对比" onclick="event.stopPropagation();window._toggleCompare(${tool.id})">
+                    <i class="fas fa-code-compare"></i>
                 </button>
                 <div class="tool-card-header">
                     <div class="tool-icon" style="background:${tool.color}">
                         ${tool.logo
-                            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-                            + `<span class="icon-fallback" style="display:none"><i class="${tool.icon}"></i></span>`
+                            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="icon-fallback" style="display:none"><i class="${tool.icon}"></i></span>`
                             : `<i class="${tool.icon}"></i>`}
                     </div>
                     <div class="tool-card-info">
                         <h4>${tool.name}</h4>
                         <div class="tool-tags">
                             ${tool.tags.map(t => `<span class="tool-tag">${t}</span>`).join('')}
-                            ${tool.pricing === 'free'     ? '<span class="tool-tag free">免费</span>' : ''}
-                            ${tool.pricing === 'paid'     ? '<span class="tool-tag paid">付费</span>' : ''}
-                            ${tool.isNew                  ? '<span class="tool-tag new">NEW</span>'   : ''}
+                            ${tool.pricing === 'free'  ? '<span class="tool-tag free">免费</span>' : ''}
+                            ${tool.pricing === 'paid'  ? '<span class="tool-tag paid">付费</span>' : ''}
+                            ${tool.isNew               ? '<span class="tool-tag new">NEW</span>'   : ''}
                         </div>
                     </div>
                 </div>
                 <div class="tool-card-desc">${tool.desc}</div>
                 <div class="tool-card-footer">
-                    <div class="tool-rating">
-                        ${'<i class="fas fa-star"></i>'.repeat(Math.floor(tool.rating))}
-                        <span>${tool.rating}</span>
-                    </div>
+                    <div class="tool-rating">${'<i class="fas fa-star"></i>'.repeat(Math.floor(tool.rating))}<span>${tool.rating}</span></div>
                     <div class="tool-users"><i class="fas fa-user"></i>${tool.users}</div>
                 </div>
-            </div>
-        `).join('');
+            </div>`).join('');
 
-        // 卡片点击 → 详情弹窗
         $$('.tool-card').forEach(card => {
-            card.addEventListener('click', () => openToolModal(parseInt(card.dataset.id)));
+            card.addEventListener('click', () => openToolModal(+card.dataset.id));
         });
     }
 
@@ -148,13 +228,12 @@
         const tool = TOOLS_DATA.find(t => t.id === id);
         if (!tool) return;
         currentToolId = id;
+        addRecent(id);
 
-        // 填充内容
         const iconEl = $('#toolModalIcon');
         iconEl.style.background = tool.color;
         iconEl.innerHTML = tool.logo
-            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none'">`
-            + `<i class="${tool.icon}" style="font-size:22px;color:#fff"></i>`
+            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none'"><i class="${tool.icon}" style="font-size:22px;color:#fff;display:none"></i>`
             : `<i class="${tool.icon}" style="font-size:22px;color:#fff"></i>`;
 
         $('#toolModalName').textContent = tool.name;
@@ -162,27 +241,25 @@
         $('#toolModalDesc').textContent = tool.desc;
         $('#toolModalRating').innerHTML = `${'★'.repeat(Math.floor(tool.rating))} ${tool.rating}`;
         $('#toolModalUsers').textContent = tool.users;
-        $('#toolModalPricing').textContent = { free: '免费', freemium: '免费增值', paid: '付费' }[tool.pricing] || tool.pricing;
+        $('#toolModalPricing').textContent = { free:'免费', freemium:'免费增值', paid:'付费' }[tool.pricing] || tool.pricing;
         $('#toolModalRegion').textContent = tool.region === 'domestic' ? '🇨🇳 国产' : '🌐 海外';
         $('#toolModalUrl').href = tool.url;
-
         updateModalFavUI(id);
+        updateModalCompareUI(id);
         toolModal.classList.add('show');
     }
-
     function updateModalFavUI(id) {
-        const btn = $('#toolModalFavBtn');
         const fav = isFav(id);
-        btn.classList.toggle('active', fav);
+        $('#toolModalFavBtn').classList.toggle('active', fav);
         $('#toolModalFavText').textContent = fav ? '已收藏' : '收藏工具';
-        const topBtn = $('#toolModalFav');
-        if (topBtn) topBtn.classList.toggle('active', fav);
+        $('#toolModalFav').classList.toggle('active', fav);
     }
-
-    function closeToolModal() {
-        toolModal.classList.remove('show');
-        currentToolId = null;
+    function updateModalCompareUI(id) {
+        const inC = isInCompare(id);
+        $('#toolModalCompare').classList.toggle('active', inC);
+        $('#toolModalCompareText').textContent = inC ? '已加入对比' : '加入对比';
     }
+    function closeToolModal() { toolModal.classList.remove('show'); currentToolId = null; }
 
     // ---- 渲染提示词 ----
     function renderPrompts(prompts) {
@@ -192,17 +269,13 @@
                 <p>${p.content}</p>
                 <div class="prompt-card-footer">
                     <span class="prompt-category">${getCategoryLabel(p.category)}</span>
-                    <button class="btn-copy" data-content="${encodeURIComponent(p.content)}">
-                        <i class="fas fa-copy"></i> 复制
-                    </button>
+                    <button class="btn-copy" data-content="${encodeURIComponent(p.content)}"><i class="fas fa-copy"></i> 复制</button>
                 </div>
-            </div>
-        `).join('');
+            </div>`).join('');
 
         $$('.btn-copy').forEach(btn => {
             btn.addEventListener('click', () => {
-                const text = decodeURIComponent(btn.dataset.content);
-                navigator.clipboard.writeText(text).then(() => {
+                navigator.clipboard.writeText(decodeURIComponent(btn.dataset.content)).then(() => {
                     const orig = btn.innerHTML;
                     btn.innerHTML = '<i class="fas fa-check"></i> 已复制';
                     btn.style.color = '#059669';
@@ -212,83 +285,55 @@
         });
     }
 
-    // ---- 渲染教程 ----
     function renderTutorials(tutorials) {
         tutorialsGrid.innerHTML = tutorials.map(t => `
             <div class="tutorial-card">
                 <div class="tutorial-cover" style="background:${t.cover}"><i class="${t.icon}"></i></div>
                 <div class="tutorial-body">
-                    <h4>${t.title}</h4>
-                    <p>${t.desc}</p>
-                    <div class="tutorial-meta">
-                        <span><i class="fas fa-eye"></i> ${t.views}</span>
-                        <span><i class="fas fa-calendar"></i> ${t.date}</span>
-                    </div>
+                    <h4>${t.title}</h4><p>${t.desc}</p>
+                    <div class="tutorial-meta"><span><i class="fas fa-eye"></i> ${t.views}</span><span><i class="fas fa-calendar"></i> ${t.date}</span></div>
                 </div>
-            </div>
-        `).join('');
+            </div>`).join('');
     }
 
-    // ---- 渲染资讯 ----
     function renderNews(news) {
         newsList.innerHTML = news.map(n => {
             const d = new Date(n.date);
-            return `
-            <div class="news-item">
-                <div class="news-date">
-                    <span class="day">${d.getDate()}</span>
-                    <span class="month">${d.getMonth()+1}月</span>
-                </div>
-                <div class="news-info">
-                    <h4>${n.title}</h4>
-                    <p>${n.desc}</p>
-                </div>
+            return `<div class="news-item">
+                <div class="news-date"><span class="day">${d.getDate()}</span><span class="month">${d.getMonth()+1}月</span></div>
+                <div class="news-info"><h4>${n.title}</h4><p>${n.desc}</p></div>
                 <span class="news-tag" style="background:${n.tagColor}18;color:${n.tagColor}">${n.tag}</span>
             </div>`;
         }).join('');
     }
 
-    function getCategoryLabel(cat) {
-        return { writing:'论文写作', review:'文献综述', analysis:'数据分析', translate:'翻译润色' }[cat] || cat;
-    }
+    const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
 
     // ---- 过滤 + 排序 ----
     function getFilteredTools() {
         let list = [...TOOLS_DATA];
+        if      (currentCategory === 'favorites') list = list.filter(t => isFav(t.id));
+        else if (currentCategory === 'recent')    list = recentlyViewed.map(id => list.find(t => t.id === id)).filter(Boolean);
+        else if (currentCategory === 'hot')       list = list.filter(t => t.hot);
+        else if (currentCategory === 'new')       list = list.filter(t => t.isNew);
+        else if (currentCategory !== 'all')       list = list.filter(t => t.category === currentCategory);
 
-        if (currentCategory === 'favorites') {
-            list = list.filter(t => isFav(t.id));
-        } else if (currentCategory === 'hot') {
-            list = list.filter(t => t.hot);
-        } else if (currentCategory === 'new') {
-            list = list.filter(t => t.isNew);
-        } else if (currentCategory !== 'all') {
-            list = list.filter(t => t.category === currentCategory);
-        }
+        if (currentPricing === 'domestic' || currentPricing === 'foreign')
+            list = list.filter(t => t.region === currentPricing);
+        else if (currentPricing !== 'all')
+            list = list.filter(t => t.pricing === currentPricing);
 
-        if (currentPricing !== 'all') {
-            if (currentPricing === 'domestic' || currentPricing === 'foreign') {
-                list = list.filter(t => t.region === currentPricing);
-            } else {
-                list = list.filter(t => t.pricing === currentPricing);
-            }
-        }
-
-        // 排序
-        if (currentSort === 'rating') list.sort((a,b) => b.rating - a.rating);
-        else if (currentSort === 'users') list.sort((a,b) => parseUsers(b.users) - parseUsers(a.users));
-        else if (currentSort === 'name')  list.sort((a,b) => a.name.localeCompare(b.name));
-
+        if (currentSort === 'rating')      list.sort((a,b) => b.rating - a.rating);
+        else if (currentSort === 'users')  list.sort((a,b) => parseUsers(b.users) - parseUsers(a.users));
+        else if (currentSort === 'name')   list.sort((a,b) => a.name.localeCompare(b.name));
         return list;
     }
-
-    function parseUsers(str) {
-        const n = parseFloat(str.replace(/[^\d.]/g, ''));
-        if (str.includes('亿')) return n * 100000000;
-        if (str.includes('万')) return n * 10000;
+    function parseUsers(s) {
+        const n = parseFloat(s.replace(/[^\d.]/g,''));
+        if (s.includes('亿')) return n*1e8;
+        if (s.includes('万')) return n*1e4;
         return n;
     }
-
     function filterTools() { renderTools(getFilteredTools()); }
 
     // ---- 搜索 ----
@@ -297,144 +342,110 @@
         $$('.nav-item').forEach(n => n.classList.remove('active'));
         document.querySelector('.nav-item[data-category="all"]').classList.add('active');
         currentCategory = 'all';
-
         if (!query.trim()) { filterTools(); return; }
         const q = query.toLowerCase();
-        const filtered = TOOLS_DATA.filter(t =>
+        renderTools(TOOLS_DATA.filter(t =>
             t.name.toLowerCase().includes(q) ||
             t.desc.toLowerCase().includes(q) ||
             t.tags.some(tag => tag.toLowerCase().includes(q))
-        );
-        renderTools(filtered);
+        ));
     }
 
     // ---- 显示板块 ----
-    function showSection(category) {
+    function showSection(cat) {
         Object.values(sections).forEach(s => { if (s) s.style.display = 'none'; });
-
         const titleMap = {
-            all:'全部工具', hot:'热门推荐', new:'最新上线', favorites:'我的收藏',
+            all:'全部工具', hot:'热门推荐', new:'最新上线', favorites:'我的收藏', recent:'最近浏览',
             writing:'论文写作', reading:'文献阅读', data:'数据分析',
             figure:'科研绘图', code:'代码助手', experiment:'实验设计',
             llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成', video:'AI视频',
             prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯',
         };
-        pageTitle.textContent = titleMap[category] || category;
-
-        if (category === 'prompts') {
-            sections.prompts.style.display = 'block';
-        } else if (category === 'tutorials') {
-            sections.tutorials.style.display = 'block';
-        } else if (category === 'news') {
-            sections.news.style.display = 'block';
-        } else {
-            // 首页显示 hero，其他分类隐藏
-            sections.hero.style.display = category === 'all' ? '' : 'none';
-            sections.stats.style.display = '';
-            sections.tools.style.display = '';
+        pageTitle.textContent = titleMap[cat] || cat;
+        if      (cat === 'prompts')   sections.prompts.style.display = 'block';
+        else if (cat === 'tutorials') sections.tutorials.style.display = 'block';
+        else if (cat === 'news')      sections.news.style.display = 'block';
+        else {
+            sections.hero.style.display     = cat === 'all' ? '' : 'none';
+            sections.featured.style.display = cat === 'all' ? '' : 'none';
+            sections.stats.style.display  = '';
+            sections.tools.style.display  = '';
         }
     }
 
     // ---- 数字动画 ----
     function animateStats() {
         $$('.stats-value').forEach(el => {
-            const target = parseInt(el.dataset.target);
-            const start = performance.now();
-            const duration = 1500;
-            function update(now) {
-                const p = Math.min((now - start) / duration, 1);
-                const eased = 1 - Math.pow(1 - p, 3);
-                el.textContent = Math.floor(eased * target).toLocaleString();
-                if (p < 1) requestAnimationFrame(update);
-            }
-            requestAnimationFrame(update);
+            const target = parseInt(el.dataset.target), dur = 1500, t0 = performance.now();
+            const tick = now => {
+                const p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
+                el.textContent = Math.floor(e*target).toLocaleString();
+                if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
         });
     }
 
     // ---- 主题 ----
     function loadTheme() {
-        const theme = localStorage.getItem('sciai-theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-        updateThemeIcon(theme);
+        const t = localStorage.getItem('sciai-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+        themeToggle.querySelector('i').className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
     function toggleTheme() {
-        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('sciai-theme', next);
-        updateThemeIcon(next);
-    }
-    function updateThemeIcon(theme) {
-        themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        const n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', n);
+        localStorage.setItem('sciai-theme', n);
+        themeToggle.querySelector('i').className = n === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
 
     // ---- Toast ----
     let toastTimer;
     function showToast(msg) {
-        let toast = $('.toast');
-        if (!toast) {
-            toast = document.createElement('div');
-            toast.className = 'toast';
-            document.body.appendChild(toast);
-        }
-        toast.textContent = msg;
-        toast.classList.add('show');
+        let el = $('.toast');
+        if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+        el.textContent = msg;
+        el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
     }
 
-    // ---- 全局收藏入口 ----
-    window.handleFav = function(id) { toggleFav(id); };
-
-    // ---- 回到顶部 ----
-    function initBackToTop() {
-        mainContent.addEventListener('scroll', () => {
-            backToTop.classList.toggle('show', mainContent.scrollTop > 400);
-        });
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('show', window.scrollY > 400);
-        });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            mainContent.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    // ---- 全局暴露 ----
+    window._toggleFav     = id => toggleFav(id);
+    window._toggleCompare = id => toggleCompare(id);
+    window._openTool      = id => openToolModal(id);
 
     // ---- 键盘快捷键 ----
-    function initKeyboard() {
-        document.addEventListener('keydown', (e) => {
-            // / 聚焦搜索框
-            if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
-                e.preventDefault();
-                globalSearch.focus();
-            }
-            // Esc 关闭弹窗
-            if (e.key === 'Escape') {
-                closeToolModal();
-                loginModal.classList.remove('show');
-            }
-        });
-    }
+    document.addEventListener('keydown', e => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault(); globalSearch.focus();
+        }
+        if (e.key === 'Escape') {
+            closeToolModal();
+            loginModal.classList.remove('show');
+            compareModal.classList.remove('show');
+        }
+    });
+
+    // ---- 回到顶部 ----
+    window.addEventListener('scroll', () => backToTop.classList.toggle('show', window.scrollY > 400));
+    backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
     // ---- 绑定事件 ----
     function bindEvents() {
-        initBackToTop();
-        initKeyboard();
-
         // 侧边栏导航
         $$('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', e => {
                 e.preventDefault();
                 $$('.nav-item').forEach(n => n.classList.remove('active'));
                 item.classList.add('active');
-                const category = item.dataset.category;
-                currentCategory = category;
+                currentCategory = item.dataset.category;
                 currentPricing = 'all';
-                $$('.filter-tags .tag[data-filter]').forEach(t => t.classList.remove('active'));
-                const allTag = document.querySelector('.filter-tags .tag[data-filter="all"]');
-                if (allTag) allTag.classList.add('active');
-
-                showSection(category);
-                if (!['prompts','tutorials','news'].includes(category)) filterTools();
+                $$('.tag[data-filter]').forEach(t => t.classList.remove('active'));
+                const at = document.querySelector('.tag[data-filter="all"]');
+                if (at) at.classList.add('active');
+                showSection(currentCategory);
+                if (!['prompts','tutorials','news'].includes(currentCategory)) filterTools();
                 if (window.innerWidth <= 768) sidebar.classList.remove('open');
             });
         });
@@ -444,19 +455,18 @@
             tag.addEventListener('click', () => {
                 const cat = tag.dataset.category;
                 $$('.nav-item').forEach(n => n.classList.remove('active'));
-                const navItem = document.querySelector(`.nav-item[data-category="${cat}"]`);
-                if (navItem) navItem.classList.add('active');
+                const ni = document.querySelector(`.nav-item[data-category="${cat}"]`);
+                if (ni) ni.classList.add('active');
                 currentCategory = cat;
-                showSection(cat);
-                filterTools();
-                window.scrollTo({ top: sections.stats.offsetTop - 20, behavior: 'smooth' });
+                showSection(cat); filterTools();
+                sections.stats.scrollIntoView({ behavior:'smooth' });
             });
         });
 
-        // 价格/区域筛选
-        $$('.filter-tags .tag[data-filter]').forEach(tag => {
+        // 筛选标签
+        $$('.tag[data-filter]').forEach(tag => {
             tag.addEventListener('click', () => {
-                $$('.filter-tags .tag[data-filter]').forEach(t => t.classList.remove('active'));
+                $$('.tag[data-filter]').forEach(t => t.classList.remove('active'));
                 tag.classList.add('active');
                 currentPricing = tag.dataset.filter;
                 filterTools();
@@ -468,59 +478,76 @@
             tag.addEventListener('click', () => {
                 $$('.tag[data-prompt-filter]').forEach(t => t.classList.remove('active'));
                 tag.classList.add('active');
-                const filter = tag.dataset.promptFilter;
-                renderPrompts(filter === 'all' ? PROMPTS_DATA : PROMPTS_DATA.filter(p => p.category === filter));
+                const f = tag.dataset.promptFilter;
+                renderPrompts(f === 'all' ? PROMPTS_DATA : PROMPTS_DATA.filter(p => p.category === f));
             });
         });
 
         // 排序
-        sortSelect.addEventListener('change', () => {
-            currentSort = sortSelect.value;
-            filterTools();
-        });
+        sortSelect.addEventListener('change', () => { currentSort = sortSelect.value; filterTools(); });
 
-        // 搜索框（侧边栏）
-        let searchTimer;
-        globalSearch.addEventListener('input', (e) => {
-            clearTimeout(searchTimer);
-            searchTimer = setTimeout(() => doSearch(e.target.value), 300);
-        });
-
-        // Hero 搜索框
-        heroSearch.addEventListener('input', (e) => {
-            clearTimeout(searchTimer);
-            searchTimer = setTimeout(() => {
-                if (e.target.value) {
-                    globalSearch.value = e.target.value;
-                    doSearch(e.target.value);
-                    window.scrollTo({ top: sections.stats.offsetTop, behavior: 'smooth' });
-                }
+        // 搜索
+        let st;
+        globalSearch.addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => doSearch(e.target.value), 300); });
+        heroSearch.addEventListener('input', e => {
+            clearTimeout(st);
+            st = setTimeout(() => {
+                if (e.target.value) { globalSearch.value = e.target.value; doSearch(e.target.value); sections.stats.scrollIntoView({ behavior:'smooth' }); }
             }, 300);
         });
-        $('#heroSection').querySelector('.hero-search-btn').addEventListener('click', () => {
+        heroSearchBtn.addEventListener('click', () => {
             const q = heroSearch.value;
-            if (q) { globalSearch.value = q; doSearch(q); }
+            if (q) { globalSearch.value = q; doSearch(q); sections.stats.scrollIntoView({ behavior:'smooth' }); }
         });
 
-        // 主题切换
+        // 主题
         themeToggle.addEventListener('click', toggleTheme);
 
-        // 移动端菜单
+        // 移动端
         mobileMenuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
-        mainContent.addEventListener('click', () => {
-            if (window.innerWidth <= 768) sidebar.classList.remove('open');
-        });
+        mainContent.addEventListener('click', () => { if (window.innerWidth <= 768) sidebar.classList.remove('open'); });
 
         // 工具详情弹窗
         toolModalClose.addEventListener('click', closeToolModal);
-        toolModal.addEventListener('click', (e) => { if (e.target === toolModal) closeToolModal(); });
+        toolModal.addEventListener('click', e => { if (e.target === toolModal) closeToolModal(); });
         $('#toolModalFav').addEventListener('click', () => { if (currentToolId) toggleFav(currentToolId); });
         $('#toolModalFavBtn').addEventListener('click', () => { if (currentToolId) toggleFav(currentToolId); });
+        $('#toolModalCompare').addEventListener('click', () => { if (currentToolId) toggleCompare(currentToolId); });
 
-        // 登录弹窗
+        // 对比
+        doCompare.addEventListener('click', openCompareModal);
+        clearCompare.addEventListener('click', () => { compareList = []; updateCompareBar(); $$('.card-compare-cb').forEach(b => b.classList.remove('active')); });
+        compareModalClose.addEventListener('click', () => compareModal.classList.remove('show'));
+        compareModal.addEventListener('click', e => { if (e.target === compareModal) compareModal.classList.remove('show'); });
+        compareToggle.addEventListener('click', () => { if (compareList.length >= 2) openCompareModal(); });
+
+        // 精选 view-all
+        document.querySelector('.view-all')?.addEventListener('click', e => {
+            e.preventDefault();
+            const cat = e.target.dataset.category || 'hot';
+            $$('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-category="${cat}"]`)?.classList.add('active');
+            currentCategory = cat; showSection(cat); filterTools();
+        });
+
+        // 登录
         loginBtn.addEventListener('click', () => loginModal.classList.add('show'));
         modalClose.addEventListener('click', () => loginModal.classList.remove('show'));
-        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) loginModal.classList.remove('show'); });
+        loginModal.addEventListener('click', e => { if (e.target === loginModal) loginModal.classList.remove('show'); });
+    }
+
+    // ---- 初始化 ----
+    function init() {
+        renderFeatured();
+        renderTools(TOOLS_DATA);
+        renderPrompts(PROMPTS_DATA);
+        renderTutorials(TUTORIALS_DATA);
+        renderNews(NEWS_DATA);
+        bindEvents();
+        animateStats();
+        loadTheme();
+        updateFavBadge();
+        updateCompareBar();
     }
 
     init();
