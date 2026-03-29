@@ -22,7 +22,8 @@
 
         <div class="sidebar-search">
             <i class="fas fa-search"></i>
-            <input type="text" id="globalSearch" placeholder="搜索AI工具、论文、资源...">
+            <input type="text" id="globalSearch" placeholder="搜索工具... (按 / 聚焦)">
+            <kbd class="search-kbd">/</kbd>
         </div>
 
         <nav class="sidebar-nav">
@@ -30,13 +31,17 @@
                 <div class="nav-section-title">发现</div>
                 <a href="#" class="nav-item active" data-category="all">
                     <i class="fas fa-compass"></i><span>全部工具</span>
-                    <span class="nav-badge">35</span>
+                    <span class="nav-badge" id="navBadgeAll">35</span>
                 </a>
                 <a href="#" class="nav-item" data-category="hot">
                     <i class="fas fa-fire"></i><span>热门推荐</span>
                 </a>
                 <a href="#" class="nav-item" data-category="new">
                     <i class="fas fa-sparkles"></i><span>最新上线</span>
+                </a>
+                <a href="#" class="nav-item" data-category="favorites" id="favNavItem">
+                    <i class="fas fa-heart"></i><span>我的收藏</span>
+                    <span class="nav-badge fav-badge" id="favCount" style="display:none">0</span>
                 </a>
             </div>
 
@@ -99,7 +104,7 @@
                     <span class="stat-label">今日访客</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="totalTools">128</span>
+                    <span class="stat-number" id="totalTools">35</span>
                     <span class="stat-label">收录工具</span>
                 </div>
             </div>
@@ -126,6 +131,28 @@
             </div>
         </header>
 
+        <!-- Hero 横幅 -->
+        <section class="hero-section" id="heroSection">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-atom"></i> AI × 科研</div>
+                <h1 class="hero-title">发现最好用的 <span class="hero-highlight">AI 科研工具</span></h1>
+                <p class="hero-desc">精选 35+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、科研绘图全流程</p>
+                <div class="hero-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="heroSearch" placeholder="搜索工具名称、功能、场景...">
+                    <button class="hero-search-btn">搜索</button>
+                </div>
+                <div class="hero-tags">
+                    <span class="hero-tag" data-category="writing"><i class="fas fa-pen-fancy"></i>论文写作</span>
+                    <span class="hero-tag" data-category="reading"><i class="fas fa-book-open"></i>文献阅读</span>
+                    <span class="hero-tag" data-category="data"><i class="fas fa-chart-line"></i>数据分析</span>
+                    <span class="hero-tag" data-category="figure"><i class="fas fa-dna"></i>科研绘图</span>
+                    <span class="hero-tag" data-category="code"><i class="fas fa-code"></i>代码助手</span>
+                    <span class="hero-tag" data-category="llm"><i class="fas fa-brain"></i>大语言模型</span>
+                </div>
+            </div>
+        </section>
+
         <!-- 统计卡片 -->
         <section class="stats-section" id="statsSection">
             <div class="stats-card">
@@ -150,7 +177,7 @@
                 </div>
             </div>
             <div class="stats-card">
-                <div class="stats-icon orange"><i class="fas fa-star"></i></div>
+                <div class="stats-icon orange"><i class="fas fa-heart"></i></div>
                 <div class="stats-info">
                     <span class="stats-value" data-target="9847">0</span>
                     <span class="stats-desc">用户收藏</span>
@@ -161,18 +188,34 @@
         <!-- 工具卡片网格 -->
         <section class="tools-section" id="toolsSection">
             <div class="section-header">
-                <h3>AI 科研工具</h3>
-                <div class="filter-tags">
-                    <span class="tag active" data-filter="all">全部</span>
-                    <span class="tag" data-filter="free">免费</span>
-                    <span class="tag" data-filter="freemium">免费增值</span>
-                    <span class="tag" data-filter="paid">付费</span>
-                    <span class="tag" data-filter="domestic">国产</span>
-                    <span class="tag" data-filter="foreign">海外</span>
+                <h3 id="toolsSectionTitle">AI 科研工具</h3>
+                <div class="section-controls">
+                    <div class="filter-tags">
+                        <span class="tag active" data-filter="all">全部</span>
+                        <span class="tag" data-filter="free">免费</span>
+                        <span class="tag" data-filter="freemium">免费增值</span>
+                        <span class="tag" data-filter="paid">付费</span>
+                        <span class="tag" data-filter="domestic">国产</span>
+                        <span class="tag" data-filter="foreign">海外</span>
+                    </div>
+                    <div class="sort-select-wrap">
+                        <i class="fas fa-sort"></i>
+                        <select id="sortSelect">
+                            <option value="default">默认排序</option>
+                            <option value="rating">评分最高</option>
+                            <option value="users">用户最多</option>
+                            <option value="name">名称 A-Z</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="tools-grid" id="toolsGrid">
                 <!-- JS动态渲染 -->
+            </div>
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <i class="fas fa-search"></i>
+                <p>未找到相关工具</p>
+                <span>试试其他关键词或分类</span>
             </div>
         </section>
 
@@ -188,29 +231,19 @@
                     <span class="tag" data-prompt-filter="translate">翻译润色</span>
                 </div>
             </div>
-            <div class="prompts-grid" id="promptsGrid">
-                <!-- JS动态渲染 -->
-            </div>
+            <div class="prompts-grid" id="promptsGrid"></div>
         </section>
 
         <!-- 教程板块 -->
         <section class="tutorials-section" id="tutorialsSection" style="display:none;">
-            <div class="section-header">
-                <h3>学习教程</h3>
-            </div>
-            <div class="tutorials-grid" id="tutorialsGrid">
-                <!-- JS动态渲染 -->
-            </div>
+            <div class="section-header"><h3>学习教程</h3></div>
+            <div class="tutorials-grid" id="tutorialsGrid"></div>
         </section>
 
         <!-- 资讯板块 -->
         <section class="news-section" id="newsSection" style="display:none;">
-            <div class="section-header">
-                <h3>行业资讯</h3>
-            </div>
-            <div class="news-list" id="newsList">
-                <!-- JS动态渲染 -->
-            </div>
+            <div class="section-header"><h3>行业资讯</h3></div>
+            <div class="news-list" id="newsList"></div>
         </section>
 
         <!-- 页脚 -->
@@ -218,6 +251,52 @@
             <p>© 2026 SciAI Hub - AI+科研导航平台 | 让科研更智能</p>
         </footer>
     </main>
+
+    <!-- 工具详情弹窗 -->
+    <div class="modal-overlay" id="toolModal">
+        <div class="modal tool-modal">
+            <div class="tool-modal-header" id="toolModalHeader">
+                <div class="tool-modal-icon" id="toolModalIcon"></div>
+                <div class="tool-modal-title">
+                    <h3 id="toolModalName"></h3>
+                    <div class="tool-modal-tags" id="toolModalTags"></div>
+                </div>
+                <button class="fav-btn" id="toolModalFav" title="收藏">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="modal-close" id="toolModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="tool-modal-body">
+                <p class="tool-modal-desc" id="toolModalDesc"></p>
+                <div class="tool-modal-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">评分</span>
+                        <span class="meta-value" id="toolModalRating"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">用户数</span>
+                        <span class="meta-value" id="toolModalUsers"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">价格</span>
+                        <span class="meta-value" id="toolModalPricing"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">地区</span>
+                        <span class="meta-value" id="toolModalRegion"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-modal-footer">
+                <button class="btn-fav-modal" id="toolModalFavBtn">
+                    <i class="fas fa-heart"></i> <span id="toolModalFavText">收藏工具</span>
+                </button>
+                <a class="btn-visit" id="toolModalUrl" href="#" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i> 访问官网
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- 登录弹窗 -->
     <div class="modal-overlay" id="loginModal">
@@ -245,6 +324,11 @@
             </div>
         </div>
     </div>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" title="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="js/data.js"></script>
     <script src="js/app.js"></script>
