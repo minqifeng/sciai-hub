@@ -41,7 +41,7 @@
         hero:         $('#heroSection'),
         featured:     $('#featuredSection'),
         tools:        $('#toolsSection'),
-        stats:        $('#statsSection'),
+        statMethods:  $('#statMethodsSection'),
         prompts:      $('#promptsSection'),
         tutorials:    $('#tutorialsSection'),
         news:         $('#newsSection'),
@@ -492,6 +492,7 @@
             aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
             graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
             'cite-check':'引文核查', paperdeck:'PaperDeck 论文学习卡片',
+            stats:'统计与可视化方法库',
         };
         pageTitle.textContent = titleMap[cat] || cat;
         const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
@@ -505,6 +506,7 @@
         else if (cat === 'journal')        sections.journal.style.display = 'block';
         else if (cat === 'cite-check')     sections.citeCheck.style.display = 'block';
         else if (cat === 'paperdeck')      sections.paperdeck.style.display = 'block';
+        else if (cat === 'stats')          { if (sections.statMethods) sections.statMethods.style.display = 'block'; }
         else {
             sections.hero.style.display     = cat === 'all' ? '' : 'none';
             sections.featured.style.display = cat === 'all' ? '' : 'none';
@@ -591,7 +593,7 @@
                 const at = document.querySelector('.tag[data-filter="all"]');
                 if (at) at.classList.add('active');
                 showSection(currentCategory);
-                const NON_TOOL_CATS = ['prompts','tutorials','news','github','usecases','graph','search-papers','journal','cite-check','paperdeck'];
+                const NON_TOOL_CATS = ['prompts','tutorials','news','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(currentCategory)) filterTools();
                 if (window.innerWidth <= 768) sidebar.classList.remove('open');
             });
@@ -774,6 +776,66 @@
             </button>`).join('');
     }
 
+    // ---- 统计与可视化方法库 ----
+    const StatsFeature = (() => {
+        let activeStage = 'all', activeDisc = 'all', searchQuery = '';
+        const stageBg = {descriptive:'#3b82f6',visualization:'#8b5cf6',inferential:'#10b981',multivariate:'#f59e0b',spatial:'#06b6d4',timeseries:'#ec4899',causal:'#ef4444',bayesian:'#a855f7',ml:'#22c55e',dl:'#f97316'};
+        const stageLbl = {descriptive:'描述性统计',visualization:'数据可视化',inferential:'推断统计',multivariate:'多变量分析',spatial:'空间分析',timeseries:'时间序列',causal:'因果推断',bayesian:'贝叶斯分析',ml:'机器学习',dl:'深度学习'};
+        const discLbl = {general:'通用',ecology:'生态学',environmental:'环境科学',sociology:'社会学',economics:'经济学'};
+        function dots(n) { return Array.from({length:5},(_,i)=>'<span class="stats-difficulty-dot'+(i<n?' filled':'')+'"></span>').join(''); }
+        function getList() {
+            if (typeof STATS_METHODS === 'undefined') return [];
+            const q = searchQuery;
+            return STATS_METHODS.filter(m =>
+                (activeStage === 'all' || m.category === activeStage) &&
+                (activeDisc === 'all' || m.discipline.includes(activeDisc)) &&
+                (!q || m.name.includes(q) || m.nameEn.toLowerCase().includes(q) || (m.tools||[]).some(t => t.toLowerCase().includes(q)))
+            );
+        }
+        function render() {
+            const grid = document.getElementById('statsGrid');
+            const info = document.getElementById('statsResultInfo');
+            if (!grid) return;
+            const list = getList();
+            if (info) info.textContent = '共 ' + list.length + ' 种方法';
+            if (!list.length) { grid.innerHTML = '<div class="stats-empty"><i class="fas fa-search"></i><p>未找到匹配方法</p></div>'; return; }
+            grid.innerHTML = list.map(m => {
+                const bg = stageBg[m.category] || '#6366f1';
+                const lbl = stageLbl[m.category] || m.category;
+                const discs = (m.discipline||[]).map(d => '<span class="stats-disc-chip ' + d + '">' + (discLbl[d]||d) + '</span>').join('');
+                const tools = (m.tools||[]).slice(0,3).map(t => '<span class="stats-tool-chip">' + t.split(':')[0] + '</span>').join('');
+                return '<div class="stats-card">'
+                    + '<div class="stats-card-head"><div class="stats-card-icon" style="background:' + bg + '"><i class="' + (m.icon||'fas fa-chart-bar') + '"></i></div>'
+                    + '<div class="stats-card-title"><div class="stats-card-name">' + m.name + '</div>'
+                    + '<div class="stats-card-name-en">' + m.nameEn + '</div>'
+                    + '<span class="stats-stage-badge" style="background:' + bg + '">' + lbl + '</span></div></div>'
+                    + '<p class="stats-card-desc">' + m.desc + '</p>'
+                    + '<div class="stats-card-usecase"><i class="fas fa-flask" style="margin-right:4px;opacity:.6"></i>' + m.useCase + '</div>'
+                    + '<div class="stats-card-footer"><div class="stats-tools">' + tools + '</div>'
+                    + '<div class="stats-difficulty"><span class="stats-difficulty-label">难度</span>' + dots(m.difficulty||1) + '</div></div>'
+                    + '<div class="stats-disc-chips">' + discs + '</div></div>';
+            }).join('');
+        }
+        function init() {
+            document.querySelectorAll('.stats-stage-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.stats-stage-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active'); activeStage = tab.dataset.stage; render();
+                });
+            });
+            document.querySelectorAll('.stats-disc-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    document.querySelectorAll('.stats-disc-tag').forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active'); activeDisc = tag.dataset.disc; render();
+                });
+            });
+            const s = document.getElementById('statsSearch');
+            if (s) { let st; s.addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => { searchQuery = e.target.value.toLowerCase().trim(); render(); }, 250); }); }
+            render();
+        }
+        return { init, render };
+    })();
+
     // ---- 登录系统（localStorage 模拟）----
     function getUser() { return loadLS('sciai-user', null); }
     function makeAvatar(name) {
@@ -885,6 +947,12 @@
         updateFavBadge();
         updateCompareBar();
         applySidebarCollapse();
+        if (typeof GraphFeature !== 'undefined') GraphFeature.init();
+        if (typeof SearchFeature !== 'undefined') SearchFeature.init();
+        if (typeof JournalFeature !== 'undefined') JournalFeature.init();
+        if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
+        if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
+        StatsFeature.init();
         // 更新全部工具数量角标
         const badge = $('#navBadgeAll');
         if (badge) badge.textContent = TOOLS_DATA.length;

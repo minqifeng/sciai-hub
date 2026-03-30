@@ -1529,3 +1529,74 @@ body {
     .deck-card { max-width: 100%; }
     .deck-title { font-size: 17px; }
 }
+
+/* ============================================================
+   统计与可视化方法库 CSS
+   ============================================================ */
+.stats-section { padding: 24px; }
+.stats-section-header { margin-bottom: 24px; }
+.stats-section-header .section-title { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--text-primary); margin: 0; }
+.stats-section-header .section-subtitle { color: var(--text-muted); margin-top: 6px; font-size: 0.9rem; }
+
+.stats-stage-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.stats-stage-tab { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: transparent; cursor: pointer; font-size: 0.82rem; color: var(--text-secondary); transition: all 0.2s; }
+.stats-stage-tab:hover { border-color: var(--primary); color: var(--primary); }
+.stats-stage-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+.stats-filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.stats-discipline-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.stats-disc-tag { padding: 4px 12px; border-radius: 12px; background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; border: 1.5px solid transparent; transition: all 0.2s; }
+.stats-disc-tag:hover { color: var(--primary); border-color: var(--primary); }
+.stats-disc-tag.active { background: rgba(99,102,241,0.1); color: var(--primary); border-color: var(--primary); font-weight: 600; }
+
+.stats-search-wrap { display: flex; align-items: center; background: var(--bg-secondary); border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 12px; gap: 8px; flex: 1; max-width: 260px; }
+.stats-search-wrap i { color: var(--text-muted); font-size: 0.85rem; }
+.stats-search-wrap input { border: none; background: transparent; color: var(--text-primary); font-size: 0.85rem; outline: none; flex: 1; }
+
+.stats-result-info { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
+.stats-empty { grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px; }
+.stats-empty i { font-size: 2rem; opacity: 0.3; display: block; margin-bottom: 12px; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+
+.stats-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 12px; padding: 16px; transition: all 0.25s; display: flex; flex-direction: column; gap: 10px; }
+.stats-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+
+.stats-card-head { display: flex; align-items: flex-start; gap: 12px; }
+.stats-card-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; color: #fff; }
+.stats-card-title { flex: 1; }
+.stats-card-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+.stats-card-name-en { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.stats-stage-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-weight: 600; margin-top: 4px; color: #fff; }
+
+.stats-card-desc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+.stats-card-usecase { font-size: 0.78rem; color: var(--text-muted); background: var(--bg-secondary); border-radius: 6px; padding: 6px 10px; border-left: 3px solid var(--primary); line-height: 1.5; }
+
+.stats-card-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.stats-tools { display: flex; flex-wrap: wrap; gap: 4px; }
+.stats-tool-chip { padding: 2px 8px; background: var(--bg-secondary); border-radius: 6px; font-size: 0.72rem; color: var(--text-muted); border: 1px solid var(--border); }
+
+.stats-difficulty { display: flex; align-items: center; gap: 4px; }
+.stats-difficulty-label { font-size: 0.72rem; color: var(--text-muted); }
+.stats-difficulty-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); display: inline-block; }
+.stats-difficulty-dot.filled { background: var(--primary); }
+
+.stats-disc-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.stats-disc-chip { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+.stats-disc-chip.ecology { background: #d1fae5; color: #059669; }
+.stats-disc-chip.environmental { background: #dbeafe; color: #2563eb; }
+.stats-disc-chip.sociology { background: #fce7f3; color: #db2777; }
+.stats-disc-chip.economics { background: #fef3c7; color: #d97706; }
+.stats-disc-chip.general { background: #f3f4f6; color: #6b7280; }
+
+[data-theme="dark"] .stats-disc-chip.ecology { background: rgba(5,150,105,0.15); color: #34d399; }
+[data-theme="dark"] .stats-disc-chip.environmental { background: rgba(37,99,235,0.15); color: #60a5fa; }
+[data-theme="dark"] .stats-disc-chip.sociology { background: rgba(219,39,119,0.15); color: #f472b6; }
+[data-theme="dark"] .stats-disc-chip.economics { background: rgba(217,119,6,0.15); color: #fbbf24; }
+[data-theme="dark"] .stats-disc-chip.general { background: rgba(107,114,128,0.15); color: #9ca3af; }
+
+@media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .stats-stage-tabs { gap: 6px; }
+    .stats-search-wrap { max-width: 100%; }
+}
