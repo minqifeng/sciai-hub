@@ -480,6 +480,164 @@ const TOOLS_DATA = [
         tags: ["知识管理", "AI助手"], pricing: "freemium", region: "foreign",
         rating: 4.6, users: "3000万+", url: "https://notion.so", hot: true
     },
+
+    // ---- AI 软件推荐 ----
+    {
+        id: 56, name: "Microsoft 365 Copilot", category: "aisoft",
+        desc: "微软将 GPT-4 深度集成进 Word/Excel/PPT/Teams，支持一键生成报告、自动分析表格、智能会议总结，是最成熟的 AI 办公套件。",
+        logo: favicon("microsoft.com"),
+        icon: "fab fa-microsoft", color: "#0078d4",
+        tags: ["办公 AI", "生产力"], pricing: "paid", region: "foreign",
+        rating: 4.5, users: "5000万+", url: "https://copilot.microsoft.com", hot: true
+    },
+    {
+        id: 57, name: "Gamma", category: "aisoft",
+        desc: "AI 驱动的演示文稿生成工具，输入主题自动生成精美幻灯片，支持科研汇报、论文答辩等场景，比 PowerPoint 快 10 倍。",
+        logo: favicon("gamma.app"),
+        icon: "fas fa-presentation-screen", color: "#7c3aed",
+        tags: ["演示文稿", "AI生成"], pricing: "freemium", region: "foreign",
+        rating: 4.5, users: "300万+", url: "https://gamma.app", isNew: true
+    },
+    {
+        id: 58, name: "Otter.ai", category: "aisoft",
+        desc: "AI 会议录音转文字工具，实时转写学术讲座、组会讨论，自动生成摘要和待办事项，支持中英文混合识别。",
+        logo: favicon("otter.ai"),
+        icon: "fas fa-microphone-lines", color: "#2dd4bf",
+        tags: ["会议记录", "语音转文字"], pricing: "freemium", region: "foreign",
+        rating: 4.4, users: "500万+", url: "https://otter.ai"
+    },
+    {
+        id: 59, name: "Canva AI", category: "aisoft",
+        desc: "在线设计平台，内置 Magic Design AI，一键生成科研海报、学术墙报、论文配图，拥有海量学术模板，无设计基础即可上手。",
+        logo: favicon("canva.com"),
+        icon: "fas fa-palette", color: "#00c4cc",
+        tags: ["设计工具", "海报制作"], pricing: "freemium", region: "foreign",
+        rating: 4.6, users: "1.5亿+", url: "https://canva.com", hot: true
+    },
+    {
+        id: 60, name: "Adobe Firefly", category: "aisoft",
+        desc: "Adobe 旗下 AI 图像生成工具，商用版权安全，可生成高质量科研插图、实验示意图，与 Photoshop/Illustrator 深度集成。",
+        logo: favicon("adobe.com"),
+        icon: "fas fa-fire-flame-curved", color: "#ff0000",
+        tags: ["AI绘图", "商用安全"], pricing: "freemium", region: "foreign",
+        rating: 4.4, users: "1000万+", url: "https://firefly.adobe.com"
+    },
+    {
+        id: 61, name: "WPS AI", category: "aisoft",
+        desc: "金山出品的国产 AI 办公套件，深度融合文档写作、表格分析和演示生成，对中文学术写作支持完善，高校用户免费。",
+        logo: favicon("wps.cn"),
+        icon: "fas fa-file-word", color: "#c0392b",
+        tags: ["国产", "办公 AI"], pricing: "freemium", region: "domestic",
+        rating: 4.3, users: "3000万+", url: "https://ai.wps.cn", isNew: true
+    },
+
+    // ---- 智能体管理 ----
+    {
+        id: 62, name: "Dify", category: "agents",
+        desc: "开源 LLM 应用开发平台，可视化编排 AI 工作流，内置 RAG 知识库和 Agent 框架，科研团队快速搭建专属 AI 助手的首选。",
+        logo: favicon("dify.ai"),
+        icon: "fas fa-diagram-project", color: "#2055d8",
+        tags: ["开源", "工作流编排"], pricing: "freemium", region: "foreign",
+        rating: 4.7, users: "50万+", url: "https://dify.ai", hot: true, isNew: true
+    },
+    {
+        id: 63, name: "Coze", category: "agents",
+        desc: "字节跳动出品的 AI Bot 构建平台，无代码搭建多工具调用 Agent，支持发布到微信/飞书/Discord，国内访问流畅。",
+        logo: favicon("coze.cn"),
+        icon: "fas fa-robot", color: "#1d4ed8",
+        tags: ["无代码", "国产"], pricing: "free", region: "domestic",
+        rating: 4.5, users: "100万+", url: "https://www.coze.cn", hot: true
+    },
+    {
+        id: 64, name: "AutoGen", category: "agents",
+        desc: "微软开源的多智能体对话框架，可构建 AI 科研 pipeline：文献检索 → 代码生成 → 实验分析 → 报告撰写全自动化，支持人机混合协作。",
+        logo: favicon("microsoft.com"),
+        icon: "fas fa-network-wired", color: "#0078d4",
+        tags: ["开源", "多智能体"], pricing: "free", region: "foreign",
+        rating: 4.5, users: "20万+", url: "https://microsoft.github.io/autogen/", isNew: true
+    },
+    {
+        id: 65, name: "CrewAI", category: "agents",
+        desc: "基于角色的多 Agent 协作框架，为每个 AI 智能体分配专属角色（研究员/分析师/写作者），高效完成复杂科研任务分解与并行执行。",
+        logo: favicon("crewai.com"),
+        icon: "fas fa-users-gear", color: "#dc2626",
+        tags: ["多角色", "任务分解"], pricing: "freemium", region: "foreign",
+        rating: 4.4, users: "10万+", url: "https://crewai.com", isNew: true
+    },
+    {
+        id: 66, name: "FastGPT", category: "agents",
+        desc: "国产开源 AI 知识库问答平台，支持上传论文/教材构建私有知识库，提供 API 接口供科研系统集成，部署简便。",
+        logo: favicon("fastgpt.in"),
+        icon: "fas fa-bolt", color: "#f59e0b",
+        tags: ["知识库", "国产开源"], pricing: "freemium", region: "domestic",
+        rating: 4.4, users: "30万+", url: "https://fastgpt.in", hot: true
+    },
+    {
+        id: 67, name: "n8n AI", category: "agents",
+        desc: "开源工作流自动化平台，内置 AI Agent 节点，可将 LLM 与数据库/API/文件系统连接，构建科研数据采集和分析自动化流水线。",
+        logo: favicon("n8n.io"),
+        icon: "fas fa-arrows-spin", color: "#ea4b71",
+        tags: ["工作流", "自动化"], pricing: "freemium", region: "foreign",
+        rating: 4.5, users: "30万+", url: "https://n8n.io"
+    },
+    {
+        id: 68, name: "LangChain", category: "agents",
+        desc: "最流行的 LLM 应用开发框架，提供 Chain/Agent/RAG 等核心组件，是构建科研 AI 工具的基础设施，拥有庞大的集成生态。",
+        logo: favicon("langchain.com"),
+        icon: "fas fa-link", color: "#1c7c54",
+        tags: ["开源框架", "RAG"], pricing: "free", region: "foreign",
+        rating: 4.6, users: "100万+", url: "https://langchain.com", hot: true
+    },
+
+    // ---- CLI 工具 ----
+    {
+        id: 69, name: "Claude Code", category: "cli",
+        desc: "Anthropic 官方 CLI，在终端中直接使用 Claude 进行代码编写、调试、重构，支持读取整个代码库上下文，科研编程的终极 CLI 助手。",
+        logo: favicon("anthropic.com"),
+        icon: "fas fa-terminal", color: "#7c5cfc",
+        tags: ["CLI", "代码编程"], pricing: "freemium", region: "foreign",
+        rating: 4.8, users: "50万+", url: "https://docs.anthropic.com/claude-code", hot: true, isNew: true
+    },
+    {
+        id: 70, name: "Aider", category: "cli",
+        desc: "终端 AI 结对编程工具，可与 Git 仓库协作，自动理解代码上下文、生成提交，支持 GPT-4/Claude/DeepSeek，科研代码开发效率利器。",
+        logo: favicon("aider.chat"),
+        icon: "fas fa-code-branch", color: "#059669",
+        tags: ["CLI", "结对编程"], pricing: "free", region: "foreign",
+        rating: 4.6, users: "10万+", url: "https://aider.chat", isNew: true
+    },
+    {
+        id: 71, name: "Ollama", category: "cli",
+        desc: "本地大模型运行工具，一条命令下载并运行 Llama3/Mistral/DeepSeek 等模型，无需 GPU 可用 CPU 推理，数据完全本地保护隐私。",
+        logo: favicon("ollama.com"),
+        icon: "fas fa-cube", color: "#333",
+        tags: ["本地模型", "隐私保护"], pricing: "free", region: "foreign",
+        rating: 4.7, users: "100万+", url: "https://ollama.com", hot: true, isNew: true
+    },
+    {
+        id: 72, name: "Shell GPT (sgpt)", category: "cli",
+        desc: "命令行 AI 工具，直接在终端询问 AI、生成 shell 命令、执行代码，支持管道操作，将 AI 融入日常科研 Linux/Mac 工作流。",
+        logo: favicon("github.com"),
+        icon: "fas fa-hashtag", color: "#6b7280",
+        tags: ["Shell", "命令生成"], pricing: "free", region: "foreign",
+        rating: 4.4, users: "5万+", url: "https://github.com/TheR1D/shell_gpt"
+    },
+    {
+        id: 73, name: "LLM (CLI)", category: "cli",
+        desc: "Simon Willison 出品的 LLM 命令行工具，支持调用 100+ 模型 API，内置日志、模板、插件系统，科研脚本批量调用 AI 的最佳工具。",
+        logo: favicon("llm.datasette.io"),
+        icon: "fas fa-terminal", color: "#4f6ef7",
+        tags: ["多模型", "批量调用"], pricing: "free", region: "foreign",
+        rating: 4.5, users: "3万+", url: "https://llm.datasette.io", isNew: true
+    },
+    {
+        id: 74, name: "GitHub Copilot CLI", category: "cli",
+        desc: "GitHub Copilot 的命令行版本，用自然语言描述需求自动生成 shell/git/gh 命令，支持解释和调试复杂命令，降低 CLI 学习门槛。",
+        logo: favicon("github.com"),
+        icon: "fab fa-github", color: "#333",
+        tags: ["CLI", "命令生成"], pricing: "paid", region: "foreign",
+        rating: 4.5, users: "100万+", url: "https://docs.github.com/en/copilot/github-copilot-in-the-cli"
+    },
 ];
 
 // ---- 精选工具（首页 Spotlight） ----
@@ -743,6 +901,21 @@ const NEWS_DATA = [
 
 // ---- 工具官方文档 ----
 const TOOL_DOCS = {
+    // new tools
+    56: "https://support.microsoft.com/copilot",
+    57: "https://help.gamma.app",
+    62: "https://docs.dify.ai",
+    63: "https://www.coze.cn/docs",
+    64: "https://microsoft.github.io/autogen/docs/Getting-Started",
+    65: "https://docs.crewai.com",
+    66: "https://doc.fastgpt.in",
+    67: "https://docs.n8n.io",
+    68: "https://python.langchain.com/docs",
+    69: "https://docs.anthropic.com/claude-code",
+    70: "https://aider.chat/docs",
+    71: "https://github.com/ollama/ollama",
+    73: "https://llm.datasette.io/en/stable",
+    74: "https://docs.github.com/en/copilot/github-copilot-in-the-cli",
     1:  "https://help.openai.com/en/collections/3742473-chatgpt",
     2:  "https://docs.anthropic.com",
     3:  "https://paperpal.com/blog",

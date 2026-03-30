@@ -1101,3 +1101,181 @@ body {
     .stats-section { grid-template-columns:1fr; }
     .hero-search { flex-wrap:wrap; }
 }
+
+/* ============================================
+   侧边栏折叠
+   ============================================ */
+.sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.sidebar-toggle:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.sidebar-toggle i { transition: transform 0.3s ease; font-size: 13px; }
+
+.sidebar.collapsed { width: 64px; }
+.sidebar.collapsed .logo span,
+.sidebar.collapsed .nav-section-title,
+.sidebar.collapsed .nav-item span,
+.sidebar.collapsed .nav-badge,
+.sidebar.collapsed .sidebar-search,
+.sidebar.collapsed .sidebar-footer { display: none; }
+.sidebar.collapsed .logo { justify-content: center; }
+.sidebar.collapsed .nav-item { justify-content: center; padding: 10px; }
+.sidebar.collapsed .nav-item i { width: auto; font-size: 16px; opacity: 1; }
+.sidebar.collapsed .nav-item.active::before { height: 28px; }
+.sidebar.collapsed + .main-content { margin-left: 64px; }
+.sidebar.collapsed ~ .compare-bar { left: 64px; }
+@media (max-width:768px) {
+    .sidebar.collapsed { width: var(--sidebar-width); }
+    .sidebar.collapsed + .main-content { margin-left: 0; }
+}
+
+/* ============================================
+   快捷键帮助按钮 & 弹窗
+   ============================================ */
+.btn-shortcut-help {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-secondary);
+    font-size: 15px;
+    border: none;
+    background: none;
+}
+.btn-shortcut-help:hover { background: var(--border); color: var(--primary); }
+
+.shortcuts-modal { width: 420px; max-width: 90vw; }
+.shortcuts-body { padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 6px; }
+.shortcut-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    background: var(--bg-main);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+}
+.shortcut-row .shortcut-desc { color: var(--text-secondary); }
+.shortcut-row .shortcut-desc-note { font-size: 12px; color: var(--text-muted); }
+.shortcut-key {
+    display: inline-block;
+    padding: 2px 9px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--text-primary);
+    box-shadow: 0 1px 0 var(--border);
+}
+
+/* ============================================
+   建议工具弹窗
+   ============================================ */
+.suggest-modal { width: 480px; max-width: 92vw; }
+.suggest-body { display: flex; flex-direction: column; gap: 10px; padding: 20px 24px 24px; }
+.suggest-textarea { min-height: 76px; resize: vertical; font-family: inherit; }
+.suggest-body .form-input[type="url"],
+.suggest-body select.form-input {
+    display: block; width: 100%;
+}
+
+/* ============================================
+   相关工具推荐（弹窗内）
+   ============================================ */
+.related-tools-section {
+    padding: 14px 24px 16px;
+    border-top: 1px solid var(--border);
+}
+.related-tools-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.related-tools-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.related-tool-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px 6px 7px;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.related-tool-chip:hover { border-color: var(--primary-light); background: rgba(79,110,247,0.05); color: var(--primary); }
+.related-tool-chip-icon {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #fff; flex-shrink: 0; overflow: hidden;
+}
+.related-tool-chip-icon img { width: 100%; height: 100%; object-fit: cover; }
+.related-chip-rating { font-size: 11px; color: #f59e0b; margin-left: 2px; }
+
+/* ============================================
+   用户点赞按钮（弹窗底部）
+   ============================================ */
+.btn-like-modal {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.btn-like-modal:hover { border-color: #fbbf24; color: #f59e0b; background: rgba(245,158,11,0.08); }
+.btn-like-modal.active { background: rgba(245,158,11,0.1); border-color: #fbbf24; color: #f59e0b; }
+.btn-like-modal.active i { animation: likePoP 0.3s ease; }
+@keyframes likePoP { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+
+/* ============================================
+   收藏导出按钮
+   ============================================ */
+.btn-export-md {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px; font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.btn-export-md:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,170,0.06); }
+
+/* ============================================
+   对比条 — 始终保持在 DOM，用 transform 动画
+   ============================================ */
+.compare-bar { display: flex; pointer-events: none; }
+.compare-bar.show { pointer-events: auto; }

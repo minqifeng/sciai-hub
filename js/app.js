@@ -49,14 +49,23 @@
         usecases:  $('#usecasesSection'),
     };
 
+    // ---- 新增 DOM refs ----
+    const sidebarToggle   = $('#sidebarToggle');
+    const shortcutsModal  = $('#shortcutsModal');
+    const suggestModal    = $('#suggestModal');
+    const exportFavsBtn   = $('#exportFavsBtn');
+    const shortcutHelpBtn = $('#shortcutHelpBtn');
+
     // ---- 状态 ----
-    let currentCategory = 'all';
-    let currentPricing  = 'all';
-    let currentSort     = 'default';
-    let currentToolId   = null;
-    let favorites       = loadLS('sciai-favs', []);
-    let recentlyViewed  = loadLS('sciai-recent', []);
-    let compareList     = [];   // max 3 ids
+    let currentCategory  = 'all';
+    let currentPricing   = 'all';
+    let currentSort      = 'default';
+    let currentToolId    = null;
+    let favorites        = loadLS('sciai-favs', []);
+    let recentlyViewed   = loadLS('sciai-recent', []);
+    let compareList      = [];   // max 3 ids
+    let userLikes        = loadLS('sciai-likes', {});
+    let sidebarCollapsed = loadLS('sciai-sidebar-collapsed', false);
 
     // ---- LS 工具 ----
     function loadLS(key, def) {
@@ -105,7 +114,7 @@
         const n = compareList.length;
         compareToggle.style.display = n ? 'flex' : 'none';
         $('#compareCount').textContent = n;
-        compareBar.style.display = n ? '' : 'none';
+        compareBar.classList.toggle('show', n > 0);
         doCompare.disabled = n < 2;
 
         compareSlots.innerHTML = '';
@@ -333,6 +342,8 @@
         else { docBtn.style.display = 'none'; }
         updateModalFavUI(id);
         updateModalCompareUI(id);
+        updateModalLikeUI(id);
+        renderRelatedTools(tool);
         toolModal.classList.add('show');
     }
     function updateModalFavUI(id) {
@@ -473,6 +484,7 @@
             llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成', video:'AI视频',
             prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯',
             github:'GitHub 推荐', usecases:'科研 AI 应用示例',
+            aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
         };
         pageTitle.textContent = titleMap[cat] || cat;
         if      (cat === 'prompts')   sections.prompts.style.display = 'block';
@@ -486,6 +498,8 @@
             sections.stats.style.display  = '';
             sections.tools.style.display  = '';
         }
+        // 收藏视图显示导出按钮
+        if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
     }
 
     // ---- 数字动画 ----
@@ -532,14 +546,18 @@
 
     // ---- 键盘快捷键 ----
     document.addEventListener('keydown', e => {
-        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-            e.preventDefault(); globalSearch.focus();
-        }
+        const tag = document.activeElement.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+        if (e.key === '/') { e.preventDefault(); globalSearch.focus(); }
         if (e.key === 'Escape') {
             closeToolModal();
             loginModal.classList.remove('show');
             compareModal.classList.remove('show');
+            if (shortcutsModal)  shortcutsModal.classList.remove('show');
+            if (suggestModal)    suggestModal.classList.remove('show');
         }
+        if (e.key === '?') { if (shortcutsModal) shortcutsModal.classList.toggle('show'); }
+        if (e.key === 'd' || e.key === 'D') { toggleTheme(); }
     });
 
     // ---- 回到顶部 ----
@@ -649,6 +667,122 @@
         loginBtn.addEventListener('click', () => loginModal.classList.add('show'));
         modalClose.addEventListener('click', () => loginModal.classList.remove('show'));
         loginModal.addEventListener('click', e => { if (e.target === loginModal) loginModal.classList.remove('show'); });
+
+        // 工具点赞
+        $('#toolModalLike')?.addEventListener('click', () => { if (currentToolId) toggleLike(currentToolId); });
+
+        // 收藏导出
+        exportFavsBtn?.addEventListener('click', exportFavoritesMarkdown);
+
+        // 侧边栏折叠
+        sidebarToggle?.addEventListener('click', toggleSidebar);
+
+        // 快捷键帮助
+        shortcutHelpBtn?.addEventListener('click', () => shortcutsModal?.classList.toggle('show'));
+        $('#shortcutsModalClose')?.addEventListener('click', () => shortcutsModal?.classList.remove('show'));
+        shortcutsModal?.addEventListener('click', e => { if (e.target === shortcutsModal) shortcutsModal.classList.remove('show'); });
+
+        // 建议工具
+        $('#suggestToolBtn')?.addEventListener('click', e => { e.preventDefault(); suggestModal?.classList.add('show'); });
+        $('#suggestModalClose')?.addEventListener('click', () => suggestModal?.classList.remove('show'));
+        suggestModal?.addEventListener('click', e => { if (e.target === suggestModal) suggestModal.classList.remove('show'); });
+        $('#suggestSubmit')?.addEventListener('click', () => {
+            const name = $('#suggestName')?.value.trim();
+            const url  = $('#suggestUrl')?.value.trim();
+            if (!name || !url) { showToast('请填写工具名称和 URL'); return; }
+            suggestModal.classList.remove('show');
+            ['suggestName','suggestUrl','suggestCategory','suggestDesc'].forEach(id => {
+                const el = $(`#${id}`); if (el) el.value = '';
+            });
+            showToast('感谢建议！我们会尽快审核 🎉');
+        });
+    }
+
+    // ---- 侧边栏折叠 ----
+    function applySidebarCollapse() {
+        sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        const icon = sidebarToggle ? sidebarToggle.querySelector('i') : null;
+        if (icon) icon.style.transform = sidebarCollapsed ? 'rotate(180deg)' : '';
+    }
+    function toggleSidebar() {
+        sidebarCollapsed = !sidebarCollapsed;
+        saveLS('sciai-sidebar-collapsed', sidebarCollapsed);
+        applySidebarCollapse();
+    }
+
+    // ---- 用户点赞 ----
+    function isLiked(id)    { return !!userLikes[String(id)]; }
+    function toggleLike(id) {
+        const key = String(id);
+        userLikes[key] = userLikes[key] ? 0 : 1;
+        saveLS('sciai-likes', userLikes);
+        updateModalLikeUI(id);
+        showToast(userLikes[key] ? '已点赞 👍' : '已取消点赞');
+    }
+    function updateModalLikeUI(id) {
+        const btn = $('#toolModalLike');
+        if (!btn) return;
+        const liked = isLiked(id);
+        btn.classList.toggle('active', liked);
+        $('#toolModalLikeText').textContent = liked ? '已点赞' : '点赞';
+    }
+
+    // ---- 相关工具推荐 ----
+    function renderRelatedTools(tool) {
+        const sec  = $('#relatedToolsSection');
+        const list = $('#relatedToolsList');
+        if (!sec || !list) return;
+        const related = TOOLS_DATA
+            .filter(t => t.id !== tool.id && t.category === tool.category)
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 4);
+        if (!related.length) { sec.style.display = 'none'; return; }
+        sec.style.display = '';
+        list.innerHTML = related.map(t => `
+            <button class="related-tool-chip" onclick="window._openTool(${t.id})">
+                <div class="related-tool-chip-icon" style="background:${t.color}">
+                    ${t.logo
+                        ? `<img src="${t.logo}" alt="${t.name}" onerror="this.style.display='none'">`
+                        : `<i class="${t.icon}"></i>`}
+                </div>
+                <span>${t.name}</span>
+                <span class="related-chip-rating">${t.rating}★</span>
+            </button>`).join('');
+    }
+
+    // ---- 收藏导出 Markdown ----
+    function exportFavoritesMarkdown() {
+        const favTools = favorites.map(id => TOOLS_DATA.find(t => t.id === id)).filter(Boolean);
+        if (!favTools.length) { showToast('暂无收藏工具'); return; }
+        const catNames = {
+            writing:'论文写作', reading:'文献阅读', data:'数据分析',
+            figure:'科研绘图', code:'代码助手', experiment:'实验设计',
+            llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成',
+            video:'AI视频', aisoft:'AI软件', agents:'智能体管理', cli:'CLI工具'
+        };
+        const pricingMap = { free:'免费', freemium:'免费增值', paid:'付费' };
+        const cats = [...new Set(favTools.map(t => t.category))];
+        const lines = [
+            '# 我的 SciAI Hub 收藏\n',
+            `> 共 ${favTools.length} 款工具 · 导出于 ${new Date().toLocaleDateString('zh-CN')}\n`,
+            '---\n',
+        ];
+        cats.forEach(cat => {
+            lines.push(`\n## ${catNames[cat] || cat}\n`);
+            favTools.filter(t => t.category === cat).forEach(t => {
+                lines.push(`### [${t.name}](${t.url})`);
+                lines.push(`- **评分**: ${t.rating} / 5.0 · **用户数**: ${t.users} · **价格**: ${pricingMap[t.pricing] || t.pricing}`);
+                lines.push(`- ${t.desc}\n`);
+            });
+        });
+        lines.push(`---\n*来源：[SciAI Hub](https://sciai-hub.vercel.app)*`);
+        const blob = new Blob([lines.join('\n')], { type: 'text/markdown;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `sciai-favorites-${new Date().toISOString().slice(0,10)}.md`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast('收藏已导出 ✅');
     }
 
     // ---- 初始化 ----
@@ -665,6 +799,10 @@
         loadTheme();
         updateFavBadge();
         updateCompareBar();
+        applySidebarCollapse();
+        // 更新全部工具数量角标
+        const badge = $('#navBadgeAll');
+        if (badge) badge.textContent = TOOLS_DATA.length;
     }
 
     init();

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciAI Hub - AI+科研导航平台 | 精选55+款AI科研工具</title>
-    <meta name="description" content="SciAI Hub 收录 55+ 款顶级 AI 科研工具，覆盖论文写作、文献阅读、数据分析、科研绘图、代码助手全流程，助力科研效率提升 10 倍。">
+    <title>SciAI Hub - AI+科研导航平台 | 精选74+款AI科研工具</title>
+    <meta name="description" content="SciAI Hub 收录 74+ 款顶级 AI 科研工具，覆盖论文写作、文献阅读、数据分析、智能体管理、CLI 工具全流程，助力科研效率提升 10 倍。">
     <meta name="keywords" content="AI科研工具,论文写作AI,文献阅读,数据分析,ChatGPT科研,DeepSeek,Kimi,学术AI">
     <meta property="og:title" content="SciAI Hub - AI+科研导航平台">
     <meta property="og:description" content="精选 55+ 款 AI 科研工具，让科研更智能">
@@ -22,6 +22,9 @@
                 <i class="fas fa-atom"></i>
                 <span>SciAI Hub</span>
             </div>
+            <button class="sidebar-toggle" id="sidebarToggle" title="折叠侧边栏">
+                <i class="fas fa-chevron-left"></i>
+            </button>
         </div>
 
         <div class="sidebar-search">
@@ -35,7 +38,7 @@
                 <div class="nav-section-title">发现</div>
                 <a href="#" class="nav-item active" data-category="all">
                     <i class="fas fa-compass"></i><span>全部工具</span>
-                    <span class="nav-badge" id="navBadgeAll">55</span>
+                    <span class="nav-badge" id="navBadgeAll">74</span>
                 </a>
                 <a href="#" class="nav-item" data-category="hot">
                     <i class="fas fa-fire"></i><span>热门推荐</span>
@@ -108,6 +111,19 @@
                     <i class="fas fa-rocket"></i><span>应用示例</span>
                 </a>
             </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">工具扩展</div>
+                <a href="#" class="nav-item" data-category="aisoft">
+                    <i class="fas fa-desktop"></i><span>AI 软件推荐</span>
+                </a>
+                <a href="#" class="nav-item" data-category="agents">
+                    <i class="fas fa-sitemap"></i><span>智能体管理</span>
+                </a>
+                <a href="#" class="nav-item" data-category="cli">
+                    <i class="fas fa-terminal"></i><span>CLI 工具</span>
+                </a>
+            </div>
         </nav>
 
         <div class="sidebar-footer">
@@ -117,7 +133,7 @@
                     <span class="stat-label">今日访客</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">55</span>
+                    <span class="stat-number">74</span>
                     <span class="stat-label">收录工具</span>
                 </div>
             </div>
@@ -135,6 +151,9 @@
                 <h2 class="page-title" id="pageTitle">全部工具</h2>
             </div>
             <div class="top-bar-right">
+                <button class="btn-shortcut-help" id="shortcutHelpBtn" title="快捷键帮助 (?)">
+                    <i class="fas fa-keyboard"></i>
+                </button>
                 <!-- 对比栏入口 -->
                 <button class="btn-compare-toggle" id="compareToggle" style="display:none" title="对比工具">
                     <i class="fas fa-code-compare"></i>
@@ -154,7 +173,7 @@
             <div class="hero-content">
                 <div class="hero-badge"><i class="fas fa-atom"></i> AI × 科研</div>
                 <h1 class="hero-title">发现最好用的 <span class="hero-highlight">AI 科研工具</span></h1>
-                <p class="hero-desc">精选 55+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、科研绘图全流程</p>
+                <p class="hero-desc">精选 74+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、智能体、CLI 全流程</p>
                 <div class="hero-search">
                     <i class="fas fa-search"></i>
                     <input type="text" id="heroSearch" placeholder="搜索工具名称、功能、场景...">
@@ -192,7 +211,7 @@
             <div class="stats-card">
                 <div class="stats-icon green"><i class="fas fa-toolbox"></i></div>
                 <div class="stats-info">
-                    <span class="stats-value" data-target="55">0</span>
+                    <span class="stats-value" data-target="74">0</span>
                     <span class="stats-desc">收录工具</span>
                 </div>
             </div>
@@ -225,6 +244,9 @@
                         <span class="tag" data-filter="domestic">国产</span>
                         <span class="tag" data-filter="foreign">海外</span>
                     </div>
+                    <button class="btn-export-md" id="exportFavsBtn" style="display:none" title="导出收藏为 Markdown">
+                        <i class="fas fa-file-export"></i> 导出 Markdown
+                    </button>
                     <div class="sort-select-wrap">
                         <i class="fas fa-sort"></i>
                         <select id="sortSelect">
@@ -295,13 +317,14 @@
                 <a href="https://github.com/minqifeng/sciai-hub/issues" target="_blank" rel="noopener"><i class="fas fa-comment-alt"></i> 反馈建议</a>
                 <a href="mailto:minqifeng@users.noreply.github.com"><i class="fas fa-envelope"></i> 联系我们</a>
                 <a href="https://arxiv.org/search/?searchtype=all&query=artificial+intelligence" target="_blank" rel="noopener"><i class="fas fa-rss"></i> arXiv AI</a>
+                <a href="#" id="suggestToolBtn"><i class="fas fa-plus-circle"></i> 建议工具</a>
             </div>
-            <p>© 2026 SciAI Hub - AI+科研导航平台 · 持续更新中 · 数据来源：官网 / arXiv / GitHub</p>
+            <p>© 2026 SciAI Hub - AI+科研导航平台 · 收录 74 款工具 · 持续更新中</p>
         </footer>
     </main>
 
     <!-- 对比浮条 -->
-    <div class="compare-bar" id="compareBar" style="display:none;">
+    <div class="compare-bar" id="compareBar">
         <div class="compare-bar-inner">
             <span class="compare-bar-title"><i class="fas fa-code-compare"></i> 工具对比</span>
             <div class="compare-slots" id="compareSlots"></div>
@@ -354,7 +377,17 @@
                     </div>
                 </div>
             </div>
+            <!-- 相关工具推荐 -->
+            <div class="related-tools-section" id="relatedToolsSection" style="display:none;">
+                <div class="related-tools-title"><i class="fas fa-compass"></i> 相关工具推荐</div>
+                <div class="related-tools-list" id="relatedToolsList"></div>
+            </div>
+
             <div class="tool-modal-footer">
+                <button class="btn-like-modal" id="toolModalLike" title="点赞">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span id="toolModalLikeText">点赞</span>
+                </button>
                 <button class="btn-fav-modal" id="toolModalFavBtn">
                     <i class="fas fa-heart"></i> <span id="toolModalFavText">收藏工具</span>
                 </button>
@@ -390,6 +423,57 @@
                     <button class="btn-code">发送验证码</button>
                 </div>
                 <button class="btn-submit">登录 / 注册</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷键帮助弹窗 -->
+    <div class="modal-overlay" id="shortcutsModal">
+        <div class="modal shortcuts-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-keyboard"></i> 键盘快捷键</h3>
+                <button class="modal-close" id="shortcutsModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="shortcuts-body">
+                <div class="shortcut-row"><span class="shortcut-desc">聚焦搜索框</span><kbd class="shortcut-key">/</kbd></div>
+                <div class="shortcut-row"><span class="shortcut-desc">关闭当前弹窗</span><kbd class="shortcut-key">Esc</kbd></div>
+                <div class="shortcut-row"><span class="shortcut-desc">显示快捷键帮助</span><kbd class="shortcut-key">?</kbd></div>
+                <div class="shortcut-row"><span class="shortcut-desc">切换深色 / 浅色模式</span><kbd class="shortcut-key">D</kbd></div>
+                <div class="shortcut-row"><span class="shortcut-desc">收藏工具</span><span class="shortcut-desc-note">工具卡片右上角 ❤</span></div>
+                <div class="shortcut-row"><span class="shortcut-desc">加入工具对比</span><span class="shortcut-desc-note">卡片右下角对比按钮</span></div>
+                <div class="shortcut-row"><span class="shortcut-desc">折叠 / 展开侧边栏</span><span class="shortcut-desc-note">侧边栏顶部 ‹ 按钮</span></div>
+                <div class="shortcut-row"><span class="shortcut-desc">导出收藏列表</span><span class="shortcut-desc-note">收藏视图右上角导出按钮</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 建议收录工具弹窗 -->
+    <div class="modal-overlay" id="suggestModal">
+        <div class="modal suggest-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> 建议收录工具</h3>
+                <button class="modal-close" id="suggestModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body suggest-body">
+                <div class="form-group"><input type="text" id="suggestName" placeholder="工具名称 *" class="form-input"></div>
+                <div class="form-group"><input type="url" id="suggestUrl" placeholder="官网地址 * (https://...)" class="form-input"></div>
+                <div class="form-group">
+                    <select id="suggestCategory" class="form-input">
+                        <option value="">选择分类...</option>
+                        <option value="writing">论文写作</option>
+                        <option value="reading">文献阅读</option>
+                        <option value="data">数据分析</option>
+                        <option value="figure">科研绘图</option>
+                        <option value="code">代码助手</option>
+                        <option value="llm">大语言模型</option>
+                        <option value="aisoft">AI 软件</option>
+                        <option value="agents">智能体管理</option>
+                        <option value="cli">CLI 工具</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div class="form-group"><textarea id="suggestDesc" rows="3" placeholder="简要描述功能和科研使用场景..." class="form-input suggest-textarea"></textarea></div>
+                <button class="btn-submit" id="suggestSubmit"><i class="fas fa-paper-plane"></i> 提交建议</button>
             </div>
         </div>
     </div>
