@@ -629,56 +629,64 @@ const TUTORIALS_DATA = [
         desc: "从零开始学习如何利用 ChatGPT 辅助学术论文写作，涵盖选题优化、文献综述、实验设计到论文润色的全流程，附带真实案例。",
         cover: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         icon: "fas fa-pen-fancy",
-        views: "5.2万", date: "2026-03-20"
+        views: "5.2万", date: "2026-03-20",
+        url: "https://help.openai.com/en/collections/3742473-chatgpt"
     },
     {
         id: 2, title: "DeepSeek 科研编程实战：Python/R 数据分析",
         desc: "使用 DeepSeek 自动生成数据分析代码，涵盖统计检验、机器学习建模和科研可视化，从提问技巧到代码调试全流程。",
         cover: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
         icon: "fas fa-code",
-        views: "3.8万", date: "2026-03-15"
+        views: "3.8万", date: "2026-03-15",
+        url: "https://chat.deepseek.com"
     },
     {
         id: 3, title: "用 Elicit + SciSpace 加速系统综述",
         desc: "详解如何用 AI 工具完成 PRISMA 标准的系统综述：文献检索、筛选、数据提取到偏倚评估，效率提升 10 倍的实操教程。",
         cover: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
         icon: "fas fa-book-open",
-        views: "2.9万", date: "2026-03-10"
+        views: "2.9万", date: "2026-03-10",
+        url: "https://elicit.com/blog"
     },
     {
         id: 4, title: "BioRender + AI 制作顶刊级科研配图",
         desc: "结合 BioRender 和 AI 工具制作达到 Nature/Science 级别的科研示意图，包含配色方案、排版规范和常见图型模板。",
         cover: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
         icon: "fas fa-dna",
-        views: "2.1万", date: "2026-03-05"
+        views: "2.1万", date: "2026-03-05",
+        url: "https://learn.biorender.com"
     },
     {
         id: 5, title: "科研 Prompt Engineering 进阶指南",
         desc: "如何设计高效的科研提示词？从角色设定、结构化指令到思维链技巧，让 AI 输出更精准、更学术化的内容。",
         cover: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
         icon: "fas fa-lightbulb",
-        views: "1.8万", date: "2026-02-28"
+        views: "1.8万", date: "2026-02-28",
+        url: "https://www.promptingguide.ai"
     },
     {
         id: 6, title: "免费工具替代方案：零成本科研工具箱",
         desc: "盘点每个付费科研工具的高质量免费替代品：SPSS→JASP、Endnote→Zotero、GraphPad→R ggplot2，附详细使用教程。",
         cover: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)",
         icon: "fas fa-tools",
-        views: "4.5万", date: "2026-02-20"
+        views: "4.5万", date: "2026-02-20",
+        url: "https://www.zotero.org/support"
     },
     {
         id: 7, title: "Kimi 长文本阅读：一次性读懂 100 篇论文",
         desc: "利用 Kimi 超长上下文批量阅读文献，快速提取研究方法、关键结论，构建文献矩阵，大幅压缩文献调研时间。",
         cover: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
         icon: "fas fa-moon",
-        views: "3.2万", date: "2026-02-15"
+        views: "3.2万", date: "2026-02-15",
+        url: "https://kimi.moonshot.cn"
     },
     {
         id: 8, title: "Google Colab 科研机器学习入门",
         desc: "从零开始在 Google Colab 上运行机器学习实验，免费 GPU 环境配置、常用数据集加载、模型训练和结果可视化全教程。",
         cover: "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)",
         icon: "fas fa-robot",
-        views: "2.6万", date: "2026-02-10"
+        views: "2.6万", date: "2026-02-10",
+        url: "https://colab.research.google.com"
     },
 ];
 
@@ -686,41 +694,257 @@ const NEWS_DATA = [
     {
         id: 1, title: "Claude 4 发布：200K 上下文支持整本博士论文分析",
         desc: "Anthropic 发布 Claude 4，支持 200K token 超长上下文，可一次性读取并分析整本博士论文，学术能力评测超越 GPT-4o。",
-        date: "2026-03-28", tag: "重磅", tagColor: "#ef4444"
+        date: "2026-03-28", tag: "重磅", tagColor: "#ef4444",
+        url: "https://www.anthropic.com/news"
     },
     {
         id: 2, title: "Nature 正式发布 AI 辅助科研使用规范",
         desc: "Nature 出版集团更新投稿政策，明确规定作者须申报 AI 工具使用情况，原创性仍由人类研究者负责。",
-        date: "2026-03-25", tag: "政策", tagColor: "#8b5cf6"
+        date: "2026-03-25", tag: "政策", tagColor: "#8b5cf6",
+        url: "https://www.nature.com/articles/d41586-023-00191-1"
     },
     {
         id: 3, title: "DeepSeek-V3 在 MATH/HumanEval 基准超越 GPT-4o",
         desc: "深度求索最新评测报告显示，DeepSeek-V3 在数学推理和代码生成基准上全面超越 GPT-4o，且完全开源免费。",
-        date: "2026-03-22", tag: "评测", tagColor: "#059669"
+        date: "2026-03-22", tag: "评测", tagColor: "#059669",
+        url: "https://arxiv.org/abs/2412.19437"
     },
     {
         id: 4, title: "arXiv 日均投稿突破 1 万篇，AI 论文占比 35%",
         desc: "arXiv 最新统计显示，2026 年 Q1 日均新增预印本首次超过 1 万篇，其中 AI/ML 相关论文占比达 35%。",
-        date: "2026-03-20", tag: "数据", tagColor: "#f97316"
+        date: "2026-03-20", tag: "数据", tagColor: "#f97316",
+        url: "https://arxiv.org/search/?searchtype=all&query=artificial+intelligence&start=0"
     },
     {
         id: 5, title: "Elicit 推出自动 Meta 分析功能，覆盖 2 亿篇文献",
         desc: "AI 科研助手 Elicit 上线自动 Meta 分析工具，输入 PICO 研究问题可自动筛选文献、提取数据并生成森林图。",
-        date: "2026-03-18", tag: "新功能", tagColor: "#2563eb"
+        date: "2026-03-18", tag: "新功能", tagColor: "#2563eb",
+        url: "https://elicit.com"
     },
     {
         id: 6, title: "中国 AI 论文数量首次超越美国，连续三年增速第一",
         desc: "最新报告显示，2025 年中国 AI 领域高引用论文数量首次超越美国，顶会投稿接收率显著提升。",
-        date: "2026-03-15", tag: "报告", tagColor: "#4f6ef7"
+        date: "2026-03-15", tag: "报告", tagColor: "#4f6ef7",
+        url: "https://aiindex.stanford.edu/report"
     },
     {
         id: 7, title: "Google Scholar 接入 Gemini，支持论文智能摘要",
         desc: "Google Scholar 全面整合 Gemini AI，用户可对任意论文一键生成结构化摘要和研究贡献分析，支持中英双语。",
-        date: "2026-03-12", tag: "产品", tagColor: "#10a37f"
+        date: "2026-03-12", tag: "产品", tagColor: "#10a37f",
+        url: "https://scholar.google.com"
     },
     {
         id: 8, title: "BioRender 新增 AI 图表生成功能，描述即可成图",
         desc: "BioRender 推出 AI 辅助绘图功能，用户只需用自然语言描述细胞通路或实验流程，AI 自动选择合适图标完成图表。",
-        date: "2026-03-10", tag: "新功能", tagColor: "#059669"
+        date: "2026-03-10", tag: "新功能", tagColor: "#059669",
+        url: "https://biorender.com"
+    },
+];
+
+// ---- 工具官方文档 ----
+const TOOL_DOCS = {
+    1:  "https://help.openai.com/en/collections/3742473-chatgpt",
+    2:  "https://docs.anthropic.com",
+    3:  "https://paperpal.com/blog",
+    5:  "https://writefull.com/docs",
+    6:  "https://kimi.moonshot.cn",
+    7:  "https://typeset.io/blog",
+    8:  "https://elicit.com/blog",
+    9:  "https://scispace.com/blog",
+    10: "https://www.connectedpapers.com/about",
+    12: "https://www.zotero.org/support",
+    13: "https://www.mendeley.com/guides",
+    15: "https://api.semanticscholar.org",
+    16: "https://api-docs.deepseek.com",
+    17: "https://platform.moonshot.cn/docs",
+    18: "https://learn.biorender.com",
+    19: "https://www.graphpad.com/support",
+    20: "https://www.originlab.com/doc",
+    21: "https://docs.posit.co/ide/user",
+    25: "https://docs.github.com/en/copilot",
+    26: "https://docs.cursor.com",
+    27: "https://code.visualstudio.com/docs",
+    28: "https://docs.jupyter.org",
+    29: "https://colab.research.google.com/notebooks/intro.ipynb",
+    36: "https://www.zotero.org/support",
+    39: "https://www.overleaf.com/learn",
+    41: "https://jasp-stats.org/documentation",
+    42: "https://docs.posit.co",
+    44: "https://help.tableau.com",
+    47: "https://docs.jupyter.org",
+    48: "https://code.visualstudio.com/docs",
+};
+
+// ---- GitHub 高星项目推荐 ----
+const GITHUB_REPOS = [
+    {
+        id: 1,
+        name: "gpt_academic",
+        owner: "binary-husky",
+        stars: "65k",
+        desc: "为 GPT/GLM 等 LLM 大语言模型提供实用化交互接口，专注于论文阅读/润色/翻译/批改，支持 Python/C++代码调试。",
+        topics: ["论文润色", "代码调试", "批量处理"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/binary-husky/gpt_academic"
+    },
+    {
+        id: 2,
+        name: "ChatPaper",
+        owner: "kaixindelele",
+        stars: "8.4k",
+        desc: "利用 ChatGPT 总结 arXiv 论文，一键获取论文摘要、创新点、方法论和实验结果，支持批量处理和中文输出。",
+        topics: ["文献阅读", "arXiv", "批量总结"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/kaixindelele/ChatPaper"
+    },
+    {
+        id: 3,
+        name: "whisper",
+        owner: "openai",
+        stars: "67k",
+        desc: "OpenAI 开源的多语言语音识别模型，可将学术讲座、会议录音转为文字，支持 100+ 种语言，准确率媲美人工。",
+        topics: ["语音识别", "多语言", "录音转文字"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/openai/whisper"
+    },
+    {
+        id: 4,
+        name: "segment-anything",
+        owner: "facebookresearch",
+        stars: "46k",
+        desc: "Meta 发布的通用图像分割模型，在生物医学图像分析（细胞识别、病理切片分割）中被广泛应用，零样本泛化能力强。",
+        topics: ["图像分割", "医学图像", "零样本"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/facebookresearch/segment-anything"
+    },
+    {
+        id: 5,
+        name: "transformers",
+        owner: "huggingface",
+        stars: "130k",
+        desc: "Hugging Face 出品，提供数千种预训练模型，覆盖 NLP、CV、生物信息学，是 AI 科研最重要的基础库之一。",
+        topics: ["预训练模型", "NLP", "迁移学习"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/huggingface/transformers"
+    },
+    {
+        id: 6,
+        name: "gpt-researcher",
+        owner: "assafelovic",
+        stars: "14k",
+        desc: "基于 AI 智能体的自动化研究工具，输入研究问题可自动搜索文献、综合信息并生成带引用的研究报告。",
+        topics: ["自动调研", "智能体", "报告生成"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/assafelovic/gpt-researcher"
+    },
+    {
+        id: 7,
+        name: "deepchem",
+        owner: "deepchem",
+        stars: "5.3k",
+        desc: "专注于化学、生物学和材料科学的深度学习库，提供药物发现、蛋白质工程、量子化学等领域的 ML 工具包。",
+        topics: ["药物发现", "分子ML", "化学信息学"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/deepchem/deepchem"
+    },
+    {
+        id: 8,
+        name: "autogen",
+        owner: "microsoft",
+        stars: "32k",
+        desc: "微软开源的多智能体框架，可构建 AI 科研 pipeline：文献检索 → 代码生成 → 实验分析 → 报告撰写全自动化。",
+        topics: ["多智能体", "自动化流程", "科研pipeline"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/microsoft/autogen"
+    },
+    {
+        id: 9,
+        name: "llama.cpp",
+        owner: "ggerganov",
+        stars: "65k",
+        desc: "在本地 CPU/GPU 运行 LLaMA 等大语言模型，科研人员可在无网络/保密数据环境下使用 AI 辅助分析。",
+        topics: ["本地部署", "隐私保护", "离线推理"],
+        lang: "C++", langColor: "#f34b7d",
+        url: "https://github.com/ggerganov/llama.cpp"
+    },
+    {
+        id: 10,
+        name: "lm-evaluation-harness",
+        owner: "EleutherAI",
+        stars: "7.2k",
+        desc: "LLM 标准化评测框架，覆盖 200+ 学术基准（MMLU、GSM8K 等），可对比不同模型在科研任务上的真实能力。",
+        topics: ["模型评测", "基准测试", "对比分析"],
+        lang: "Python", langColor: "#3572A5",
+        url: "https://github.com/EleutherAI/lm-evaluation-harness"
+    },
+];
+
+// ---- 科研 AI 应用示例 ----
+const USE_CASES_DATA = [
+    {
+        id: 1,
+        icon: "fas fa-dna",
+        color: "#7c5cfc",
+        title: "AlphaFold 蛋白质结构预测",
+        scenario: "结构生物学",
+        desc: "DeepMind 的 AlphaFold 2 解决了困扰科学界 50 年的蛋白质折叠难题，对 2 亿+ 蛋白质结构完成预测，极大加速药物靶点发现。",
+        tools: ["AlphaFold", "PyMOL", "DeepChem"],
+        impact: "Science 2021 年度突破",
+        link: "https://www.deepmind.com/research/highlighted-research/alphafold"
+    },
+    {
+        id: 2,
+        icon: "fas fa-file-alt",
+        color: "#10a37f",
+        title: "AI 辅助系统综述",
+        scenario: "循证医学",
+        desc: "使用 Elicit + ResearchRabbit + ChatGPT 构建自动化文献筛选流水线，将传统需要 6 个月的系统综述压缩至 3 周完成。",
+        tools: ["Elicit", "ResearchRabbit", "Claude"],
+        impact: "效率提升 10x",
+        link: "https://elicit.com/blog/systematic-reviews"
+    },
+    {
+        id: 3,
+        icon: "fas fa-microscope",
+        color: "#ef4444",
+        title: "医学图像 AI 分割",
+        scenario: "病理学 / 影像学",
+        desc: "Meta SAM（Segment Anything）应用于病理切片细胞核分割、MRI 病灶识别，无需大量标注数据，零样本精度达到专业水准。",
+        tools: ["SAM", "ITK-SNAP", "Python"],
+        impact: "分割精度 >95%",
+        link: "https://github.com/facebookresearch/segment-anything"
+    },
+    {
+        id: 4,
+        icon: "fas fa-chart-bar",
+        color: "#f97316",
+        title: "AI 驱动数据分析报告",
+        scenario: "统计学 / 数据科学",
+        desc: "将实验数据上传给 DeepSeek / ChatGPT，自动生成统计检验代码、可视化图表和结果解读，整个分析过程仅需 30 分钟。",
+        tools: ["DeepSeek", "Jupyter", "R Studio"],
+        impact: "30 分钟完成全套分析",
+        link: "https://chat.deepseek.com"
+    },
+    {
+        id: 5,
+        icon: "fas fa-flask",
+        color: "#059669",
+        title: "AI 辅助药物发现",
+        scenario: "计算化学 / 药学",
+        desc: "利用 DeepChem + Transformer 模型预测分子活性和毒性，将候选药物从数十万化合物中筛选至数百个，节省数年湿实验时间。",
+        tools: ["DeepChem", "RDKit", "AutoDock"],
+        impact: "筛选效率提升 1000x",
+        link: "https://deepchem.io"
+    },
+    {
+        id: 6,
+        icon: "fas fa-pen-nib",
+        color: "#2563eb",
+        title: "AI 全流程论文写作",
+        scenario: "学术写作",
+        desc: "从选题（ChatGPT 头脑风暴）→ 文献调研（Elicit）→ 写作（Claude）→ 润色（Grammarly）→ 格式（Overleaf），构建完整 AI 写作工作流。",
+        tools: ["ChatGPT", "Claude", "Overleaf", "Grammarly"],
+        impact: "写作效率提升 5x",
+        link: "https://www.overleaf.com"
     },
 ];

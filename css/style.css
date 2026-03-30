@@ -869,6 +869,179 @@ body {
 .compare-stars { color: #f59e0b; font-size: 12px; }
 
 /* ============================================
+   工具弹窗文档按钮
+   ============================================ */
+.btn-doc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.btn-doc:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,170,0.06); }
+
+/* ============================================
+   GitHub 推荐卡片
+   ============================================ */
+.github-section { padding: 24px 32px; }
+.section-sub { font-size: 13px; color: var(--text-muted); }
+
+.github-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.github-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+.github-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#333,#666); opacity:0; transition:var(--transition); }
+[data-theme="dark"] .github-card::before { background:linear-gradient(90deg,#fff,#aaa); }
+.github-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:#888; }
+.github-card:hover::before { opacity:1; }
+
+.github-card-header { display:flex; align-items:center; gap:10px; }
+.github-card-icon { font-size:22px; color:var(--text-primary); flex-shrink:0; }
+.github-card-meta { flex:1; min-width:0; }
+.github-owner { font-size:12px; color:var(--text-muted); }
+.github-name { font-size:14px; font-weight:700; color:var(--text-primary); }
+.github-stars { display:flex; align-items:center; gap:4px; font-size:13px; font-weight:600; color:#f59e0b; white-space:nowrap; }
+
+.github-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; flex:1; }
+
+.github-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.github-lang { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-muted); }
+.lang-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.github-topics { display:flex; gap:6px; flex-wrap:wrap; }
+.github-topic { font-size:11px; padding:2px 8px; border-radius:10px; background:rgba(79,110,247,0.08); color:var(--primary); border:1px solid rgba(79,110,247,0.15); }
+
+/* ============================================
+   应用示例卡片
+   ============================================ */
+.usecases-section { padding: 24px 32px; }
+
+.usecases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+}
+
+.usecase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: var(--transition);
+    position: relative;
+}
+.usecase-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+
+.usecase-icon { width:50px; height:50px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff; flex-shrink:0; }
+
+.usecase-body { flex:1; display:flex; flex-direction:column; gap:8px; }
+.usecase-meta { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; }
+.usecase-scenario { font-size:11px; padding:3px 10px; border-radius:10px; background:rgba(79,110,247,0.08); color:var(--primary); font-weight:600; }
+.usecase-impact { font-size:11px; padding:3px 10px; border-radius:10px; background:rgba(0,212,170,0.1); color:#059669; font-weight:600; }
+.usecase-body h4 { font-size:15px; font-weight:700; color:var(--text-primary); }
+.usecase-body p { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.usecase-tools { display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
+.usecase-tool { font-size:11px; padding:2px 8px; border-radius:4px; background:var(--bg-main); color:var(--text-secondary); border:1px solid var(--border); }
+
+.usecase-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+    margin-top: 4px;
+}
+.usecase-link:hover { gap:10px; }
+
+/* ============================================
+   资讯 Tab + arXiv
+   ============================================ */
+.news-tabs { display:flex; gap:8px; margin-bottom:16px; }
+.news-tab {
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.news-tab:hover { border-color:var(--primary); color:var(--primary); }
+.news-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+.live-dot { width:7px; height:7px; border-radius:50%; background:#ef4444; display:inline-block; animation:pulse 1.5s infinite; }
+
+.news-item { text-decoration:none; color:inherit; display:flex; }
+
+.arxiv-item {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+.arxiv-item:hover { border-color:var(--primary-light); box-shadow:var(--shadow-sm); }
+.arxiv-item-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.arxiv-badge { font-size:10px; font-weight:700; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2); padding:2px 7px; border-radius:4px; letter-spacing:0.5px; }
+.arxiv-date { font-size:12px; color:var(--text-muted); margin-left:auto; }
+.arxiv-item h4 { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.arxiv-item p { font-size:12px; color:var(--text-secondary); line-height:1.5; margin-bottom:8px; }
+.arxiv-authors { font-size:12px; color:var(--text-muted); }
+.arxiv-loading, .arxiv-error { text-align:center; padding:32px; color:var(--text-muted); font-size:14px; }
+.arxiv-error button { color:var(--primary); background:none; border:none; cursor:pointer; text-decoration:underline; }
+.arxiv-error a { color:var(--primary); }
+
+.tutorial-link { color:var(--primary); font-size:12px; }
+.tutorial-card { text-decoration:none; color:inherit; display:block; }
+
+/* ============================================
+   页脚增强
+   ============================================ */
+.footer { padding:28px 32px; text-align:center; color:var(--text-muted); font-size:13px; border-top:1px solid var(--border); margin-top:auto; }
+.footer-links { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:12px; }
+.footer-links a { color:var(--text-secondary); text-decoration:none; display:flex; align-items:center; gap:6px; font-size:13px; transition:var(--transition); }
+.footer-links a:hover { color:var(--primary); }
+
+/* ============================================
    查看全部按钮
    ============================================ */
 .view-all {
@@ -887,10 +1060,7 @@ body {
 }
 .view-all:hover { border-color: var(--primary); background: rgba(79,110,247,0.05); }
 
-/* ============================================
-   页脚
-   ============================================ */
-.footer { padding:24px 32px; text-align:center; color:var(--text-muted); font-size:13px; border-top:1px solid var(--border); margin-top:auto; }
+/* footer rule already defined above */
 
 /* ============================================
    动画
@@ -923,6 +1093,9 @@ body {
     .compare-bar-inner { flex-wrap:wrap; gap:10px; }
     .compare-slots { flex-wrap:wrap; }
     .compare-slot { min-width:120px; }
+    .github-section, .usecases-section { padding:16px; }
+    .github-grid, .usecases-grid { grid-template-columns:1fr; }
+    .footer-links { gap:14px; }
 }
 @media (max-width:480px) {
     .stats-section { grid-template-columns:1fr; }

@@ -101,6 +101,12 @@
                 <a href="#" class="nav-item" data-category="news">
                     <i class="fas fa-newspaper"></i><span>行业资讯</span>
                 </a>
+                <a href="#" class="nav-item" data-category="github">
+                    <i class="fab fa-github"></i><span>GitHub 推荐</span>
+                </a>
+                <a href="#" class="nav-item" data-category="usecases">
+                    <i class="fas fa-rocket"></i><span>应用示例</span>
+                </a>
             </div>
         </nav>
 
@@ -265,8 +271,32 @@
             <div class="news-list" id="newsList"></div>
         </section>
 
+        <!-- GitHub 高星推荐 -->
+        <section class="github-section" id="githubSection" style="display:none;">
+            <div class="section-header">
+                <h3><i class="fab fa-github"></i> GitHub 高星项目推荐</h3>
+                <span class="section-sub">精选 AI 科研开源工具，按 ⭐ 排序</span>
+            </div>
+            <div class="github-grid" id="githubGrid"></div>
+        </section>
+
+        <!-- 科研 AI 应用示例 -->
+        <section class="usecases-section" id="usecasesSection" style="display:none;">
+            <div class="section-header">
+                <h3><i class="fas fa-rocket"></i> 科研 AI 应用示例</h3>
+                <span class="section-sub">真实案例 · 工具组合 · 落地效果</span>
+            </div>
+            <div class="usecases-grid" id="usecasesGrid"></div>
+        </section>
+
         <footer class="footer">
-            <p>© 2026 SciAI Hub - AI+科研导航平台 | 让科研更智能 | <a href="https://github.com/minqifeng/sciai-hub" target="_blank" style="color:var(--primary)">GitHub</a></p>
+            <div class="footer-links">
+                <a href="https://github.com/minqifeng/sciai-hub" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://github.com/minqifeng/sciai-hub/issues" target="_blank" rel="noopener"><i class="fas fa-comment-alt"></i> 反馈建议</a>
+                <a href="mailto:minqifeng@users.noreply.github.com"><i class="fas fa-envelope"></i> 联系我们</a>
+                <a href="https://arxiv.org/search/?searchtype=all&query=artificial+intelligence" target="_blank" rel="noopener"><i class="fas fa-rss"></i> arXiv AI</a>
+            </div>
+            <p>© 2026 SciAI Hub - AI+科研导航平台 · 持续更新中 · 数据来源：官网 / arXiv / GitHub</p>
         </footer>
     </main>
 
@@ -331,6 +361,9 @@
                 <button class="btn-add-compare" id="toolModalCompare">
                     <i class="fas fa-code-compare"></i> <span id="toolModalCompareText">加入对比</span>
                 </button>
+                <a class="btn-doc" id="toolModalDoc" href="#" target="_blank" rel="noopener" style="display:none">
+                    <i class="fas fa-book"></i> 文档
+                </a>
                 <a class="btn-visit" id="toolModalUrl" href="#" target="_blank" rel="noopener">
                     <i class="fas fa-external-link-alt"></i> 访问官网
                 </a>

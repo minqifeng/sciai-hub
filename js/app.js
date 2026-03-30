@@ -45,6 +45,8 @@
         prompts:   $('#promptsSection'),
         tutorials: $('#tutorialsSection'),
         news:      $('#newsSection'),
+        github:    $('#githubSection'),
+        usecases:  $('#usecasesSection'),
     };
 
     // ---- 状态 ----
@@ -164,6 +166,87 @@
         compareModal.classList.add('show');
     }
 
+    // ---- 渲染 GitHub 推荐 ----
+    function renderGithubRepos() {
+        const grid = $('#githubGrid');
+        if (!grid) return;
+        grid.innerHTML = GITHUB_REPOS.map(r => `
+            <a class="github-card" href="${r.url}" target="_blank" rel="noopener">
+                <div class="github-card-header">
+                    <i class="fab fa-github github-card-icon"></i>
+                    <div class="github-card-meta">
+                        <span class="github-owner">${r.owner}</span>
+                        <span class="github-name">/ ${r.name}</span>
+                    </div>
+                    <span class="github-stars"><i class="fas fa-star"></i> ${r.stars}</span>
+                </div>
+                <p class="github-desc">${r.desc}</p>
+                <div class="github-footer">
+                    <span class="github-lang"><span class="lang-dot" style="background:${r.langColor}"></span>${r.lang}</span>
+                    <div class="github-topics">${r.topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
+                </div>
+            </a>`).join('');
+    }
+
+    // ---- 渲染应用示例 ----
+    function renderUseCases() {
+        const grid = $('#usecasesGrid');
+        if (!grid) return;
+        grid.innerHTML = USE_CASES_DATA.map(u => `
+            <div class="usecase-card">
+                <div class="usecase-icon" style="background:${u.color}">
+                    <i class="${u.icon}"></i>
+                </div>
+                <div class="usecase-body">
+                    <div class="usecase-meta">
+                        <span class="usecase-scenario">${u.scenario}</span>
+                        <span class="usecase-impact">${u.impact}</span>
+                    </div>
+                    <h4>${u.title}</h4>
+                    <p>${u.desc}</p>
+                    <div class="usecase-tools">${u.tools.map(t => `<span class="usecase-tool">${t}</span>`).join('')}</div>
+                </div>
+                <a class="usecase-link" href="${u.link}" target="_blank" rel="noopener">
+                    查看详情 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>`).join('');
+    }
+
+    // ---- arXiv 实时资讯 ----
+    function fetchArxivLatest() {
+        const container = $('#arxivList');
+        if (!container) return;
+        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在加载 arXiv 最新论文...</div>';
+        fetch('https://export.arxiv.org/api/query?search_query=(cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL)&sortBy=submittedDate&sortOrder=descending&max_results=6')
+            .then(r => r.text())
+            .then(xml => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(xml, 'application/xml');
+                const entries = [...doc.querySelectorAll('entry')].slice(0, 6);
+                if (!entries.length) throw new Error('no entries');
+                container.innerHTML = entries.map(e => {
+                    const title   = e.querySelector('title')?.textContent?.trim().replace(/\s+/g,' ') || '';
+                    const summary = e.querySelector('summary')?.textContent?.trim().slice(0, 120) + '...' || '';
+                    const link    = e.querySelector('id')?.textContent?.trim() || '#';
+                    const authors = [...e.querySelectorAll('author name')].slice(0,3).map(a => a.textContent).join(', ');
+                    const published = e.querySelector('published')?.textContent?.slice(0,10) || '';
+                    return `<a class="arxiv-item" href="${link}" target="_blank" rel="noopener">
+                        <div class="arxiv-item-header">
+                            <span class="arxiv-badge">arXiv</span>
+                            <span class="arxiv-date">${published}</span>
+                        </div>
+                        <h4>${title}</h4>
+                        <p>${summary}</p>
+                        <span class="arxiv-authors"><i class="fas fa-user-friends"></i> ${authors}</span>
+                    </a>`;
+                }).join('');
+            })
+            .catch(() => {
+                container.innerHTML = '<div class="arxiv-error"><i class="fas fa-exclamation-circle"></i> 加载失败，请<button onclick="fetchArxivLatest()">重试</button>或访问 <a href="https://arxiv.org" target="_blank">arxiv.org</a></div>';
+            });
+    }
+    window.fetchArxivLatest = fetchArxivLatest;
+
     // ---- 渲染精选 ----
     function renderFeatured() {
         featuredGrid.innerHTML = FEATURED_TOOLS.map(f => {
@@ -244,6 +327,10 @@
         $('#toolModalPricing').textContent = { free:'免费', freemium:'免费增值', paid:'付费' }[tool.pricing] || tool.pricing;
         $('#toolModalRegion').textContent = tool.region === 'domestic' ? '🇨🇳 国产' : '🌐 海外';
         $('#toolModalUrl').href = tool.url;
+        const docBtn = $('#toolModalDoc');
+        const docUrl = typeof TOOL_DOCS !== 'undefined' && TOOL_DOCS[id];
+        if (docUrl) { docBtn.href = docUrl; docBtn.style.display = 'flex'; }
+        else { docBtn.style.display = 'none'; }
         updateModalFavUI(id);
         updateModalCompareUI(id);
         toolModal.classList.add('show');
@@ -287,24 +374,49 @@
 
     function renderTutorials(tutorials) {
         tutorialsGrid.innerHTML = tutorials.map(t => `
-            <div class="tutorial-card">
+            <a class="tutorial-card" href="${t.url || '#'}" target="_blank" rel="noopener">
                 <div class="tutorial-cover" style="background:${t.cover}"><i class="${t.icon}"></i></div>
                 <div class="tutorial-body">
                     <h4>${t.title}</h4><p>${t.desc}</p>
-                    <div class="tutorial-meta"><span><i class="fas fa-eye"></i> ${t.views}</span><span><i class="fas fa-calendar"></i> ${t.date}</span></div>
+                    <div class="tutorial-meta">
+                        <span><i class="fas fa-eye"></i> ${t.views}</span>
+                        <span><i class="fas fa-calendar"></i> ${t.date}</span>
+                        ${t.url ? '<span class="tutorial-link"><i class="fas fa-external-link-alt"></i> 查看</span>' : ''}
+                    </div>
                 </div>
-            </div>`).join('');
+            </a>`).join('');
     }
 
     function renderNews(news) {
-        newsList.innerHTML = news.map(n => {
-            const d = new Date(n.date);
-            return `<div class="news-item">
-                <div class="news-date"><span class="day">${d.getDate()}</span><span class="month">${d.getMonth()+1}月</span></div>
-                <div class="news-info"><h4>${n.title}</h4><p>${n.desc}</p></div>
-                <span class="news-tag" style="background:${n.tagColor}18;color:${n.tagColor}">${n.tag}</span>
-            </div>`;
-        }).join('');
+        // 静态资讯
+        newsList.innerHTML = `
+            <div class="news-tabs">
+                <button class="news-tab active" data-tab="static">精选资讯</button>
+                <button class="news-tab" data-tab="arxiv"><i class="fas fa-rss"></i> arXiv 实时 <span class="live-dot"></span></button>
+            </div>
+            <div id="staticNewsList">
+                ${news.map(n => {
+                    const d = new Date(n.date);
+                    return `<a class="news-item" href="${n.url || '#'}" target="_blank" rel="noopener">
+                        <div class="news-date"><span class="day">${d.getDate()}</span><span class="month">${d.getMonth()+1}月</span></div>
+                        <div class="news-info"><h4>${n.title}</h4><p>${n.desc}</p></div>
+                        <span class="news-tag" style="background:${n.tagColor}18;color:${n.tagColor}">${n.tag}</span>
+                    </a>`;
+                }).join('')}
+            </div>
+            <div id="arxivList" style="display:none;"></div>`;
+
+        // 资讯 tab 切换
+        newsList.querySelectorAll('.news-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                newsList.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const t = tab.dataset.tab;
+                $('#staticNewsList').style.display = t === 'static' ? '' : 'none';
+                $('#arxivList').style.display       = t === 'arxiv'  ? '' : 'none';
+                if (t === 'arxiv' && $('#arxivList').innerHTML === '') fetchArxivLatest();
+            });
+        });
     }
 
     const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
@@ -360,11 +472,14 @@
             figure:'科研绘图', code:'代码助手', experiment:'实验设计',
             llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成', video:'AI视频',
             prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯',
+            github:'GitHub 推荐', usecases:'科研 AI 应用示例',
         };
         pageTitle.textContent = titleMap[cat] || cat;
         if      (cat === 'prompts')   sections.prompts.style.display = 'block';
         else if (cat === 'tutorials') sections.tutorials.style.display = 'block';
         else if (cat === 'news')      sections.news.style.display = 'block';
+        else if (cat === 'github')    sections.github.style.display = 'block';
+        else if (cat === 'usecases')  sections.usecases.style.display = 'block';
         else {
             sections.hero.style.display     = cat === 'all' ? '' : 'none';
             sections.featured.style.display = cat === 'all' ? '' : 'none';
@@ -543,6 +658,8 @@
         renderPrompts(PROMPTS_DATA);
         renderTutorials(TUTORIALS_DATA);
         renderNews(NEWS_DATA);
+        renderGithubRepos();
+        renderUseCases();
         bindEvents();
         animateStats();
         loadTheme();
