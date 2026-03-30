@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciAI Hub - AI+科研导航平台 | 精选74+款AI科研工具</title>
-    <meta name="description" content="SciAI Hub 收录 74+ 款顶级 AI 科研工具，覆盖论文写作、文献阅读、数据分析、智能体管理、CLI 工具全流程，助力科研效率提升 10 倍。">
-    <meta name="keywords" content="AI科研工具,论文写作AI,文献阅读,数据分析,ChatGPT科研,DeepSeek,Kimi,学术AI">
+    <title>SciAI Hub - AI+科研导航平台 | 74+工具 · 研究图谱 · 论文检索 · 选刊助手</title>
+    <meta name="description" content="SciAI Hub 收录 74+ 款 AI 科研工具，并提供研究图谱、论文检索、选刊助手、引文核查、PaperDeck 五大工具箱，全免费无需魔法。">
+    <meta name="keywords" content="AI科研工具,研究图谱,论文检索,选刊助手,引文核查,PaperDeck,Connected Papers,ChatGPT科研,DeepSeek,Kimi">
     <meta property="og:title" content="SciAI Hub - AI+科研导航平台">
-    <meta property="og:description" content="精选 55+ 款 AI 科研工具，让科研更智能">
+    <meta property="og:description" content="74+ AI 科研工具 + 五大工具箱，研究图谱·论文检索·选刊·引文核查·学习卡片">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sciai-hub.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
 </head>
 <body>
     <!-- 侧边栏 -->
@@ -122,6 +123,30 @@
                 </a>
                 <a href="#" class="nav-item" data-category="cli">
                     <i class="fas fa-terminal"></i><span>CLI 工具</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">工具箱</div>
+                <a href="#" class="nav-item" data-category="graph">
+                    <i class="fas fa-circle-nodes"></i><span>研究图谱</span>
+                    <span class="nav-badge new-badge">新</span>
+                </a>
+                <a href="#" class="nav-item" data-category="search-papers">
+                    <i class="fas fa-magnifying-glass-chart"></i><span>论文检索</span>
+                    <span class="nav-badge new-badge">新</span>
+                </a>
+                <a href="#" class="nav-item" data-category="journal">
+                    <i class="fas fa-journal-whills"></i><span>选刊助手</span>
+                    <span class="nav-badge new-badge">新</span>
+                </a>
+                <a href="#" class="nav-item" data-category="cite-check">
+                    <i class="fas fa-list-check"></i><span>引文核查</span>
+                    <span class="nav-badge new-badge">新</span>
+                </a>
+                <a href="#" class="nav-item" data-category="paperdeck">
+                    <i class="fas fa-layer-group"></i><span>PaperDeck</span>
+                    <span class="nav-badge new-badge">新</span>
                 </a>
             </div>
         </nav>
@@ -311,6 +336,135 @@
             <div class="usecases-grid" id="usecasesGrid"></div>
         </section>
 
+        <!-- ══════════════════ 工具箱 ══════════════════ -->
+
+        <!-- 研究图谱 -->
+        <section class="toolbox-section" id="graphSection" style="display:none;">
+            <div class="toolbox-header">
+                <div>
+                    <h3><i class="fas fa-circle-nodes"></i> 研究图谱</h3>
+                    <p class="toolbox-sub">输入论文标题或 DOI，可视化文献引用网络，快速理清研究脉络</p>
+                </div>
+            </div>
+            <div class="graph-search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="graphInput" placeholder="输入论文标题或 DOI，如：Attention is All You Need">
+                <button class="btn-toolbox-primary" id="graphGenBtn"><i class="fas fa-project-diagram"></i> 生成图谱</button>
+            </div>
+            <div class="graph-tabs">
+                <button class="graph-tab active" data-mode="ref"><i class="fas fa-arrow-left"></i> 前序工作</button>
+                <button class="graph-tab" data-mode="cite"><i class="fas fa-arrow-right"></i> 派生工作</button>
+                <span class="graph-stats-badge" id="graphStats"></span>
+            </div>
+            <div id="graphStatus" class="graph-status"></div>
+            <div class="graph-layout">
+                <div class="graph-canvas-wrap">
+                    <div id="graphCanvas" class="graph-canvas"></div>
+                    <div id="graphLegend" class="graph-legend"></div>
+                </div>
+                <div id="graphDetailPanel" class="graph-detail-panel" style="display:none;"></div>
+            </div>
+        </section>
+
+        <!-- 论文检索 -->
+        <section class="toolbox-section" id="searchPapersSection" style="display:none;">
+            <div class="toolbox-header">
+                <div>
+                    <h3><i class="fas fa-magnifying-glass-chart"></i> 论文检索</h3>
+                    <p class="toolbox-sub">基于 OpenAlex 学术数据库，搜索 2.5 亿+ 文献，无需魔法</p>
+                </div>
+            </div>
+            <div class="graph-search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="paperSearchInput" placeholder="输入关键词、作者或主题，如：large language model protein">
+                <button class="btn-toolbox-primary" id="paperSearchBtn"><i class="fas fa-search"></i> 搜索</button>
+            </div>
+            <div class="search-filters">
+                <div class="filter-row">
+                    <label>年份范围</label>
+                    <input type="number" id="yearFrom" placeholder="起始年" min="1900" max="2030" class="year-input">
+                    <span>—</span>
+                    <input type="number" id="yearTo" placeholder="截止年" min="1900" max="2030" class="year-input">
+                </div>
+                <div class="filter-row">
+                    <label>排序方式</label>
+                    <select id="paperSort" class="filter-select">
+                        <option value="relevance">相关性</option>
+                        <option value="citations">引用数</option>
+                        <option value="year">发表年份</option>
+                    </select>
+                </div>
+            </div>
+            <div id="searchLoadingBar" class="search-loading-bar" style="display:none;"><div class="search-loading-inner"></div></div>
+            <div id="searchResultsInfo" class="search-results-info"></div>
+            <div id="searchResultsGrid" class="search-results-grid"></div>
+            <div id="searchPagination" class="search-pagination"></div>
+        </section>
+
+        <!-- 选刊助手 -->
+        <section class="toolbox-section" id="journalSection" style="display:none;">
+            <div class="toolbox-header">
+                <div>
+                    <h3><i class="fas fa-journal-whills"></i> 选刊助手</h3>
+                    <p class="toolbox-sub">查询期刊 IF、JCR 分区、中科院分区，内置中文期刊数据库</p>
+                </div>
+            </div>
+            <div class="graph-search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="journalInput" placeholder="输入期刊名称（中/英文）或 ISSN，如：Nature，中国科学">
+                <button class="btn-toolbox-primary" id="journalSearchBtn"><i class="fas fa-search"></i> 查询</button>
+            </div>
+            <div id="journalResultsGrid" class="journal-results-grid"></div>
+            <div id="journalComparePanel" class="journal-compare-panel" style="display:none;"></div>
+        </section>
+
+        <!-- 引文核查 -->
+        <section class="toolbox-section" id="citeCheckSection" style="display:none;">
+            <div class="toolbox-header">
+                <div>
+                    <h3><i class="fas fa-list-check"></i> 引文核查</h3>
+                    <p class="toolbox-sub">交叉比对 Crossref + Semantic Scholar，识别 AI 编造文献</p>
+                </div>
+            </div>
+            <div class="cite-input-wrap">
+                <textarea id="citeInput" class="cite-textarea" placeholder="粘贴参考文献列表（每行一条，支持 APA / MLA / GB/T 格式）&#10;&#10;示例：&#10;[1] Vaswani, A. et al. (2017). Attention is all you need. NeurIPS.&#10;[2] LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. Nature, 521, 436–444."></textarea>
+                <div class="cite-actions">
+                    <button class="btn-toolbox-primary" id="citeCheckBtn"><i class="fas fa-shield-check"></i> 开始核查</button>
+                    <button class="btn-toolbox-secondary" id="citeExportBtn"><i class="fas fa-file-csv"></i> 导出报告</button>
+                </div>
+            </div>
+            <div id="citeProgress" class="cite-progress" style="display:none;">
+                <div class="cite-progress-bar-wrap"><div id="citeProgressBar" class="cite-progress-bar" style="width:0%"></div></div>
+                <span class="cite-progress-text">核查中 0/0</span>
+            </div>
+            <div id="citeResults" class="cite-results"></div>
+        </section>
+
+        <!-- PaperDeck -->
+        <section class="toolbox-section" id="paperdeckSection" style="display:none;">
+            <div class="toolbox-header">
+                <div>
+                    <h3><i class="fas fa-layer-group"></i> PaperDeck 论文学习卡片</h3>
+                    <p class="toolbox-sub">基于偏好画像推荐论文，卡片式阅读，← 跳过 · → / Enter 收藏</p>
+                </div>
+                <span id="deckProgress" class="deck-progress-badge"></span>
+            </div>
+            <!-- 偏好设置 -->
+            <div id="deckSetupWrap" class="deck-setup-wrap">
+                <div class="deck-setup-card">
+                    <h4><i class="fas fa-sliders"></i> 设置研究偏好</h4>
+                    <p>输入你的研究关键词（逗号分隔），系统将为你推荐相关论文</p>
+                    <input type="text" id="deckKeywordsInput" class="form-input" placeholder="如：machine learning, protein structure, NLP, 强化学习">
+                    <button class="btn-toolbox-primary" id="deckSavePrefsBtn"><i class="fas fa-play"></i> 开始刷卡</button>
+                </div>
+            </div>
+            <!-- 卡片区 -->
+            <div class="deck-wrap">
+                <div id="deckCard" class="deck-card"></div>
+                <div id="deckCounter" class="deck-counter"></div>
+            </div>
+        </section>
+
         <footer class="footer">
             <div class="footer-links">
                 <a href="https://github.com/minqifeng/sciai-hub" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
@@ -404,25 +558,40 @@
         </div>
     </div>
 
-    <!-- 登录弹窗 -->
+    <!-- 登录弹窗（改造版：localStorage 本地账户） -->
     <div class="modal-overlay" id="loginModal">
-        <div class="modal">
+        <div class="modal login-modal">
             <div class="modal-header">
-                <h3>登录 SciAI Hub</h3>
+                <h3 id="loginModalTitle"><i class="fas fa-user-circle"></i> 登录 / 注册</h3>
                 <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
             </div>
-            <div class="modal-body">
-                <button class="btn-oauth github"><i class="fab fa-github"></i> GitHub 登录</button>
-                <button class="btn-oauth google"><i class="fab fa-google"></i> Google 登录</button>
-                <div class="divider"><span>或</span></div>
+            <!-- 未登录状态 -->
+            <div class="modal-body" id="loginForm">
+                <div class="login-avatar-preview" id="loginAvatarPreview"></div>
                 <div class="form-group">
-                    <input type="email" placeholder="输入邮箱地址" class="form-input">
+                    <input type="text" id="loginUsername" placeholder="用户名（任意昵称）" class="form-input" maxlength="20">
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="输入验证码" class="form-input" style="width:60%;display:inline-block;">
-                    <button class="btn-code">发送验证码</button>
+                    <input type="email" id="loginEmail" placeholder="邮箱地址（可选）" class="form-input">
                 </div>
-                <button class="btn-submit">登录 / 注册</button>
+                <button class="btn-submit" id="localLoginBtn"><i class="fas fa-sign-in-alt"></i> 本地登录 / 注册</button>
+                <p class="login-note"><i class="fas fa-info-circle"></i> 数据存储在本地浏览器，无需服务器，隐私安全</p>
+            </div>
+            <!-- 已登录状态 -->
+            <div class="modal-body" id="loggedInView" style="display:none;">
+                <div class="user-profile-wrap">
+                    <div class="user-avatar-lg" id="userAvatarLg"></div>
+                    <div class="user-info">
+                        <h4 id="userNameDisplay"></h4>
+                        <p id="userEmailDisplay" class="user-email"></p>
+                    </div>
+                </div>
+                <div class="user-stats-row">
+                    <div class="user-stat"><span id="userFavCount">0</span><small>收藏工具</small></div>
+                    <div class="user-stat"><span id="userSavedCount">0</span><small>保存论文</small></div>
+                    <div class="user-stat"><span id="userDeckCount">0</span><small>学习卡片</small></div>
+                </div>
+                <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 退出登录</button>
             </div>
         </div>
     </div>
@@ -443,6 +612,8 @@
                 <div class="shortcut-row"><span class="shortcut-desc">加入工具对比</span><span class="shortcut-desc-note">卡片右下角对比按钮</span></div>
                 <div class="shortcut-row"><span class="shortcut-desc">折叠 / 展开侧边栏</span><span class="shortcut-desc-note">侧边栏顶部 ‹ 按钮</span></div>
                 <div class="shortcut-row"><span class="shortcut-desc">导出收藏列表</span><span class="shortcut-desc-note">收藏视图右上角导出按钮</span></div>
+                <div class="shortcut-row"><span class="shortcut-desc">PaperDeck 跳过</span><kbd class="shortcut-key">←</kbd></div>
+                <div class="shortcut-row"><span class="shortcut-desc">PaperDeck 收藏</span><kbd class="shortcut-key">→</kbd> <kbd class="shortcut-key">Enter</kbd></div>
             </div>
         </div>
     </div>
@@ -483,6 +654,8 @@
     </button>
 
     <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/features.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

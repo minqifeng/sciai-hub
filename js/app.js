@@ -38,15 +38,20 @@
     const compareModalClose = $('#compareModalClose');
 
     const sections = {
-        hero:      $('#heroSection'),
-        featured:  $('#featuredSection'),
-        tools:     $('#toolsSection'),
-        stats:     $('#statsSection'),
-        prompts:   $('#promptsSection'),
-        tutorials: $('#tutorialsSection'),
-        news:      $('#newsSection'),
-        github:    $('#githubSection'),
-        usecases:  $('#usecasesSection'),
+        hero:         $('#heroSection'),
+        featured:     $('#featuredSection'),
+        tools:        $('#toolsSection'),
+        stats:        $('#statsSection'),
+        prompts:      $('#promptsSection'),
+        tutorials:    $('#tutorialsSection'),
+        news:         $('#newsSection'),
+        github:       $('#githubSection'),
+        usecases:     $('#usecasesSection'),
+        graph:        $('#graphSection'),
+        searchPapers: $('#searchPapersSection'),
+        journal:      $('#journalSection'),
+        citeCheck:    $('#citeCheckSection'),
+        paperdeck:    $('#paperdeckSection'),
     };
 
     // ---- 新增 DOM refs ----
@@ -485,13 +490,21 @@
             prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯',
             github:'GitHub 推荐', usecases:'科研 AI 应用示例',
             aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
+            graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
+            'cite-check':'引文核查', paperdeck:'PaperDeck 论文学习卡片',
         };
         pageTitle.textContent = titleMap[cat] || cat;
-        if      (cat === 'prompts')   sections.prompts.style.display = 'block';
-        else if (cat === 'tutorials') sections.tutorials.style.display = 'block';
-        else if (cat === 'news')      sections.news.style.display = 'block';
-        else if (cat === 'github')    sections.github.style.display = 'block';
-        else if (cat === 'usecases')  sections.usecases.style.display = 'block';
+        const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
+        if      (cat === 'prompts')        sections.prompts.style.display = 'block';
+        else if (cat === 'tutorials')      sections.tutorials.style.display = 'block';
+        else if (cat === 'news')           sections.news.style.display = 'block';
+        else if (cat === 'github')         sections.github.style.display = 'block';
+        else if (cat === 'usecases')       sections.usecases.style.display = 'block';
+        else if (cat === 'graph')          sections.graph.style.display = 'block';
+        else if (cat === 'search-papers')  sections.searchPapers.style.display = 'block';
+        else if (cat === 'journal')        sections.journal.style.display = 'block';
+        else if (cat === 'cite-check')     sections.citeCheck.style.display = 'block';
+        else if (cat === 'paperdeck')      sections.paperdeck.style.display = 'block';
         else {
             sections.hero.style.display     = cat === 'all' ? '' : 'none';
             sections.featured.style.display = cat === 'all' ? '' : 'none';
@@ -578,7 +591,8 @@
                 const at = document.querySelector('.tag[data-filter="all"]');
                 if (at) at.classList.add('active');
                 showSection(currentCategory);
-                if (!['prompts','tutorials','news'].includes(currentCategory)) filterTools();
+                const NON_TOOL_CATS = ['prompts','tutorials','news','github','usecases','graph','search-papers','journal','cite-check','paperdeck'];
+                if (!NON_TOOL_CATS.includes(currentCategory)) filterTools();
                 if (window.innerWidth <= 768) sidebar.classList.remove('open');
             });
         });
@@ -664,9 +678,19 @@
         });
 
         // 登录
-        loginBtn.addEventListener('click', () => loginModal.classList.add('show'));
+        loginBtn.addEventListener('click', () => { refreshLoginModal(); loginModal.classList.add('show'); });
         modalClose.addEventListener('click', () => loginModal.classList.remove('show'));
         loginModal.addEventListener('click', e => { if (e.target === loginModal) loginModal.classList.remove('show'); });
+        $('#localLoginBtn')?.addEventListener('click', doLocalLogin);
+        $('#loginUsername')?.addEventListener('keydown', e => { if (e.key === 'Enter') doLocalLogin(); });
+        $('#loginUsername')?.addEventListener('input', e => {
+            const preview = $('#loginAvatarPreview');
+            if (!preview) return;
+            const name = e.target.value.trim();
+            if (name) { renderAvatarEl(preview, name); preview.style.display = 'flex'; }
+            else { preview.textContent = ''; preview.style.display = 'none'; }
+        });
+        $('#logoutBtn')?.addEventListener('click', doLogout);
 
         // 工具点赞
         $('#toolModalLike')?.addEventListener('click', () => { if (currentToolId) toggleLike(currentToolId); });
@@ -750,6 +774,67 @@
             </button>`).join('');
     }
 
+    // ---- 登录系统（localStorage 模拟）----
+    function getUser() { return loadLS('sciai-user', null); }
+    function makeAvatar(name) {
+        const colors = ['#6366f1','#8b5cf6','#ec4899','#f97316','#10b981','#3b82f6','#ef4444','#f59e0b'];
+        const color = colors[name.charCodeAt(0) % colors.length];
+        const letter = (name[0] || '?').toUpperCase();
+        return { color, letter };
+    }
+    function renderAvatarEl(el, name) {
+        if (!el) return;
+        const { color, letter } = makeAvatar(name);
+        el.style.background = color;
+        el.textContent = letter;
+    }
+    function updateLoginBtn(user) {
+        if (user) {
+            const { color, letter } = makeAvatar(user.name);
+            loginBtn.innerHTML = `<span class="user-avatar-sm" style="background:${color}">${letter}</span> ${user.name}`;
+        } else {
+            loginBtn.innerHTML = '<i class="fab fa-github"></i> 登录';
+        }
+    }
+    function refreshLoginModal() {
+        const user = getUser();
+        const formEl = $('#loginForm');
+        const profileEl = $('#loggedInView');
+        if (!formEl || !profileEl) return;
+        if (user) {
+            formEl.style.display = 'none';
+            profileEl.style.display = '';
+            renderAvatarEl($('#userAvatarLg'), user.name);
+            $('#userNameDisplay').textContent = user.name;
+            $('#userEmailDisplay').textContent = user.email || '（未填写邮箱）';
+            $('#userFavCount').textContent = favorites.length;
+            $('#userSavedCount').textContent = JSON.parse(localStorage.getItem('sciai-saved-papers') || '[]').length;
+            $('#userDeckCount').textContent = JSON.parse(localStorage.getItem('sciai-deck-saved') || '[]').length;
+        } else {
+            formEl.style.display = '';
+            profileEl.style.display = 'none';
+            $('#loginAvatarPreview').innerHTML = '';
+        }
+    }
+    function doLocalLogin() {
+        const name = $('#loginUsername')?.value.trim();
+        if (!name) { showToast('请输入用户名'); return; }
+        const email = $('#loginEmail')?.value.trim() || '';
+        const user = { name, email, createdAt: Date.now() };
+        saveLS('sciai-user', user);
+        // 迁移收藏到用户 key
+        saveLS(`sciai-favs-${name}`, favorites);
+        updateLoginBtn(user);
+        refreshLoginModal();
+        showToast(`欢迎，${name}！已本地登录 ✅`);
+    }
+    function doLogout() {
+        localStorage.removeItem('sciai-user');
+        updateLoginBtn(null);
+        loginModal.classList.remove('show');
+        showToast('已退出登录');
+    }
+
     // ---- 收藏导出 Markdown ----
     function exportFavoritesMarkdown() {
         const favTools = favorites.map(id => TOOLS_DATA.find(t => t.id === id)).filter(Boolean);
@@ -803,6 +888,14 @@
         // 更新全部工具数量角标
         const badge = $('#navBadgeAll');
         if (badge) badge.textContent = TOOLS_DATA.length;
+        // 恢复登录状态
+        updateLoginBtn(getUser());
+        // 初始化工具箱功能模块
+        if (typeof GraphFeature !== 'undefined')     GraphFeature.init();
+        if (typeof SearchFeature !== 'undefined')    SearchFeature.init();
+        if (typeof JournalFeature !== 'undefined')   JournalFeature.init();
+        if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
+        if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
     }
 
     init();

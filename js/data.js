@@ -1121,3 +1121,40 @@ const USE_CASES_DATA = [
         link: "https://www.overleaf.com"
     },
 ];
+
+// ============================================
+// 中文期刊本地数据库（30条）
+// 字段：name, nameEn, issn, category, field, rank, if_2023, notes
+// ============================================
+const CHINESE_JOURNALS = [
+    { name: '中国科学：信息科学', nameEn: 'SCIENCE CHINA Information Sciences', issn: '1674-7267', category: 'CSCD', field: '计算机/信息', rank: 'Q1', if_2023: 7.3, notes: '中科院1区，信息领域顶刊' },
+    { name: '计算机学报', nameEn: 'Chinese Journal of Computers', issn: '0254-4164', category: 'CSCD', field: '计算机', rank: 'A', if_2023: 3.8, notes: '北大核心，CCF-A推荐' },
+    { name: '软件学报', nameEn: 'Journal of Software', issn: '1000-9825', category: 'CSCD', field: '软件工程', rank: 'A', if_2023: 3.5, notes: '北大核心，CCF-A推荐' },
+    { name: '自动化学报', nameEn: 'Acta Automatica Sinica', issn: '0254-4156', category: 'CSCD', field: '自动化/人工智能', rank: 'Q1', if_2023: 4.2, notes: '中科院2区，AI领域核心' },
+    { name: '电子学报', nameEn: 'Acta Electronica Sinica', issn: '0372-2112', category: 'CSCD', field: '电子信息', rank: 'A', if_2023: 2.9, notes: '北大核心，EI收录' },
+    { name: '通信学报', nameEn: 'Journal on Communications', issn: '1000-436X', category: 'CSCD', field: '通信', rank: 'A', if_2023: 2.6, notes: '北大核心，CCF-B推荐' },
+    { name: '计算机研究与发展', nameEn: 'Journal of Computer Research and Development', issn: '1000-1239', category: 'CSCD', field: '计算机', rank: 'A', if_2023: 3.1, notes: '北大核心，CCF-A推荐' },
+    { name: '模式识别与人工智能', nameEn: 'Pattern Recognition and Artificial Intelligence', issn: '1003-6059', category: 'CSCD', field: '人工智能', rank: 'B', if_2023: 1.8, notes: 'CSCD核心，AI专项' },
+    { name: '中文信息学报', nameEn: 'Journal of Chinese Information Processing', issn: '1003-0077', category: 'CSCD', field: 'NLP/中文处理', rank: 'B', if_2023: 1.6, notes: 'CSCD核心，NLP领域' },
+    { name: '数据库技术与应用', nameEn: 'Journal of Database Technology', issn: '1673-7776', category: '北大核心', field: '数据库', rank: 'B', if_2023: null, notes: '北大核心' },
+    { name: '遥感学报', nameEn: 'National Remote Sensing Bulletin', issn: '1007-4619', category: 'CSCD', field: '遥感/地理', rank: 'Q2', if_2023: 3.0, notes: '中科院3区' },
+    { name: '地理学报', nameEn: 'Acta Geographica Sinica', issn: '0375-5444', category: 'CSCD', field: '地理科学', rank: 'Q1', if_2023: 4.8, notes: 'CSSCI，地理顶刊' },
+    { name: '生态学报', nameEn: 'Acta Ecologica Sinica', issn: '1000-0933', category: 'CSCD', field: '生态学', rank: 'Q2', if_2023: 3.2, notes: 'CSCD核心，生态领域权威' },
+    { name: '中国环境科学', nameEn: 'China Environmental Science', issn: '1000-6923', category: 'CSCD', field: '环境科学', rank: 'Q2', if_2023: 2.8, notes: 'CSCD核心，EI收录' },
+    { name: '化学学报', nameEn: 'Acta Chimica Sinica', issn: '0567-7351', category: 'CSCD', field: '化学', rank: 'Q2', if_2023: 4.1, notes: '中科院2区，化学领域核心' },
+    { name: '物理学报', nameEn: 'Acta Physica Sinica', issn: '1000-3290', category: 'CSCD', field: '物理学', rank: 'Q3', if_2023: 1.7, notes: 'CSCD核心，物理顶刊' },
+    { name: '中国机械工程', nameEn: 'China Mechanical Engineering', issn: '1004-132X', category: 'CSCD', field: '机械工程', rank: 'A', if_2023: 2.2, notes: '北大核心，EI收录' },
+    { name: '材料科学与工程学报', nameEn: 'Journal of Materials Science and Engineering', issn: '1673-2812', category: '北大核心', field: '材料科学', rank: 'B', if_2023: 1.4, notes: '北大核心' },
+    { name: '中国生物医学工程学报', nameEn: 'Chinese Journal of Biomedical Engineering', issn: '0258-8021', category: 'CSCD', field: '生物医学工程', rank: 'B', if_2023: 1.3, notes: 'CSCD核心' },
+    { name: '医学影像学杂志', nameEn: 'Journal of Medical Imaging', issn: '1006-9011', category: '北大核心', field: '医学影像', rank: 'C', if_2023: 0.9, notes: '北大核心' },
+    { name: '中华医学杂志', nameEn: 'National Medical Journal of China', issn: '0376-2491', category: 'CSCD', field: '医学综合', rank: 'Q3', if_2023: 2.1, notes: 'CSCD核心，医学权威期刊' },
+    { name: '管理世界', nameEn: 'Management World', issn: '1002-5502', category: 'CSSCI', field: '管理学', rank: 'A+', if_2023: null, notes: 'CSSCI，国家级权威管理类期刊' },
+    { name: '经济研究', nameEn: 'Economic Research Journal', issn: '0577-9154', category: 'CSSCI', field: '经济学', rank: 'A+', if_2023: null, notes: 'CSSCI顶刊，经济学权威' },
+    { name: '中国社会科学', nameEn: 'Social Sciences in China', issn: '1002-4921', category: 'CSSCI', field: '社会科学综合', rank: 'A+', if_2023: null, notes: 'CSSCI顶刊，综合社科权威' },
+    { name: '心理学报', nameEn: 'Acta Psychologica Sinica', issn: '0439-755X', category: 'CSCD', field: '心理学', rank: 'Q2', if_2023: 2.7, notes: 'CSSCI/CSCD双核心，心理学顶刊' },
+    { name: '教育研究', nameEn: 'Educational Research', issn: '0013-1253', category: 'CSSCI', field: '教育学', rank: 'A+', if_2023: null, notes: 'CSSCI顶刊' },
+    { name: '新闻与传播研究', nameEn: 'Journalism & Communication', issn: '1005-2577', category: 'CSSCI', field: '新闻传播', rank: 'A', if_2023: null, notes: 'CSSCI核心' },
+    { name: '法学研究', nameEn: 'Chinese Journal of Law', issn: '0170-7671', category: 'CSSCI', field: '法学', rank: 'A+', if_2023: null, notes: 'CSSCI顶刊' },
+    { name: '中国农业科学', nameEn: 'Scientia Agricultura Sinica', issn: '0578-1752', category: 'CSCD', field: '农学', rank: 'Q2', if_2023: 3.6, notes: 'CSCD核心，中科院3区' },
+    { name: '岩石力学与工程学报', nameEn: 'Chinese Journal of Rock Mechanics and Engineering', issn: '1000-6915', category: 'CSCD', field: '岩石/土木', rank: 'Q2', if_2023: 3.4, notes: 'CSCD核心，EI收录，岩土工程权威' },
+];
