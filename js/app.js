@@ -989,6 +989,8 @@
         renderTutorials(TUTORIALS_DATA);
         renderNews(NEWS_DATA);
         renderGithubRepos();
+        fetchGithubTrending();
+        setInterval(fetchGithubTrending, 10 * 60 * 1000);
         renderUseCases();
         bindEvents();
         animateStats();
