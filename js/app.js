@@ -180,7 +180,7 @@
         compareModal.classList.add('show');
     }
 
-    // ---- 渲染 GitHub 推荐 ----
+    // ---- 渲染 GitHub 推荐（静态备用）----
     function renderGithubRepos() {
         const grid = $('#githubGrid');
         if (!grid) return;
@@ -201,6 +201,51 @@
                 </div>
             </a>`).join('');
     }
+
+    // ---- 实时 GitHub Trending（GitHub Search API）----
+    function fetchGithubTrending() {
+        const grid = $('#githubGrid');
+        const timeEl = $('#githubUpdateTime');
+        if (!grid) return;
+        grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在拉取 GitHub 实时高星项目...</div>';
+        const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        const url = `https://api.github.com/search/repositories?q=(topic:llm+OR+topic:ai+OR+topic:machine-learning+OR+topic:deep-learning)+pushed:>${since}+stars:>200&sort=stars&order=desc&per_page=9`;
+        fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+            .then(r => { if (!r.ok) throw new Error('api error ' + r.status); return r.json(); })
+            .then(data => {
+                const items = data.items || [];
+                if (!items.length) throw new Error('empty');
+                const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
+                grid.innerHTML = items.map(r => {
+                    const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+                    const langColor = langColors[r.language] || '#8b949e';
+                    const topics = (r.topics || []).slice(0, 3);
+                    const owner = r.full_name.split('/')[0];
+                    const desc = (r.description || '暂无描述').slice(0, 80);
+                    return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
+                        <div class="github-card-header">
+                            <i class="fab fa-github github-card-icon"></i>
+                            <div class="github-card-meta">
+                                <span class="github-owner">${owner}</span>
+                                <span class="github-name">/ ${r.name}</span>
+                            </div>
+                            <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
+                        </div>
+                        <p class="github-desc">${desc}</p>
+                        <div class="github-footer">
+                            <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
+                            <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
+                        </div>
+                    </a>`;
+                }).join('');
+                if (timeEl) timeEl.textContent = '更新于 ' + new Date().toLocaleTimeString('zh-CN', { hour:'2-digit', minute:'2-digit' });
+            })
+            .catch(() => {
+                renderGithubRepos();
+                if (timeEl) timeEl.textContent = '已显示精选推荐（API 限流）';
+            });
+    }
+    window._refreshGithub = fetchGithubTrending;
 
     // ---- 渲染应用示例 ----
     function renderUseCases() {
@@ -515,6 +560,9 @@
         }
         // 收藏视图显示导出按钮
         if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
+        
+        // GitHub 板块：加载实时数据
+        if (cat === 'github') fetchGithubTrending();
     }
 
     // ---- 数字动画 ----

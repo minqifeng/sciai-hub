@@ -315,8 +315,11 @@
         <!-- GitHub 高星推荐 -->
         <section class="github-section" id="githubSection" style="display:none;">
             <div class="section-header">
-                <h3><i class="fab fa-github"></i> GitHub 高星项目推荐</h3>
-                <span class="section-sub">精选 AI 科研开源工具，按 ⭐ 排序</span>
+                <h3><i class="fab fa-github"></i> GitHub 高星项目推荐 <span class="live-dot" title="实时数据"></span></h3>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span class="section-sub" id="githubUpdateTime">正在加载...</span>
+                    <button class="arxiv-retry-btn" id="githubRefreshBtn" onclick="window._refreshGithub && window._refreshGithub()" style="font-size:12px;padding:3px 10px;"><i class="fas fa-sync-alt"></i> 刷新</button>
+                </div>
             </div>
             <div class="github-grid" id="githubGrid"></div>
         </section>
