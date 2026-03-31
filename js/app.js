@@ -550,6 +550,24 @@
     }
 
     function deriveModelFeedback(model) {
+        if (model.arena?.votes) {
+            const score = model.arena.score || 0;
+            const votes = Number(model.arena.votes || 0);
+            const starScore = score >= 1490 ? 5 : score >= 1470 ? 4 : score >= 1440 ? 3 : score >= 1410 ? 2 : 1;
+            const label = score >= 1490 ? '真实投票口碑极强' : score >= 1470 ? '真实投票反馈积极' : score >= 1440 ? '真实投票反馈稳健' : '真实投票反馈一般';
+            const reasons = [
+                `Arena 评分 ${score}${model.arena.spread || ''}`,
+                `累计 ${votes.toLocaleString()} 票`,
+                `快照日期 ${model.arena.snapshotDate}`
+            ];
+            if (model.arena.exact === false) reasons.push(`对应公开基准模型 ${model.arena.model}`);
+            return {
+                score: starScore,
+                label,
+                summary: reasons.join('，')
+            };
+        }
+
         const usage = parseVolumeLabel(model.weeklyTokens);
         const growth = Number(String(model.weeklyGrowth || '0').replace(/[^\d.-]/g, ''));
         const price = Number(model.promptPricePerM || 0) + Number(model.completionPricePerM || 0);
@@ -756,6 +774,15 @@
                 ? `<span class="model-growth ${growthClass}">周增 ${model.weeklyGrowth}</span>`
                 : `<span class="model-growth flat">${model.date || currentModelSnapshotDate}</span>`;
 
+            const arenaSummary = model.arena ? `
+                <div class="model-lens-panel">
+                    <div class="model-lens-item"><span>Arena 评分</span><strong>${model.arena.score}${model.arena.spread || ''}</strong></div>
+                    <div class="model-lens-item"><span>真实投票</span><strong>${Number(model.arena.votes || 0).toLocaleString()} 票</strong></div>
+                    <div class="model-lens-item"><span>基准模型</span><strong>${model.arena.model}${model.arena.exact === false ? ' · 邻近公开版本' : ''}</strong></div>
+                    <div class="model-lens-item"><span>快照日期</span><strong>${model.arena.snapshotDate}</strong></div>
+                </div>
+            ` : '';
+
             const panels = {
                 overview: `
                     <div class="model-live-summary">
@@ -767,11 +794,12 @@
                 `,
                 performance: `
                     <div class="model-lens-panel">
-                        <div class="model-lens-item"><span>上下文长度</span><strong>${model.params || '未知'}</strong></div>
+                        <div class="model-lens-item"><span>上下文长度</span><strong>${model.arena?.context || model.params || '未知'}</strong></div>
                         <div class="model-lens-item"><span>最大输出</span><strong>${model.maxCompletionTokens ? `${Math.round(model.maxCompletionTokens / 1000)}K tokens` : '未披露'}</strong></div>
                         <div class="model-lens-item"><span>支持参数</span><strong>${(model.supportedParameters || []).length || 0} 项</strong></div>
-                        <div class="model-lens-item"><span>性能摘要</span><strong>${metrics.length ? metrics.map(item => `${item.label} ${item.value.toFixed(1)}%`).join(' · ') : `${model.type} · ${(model.inputModalities || []).join('/') || 'text'}`}</strong></div>
+                        <div class="model-lens-item"><span>性能摘要</span><strong>${model.arena ? `Arena ${model.arena.score}${model.arena.spread || ''} · ${Number(model.arena.votes || 0).toLocaleString()}票` : (metrics.length ? metrics.map(item => `${item.label} ${item.value.toFixed(1)}%`).join(' · ') : `${model.type} · ${(model.inputModalities || []).join('/') || 'text'}`)}</strong></div>
                     </div>
+                    ${arenaSummary}
                 `,
                 usage: `
                     <div class="model-lens-panel">
@@ -794,9 +822,9 @@
                         <div class="model-lens-item"><span>反馈等级</span><strong>${'★'.repeat(feedback.score)}${'☆'.repeat(5 - feedback.score)}</strong></div>
                         <div class="model-lens-item"><span>市场口碑</span><strong>${feedback.label}</strong></div>
                         <div class="model-lens-item"><span>主要依据</span><strong>${feedback.summary}</strong></div>
-                        <div class="model-lens-item"><span>官方来源</span><strong>OpenRouter 周用量、增速、价格与目录信号</strong></div>
+                        <div class="model-lens-item"><span>官方来源</span><strong>${model.arena ? 'arena.ai 真实投票快照 + OpenRouter 官方目录' : 'OpenRouter 官方目录与使用量信号'}</strong></div>
                     </div>
-                    <div class="model-feedback-note">用户反馈为推断值，不是逐条评论抓取。当前依据 OpenRouter 的使用量、增速、免费/付费状态和能力信号生成。</div>
+                    <div class="model-feedback-note">${model.arena ? '用户反馈已改为真实投票聚合，不是伪评分。受限于公开来源，当前展示的是 arena.ai 的投票快照，而不是逐条评论文本。' : '当前模型暂无可稳定映射的公开投票快照，暂以官方目录和使用量信号补充展示。'}</div>
                 `
             };
 
