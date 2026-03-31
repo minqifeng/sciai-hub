@@ -1087,57 +1087,6 @@ const TUTORIALS_DATA = [
     },
 ];
 
-const NEWS_DATA = [
-    {
-        id: 1, title: "Claude 4 发布：200K 上下文支持整本博士论文分析",
-        desc: "Anthropic 发布 Claude 4，支持 200K token 超长上下文，可一次性读取并分析整本博士论文，学术能力评测超越 GPT-4o。",
-        date: "2026-03-28", tag: "重磅", tagColor: "#ef4444",
-        url: "https://www.anthropic.com/news"
-    },
-    {
-        id: 2, title: "Nature 正式发布 AI 辅助科研使用规范",
-        desc: "Nature 出版集团更新投稿政策，明确规定作者须申报 AI 工具使用情况，原创性仍由人类研究者负责。",
-        date: "2026-03-25", tag: "政策", tagColor: "#8b5cf6",
-        url: "https://www.nature.com/articles/d41586-023-00191-1"
-    },
-    {
-        id: 3, title: "DeepSeek-V3 在 MATH/HumanEval 基准超越 GPT-4o",
-        desc: "深度求索最新评测报告显示，DeepSeek-V3 在数学推理和代码生成基准上全面超越 GPT-4o，且完全开源免费。",
-        date: "2026-03-22", tag: "评测", tagColor: "#059669",
-        url: "https://arxiv.org/abs/2412.19437"
-    },
-    {
-        id: 4, title: "arXiv 日均投稿突破 1 万篇，AI 论文占比 35%",
-        desc: "arXiv 最新统计显示，2026 年 Q1 日均新增预印本首次超过 1 万篇，其中 AI/ML 相关论文占比达 35%。",
-        date: "2026-03-20", tag: "数据", tagColor: "#f97316",
-        url: "https://arxiv.org/search/?searchtype=all&query=artificial+intelligence&start=0"
-    },
-    {
-        id: 5, title: "Elicit 推出自动 Meta 分析功能，覆盖 2 亿篇文献",
-        desc: "AI 科研助手 Elicit 上线自动 Meta 分析工具，输入 PICO 研究问题可自动筛选文献、提取数据并生成森林图。",
-        date: "2026-03-18", tag: "新功能", tagColor: "#2563eb",
-        url: "https://elicit.com"
-    },
-    {
-        id: 6, title: "中国 AI 论文数量首次超越美国，连续三年增速第一",
-        desc: "最新报告显示，2025 年中国 AI 领域高引用论文数量首次超越美国，顶会投稿接收率显著提升。",
-        date: "2026-03-15", tag: "报告", tagColor: "#4f6ef7",
-        url: "https://aiindex.stanford.edu/report"
-    },
-    {
-        id: 7, title: "Google Scholar 接入 Gemini，支持论文智能摘要",
-        desc: "Google Scholar 全面整合 Gemini AI，用户可对任意论文一键生成结构化摘要和研究贡献分析，支持中英双语。",
-        date: "2026-03-12", tag: "产品", tagColor: "#10a37f",
-        url: "https://scholar.google.com"
-    },
-    {
-        id: 8, title: "BioRender 新增 AI 图表生成功能，描述即可成图",
-        desc: "BioRender 推出 AI 辅助绘图功能，用户只需用自然语言描述细胞通路或实验流程，AI 自动选择合适图标完成图表。",
-        date: "2026-03-10", tag: "新功能", tagColor: "#059669",
-        url: "https://biorender.com"
-    },
-];
-
 // ---- 工具官方文档 ----
 const TOOL_DOCS = {
     // new tools
