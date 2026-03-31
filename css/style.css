@@ -1602,3 +1602,195 @@ body {
     .stats-stage-tabs { gap: 6px; }
     .stats-search-wrap { max-width: 100%; }
 }
+
+/* ========== 工具分类Tab栏 ========== */
+.tools-category-tabs {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    position: sticky;
+    top: 56px;
+    z-index: 50;
+    scroll-behavior: smooth;
+}
+
+.tools-category-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tools-category-tabs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tools-category-tabs::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.tools-category-tabs::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.tabs-scroll-wrapper {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    min-width: fit-content;
+}
+
+.tab-item {
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 200ms ease;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.tab-item i {
+    font-size: 13px;
+}
+
+.tab-item:hover {
+    color: var(--text);
+}
+
+.tab-item.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .tools-category-tabs {
+        top: 48px;
+    }
+
+    .tab-item {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .tab-item i {
+        font-size: 11px;
+    }
+}
+
+/* ===== 统计方法资源卡片样式 ===== */
+.stats-card-resources {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+}
+
+.btn-resources-small {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 150ms;
+}
+
+.btn-resources-small:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.btn-resources-small i {
+    margin-right: 4px;
+}
+
+/* ===== 资源浏览 Modal 样式 ===== */
+.modal-lg {
+    max-width: 700px;
+}
+
+.resource-section {
+    margin-bottom: 24px;
+}
+
+.resource-section h4 {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resource-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-hover);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: all 150ms;
+    align-items: flex-start;
+}
+
+.resource-item:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.resource-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.resource-info {
+    flex: 1;
+}
+
+.resource-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.resource-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.platform, .level, .instructor {
+    padding: 2px 6px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    white-space: nowrap;
+}

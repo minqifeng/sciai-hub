@@ -36,6 +36,8 @@
     const clearCompare    = $('#clearCompare');
     const compareModal    = $('#compareModal');
     const compareModalClose = $('#compareModalClose');
+    const resourcesModal  = $('#resourcesModal');
+    const resourcesModalClose = $('#resourcesModalClose');
 
     const sections = {
         hero:         $('#heroSection'),
@@ -542,6 +544,20 @@
         };
         pageTitle.textContent = titleMap[cat] || cat;
         const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
+
+        // Tab 栏显示/隐藏逻辑
+        const NON_TOOL_CATS = ['prompts','tutorials','news','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
+        const tabsContainer = $('#toolsCategoryTabs');
+        if (NON_TOOL_CATS.includes(cat)) {
+            if (tabsContainer) tabsContainer.style.display = 'none';
+        } else {
+            if (tabsContainer) tabsContainer.style.display = 'block';
+            // 同步 Tab 的 active 状态
+            $$('.tab-item').forEach(t => t.classList.remove('active'));
+            const activeTab = document.querySelector(`.tab-item[data-category="${cat}"]`);
+            if (activeTab) activeTab.classList.add('active');
+        }
+
         if      (cat === 'prompts')        sections.prompts.style.display = 'block';
         else if (cat === 'tutorials')      sections.tutorials.style.display = 'block';
         else if (cat === 'news')           sections.news.style.display = 'block';
@@ -552,7 +568,7 @@
         else if (cat === 'journal')        sections.journal.style.display = 'block';
         else if (cat === 'cite-check')     sections.citeCheck.style.display = 'block';
         else if (cat === 'paperdeck')      sections.paperdeck.style.display = 'block';
-        else if (cat === 'stats')          { if (sections.statMethods) sections.statMethods.style.display = 'block'; }
+        else if (cat === 'stats')          { if (sections.statMethods) sections.statMethods.style.display = 'block'; StatsFeature.render(); }
         else {
             sections.hero.style.display     = cat === 'all' ? '' : 'none';
             sections.featured.style.display = cat === 'all' ? '' : 'none';
@@ -561,7 +577,7 @@
         }
         // 收藏视图显示导出按钮
         if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
-        
+
         // GitHub 板块：加载实时数据
         if (cat === 'github') fetchGithubTrending();
     }
@@ -661,6 +677,25 @@
             });
         });
 
+        // 顶部 Tab 栏导航
+        $$('.tab-item').forEach(tab => {
+            tab.addEventListener('click', () => {
+                $$('.tab-item').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const cat = tab.dataset.category;
+                $$('.nav-item').forEach(n => n.classList.remove('active'));
+                currentCategory = cat;
+                currentPricing = 'all';
+                $$('.tag[data-filter]').forEach(t => t.classList.remove('active'));
+                const at = document.querySelector('.tag[data-filter="all"]');
+                if (at) at.classList.add('active');
+                showSection(cat);
+                filterTools();
+                // 滚动 Tab 到可见区域
+                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            });
+        });
+
         // 筛选标签
         $$('.tag[data-filter]').forEach(tag => {
             tag.addEventListener('click', () => {
@@ -718,6 +753,10 @@
         compareModalClose.addEventListener('click', () => compareModal.classList.remove('show'));
         compareModal.addEventListener('click', e => { if (e.target === compareModal) compareModal.classList.remove('show'); });
         compareToggle.addEventListener('click', () => { if (compareList.length >= 2) openCompareModal(); });
+
+        // 学习资源
+        resourcesModalClose?.addEventListener('click', () => resourcesModal?.classList.remove('show'));
+        resourcesModal?.addEventListener('click', e => { if (e.target === resourcesModal) resourcesModal.classList.remove('show'); });
 
         // 精选 view-all
         document.querySelector('.view-all')?.addEventListener('click', e => {
@@ -853,6 +892,7 @@
                 const lbl = stageLbl[m.category] || m.category;
                 const discs = (m.discipline||[]).map(d => '<span class="stats-disc-chip ' + d + '">' + (discLbl[d]||d) + '</span>').join('');
                 const tools = (m.tools||[]).slice(0,3).map(t => '<span class="stats-tool-chip">' + t.split(':')[0] + '</span>').join('');
+                const hasResources = m.resources && m.resources.length > 0;
                 return '<div class="stats-card">'
                     + '<div class="stats-card-head"><div class="stats-card-icon" style="background:' + bg + '"><i class="' + (m.icon||'fas fa-chart-bar') + '"></i></div>'
                     + '<div class="stats-card-title"><div class="stats-card-name">' + m.name + '</div>'
@@ -862,8 +902,17 @@
                     + '<div class="stats-card-usecase"><i class="fas fa-flask" style="margin-right:4px;opacity:.6"></i>' + m.useCase + '</div>'
                     + '<div class="stats-card-footer"><div class="stats-tools">' + tools + '</div>'
                     + '<div class="stats-difficulty"><span class="stats-difficulty-label">难度</span>' + dots(m.difficulty||1) + '</div></div>'
+                    + (hasResources ? '<div class="stats-card-resources"><button class="btn-resources-small" data-method-id="' + m.id + '"><i class="fas fa-graduation-cap"></i> 查看资源</button></div>' : '')
                     + '<div class="stats-disc-chips">' + discs + '</div></div>';
             }).join('');
+            // 绑定资源按钮事件
+            document.querySelectorAll('.btn-resources-small').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const methodId = parseInt(btn.dataset.methodId);
+                    renderResourcesModal(methodId);
+                });
+            });
         }
         function init() {
             document.querySelectorAll('.stats-stage-tab').forEach(tab => {
@@ -981,6 +1030,70 @@
         showToast('收藏已导出 ✅');
     }
 
+    // ---- 学习资源模态框 ----
+    function renderResourceItem(resource) {
+        const {type, platform, title, url, icon, level, instructor} = resource;
+        return `
+            <a href="${url}" target="_blank" rel="noopener" class="resource-item">
+                <div class="resource-icon">
+                    <i class="${icon || 'fas fa-book'}"></i>
+                </div>
+                <div class="resource-info">
+                    <div class="resource-title">${title}</div>
+                    <div class="resource-meta">
+                        <span class="platform">${platform}</span>
+                        ${level ? `<span class="level">${level}</span>` : ''}
+                        ${instructor ? `<span class="instructor">${instructor}</span>` : ''}
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        `;
+    }
+
+    function renderResourcesModal(methodId) {
+        if (typeof STATS_METHODS === 'undefined') return;
+        const method = STATS_METHODS.find(m => m.id === methodId);
+        if (!method || !method.resources || !method.resources.length) {
+            showToast('暂无学习资源');
+            return;
+        }
+
+        const resourcesModal = $('#resourcesModal');
+        const title = $('#resourcesModalTitle');
+        const container = $('#resourcesContainer');
+
+        if (!resourcesModal || !title || !container) return;
+
+        title.textContent = `${method.name} — 学习资源`;
+
+        // 按类型分组资源
+        const grouped = {};
+        method.resources.forEach(r => {
+            if (!grouped[r.type]) grouped[r.type] = [];
+            grouped[r.type].push(r);
+        });
+
+        const typeLabels = {docs: '官方文档', course: '在线课程', paper: '论文资源'};
+        const typeOrder = ['docs', 'course', 'paper'];
+
+        container.innerHTML = typeOrder
+            .filter(type => grouped[type])
+            .map(type => {
+                const items = grouped[type];
+                return `
+                    <div class="resource-section">
+                        <h4>${typeLabels[type] || type}</h4>
+                        <div class="resource-list">
+                            ${items.map(r => renderResourceItem(r)).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+        resourcesModal.classList.add('show');
+    }
+
     // ---- 初始化 ----
     function init() {
         renderFeatured();
@@ -1004,6 +1117,10 @@
         if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
         if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
         StatsFeature.init();
+        // 初始化实时 API 和动态标签
+        if (typeof initializeRealtimeAPIs !== 'undefined') {
+            initializeRealtimeAPIs();
+        }
         // 更新全部工具数量角标
         const badge = $('#navBadgeAll');
         if (badge) badge.textContent = TOOLS_DATA.length;
