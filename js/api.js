@@ -246,6 +246,11 @@ const ModelRankingAPI = (() => {
         return 'paid';
     }
 
+    function toPricePerMillion(value) {
+        const num = Number(value || 0);
+        return Number.isFinite(num) ? num * 1000000 : 0;
+    }
+
     function toDateString(created) {
         if (!created) return SNAPSHOT_DATE;
         return new Date(created * 1000).toISOString().slice(0, 10);
@@ -267,6 +272,12 @@ const ModelRankingAPI = (() => {
             createdTs: model.created || 0,
             outputModalities: model.architecture?.output_modalities || [],
             inputModalities: model.architecture?.input_modalities || [],
+            supportedParameters: model.supported_parameters || [],
+            maxCompletionTokens: model.top_provider?.max_completion_tokens || 0,
+            promptPricePerM: toPricePerMillion(model.pricing?.prompt),
+            completionPricePerM: toPricePerMillion(model.pricing?.completion),
+            cacheReadPricePerM: toPricePerMillion(model.pricing?.input_cache_read),
+            cacheWritePricePerM: toPricePerMillion(model.pricing?.input_cache_write),
             benchmark: {}
         };
     }

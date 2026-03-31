@@ -72,6 +72,7 @@
     let currentToolId    = null;
     let currentModelFilter = 'all';
     let currentModelSort   = 'rank';
+    let currentModelLens   = 'overview';
     let currentModelsData  = [...(MODELS_RANKING || [])];
     let currentModelSnapshotDate = '2026-03-31';
     let currentModelLiveUpdatedAt = null;
@@ -533,6 +534,50 @@
         });
     }
 
+    function formatPricePerMillion(value) {
+        const num = Number(value || 0);
+        if (!num) return '免费';
+        return `$${num.toFixed(num >= 10 ? 0 : 2)}/M`;
+    }
+
+    function parseVolumeLabel(label = '') {
+        const match = String(label).trim().match(/^([\d.]+)\s*([KMBT])$/i);
+        if (!match) return 0;
+        const num = Number(match[1]);
+        const unit = match[2].toUpperCase();
+        const map = { K: 1e3, M: 1e6, B: 1e9, T: 1e12 };
+        return num * (map[unit] || 1);
+    }
+
+    function deriveModelFeedback(model) {
+        const usage = parseVolumeLabel(model.weeklyTokens);
+        const growth = Number(String(model.weeklyGrowth || '0').replace(/[^\d.-]/g, ''));
+        const price = Number(model.promptPricePerM || 0) + Number(model.completionPricePerM || 0);
+        let score = 3;
+        if (usage >= 1e12) score += 1;
+        if (growth >= 30) score += 1;
+        if (growth <= 0 && usage < 9e11) score -= 1;
+        if (price > 20) score -= 1;
+        if (model.pricing === 'free') score += 0.5;
+        score = Math.max(1, Math.min(5, Math.round(score)));
+
+        const label = score >= 5 ? '用户热度很高' : score >= 4 ? '用户反馈积极' : score >= 3 ? '反馈稳健' : '反馈偏谨慎';
+        const reasons = [];
+        if (usage >= 1e12) reasons.push('周用量处于高位');
+        else if (usage >= 8e11) reasons.push('有稳定使用规模');
+        if (growth >= 30) reasons.push('近期增长明显');
+        else if (growth > 0) reasons.push('保持增长');
+        if (model.pricing === 'free') reasons.push('免费门槛低');
+        else if (price > 20) reasons.push('价格偏高');
+        if (model.type === 'Multimodal') reasons.push('多模态场景更广');
+        if (model.type === 'Code-Optimized') reasons.push('开发者偏好明显');
+        return {
+            score,
+            label,
+            summary: reasons.slice(0, 3).join('，') || '当前主要依据官方目录与使用量信号推断'
+        };
+    }
+
     function setModelsRefreshLoading(isLoading) {
         const btn = $('#modelsRefreshBtn');
         if (!btn) return;
@@ -546,6 +591,9 @@
     function syncModelFilterUI() {
         $$('.models-filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.modelFilter === currentModelFilter);
+        });
+        $$('.models-lens-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.modelLens === currentModelLens);
         });
         const sortSelect = $('#modelsSortSelect');
         if (sortSelect) sortSelect.value = currentModelSort;
@@ -641,7 +689,7 @@
 
     function applyModelFilters() {
         syncModelFilterUI();
-        renderModelsRealtime(getFilteredModels());
+        renderModelsRealtimeV2(getFilteredModels());
     }
 
     async function refreshModelsData(force = false, silent = false) {
@@ -673,6 +721,122 @@
             }
         })();
         return modelsRefreshInFlight;
+    }
+
+    function renderModelsRealtimeV2(models) {
+        const grid = $('#modelsGrid');
+        const meta = $('#modelsMetaInfo');
+        if (!grid) return;
+
+        if (meta) {
+            const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
+            const lensLabel = ({ overview:'概览', performance:'性能', usage:'使用量', price:'价格', feedback:'用户反馈' }[currentModelLens] || '概览');
+            const liveLabel = currentModelLiveUpdatedAt ? ` · 官方目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
+            const catalogLabel = currentModelCatalogCount ? ` · 目录 ${currentModelCatalogCount} 个模型` : '';
+            meta.textContent = `共 ${models.length} 个模型 · 周榜快照 ${currentModelSnapshotDate}${liveLabel}${catalogLabel} · 当前视图 ${lensLabel} · 当前按${sortLabel}排序`;
+        }
+
+        if (!models.length) {
+            grid.innerHTML = `<div class="models-empty"><i class="fas fa-layer-group"></i><p>当前筛选条件下没有匹配模型</p></div>`;
+            return;
+        }
+
+        grid.innerHTML = models.map(model => {
+            const theme = getProviderTheme(model.provider);
+            const feedback = deriveModelFeedback(model);
+            const metrics = [
+                { key:'mmlu', label:'MMLU', value: getModelMetric(model, 'mmlu') },
+                { key:'code', label:'代码', value: getModelMetric(model, 'code') },
+                { key:'gsm8k', label:'GSM8K', value: getModelMetric(model, 'gsm8k') }
+            ].filter(metric => metric.value > 0);
+            const primaryLabel = model.weeklyTokens ? '周用量' : (model.elo ? 'ELO' : '上下文');
+            const primaryValue = model.weeklyTokens || model.elo || model.params;
+            const growthClass = !model.weeklyGrowth || model.weeklyGrowth === '0%' ? 'flat' : '';
+            const growthBadge = model.weeklyGrowth
+                ? `<span class="model-growth ${growthClass}">周增 ${model.weeklyGrowth}</span>`
+                : `<span class="model-growth flat">${model.date || currentModelSnapshotDate}</span>`;
+
+            const panels = {
+                overview: `
+                    <div class="model-live-summary">
+                        <div class="model-live-stat"><span>上下文</span><strong>${model.params || '未知'}</strong></div>
+                        <div class="model-live-stat"><span>更新日期</span><strong>${model.date || currentModelSnapshotDate}</strong></div>
+                        <div class="model-live-stat"><span>输入模态</span><strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong></div>
+                        <div class="model-live-stat"><span>输出模态</span><strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong></div>
+                    </div>
+                `,
+                performance: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>上下文长度</span><strong>${model.params || '未知'}</strong></div>
+                        <div class="model-lens-item"><span>最大输出</span><strong>${model.maxCompletionTokens ? `${Math.round(model.maxCompletionTokens / 1000)}K tokens` : '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>支持参数</span><strong>${(model.supportedParameters || []).length || 0} 项</strong></div>
+                        <div class="model-lens-item"><span>性能摘要</span><strong>${metrics.length ? metrics.map(item => `${item.label} ${item.value.toFixed(1)}%`).join(' · ') : `${model.type} · ${(model.inputModalities || []).join('/') || 'text'}`}</strong></div>
+                    </div>
+                `,
+                usage: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>周用量</span><strong>${model.weeklyTokens || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>周增幅</span><strong>${model.weeklyGrowth || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>榜单排名</span><strong>#${model.rank}</strong></div>
+                        <div class="model-lens-item"><span>活跃信号</span><strong>${model.hot ? '高热度' : feedback.label}</strong></div>
+                    </div>
+                `,
+                price: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>输入价格</span><strong>${formatPricePerMillion(model.promptPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>输出价格</span><strong>${formatPricePerMillion(model.completionPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>缓存读取</span><strong>${formatPricePerMillion(model.cacheReadPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>价格标签</span><strong>${formatModelPricing(model.pricing)}</strong></div>
+                    </div>
+                `,
+                feedback: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>反馈等级</span><strong>${'★'.repeat(feedback.score)}${'☆'.repeat(5 - feedback.score)}</strong></div>
+                        <div class="model-lens-item"><span>市场口碑</span><strong>${feedback.label}</strong></div>
+                        <div class="model-lens-item"><span>主要依据</span><strong>${feedback.summary}</strong></div>
+                        <div class="model-lens-item"><span>官方来源</span><strong>OpenRouter 周用量、增速、价格与目录信号</strong></div>
+                    </div>
+                    <div class="model-feedback-note">用户反馈为推断值，不是逐条评论抓取。当前依据 OpenRouter 的使用量、增速、免费/付费状态和能力信号生成。</div>
+                `
+            };
+
+            return `
+                <article class="model-card" style="--model-accent:${theme.accent};--model-soft:${theme.soft};">
+                    <div class="model-card-top">
+                        <div class="model-rank-badge">#${model.rank}</div>
+                        <div class="model-provider-badge">
+                            <span class="model-provider-logo">${theme.label}</span>
+                            <span>${model.provider}</span>
+                        </div>
+                    </div>
+                    <div class="model-card-name-row">
+                        <h3 class="model-card-name">${model.name}${model.hot ? ' <i class="fas fa-fire"></i>' : ''}</h3>
+                        <span class="model-chip subtle">${model.params}</span>
+                    </div>
+                    <div class="model-chip-row">
+                        <span class="model-chip strong">${model.type}</span>
+                        <span class="model-chip">${formatModelPricing(model.pricing)}</span>
+                        <span class="model-chip">${model.liveId ? 'OpenRouter 官方目录' : '榜单快照'}</span>
+                    </div>
+                    <div class="model-metric-primary">
+                        <span class="metric-primary-label">${primaryLabel}</span>
+                        <strong>${primaryValue}</strong>
+                        ${growthBadge}
+                    </div>
+                    <div class="model-metrics">
+                        ${panels[currentModelLens] || panels.overview}
+                    </div>
+                    <div class="model-card-footer">
+                        <a class="model-action-btn primary" href="${model.url}" target="_blank" rel="noopener noreferrer">查看详情</a>
+                        <button class="model-action-btn ghost js-model-compare" type="button" data-model-name="${model.name}">加入对比</button>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        grid.querySelectorAll('.js-model-compare').forEach(btn => {
+            btn.addEventListener('click', () => showToast(`已加入对比候选：${btn.dataset.modelName}`));
+        });
     }
 
     function renderModelsRealtime(models) {
@@ -1026,6 +1190,12 @@
         $$('.models-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentModelFilter = btn.dataset.modelFilter || 'all';
+                applyModelFilters();
+            });
+        });
+        $$('.models-lens-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentModelLens = btn.dataset.modelLens || 'overview';
                 applyModelFilters();
             });
         });
