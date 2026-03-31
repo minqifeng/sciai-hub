@@ -190,6 +190,151 @@ const CacheManager = (() => {
     return { set, get, remove, clear };
 })();
 
+// ---- OpenRouter 模型榜单实时更新 ----
+const ModelRankingAPI = (() => {
+    const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models';
+    const CACHE_KEY = 'openrouter-models-catalog';
+    const CACHE_TTL = 30 * 60 * 1000;
+    const SNAPSHOT_DATE = '2026-03-31';
+
+    function normalizeModelName(name = '') {
+        return name
+            .toLowerCase()
+            .replace(/^[^:]+:\s*/, '')
+            .replace(/\(free\)/g, '')
+            .replace(/[^a-z0-9]+/g, '');
+    }
+
+    function titleCaseProvider(raw = '') {
+        const map = {
+            openai: 'OpenAI',
+            anthropic: 'Anthropic',
+            deepseek: 'DeepSeek',
+            google: 'Google',
+            xiaomi: 'Xiaomi',
+            stepfun: 'StepFun',
+            minimax: 'MiniMax',
+            'z-ai': 'Z.ai',
+            'x-ai': 'xAI',
+            mistralai: 'Mistral',
+            qwen: 'Qwen'
+        };
+        return map[raw] || raw.replace(/\b\w/g, ch => ch.toUpperCase());
+    }
+
+    function formatContextLength(contextLength) {
+        if (!contextLength) return '上下文未知';
+        if (contextLength >= 1000000) return `${(contextLength / 1000000).toFixed(1).replace(/\.0$/, '')}M ctx`;
+        if (contextLength >= 1000) return `${Math.round(contextLength / 1000)}K ctx`;
+        return `${contextLength} ctx`;
+    }
+
+    function inferModelType(model) {
+        const input = model.architecture?.input_modalities || [];
+        const output = model.architecture?.output_modalities || [];
+        const joined = `${model.name} ${model.description || ''}`.toLowerCase();
+        if (input.some(v => ['image', 'audio', 'video'].includes(v)) || output.some(v => ['image', 'audio'].includes(v))) return 'Multimodal';
+        if (joined.includes('coder') || joined.includes('coding') || joined.includes('code')) return 'Code-Optimized';
+        return 'Text';
+    }
+
+    function inferPricing(model) {
+        const prompt = Number(model.pricing?.prompt || 0);
+        const completion = Number(model.pricing?.completion || 0);
+        if (model.id?.endsWith(':free') || /\(free\)/i.test(model.name)) return 'free';
+        if (prompt === 0 && completion === 0) return 'free';
+        return 'paid';
+    }
+
+    function toDateString(created) {
+        if (!created) return SNAPSHOT_DATE;
+        return new Date(created * 1000).toISOString().slice(0, 10);
+    }
+
+    function mapCatalogModel(model) {
+        const providerKey = (model.id || '').split('/')[0];
+        return {
+            liveId: model.id,
+            name: (model.name || '').replace(/^[^:]+:\s*/, ''),
+            provider: titleCaseProvider(providerKey),
+            type: inferModelType(model),
+            params: formatContextLength(model.context_length),
+            date: toDateString(model.created),
+            pricing: inferPricing(model),
+            url: model.id ? `https://openrouter.ai/${model.id}` : 'https://openrouter.ai/models',
+            description: model.description || '',
+            contextLength: model.context_length || 0,
+            createdTs: model.created || 0,
+            outputModalities: model.architecture?.output_modalities || [],
+            inputModalities: model.architecture?.input_modalities || [],
+            benchmark: {}
+        };
+    }
+
+    async function fetchCatalog(force = false) {
+        if (!force) {
+            const cached = CacheManager.get(CACHE_KEY);
+            if (cached) return cached;
+        }
+        const res = await fetch(OPENROUTER_MODELS_URL);
+        if (!res.ok) throw new Error(`OpenRouter models API error: ${res.status}`);
+        const data = await res.json();
+        const models = (data.data || []).map(mapCatalogModel);
+        CacheManager.set(CACHE_KEY, models, CACHE_TTL);
+        return models;
+    }
+
+    function findCatalogMatch(snapshotModel, catalog) {
+        if (snapshotModel.liveId) {
+            const exact = catalog.find(model => model.liveId === snapshotModel.liveId);
+            if (exact) return exact;
+        }
+        const normalizedName = normalizeModelName(snapshotModel.name);
+        const provider = (snapshotModel.provider || '').toLowerCase();
+        return catalog.find(model =>
+            normalizeModelName(model.name) === normalizedName &&
+            model.provider.toLowerCase() === provider
+        );
+    }
+
+    function enrichSnapshot(snapshot, catalog) {
+        return snapshot.map(item => {
+            const liveModel = findCatalogMatch(item, catalog);
+            if (!liveModel) return item;
+            return {
+                ...liveModel,
+                ...item,
+                liveId: liveModel.liveId,
+                provider: liveModel.provider,
+                type: liveModel.type,
+                params: liveModel.params,
+                date: liveModel.date,
+                pricing: item.pricing || liveModel.pricing,
+                url: liveModel.url,
+                description: liveModel.description || item.description || '',
+                contextLength: liveModel.contextLength,
+                inputModalities: liveModel.inputModalities,
+                outputModalities: liveModel.outputModalities
+            };
+        });
+    }
+
+    async function getLeaderboard(force = false) {
+        const snapshot = Array.isArray(MODELS_RANKING) ? MODELS_RANKING : [];
+        const catalog = await fetchCatalog(force);
+        return {
+            models: enrichSnapshot(snapshot, catalog),
+            snapshotDate: SNAPSHOT_DATE,
+            refreshedAt: new Date().toISOString(),
+            liveCatalogCount: catalog.length
+        };
+    }
+
+    return { getLeaderboard, fetchCatalog, snapshotDate: SNAPSHOT_DATE };
+})();
+
+window.ModelRankingAPI = ModelRankingAPI;
+
 // ---- 动态标签生成函数 ----
 function generateDynamicTags(tool) {
     const tags = [];

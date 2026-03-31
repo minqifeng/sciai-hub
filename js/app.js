@@ -72,6 +72,12 @@
     let currentToolId    = null;
     let currentModelFilter = 'all';
     let currentModelSort   = 'rank';
+    let currentModelsData  = [...(MODELS_RANKING || [])];
+    let currentModelSnapshotDate = '2026-03-31';
+    let currentModelLiveUpdatedAt = null;
+    let currentModelCatalogCount = 0;
+    let modelsRefreshInFlight = null;
+    let hasRequestedLiveModelRefresh = false;
     let favorites        = loadLS('sciai-favs', []);
     let recentlyViewed   = loadLS('sciai-recent', []);
     let compareList      = [];   // max 3 ids
@@ -496,6 +502,11 @@
             Google: { accent: '#2563eb', soft: 'rgba(37,99,235,0.12)', label: 'GG' },
             Meta: { accent: '#1d4ed8', soft: 'rgba(29,78,216,0.12)', label: 'ME' },
             Mistral: { accent: '#7c3aed', soft: 'rgba(124,58,237,0.12)', label: 'MI' },
+            Xiaomi: { accent: '#f97316', soft: 'rgba(249,115,22,0.12)', label: 'XM' },
+            StepFun: { accent: '#0ea5e9', soft: 'rgba(14,165,233,0.12)', label: 'SF' },
+            MiniMax: { accent: '#7c3aed', soft: 'rgba(124,58,237,0.12)', label: 'MM' },
+            'Z.ai': { accent: '#4f46e5', soft: 'rgba(79,70,229,0.12)', label: 'ZA' },
+            xAI: { accent: '#111827', soft: 'rgba(17,24,39,0.12)', label: 'xA' },
             '百度': { accent: '#2563eb', soft: 'rgba(37,99,235,0.12)', label: 'BD' },
             '阿里': { accent: '#ea580c', soft: 'rgba(234,88,12,0.12)', label: 'AL' },
             MosaicML: { accent: '#475569', soft: 'rgba(71,85,105,0.12)', label: 'MM' }
@@ -511,6 +522,27 @@
         return Number(model.benchmark?.[key] || 0);
     }
 
+    function formatModelRefreshTime(value) {
+        if (!value) return '';
+        return new Date(value).toLocaleString('zh-CN', {
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+    }
+
+    function setModelsRefreshLoading(isLoading) {
+        const btn = $('#modelsRefreshBtn');
+        if (!btn) return;
+        btn.classList.toggle('is-loading', isLoading);
+        btn.disabled = isLoading;
+        btn.innerHTML = isLoading
+            ? '<i class="fas fa-rotate"></i> 刷新中...'
+            : '<i class="fas fa-rotate"></i> 实时刷新';
+    }
+
     function syncModelFilterUI() {
         $$('.models-filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.modelFilter === currentModelFilter);
@@ -520,10 +552,10 @@
     }
 
     function getFilteredModels() {
-        let list = [...(MODELS_RANKING || [])];
+        let list = [...currentModelsData];
         if (currentModelFilter !== 'all') list = list.filter(model => model.type === currentModelFilter);
 
-        if (currentModelSort === 'elo') list.sort((a, b) => b.elo - a.elo);
+        if (currentModelSort === 'elo') list.sort((a, b) => Number(b.elo || 0) - Number(a.elo || 0));
         else if (currentModelSort === 'mmlu') list.sort((a, b) => getModelMetric(b, 'mmlu') - getModelMetric(a, 'mmlu'));
         else if (currentModelSort === 'code') list.sort((a, b) => getModelMetric(b, 'code') - getModelMetric(a, 'code'));
         else list.sort((a, b) => a.rank - b.rank);
@@ -609,7 +641,139 @@
 
     function applyModelFilters() {
         syncModelFilterUI();
-        renderModels(getFilteredModels());
+        renderModelsRealtime(getFilteredModels());
+    }
+
+    async function refreshModelsData(force = false, silent = false) {
+        if (modelsRefreshInFlight && !force) return modelsRefreshInFlight;
+        if (typeof ModelRankingAPI === 'undefined' || !ModelRankingAPI.getLeaderboard) {
+            applyModelFilters();
+            return null;
+        }
+
+        setModelsRefreshLoading(true);
+        modelsRefreshInFlight = (async () => {
+            try {
+                const payload = await ModelRankingAPI.getLeaderboard(force);
+                if (Array.isArray(payload.models) && payload.models.length) currentModelsData = payload.models;
+                currentModelSnapshotDate = payload.snapshotDate || currentModelSnapshotDate;
+                currentModelLiveUpdatedAt = payload.refreshedAt || new Date().toISOString();
+                currentModelCatalogCount = Number(payload.liveCatalogCount || 0);
+                applyModelFilters();
+                if (!silent) showToast(`已同步 OpenRouter 官方模型目录 (${currentModelCatalogCount || currentModelsData.length} 个模型)`);
+                return payload;
+            } catch (error) {
+                console.warn('Model refresh failed:', error);
+                applyModelFilters();
+                if (!silent) showToast('实时刷新失败，已保留 2026-03-31 周榜快照');
+                return null;
+            } finally {
+                setModelsRefreshLoading(false);
+                modelsRefreshInFlight = null;
+            }
+        })();
+        return modelsRefreshInFlight;
+    }
+
+    function renderModelsRealtime(models) {
+        const grid = $('#modelsGrid');
+        const meta = $('#modelsMetaInfo');
+        if (!grid) return;
+
+        if (meta) {
+            const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
+            const liveLabel = currentModelLiveUpdatedAt ? ` · 官方目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
+            const catalogLabel = currentModelCatalogCount ? ` · 目录 ${currentModelCatalogCount} 个模型` : '';
+            meta.textContent = `共 ${models.length} 个模型 · 周榜快照 ${currentModelSnapshotDate}${liveLabel}${catalogLabel} · 当前按${sortLabel}排序`;
+        }
+
+        if (!models.length) {
+            grid.innerHTML = `<div class="models-empty"><i class="fas fa-layer-group"></i><p>当前筛选条件下没有匹配模型</p></div>`;
+            return;
+        }
+
+        grid.innerHTML = models.map(model => {
+            const theme = getProviderTheme(model.provider);
+            const metricDefs = [
+                { key:'mmlu', label:'MMLU' },
+                { key:'code', label:'代码' },
+                { key:'gsm8k', label:'GSM8K' }
+            ];
+            const metrics = metricDefs
+                .map(metric => ({ ...metric, value: getModelMetric(model, metric.key) }))
+                .filter(metric => metric.value > 0);
+            const primaryLabel = model.weeklyTokens ? '周用量' : (model.elo ? 'ELO' : '上下文');
+            const primaryValue = model.weeklyTokens || model.elo || model.params;
+            const growthClass = !model.weeklyGrowth || model.weeklyGrowth === '0%' ? 'flat' : '';
+            const growthBadge = model.weeklyGrowth
+                ? `<span class="model-growth ${growthClass}">周增 ${model.weeklyGrowth}</span>`
+                : `<span class="model-growth flat">${model.date || currentModelSnapshotDate}</span>`;
+            const liveSummary = `
+                <div class="model-live-summary">
+                    <div class="model-live-stat">
+                        <span>上下文</span>
+                        <strong>${model.params || '未知'}</strong>
+                    </div>
+                    <div class="model-live-stat">
+                        <span>更新日期</span>
+                        <strong>${model.date || currentModelSnapshotDate}</strong>
+                    </div>
+                    <div class="model-live-stat">
+                        <span>输入模态</span>
+                        <strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong>
+                    </div>
+                    <div class="model-live-stat">
+                        <span>输出模态</span>
+                        <strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong>
+                    </div>
+                </div>
+            `;
+
+            return `
+                <article class="model-card" style="--model-accent:${theme.accent};--model-soft:${theme.soft};">
+                    <div class="model-card-top">
+                        <div class="model-rank-badge">#${model.rank}</div>
+                        <div class="model-provider-badge">
+                            <span class="model-provider-logo">${theme.label}</span>
+                            <span>${model.provider}</span>
+                        </div>
+                    </div>
+                    <div class="model-card-name-row">
+                        <h3 class="model-card-name">${model.name}${model.hot ? ' <i class="fas fa-fire"></i>' : ''}</h3>
+                        <span class="model-chip subtle">${model.params}</span>
+                    </div>
+                    <div class="model-chip-row">
+                        <span class="model-chip strong">${model.type}</span>
+                        <span class="model-chip">${formatModelPricing(model.pricing)}</span>
+                        <span class="model-chip">${model.liveId ? 'OpenRouter 官方目录' : '榜单快照'}</span>
+                    </div>
+                    <div class="model-metric-primary">
+                        <span class="metric-primary-label">${primaryLabel}</span>
+                        <strong>${primaryValue}</strong>
+                        ${growthBadge}
+                    </div>
+                    <div class="model-metrics">
+                        ${metrics.length ? metrics.map(metric => `
+                            <div class="model-metric-row">
+                                <div class="metric-meta">
+                                    <span>${metric.label}</span>
+                                    <strong>${metric.value.toFixed(1)}%</strong>
+                                </div>
+                                <div class="metric-bar"><span style="width:${Math.max(6, Math.min(100, metric.value))}%"></span></div>
+                            </div>
+                        `).join('') : liveSummary}
+                    </div>
+                    <div class="model-card-footer">
+                        <a class="model-action-btn primary" href="${model.url}" target="_blank" rel="noopener noreferrer">查看详情</a>
+                        <button class="model-action-btn ghost js-model-compare" type="button" data-model-name="${model.name}">加入对比</button>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        grid.querySelectorAll('.js-model-compare').forEach(btn => {
+            btn.addEventListener('click', () => showToast(`已加入对比候选：${btn.dataset.modelName}`));
+        });
     }
 
     const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
@@ -690,7 +854,14 @@
         if      (cat === 'prompts')        sections.prompts.style.display = 'block';
         else if (cat === 'tutorials')      sections.tutorials.style.display = 'block';
         else if (cat === 'news')           { sections.news.style.display = 'block'; renderNews(NEWS_DATA || []); }
-        else if (cat === 'models')         { sections.models.style.display = 'block'; applyModelFilters(); }
+        else if (cat === 'models')         {
+            sections.models.style.display = 'block';
+            applyModelFilters();
+            if (!hasRequestedLiveModelRefresh) {
+                hasRequestedLiveModelRefresh = true;
+                refreshModelsData(false, true);
+            }
+        }
         else if (cat === 'github')         sections.github.style.display = 'block';
         else if (cat === 'usecases')       sections.usecases.style.display = 'block';
         else if (cat === 'graph')          sections.graph.style.display = 'block';
@@ -862,6 +1033,7 @@
             currentModelSort = e.target.value || 'rank';
             applyModelFilters();
         });
+        $('#modelsRefreshBtn')?.addEventListener('click', () => refreshModelsData(true, false));
 
         // 搜索
         let st;
@@ -1249,6 +1421,9 @@
         renderGithubRepos();
         fetchGithubTrending();
         setInterval(fetchGithubTrending, 10 * 60 * 1000);
+        setInterval(() => {
+            if (currentCategory === 'models') refreshModelsData(true, true);
+        }, 30 * 60 * 1000);
         renderUseCases();
         bindEvents();
         animateStats();
