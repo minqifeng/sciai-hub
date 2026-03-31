@@ -312,33 +312,32 @@
 
         <!-- 大模型排名 -->
         <section class="models-section" id="modelsSection" style="display:none;">
-            <div class="section-header">
-                <h3><i class="fas fa-ranking-star"></i> 大模型排名 <span class="live-dot" title="实时数据"></span></h3>
-                <span class="section-sub">基于 Arena & Benchmark · 实时更新</span>
+            <div class="section-header models-section-header">
+                <div>
+                    <h3><i class="fas fa-ranking-star"></i> 大模型排名 <span class="live-dot" title="实时数据"></span></h3>
+                    <span class="section-sub">参考 OpenRouter 与 DiffMind 的卡片化信息结构，聚焦能力、类型和价格维度</span>
+                </div>
+                <div class="models-sort-wrap">
+                    <label for="modelsSortSelect">排序</label>
+                    <select id="modelsSortSelect" class="models-sort-select">
+                        <option value="rank">默认排名</option>
+                        <option value="elo">Arena ELO</option>
+                        <option value="mmlu">MMLU</option>
+                        <option value="code">代码能力</option>
+                    </select>
+                </div>
             </div>
-            <div class="models-filter" style="margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;">
-                <button class="filter-btn active" onclick="filterModels('all')">全部</button>
-                <button class="filter-btn" onclick="filterModels('Multimodal')">多模态</button>
-                <button class="filter-btn" onclick="filterModels('Open Source')">开源</button>
-                <button class="filter-btn" onclick="filterModels('Code-Optimized')">代码优化</button>
+            <div class="models-toolbar">
+                <div class="models-filter" id="modelsFilterBar">
+                    <button class="models-filter-btn active" data-model-filter="all" type="button">全部</button>
+                    <button class="models-filter-btn" data-model-filter="Multimodal" type="button">多模态</button>
+                    <button class="models-filter-btn" data-model-filter="Text" type="button">通用文本</button>
+                    <button class="models-filter-btn" data-model-filter="Open Source" type="button">开源</button>
+                    <button class="models-filter-btn" data-model-filter="Code-Optimized" type="button">代码优化</button>
+                </div>
+                <div class="models-meta" id="modelsMetaInfo">共 0 个模型</div>
             </div>
-            <div class="models-table-wrapper">
-                <table class="models-table" id="modelsTable">
-                    <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>模型名称</th>
-                            <th>提供者</th>
-                            <th>类型</th>
-                            <th>Arena ELO</th>
-                            <th>MMLU</th>
-                            <th>代码能力</th>
-                            <th>价格</th>
-                        </tr>
-                    </thead>
-                    <tbody id="modelsTableBody"></tbody>
-                </table>
-            </div>
+            <div class="models-grid" id="modelsGrid"></div>
         </section>
 
         <!-- GitHub 高星推荐 -->
@@ -605,12 +604,12 @@
       </div>
       <div class="stats-filter-row">
         <div class="stats-discipline-tags" id="disciplineFilterTags">
-          <span class="stats-disc-tag active" data-disc="all">全部学科</span>
-          <span class="stats-disc-tag" data-disc="general">通用</span>
-          <span class="stats-disc-tag" data-disc="ecology">生态学</span>
-          <span class="stats-disc-tag" data-disc="environmental">环境科学</span>
-          <span class="stats-disc-tag" data-disc="sociology">社会学</span>
-          <span class="stats-disc-tag" data-disc="economics">经济学</span>
+          <button class="stats-disc-tag active" data-disc="all" type="button">全部学科</button>
+          <button class="stats-disc-tag" data-disc="general" type="button">通用</button>
+          <button class="stats-disc-tag" data-disc="ecology" type="button">生态学</button>
+          <button class="stats-disc-tag" data-disc="environmental" type="button">环境科学</button>
+          <button class="stats-disc-tag" data-disc="sociology" type="button">社会学</button>
+          <button class="stats-disc-tag" data-disc="economics" type="button">经济学</button>
         </div>
         <div class="stats-search-wrap">
           <i class="fas fa-search"></i>

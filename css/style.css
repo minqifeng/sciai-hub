@@ -1533,6 +1533,79 @@ body {
 }
 
 /* ============================================================
+   大模型排名卡片
+   ============================================================ */
+.models-section { padding: 24px; }
+.models-section-header { margin-bottom: 22px; }
+.models-section-header .section-subtitle { color: var(--text-muted); margin-top: 8px; font-size: 0.92rem; line-height: 1.7; max-width: 840px; }
+.models-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.models-filter { display: flex; gap: 10px; flex-wrap: wrap; }
+.models-filter-btn {
+    padding: 9px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg-card);
+    color: var(--text-secondary); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.22s ease;
+}
+.models-filter-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+.models-filter-btn.active { background: linear-gradient(135deg, var(--primary), #243b7a); border-color: transparent; color: #fff; box-shadow: 0 10px 24px rgba(37,99,235,0.18); }
+.models-sort-wrap { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.84rem; }
+.models-sort-select {
+    min-width: 150px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--text-primary); outline: none;
+}
+.models-meta { margin-bottom: 18px; color: var(--text-muted); font-size: 0.82rem; }
+.models-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+.model-card {
+    background:
+        radial-gradient(circle at top right, var(--model-soft), transparent 40%),
+        linear-gradient(180deg, var(--bg-card), color-mix(in srgb, var(--bg-card) 82%, var(--model-soft) 18%));
+    border: 1px solid color-mix(in srgb, var(--border) 82%, var(--model-accent) 18%);
+    border-radius: 22px; padding: 20px; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    display: flex; flex-direction: column; gap: 16px; min-height: 320px;
+}
+.model-card:hover { transform: translateY(-4px) scale(1.01); border-color: var(--model-accent); box-shadow: 0 18px 40px rgba(15,23,42,0.10); }
+.model-card-top, .model-card-name-row, .model-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.model-rank-badge {
+    background: linear-gradient(135deg, var(--model-accent), color-mix(in srgb, var(--model-accent) 58%, #fff 42%));
+    color: #fff; font-weight: 800; font-size: 0.88rem; padding: 8px 12px; border-radius: 999px;
+}
+.model-provider-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 0.82rem; font-weight: 600; }
+.model-provider-logo {
+    width: 34px; height: 34px; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center;
+    background: var(--model-soft); color: var(--model-accent); font-weight: 800;
+}
+.model-card-name { margin: 0; font-size: 1.18rem; line-height: 1.35; color: var(--text-primary); }
+.model-card-name i { color: #f97316; font-size: 0.9rem; }
+.model-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.model-chip {
+    display: inline-flex; align-items: center; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border);
+    background: rgba(148,163,184,0.08); color: var(--text-secondary); font-size: 0.76rem; font-weight: 600;
+}
+.model-chip.strong { background: var(--model-soft); border-color: transparent; color: var(--model-accent); }
+.model-chip.subtle { white-space: nowrap; }
+.model-metric-primary { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.metric-primary-label { color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.model-metric-primary strong { font-size: 2rem; line-height: 1; color: var(--text-primary); }
+.model-metrics { display: flex; flex-direction: column; gap: 12px; }
+.model-metric-row { display: flex; flex-direction: column; gap: 7px; }
+.metric-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--text-secondary); font-size: 0.82rem; }
+.metric-meta strong { color: var(--text-primary); }
+.metric-bar { height: 8px; border-radius: 999px; background: rgba(148,163,184,0.18); overflow: hidden; }
+.metric-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--model-accent), color-mix(in srgb, var(--model-accent) 40%, #fff 60%)); }
+.model-card-footer { margin-top: auto; }
+.model-action-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border-radius: 12px;
+    border: 1px solid var(--border); text-decoration: none; cursor: pointer; font-weight: 700; transition: all 0.22s ease;
+}
+.model-action-btn.primary { background: var(--text-primary); color: var(--bg-card); border-color: transparent; flex: 1; }
+.model-action-btn.primary:hover { opacity: 0.92; transform: translateY(-1px); }
+.model-action-btn.ghost { background: transparent; color: var(--text-secondary); }
+.model-action-btn.ghost:hover { border-color: var(--model-accent); color: var(--model-accent); }
+.models-empty {
+    grid-column: 1 / -1; min-height: 220px; border: 1px dashed var(--border); border-radius: 22px; display: flex;
+    flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--text-muted);
+}
+.models-empty i { font-size: 2rem; opacity: 0.45; }
+
+/* ============================================================
    统计与可视化方法库 CSS
    ============================================================ */
 .stats-section { padding: 24px; }
@@ -1547,7 +1620,7 @@ body {
 
 .stats-filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
 .stats-discipline-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.stats-disc-tag { padding: 4px 12px; border-radius: 12px; background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; border: 1.5px solid transparent; transition: all 0.2s; }
+.stats-disc-tag { padding: 4px 12px; border-radius: 12px; background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; border: 1.5px solid transparent; transition: all 0.2s; appearance: none; }
 .stats-disc-tag:hover { color: var(--primary); border-color: var(--primary); }
 .stats-disc-tag.active { background: rgba(99,102,241,0.1); color: var(--primary); border-color: var(--primary); font-weight: 600; }
 
@@ -1598,6 +1671,12 @@ body {
 [data-theme="dark"] .stats-disc-chip.general { background: rgba(107,114,128,0.15); color: #9ca3af; }
 
 @media (max-width: 768px) {
+    .models-section { padding: 18px; }
+    .models-toolbar { align-items: stretch; }
+    .models-sort-wrap { width: 100%; justify-content: space-between; }
+    .models-sort-select { flex: 1; min-width: 0; }
+    .models-grid { grid-template-columns: 1fr; }
+    .model-card { min-height: auto; }
     .stats-grid { grid-template-columns: 1fr; }
     .stats-stage-tabs { gap: 6px; }
     .stats-search-wrap { max-width: 100%; }
