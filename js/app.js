@@ -537,7 +537,12 @@
         if (!grid) return;
 
         if (meta) {
-            meta.textContent = `共 ${models.length} 个模型 · 当前按${({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名')}排序`;
+            const latestModelDate = (MODELS_RANKING || [])
+                .map(model => model.date)
+                .filter(Boolean)
+                .sort()
+                .slice(-1)[0] || '2026-03-31';
+            meta.textContent = `共 ${models.length} 个模型 · 数据截至 ${latestModelDate} · 当前按${({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名')}排序`;
         }
 
         if (!models.length) {
