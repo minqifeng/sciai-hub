@@ -48,6 +48,7 @@
         prompts:      $('#promptsSection'),
         tutorials:    $('#tutorialsSection'),
         news:         $('#newsSection'),
+        models:       $('#modelsSection'),
         github:       $('#githubSection'),
         usecases:     $('#usecasesSection'),
         graph:        $('#graphSection'),
@@ -453,6 +454,8 @@
 
     function renderNews(news) {
         // 静态资讯
+        const newsList = $('#newsList');
+        if (!newsList) return;
         newsList.innerHTML = `
             <div class="news-tabs">
                 <button class="news-tab active" data-tab="static">精选资讯</button>
@@ -464,7 +467,7 @@
                     return `<a class="news-item" href="${n.url || '#'}" target="_blank" rel="noopener">
                         <div class="news-date"><span class="day">${d.getDate()}</span><span class="month">${d.getMonth()+1}月</span></div>
                         <div class="news-info"><h4>${n.title}</h4><p>${n.desc}</p></div>
-                        <span class="news-tag" style="background:${n.tagColor}18;color:${n.tagColor}">${n.tag}</span>
+                        <span class="news-tag" style="background:#3b82f618;color:#3b82f6">${n.category}</span>
                     </a>`;
                 }).join('')}
             </div>
@@ -482,6 +485,34 @@
             });
         });
     }
+
+    function renderModels(models) {
+        // 渲染大模型排名表格
+        const tbody = $('#modelsTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = models.map(m => `
+            <tr>
+                <td style="text-align:center;font-weight:bold;">#${m.rank}</td>
+                <td><strong>${m.name}</strong>${m.hot ? ' <i class="fas fa-fire" style="color:#ff6b35;"></i>' : ''}</td>
+                <td>${m.provider}</td>
+                <td><span style="font-size:12px;padding:4px 8px;background:#e5e7eb;border-radius:4px;">${m.type}</span></td>
+                <td style="color:#3b82f6;font-weight:bold;">${m.elo}</td>
+                <td>${m.benchmark.mmlu.toFixed(1)}%</td>
+                <td>${m.benchmark.code.toFixed(1)}%</td>
+                <td><span style="font-size:12px;${m.pricing === 'free' ? 'color:#10b981' : 'color:#f59e0b'}">${m.pricing === 'free' ? '免费' : m.pricing}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    // 模型筛选函数
+    window.filterModels = function(type) {
+        const buttons = $$('.filter-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const filtered = type === 'all' ? MODELS_RANKING : MODELS_RANKING.filter(m => m.type === type);
+        renderModels(filtered);
+    };
 
     const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
 
@@ -535,7 +566,7 @@
             writing:'论文写作', reading:'文献阅读', data:'数据分析',
             figure:'科研绘图', code:'代码助手', experiment:'实验设计',
             llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成', video:'AI视频',
-            prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯',
+            prompts:'科研提示词库', tutorials:'学习教程', news:'行业资讯', models:'大模型排名',
             github:'GitHub 推荐', usecases:'科研 AI 应用示例',
             aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
             graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
@@ -546,7 +577,7 @@
         const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
 
         // Tab 栏显示/隐藏逻辑
-        const NON_TOOL_CATS = ['prompts','tutorials','news','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
+        const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
         const tabsContainer = $('#toolsCategoryTabs');
         if (NON_TOOL_CATS.includes(cat)) {
             if (tabsContainer) tabsContainer.style.display = 'none';
@@ -560,7 +591,8 @@
 
         if      (cat === 'prompts')        sections.prompts.style.display = 'block';
         else if (cat === 'tutorials')      sections.tutorials.style.display = 'block';
-        else if (cat === 'news')           sections.news.style.display = 'block';
+        else if (cat === 'news')           { sections.news.style.display = 'block'; renderNews(NEWS_DATA || []); }
+        else if (cat === 'models')         { sections.models.style.display = 'block'; renderModels(MODELS_RANKING || []); }
         else if (cat === 'github')         sections.github.style.display = 'block';
         else if (cat === 'usecases')       sections.usecases.style.display = 'block';
         else if (cat === 'graph')          sections.graph.style.display = 'block';

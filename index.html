@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciAI Hub - AI+科研导航平台 | 74+工具 · 研究图谱 · 论文检索 · 选刊助手</title>
+    <title>SciAI Hub - AI+科研导航平台 | 300+工具 · 研究图谱 · 论文检索 · 选刊助手</title>
     <meta name="description" content="SciAI Hub 收录 74+ 款 AI 科研工具，并提供研究图谱、论文检索、选刊助手、引文核查、PaperDeck 五大工具箱，全免费无需魔法。">
     <meta name="keywords" content="AI科研工具,研究图谱,论文检索,选刊助手,引文核查,PaperDeck,Connected Papers,ChatGPT科研,DeepSeek,Kimi">
     <meta property="og:title" content="SciAI Hub - AI+科研导航平台">
-    <meta property="og:description" content="74+ AI 科研工具 + 五大工具箱，研究图谱·论文检索·选刊·引文核查·学习卡片">
+    <meta property="og:description" content="300+ AI 科研工具 + 五大工具箱，研究图谱·论文检索·选刊·引文核查·学习卡片">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sciai-hub.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
@@ -106,6 +106,9 @@
                 <div class="nav-section-title">即时讯息</div>
                 <a href="#" class="nav-item" data-category="news">
                     <i class="fas fa-newspaper"></i><span>行业资讯</span>
+                </a>
+                <a href="#" class="nav-item" data-category="models">
+                    <i class="fas fa-ranking-star"></i><span>大模型排名</span>
                 </a>
                 <a href="#" class="nav-item" data-category="github">
                     <i class="fab fa-github"></i><span>GitHub 推荐</span>
@@ -305,6 +308,37 @@
         <section class="news-section" id="newsSection" style="display:none;">
             <div class="section-header"><h3>行业资讯</h3></div>
             <div class="news-list" id="newsList"></div>
+        </section>
+
+        <!-- 大模型排名 -->
+        <section class="models-section" id="modelsSection" style="display:none;">
+            <div class="section-header">
+                <h3><i class="fas fa-ranking-star"></i> 大模型排名 <span class="live-dot" title="实时数据"></span></h3>
+                <span class="section-sub">基于 Arena & Benchmark · 实时更新</span>
+            </div>
+            <div class="models-filter" style="margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="filter-btn active" onclick="filterModels('all')">全部</button>
+                <button class="filter-btn" onclick="filterModels('Multimodal')">多模态</button>
+                <button class="filter-btn" onclick="filterModels('Open Source')">开源</button>
+                <button class="filter-btn" onclick="filterModels('Code-Optimized')">代码优化</button>
+            </div>
+            <div class="models-table-wrapper">
+                <table class="models-table" id="modelsTable">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>模型名称</th>
+                            <th>提供者</th>
+                            <th>类型</th>
+                            <th>Arena ELO</th>
+                            <th>MMLU</th>
+                            <th>代码能力</th>
+                            <th>价格</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modelsTableBody"></tbody>
+                </table>
+            </div>
         </section>
 
         <!-- GitHub 高星推荐 -->
