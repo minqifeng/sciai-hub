@@ -41,6 +41,7 @@
         hero:         $('#heroSection'),
         featured:     $('#featuredSection'),
         tools:        $('#toolsSection'),
+        stats:        $('#statsSection'),
         statMethods:  $('#statMethodsSection'),
         prompts:      $('#promptsSection'),
         tutorials:    $('#tutorialsSection'),
