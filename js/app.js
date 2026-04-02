@@ -1233,6 +1233,182 @@
         });
     }
 
+    function deriveModelFeedback(model) {
+        if (model.arena?.votes) {
+            const score = Number(model.arena.score || 0);
+            const votes = Number(model.arena.votes || 0);
+            const starScore = score >= 1490 ? 5 : score >= 1470 ? 4 : score >= 1440 ? 3 : score >= 1410 ? 2 : 1;
+            const label = score >= 1490 ? '真实投票榜首' : score >= 1470 ? '真实投票强势' : score >= 1440 ? '真实投票领先' : '真实投票中上';
+            const details = [
+                `Arena 评分 ${score}${model.arena.spread || ''}`,
+                `累计 ${votes.toLocaleString()} 票`,
+                `快照日期 ${model.arena.snapshotDate}`
+            ];
+            if (model.arena.exact === false) details.push(`对应公开基准模型 ${model.arena.model}`);
+            return { score: starScore, label, summary: details.join(' · ') };
+        }
+
+        const usage = parseVolumeLabel(model.weeklyTokens);
+        const growth = Number(String(model.weeklyGrowth || '0').replace(/[^\d.-]/g, ''));
+        const price = Number(model.promptPricePerM || 0) + Number(model.completionPricePerM || 0);
+        let score = 3;
+        if (usage >= 1e12) score += 1;
+        if (growth >= 30) score += 1;
+        if (growth <= 0 && usage < 9e11) score -= 1;
+        if (price > 20) score -= 1;
+        if (model.pricing === 'free') score += 0.5;
+        score = Math.max(1, Math.min(5, Math.round(score)));
+
+        const label = score >= 5 ? '使用热度很高' : score >= 4 ? '综合表现稳定' : score >= 3 ? '中等偏上' : '偏冷门';
+        const reasons = [];
+        if (usage >= 1e12) reasons.push('使用量处于高位');
+        else if (usage >= 8e11) reasons.push('具有较大使用规模');
+        if (growth >= 30) reasons.push('近期增长明显');
+        else if (growth > 0) reasons.push('保持增长');
+        if (model.pricing === 'free') reasons.push('免费可用');
+        else if (price > 20) reasons.push('价格偏高');
+        if (model.type === 'Multimodal') reasons.push('多模态适配');
+        if (model.type === 'Code-Optimized') reasons.push('代码能力偏强');
+        return {
+            score,
+            label,
+            summary: reasons.slice(0, 3).join(' · ') || '当前目录数据不足，先按公开目录与使用趋势展示'
+        };
+    }
+
+    function renderModelsRealtimeV2(models) {
+        const grid = $('#modelsGrid');
+        const meta = $('#modelsMetaInfo');
+        if (!grid) return;
+
+        if (meta) {
+            const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
+            const lensLabel = ({ overview:'概览', performance:'性能', usage:'使用', price:'价格', feedback:'反馈' }[currentModelLens] || '概览');
+            const snapshotLabel = currentModelSnapshotTopCount
+                ? `Top ${currentModelSnapshotTopCount} 为周榜快照 ${currentModelSnapshotDate}`
+                : `周榜快照 ${currentModelSnapshotDate}`;
+            const liveLabel = currentModelLiveUpdatedAt ? ` · 官方目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
+            const catalogLabel = currentModelCatalogCount ? ` · 官方目录 ${currentModelCatalogCount} 个模型` : '';
+            meta.textContent = `${models.length} 个模型 · ${snapshotLabel}${liveLabel}${catalogLabel} · 当前视图 ${lensLabel} · 按 ${sortLabel} 排序`;
+        }
+
+        if (!models.length) {
+            grid.innerHTML = `<div class="models-empty"><i class="fas fa-layer-group"></i><p>当前筛选条件下没有匹配模型</p></div>`;
+            return;
+        }
+
+        grid.innerHTML = models.map(model => {
+            const theme = getProviderTheme(model.provider);
+            const feedback = deriveModelFeedback(model);
+            const metrics = [
+                { key:'mmlu', label:'MMLU', value: getModelMetric(model, 'mmlu') },
+                { key:'code', label:'代码', value: getModelMetric(model, 'code') },
+                { key:'gsm8k', label:'GSM8K', value: getModelMetric(model, 'gsm8k') }
+            ].filter(metric => metric.value > 0);
+            const primaryLabel = model.weeklyTokens ? '周使用量' : (model.elo ? 'ELO' : '参数规模');
+            const primaryValue = model.weeklyTokens || model.elo || model.params;
+            const growthClass = !model.weeklyGrowth || model.weeklyGrowth === '0%' ? 'flat' : '';
+            const growthBadge = model.weeklyGrowth
+                ? `<span class="model-growth ${growthClass}">周增 ${model.weeklyGrowth}</span>`
+                : `<span class="model-growth flat">${model.date || currentModelSnapshotDate}</span>`;
+
+            const arenaSummary = model.arena ? `
+                <div class="model-lens-panel">
+                    <div class="model-lens-item"><span>Arena 评分</span><strong>${model.arena.score}${model.arena.spread || ''}</strong></div>
+                    <div class="model-lens-item"><span>真实投票</span><strong>${Number(model.arena.votes || 0).toLocaleString()} 票</strong></div>
+                    <div class="model-lens-item"><span>基准模型</span><strong>${model.arena.model}${model.arena.exact === false ? ' · 邻近公开版本' : ''}</strong></div>
+                    <div class="model-lens-item"><span>快照日期</span><strong>${model.arena.snapshotDate}</strong></div>
+                </div>
+            ` : '';
+
+            const panels = {
+                overview: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>参数规模</span><strong>${model.params || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>更新时间</span><strong>${model.date || currentModelSnapshotDate}</strong></div>
+                        <div class="model-lens-item"><span>输入模态</span><strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong></div>
+                        <div class="model-lens-item"><span>输出模态</span><strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong></div>
+                    </div>
+                `,
+                performance: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>上下文长度</span><strong>${model.arena?.context || model.params || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>最大输出</span><strong>${model.maxCompletionTokens ? `${Math.round(model.maxCompletionTokens / 1000)}K tokens` : '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>支持参数</span><strong>${(model.supportedParameters || []).length || 0} 项</strong></div>
+                        <div class="model-lens-item"><span>评测摘要</span><strong>${model.arena ? `Arena ${model.arena.score}${model.arena.spread || ''} / ${Number(model.arena.votes || 0).toLocaleString()} 票` : (metrics.length ? metrics.map(item => `${item.label} ${item.value.toFixed(1)}%`).join(' / ') : `${model.type} / ${(model.inputModalities || []).join('/') || 'text'}`)}</strong></div>
+                    </div>
+                    ${arenaSummary}
+                `,
+                usage: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>周使用量</span><strong>${model.weeklyTokens || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>周增幅</span><strong>${model.weeklyGrowth || '未披露'}</strong></div>
+                        <div class="model-lens-item"><span>榜单排名</span><strong>#${model.rank}</strong></div>
+                        <div class="model-lens-item"><span>热度判断</span><strong>${model.hot ? '热度较高' : feedback.label}</strong></div>
+                    </div>
+                `,
+                price: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>输入价格</span><strong>${formatPricePerMillion(model.promptPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>输出价格</span><strong>${formatPricePerMillion(model.completionPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>缓存读价</span><strong>${formatPricePerMillion(model.cacheReadPricePerM)}</strong></div>
+                        <div class="model-lens-item"><span>价格标签</span><strong>${formatModelPricing(model.pricing)}</strong></div>
+                    </div>
+                `,
+                feedback: `
+                    <div class="model-lens-panel">
+                        <div class="model-lens-item"><span>星级反馈</span><strong class="model-stars">${'★'.repeat(feedback.score)}${'☆'.repeat(5 - feedback.score)}</strong></div>
+                        <div class="model-lens-item"><span>判断依据</span><strong>${feedback.label}</strong></div>
+                        <div class="model-lens-item"><span>摘要说明</span><strong>${feedback.summary}</strong></div>
+                        <div class="model-lens-item"><span>数据来源</span><strong>${model.arena ? 'arena.ai 投票数据 + OpenRouter 官方目录' : 'OpenRouter 官方目录 + 使用趋势'}</strong></div>
+                    </div>
+                    <div class="model-feedback-note">${model.arena ? '优先展示真实投票结果，避免把截图或二手转载当成排名依据。' : '当前模型榜单以官方目录和公开使用趋势为准。'}</div>
+                `,
+            };
+
+            return `
+                <article class="model-card" style="--model-accent:${theme.accent};--model-soft:${theme.soft};">
+                    <div class="model-card-top">
+                        <div class="model-rank-badge">#${model.rank}</div>
+                        <div class="model-provider-badge">
+                            <span class="model-provider-logo">${theme.label}</span>
+                            <span>${model.provider}</span>
+                        </div>
+                    </div>
+                    <div class="model-card-name-row">
+                        <h3 class="model-card-name">${model.name}${model.hot ? ' <i class="fas fa-fire"></i>' : ''}</h3>
+                        <span class="model-chip subtle">${model.params}</span>
+                    </div>
+                    <div class="model-chip-row">
+                        <span class="model-chip strong">${model.type}</span>
+                        <span class="model-chip">${formatModelPricing(model.pricing)}</span>
+                        <span class="model-chip">${model.rankingSource === 'snapshot' ? '周榜快照' : '官方目录补充'}</span>
+                    </div>
+                    <div class="model-metric-primary">
+                        <span class="metric-primary-label">${primaryLabel}</span>
+                        <strong>${primaryValue}</strong>
+                        ${growthBadge}
+                    </div>
+                    <div class="model-metrics">
+                        ${panels[currentModelLens] || panels.overview}
+                    </div>
+                    <div class="model-card-footer">
+                        <a class="model-action-btn primary" href="${model.url}" target="_blank" rel="noopener noreferrer">查看详情</a>
+                        <button class="model-action-btn ghost js-model-compare" type="button" data-model-name="${model.name}">加入对比</button>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        grid.querySelectorAll('.js-model-compare').forEach(btn => {
+            btn.addEventListener('click', () => showToast(`已加入对比候选：${btn.dataset.modelName}`));
+        });
+    }
+
+    function renderModelsRealtime(models) {
+        renderModelsRealtimeV2(models);
+    }
+
     const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
 
     // ---- 过滤 + 排序 ----
@@ -1332,7 +1508,15 @@
         else if (cat === 'journal')        sections.journal.style.display = 'block';
         else if (cat === 'cite-check')     sections.citeCheck.style.display = 'block';
         else if (cat === 'paperdeck')      sections.paperdeck.style.display = 'block';
-        else if (cat === 'stats')          { if (sections.statMethods) sections.statMethods.style.display = 'block'; StatsFeature.render(); }
+        else if (cat === 'stats')          {
+            if (sections.statMethods) {
+                sections.statMethods.style.display = 'block';
+                StatsFeature.render();
+                sections.statMethods.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                StatsFeature.render();
+            }
+        }
         else {
             sections.hero.style.display     = cat === 'all' ? '' : 'none';
             sections.featured.style.display = cat === 'all' ? '' : 'none';
@@ -1361,6 +1545,44 @@
             $$('.tab-item').forEach(t => t.classList.remove('active'));
             const activeTab = document.querySelector(`.tab-item[data-category="${cat}"]`);
             if (activeTab) activeTab.classList.add('active');
+        }
+        const finalTabsContainer = $('#toolsCategoryTabs');
+        if (finalTabsContainer) finalTabsContainer.style.display = TOOL_TAB_CATS.has(cat) ? 'block' : 'none';
+        const finalTitleMap = {
+            all: '全部工具',
+            hot: '热门推荐',
+            new: '最新上线',
+            favorites: '我的收藏',
+            recent: '最近浏览',
+            writing: '论文写作',
+            reading: '文献阅读',
+            data: '数据分析',
+            figure: '科研绘图',
+            code: '代码助手',
+            experiment: '实验设计',
+            llm: '大语言模型',
+            'image-ai': 'AI 绘画',
+            voice: '语音合成',
+            video: 'AI 视频',
+            prompts: '提示词库',
+            tutorials: '学习教程',
+            news: '行业资讯',
+            models: '大模型排名',
+            github: 'GitHub 推荐',
+            usecases: '应用示例',
+            aisoft: 'AI 软件推荐',
+            agents: '智能体管理',
+            cli: 'CLI 工具',
+            graph: '研究图谱',
+            'search-papers': '论文检索',
+            journal: '选刊助手',
+            'cite-check': '引文核查',
+            paperdeck: 'PaperDeck',
+            stats: '统计方法库'
+        };
+        pageTitle.textContent = finalTitleMap[cat] || cat;
+        if (cat === 'stats' && sections.statMethods) {
+            sections.statMethods.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
