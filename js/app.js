@@ -2060,5 +2060,22 @@
         if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
         if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
     }
+
+    function bootApp() {
+        try {
+            init();
+        } catch (err) {
+            console.error('SciAI Hub startup failed:', err);
+            if (document.body) {
+                showToast('页面初始化失败，请刷新重试');
+            }
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootApp, { once: true });
+    } else {
+        bootApp();
+    }
 })();
 
