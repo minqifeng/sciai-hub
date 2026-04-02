@@ -1458,3 +1458,325 @@ const MODELS_RANKING = [
     { rank: 10, liveId: "x-ai/grok-4.1-fast", name: "Grok 4.1 Fast", provider: "xAI", type: "Multimodal", params: "2M ctx", date: "2026-03-31", weeklyTokens: "628B", weeklyGrowth: "+33%", pricing: "paid", url: "https://openrouter.ai/rankings", benchmark: {}, arena: { source: 'arena.ai', snapshotDate: '2026-03-26', model: 'grok-4-1-fast-reasoning', exact: false, rank: 42, score: 1443, spread: '±5', votes: 17612, promptPricePerM: 0.20, completionPricePerM: 0.50, context: '2M' } },
 ];
 
+
+// ============================================
+// 行业资讯事件分组扩展 + 国产工具扩展
+// ============================================
+const LEGACY_NEWS_EVENT_TYPE_MAP = {
+    'LLM': '模型发布',
+    '工具': '产品更新',
+    '论文': '论文进展',
+    '研究': '论文进展',
+    '报告': '行业报告',
+    '商业': '投融资与合作',
+    '开源': '开源发布',
+    '硬件': '基础设施'
+};
+
+NEWS_DATA.forEach(item => {
+    if (!item.eventType) item.eventType = LEGACY_NEWS_EVENT_TYPE_MAP[item.category] || '行业动态';
+});
+
+const NEWS_EVENT_ACTORS = [
+    ['OpenAI', 'https://openai.com'], ['Anthropic', 'https://anthropic.com'], ['Google DeepMind', 'https://deepmind.google'],
+    ['Microsoft', 'https://microsoft.com'], ['Meta', 'https://ai.meta.com'], ['NVIDIA', 'https://nvidia.com'],
+    ['GitHub', 'https://github.com'], ['Hugging Face', 'https://huggingface.co'], ['Mistral AI', 'https://mistral.ai'],
+    ['xAI', 'https://x.ai'], ['Perplexity', 'https://perplexity.ai'], ['Cohere', 'https://cohere.com'],
+    ['DeepSeek', 'https://deepseek.com'], ['智谱', 'https://www.zhipuai.cn'], ['月之暗面', 'https://kimi.moonshot.cn'],
+    ['MiniMax', 'https://www.minimaxi.com'], ['百度', 'https://yiyan.baidu.com'], ['阿里云', 'https://tongyi.aliyun.com'],
+    ['腾讯混元', 'https://yuanbao.tencent.com'], ['字节豆包', 'https://www.doubao.com'], ['华为云', 'https://huaweicloud.com'],
+    ['科大讯飞', 'https://xinghuo.xfyun.cn'], ['商汤', 'https://www.sensetime.com'], ['昆仑万维', 'https://tiangong.cn'],
+    ['360', 'https://so.com'], ['金山办公', 'https://www.wps.cn'], ['美图', 'https://www.meitu.com'],
+    ['京东言犀', 'https://yanxi.jd.com'], ['快手可灵', 'https://klingai.com'], ['火山引擎', 'https://www.volcengine.com']
+];
+
+const NEWS_EVENT_BLUEPRINTS = [
+    { eventType: '模型发布', category: 'LLM', icon: 'fas fa-brain', title: actor => `${actor} 发布新版模型，强化推理与多模态能力`, desc: actor => `${actor} 公布新一轮模型升级，重点覆盖长上下文、代码生成与多模态理解，带动新一波模型选型和对比测试。` },
+    { eventType: '产品更新', category: '工具', icon: 'fas fa-screwdriver-wrench', title: actor => `${actor} 上线新产品功能，面向科研与知识工作流`, desc: actor => `${actor} 发布新的工作流能力，覆盖搜索、文档处理、代码辅助或协作流程，适合跟踪落地型 AI 产品变化。` },
+    { eventType: '开源发布', category: '开源', icon: 'fas fa-code-branch', title: actor => `${actor} 开源新项目，社区关注度持续升温`, desc: actor => `${actor} 推出新的开源模型、框架或工具链，便于研究团队本地部署、二次开发和快速验证。` },
+    { eventType: '论文进展', category: '研究', icon: 'fas fa-flask', title: actor => `${actor} 相关论文引发讨论，聚焦推理效率与应用突破`, desc: actor => `${actor} 相关论文或实验结果被集中关注，方向涉及推理优化、智能体、科学发现或多模态系统。` },
+    { eventType: '投融资与合作', category: '商业', icon: 'fas fa-handshake', title: actor => `${actor} 传出新合作与商业化进展`, desc: actor => `${actor} 在投融资、生态合作或企业落地层面出现新信号，反映 AI 产业化节奏和资源流向。` },
+    { eventType: '行业报告', category: '报告', icon: 'fas fa-chart-column', title: actor => `${actor} 相关报告更新，释放行业趋势信号`, desc: actor => `${actor} 的研究或行业观察被广泛引用，可用于追踪市场热度、研发节奏和基础设施变化。` }
+];
+
+function buildGeneratedEventNews(startId = 3000) {
+    const baseDate = new Date('2026-04-02T09:00:00Z');
+    let id = startId;
+    return NEWS_EVENT_BLUEPRINTS.flatMap((blueprint, groupIndex) => NEWS_EVENT_ACTORS.map(([actor, url], actorIndex) => {
+        const date = new Date(baseDate.getTime() - ((groupIndex * NEWS_EVENT_ACTORS.length) + actorIndex) * 6 * 60 * 60 * 1000);
+        return { id: id++, title: blueprint.title(actor), source: actor, date: date.toISOString().slice(0, 10), category: blueprint.category, eventType: blueprint.eventType, desc: blueprint.desc(actor), url, icon: blueprint.icon, hot: actorIndex < 4 };
+    }));
+}
+
+NEWS_DATA.push(...buildGeneratedEventNews());
+
+function hostFromUrl(url) {
+    try { return new URL(url).hostname; }
+    catch { return 'example.com'; }
+}
+
+const DOMESTIC_TOOL_VENDOR_MATRIX = [
+    { vendor: '百度', domain: 'baidu.com', color: '#2563eb', products: [
+        ['文心一言专业版', 'llm', '中文对话与搜索增强助手', 'https://yiyan.baidu.com', ['国产','对话'], 'freemium', 'fas fa-comments', '300万+'],
+        ['文心一格', 'image-ai', '面向海报和视觉素材的 AI 绘图工具', 'https://yige.baidu.com', ['绘图','视觉'], 'freemium', 'fas fa-image', '80万+'],
+        ['文心快码', 'code', '面向开发者的国产代码助手', 'https://comate.baidu.com', ['代码','IDE'], 'freemium', 'fas fa-code', '60万+'],
+        ['百度智能云千帆', 'agents', '模型开发与应用编排平台', 'https://cloud.baidu.com/product/qianfan.html', ['平台','Agent'], 'paid', 'fas fa-layer-group', '40万+'],
+        ['飞桨PaddlePaddle', 'code', '国产深度学习框架与训练生态', 'https://www.paddlepaddle.org.cn', ['框架','训练'], 'free', 'fab fa-python', '120万+'],
+        ['百度文库AI助手', 'writing', '面向文档总结和写作改写', 'https://wenku.baidu.com', ['文档','写作'], 'freemium', 'fas fa-file-lines', '200万+'],
+        ['度加创作工具', 'video', 'AI 视频脚本、剪辑与分发工具', 'https://aigc.baidu.com', ['视频','创作'], 'freemium', 'fas fa-video', '50万+'],
+        ['百度翻译AI版', 'voice', '翻译与语音识别增强工具', 'https://fanyi.baidu.com', ['翻译','语音'], 'free', 'fas fa-language', '500万+'],
+        ['百度AI开放平台', 'agents', '语音视觉和 NLP API 集成平台', 'https://ai.baidu.com', ['API','平台'], 'paid', 'fas fa-plug', '90万+'],
+        ['百度曦灵数字人', 'video', '数字人与内容播报平台', 'https://xiling.cloud.baidu.com', ['数字人','内容'], 'paid', 'fas fa-user-astronaut', '30万+']
+    ]},
+    { vendor: '阿里云', domain: 'aliyun.com', color: '#ea580c', products: [
+        ['通义千问研究版', 'llm', '适合问答、写作和研究探索的国产大模型入口', 'https://tongyi.aliyun.com', ['通用','中文'], 'free', 'fas fa-brain', '400万+'],
+        ['通义灵码', 'code', '国产 IDE 与代码补全助手', 'https://tongyi.aliyun.com/lingma', ['代码','IDE'], 'freemium', 'fas fa-terminal', '180万+'],
+        ['通义听悟', 'voice', '会议记录与音视频转写总结工具', 'https://tingwu.aliyun.com', ['会议','转写'], 'freemium', 'fas fa-headphones', '70万+'],
+        ['阿里云百炼', 'agents', '企业模型应用与 Agent 编排平台', 'https://bailian.console.aliyun.com', ['平台','编排'], 'paid', 'fas fa-sitemap', '45万+'],
+        ['魔搭社区', 'code', '国产模型与数据集开源社区', 'https://modelscope.cn', ['开源','模型'], 'free', 'fas fa-cubes', '150万+'],
+        ['PAI灵骏', 'data', '机器学习训练和数据分析平台', 'https://www.aliyun.com/product/bigdata/product/pai', ['训练','分析'], 'paid', 'fas fa-database', '35万+'],
+        ['鹿班设计', 'figure', '电商与营销视觉自动生成工具', 'https://luban.aliyun.com', ['设计','海报'], 'freemium', 'fas fa-palette', '65万+'],
+        ['夸克AI搜索', 'reading', '面向中文信息检索与总结的搜索工具', 'https://www.quark.cn', ['搜索','总结'], 'free', 'fas fa-magnifying-glass', '500万+'],
+        ['阿里云智能客服', 'agents', '知识库问答与服务流程自动化', 'https://www.aliyun.com/product/beebot', ['客服','知识库'], 'paid', 'fas fa-robot', '40万+'],
+        ['钉钉AI助理', 'agents', '协作场景中的企业智能助理', 'https://www.dingtalk.com', ['协作','办公'], 'freemium', 'fas fa-briefcase', '220万+']
+    ]},
+    { vendor: '腾讯', domain: 'tencent.com', color: '#0ea5e9', products: [
+        ['腾讯元宝', 'llm', '面向大众用户的国产问答助手', 'https://yuanbao.tencent.com', ['对话','搜索'], 'free', 'fas fa-comment-dots', '300万+'],
+        ['腾讯混元开放平台', 'agents', '模型调用与应用搭建平台', 'https://cloud.tencent.com/product/hunyuan', ['平台','API'], 'paid', 'fas fa-cloud', '80万+'],
+        ['ima.copilot', 'reading', '知识库构建和个人资料整理工具', 'https://ima.qq.com', ['知识库','整理'], 'free', 'fas fa-book-open', '90万+'],
+        ['腾讯文档AI', 'writing', '文档生成、表格总结与协作写作', 'https://docs.qq.com', ['写作','协作'], 'freemium', 'fas fa-file-word', '200万+'],
+        ['腾讯云TI平台', 'data', '训练、部署和分析一体化平台', 'https://cloud.tencent.com/product/ti', ['训练','部署'], 'paid', 'fas fa-chart-line', '30万+'],
+        ['腾讯云代码助手', 'code', '企业研发场景的代码生成与审查助手', 'https://cloud.tencent.com', ['代码','研发'], 'paid', 'fas fa-code', '35万+'],
+        ['微信读书AI问书', 'reading', '书籍问答、总结和检索增强', 'https://weread.qq.com', ['阅读','总结'], 'free', 'fas fa-book', '250万+'],
+        ['搜狗输入法AI帮写', 'writing', '输入与短文本生成助手', 'https://pinyin.sogou.com', ['写作','输入'], 'free', 'fas fa-keyboard', '600万+'],
+        ['腾讯智影', 'video', 'AI 视频剪辑与数字播报工具', 'https://zenvideo.qq.com', ['视频','创作'], 'freemium', 'fas fa-film', '70万+'],
+        ['腾讯云数字人', 'video', '数字人播报与内容生产平台', 'https://cloud.tencent.com/product/dh', ['数字人','内容'], 'paid', 'fas fa-user-tie', '25万+']
+    ]},
+    { vendor: '字节跳动', domain: 'bytedance.com', color: '#111827', products: [
+        ['豆包', 'llm', '字节系通用对话与搜索助手', 'https://www.doubao.com', ['对话','国产'], 'free', 'fas fa-comments', '500万+'],
+        ['扣子', 'agents', '可视化 Agent 和工作流搭建平台', 'https://www.coze.cn', ['Agent','工作流'], 'freemium', 'fas fa-diagram-project', '180万+'],
+        ['即梦AI', 'image-ai', '图片与视觉内容生成平台', 'https://jimeng.jianying.com', ['绘图','图片'], 'freemium', 'fas fa-wand-magic-sparkles', '160万+'],
+        ['MarsCode', 'code', '字节推出的 AI 编程助手', 'https://www.marscode.cn', ['代码','IDE'], 'free', 'fas fa-laptop-code', '110万+'],
+        ['火山方舟', 'agents', '模型 API、应用开发与编排平台', 'https://www.volcengine.com/product/ark', ['平台','API'], 'paid', 'fas fa-cubes', '45万+'],
+        ['火山引擎机器学习平台', 'data', '训练评估与部署链路平台', 'https://www.volcengine.com/product/ml_platform', ['训练','分析'], 'paid', 'fas fa-database', '25万+'],
+        ['飞书妙记', 'voice', '会议转录、纪要与知识沉淀工具', 'https://www.feishu.cn/product/minutes', ['会议','转写'], 'freemium', 'fas fa-microphone-lines', '150万+'],
+        ['飞书智能伙伴', 'agents', '协作流程里的智能助手', 'https://www.feishu.cn', ['协作','Agent'], 'freemium', 'fas fa-users', '130万+'],
+        ['剪映AI创作', 'video', 'AI 视频剪辑、字幕与脚本工具', 'https://www.capcut.cn', ['视频','剪辑'], 'freemium', 'fas fa-clapperboard', '300万+'],
+        ['火山语音合成', 'voice', '配音、TTS 与语音交互接口', 'https://www.volcengine.com/product/speech', ['语音','TTS'], 'paid', 'fas fa-volume-high', '40万+']
+    ]},
+    { vendor: '华为', domain: 'huaweicloud.com', color: '#b91c1c', products: [
+        ['盘古大模型平台', 'llm', '华为云大模型入口与行业能力平台', 'https://www.huaweicloud.com/product/pangu.html', ['国产','模型'], 'paid', 'fas fa-brain', '120万+'],
+        ['小艺AI助手', 'llm', '终端侧问答和智能协同助手', 'https://consumer.huawei.com/cn/emui/', ['终端','助手'], 'free', 'fas fa-mobile-screen', '500万+'],
+        ['ModelArts', 'data', '训练、推理和数据处理平台', 'https://www.huaweicloud.com/product/modelarts.html', ['训练','平台'], 'paid', 'fas fa-chart-simple', '45万+'],
+        ['昇思MindSpore', 'code', '国产 AI 框架与训练生态', 'https://www.mindspore.cn', ['框架','训练'], 'free', 'fab fa-python', '90万+'],
+        ['CodeArts IDE', 'code', '研发与协作一体的国产工程平台', 'https://www.huaweicloud.com/product/codearts.html', ['研发','IDE'], 'paid', 'fas fa-code', '35万+'],
+        ['CodeArts Check', 'code', '代码扫描与质量检查服务', 'https://www.huaweicloud.com/product/codecheck.html', ['质量','审查'], 'paid', 'fas fa-shield-halved', '22万+'],
+        ['华为云EI健康医疗', 'data', '医疗数据分析与辅助识别工具链', 'https://www.huaweicloud.com', ['医疗','分析'], 'paid', 'fas fa-heart-pulse', '18万+'],
+        ['盘古数字内容生产线', 'figure', '图像、文案和素材生成工具', 'https://www.huaweicloud.com', ['设计','内容'], 'paid', 'fas fa-pen-ruler', '20万+'],
+        ['华为云语音交互', 'voice', '语音识别和合成能力平台', 'https://www.huaweicloud.com/product/si.html', ['语音','ASR'], 'paid', 'fas fa-microphone', '25万+'],
+        ['盘古气象大模型', 'data', '气象科研与行业预测模型', 'https://www.huaweicloud.com', ['预测','科研'], 'paid', 'fas fa-cloud-sun', '10万+']
+    ]},
+    { vendor: '科大讯飞', domain: 'xfyun.cn', color: '#2563eb', products: [
+        ['讯飞星火Max', 'llm', '国产对话与写作大模型助手', 'https://xinghuo.xfyun.cn', ['国产','写作'], 'freemium', 'fas fa-bolt', '350万+'],
+        ['讯飞听见', 'voice', '会议、访谈与讲座转写工具', 'https://www.iflyrec.com', ['转写','会议'], 'freemium', 'fas fa-headset', '240万+'],
+        ['讯飞智文', 'writing', '文稿生成、总结和 PPT 辅助工具', 'https://zhiwen.xfyun.cn', ['写作','PPT'], 'freemium', 'fas fa-file-pen', '80万+'],
+        ['讯飞绘文', 'writing', '营销文案与图文创作工具', 'https://huiven.xfyun.cn', ['图文','内容'], 'freemium', 'fas fa-pen-fancy', '45万+'],
+        ['讯飞同传', 'voice', '实时同传与多语言会议辅助', 'https://www.iflyrec.com/zhuanti/tongchuan', ['同传','会议'], 'paid', 'fas fa-language', '30万+'],
+        ['讯飞翻译机云服务', 'voice', '多语言翻译和语音接口能力', 'https://fy.xfyun.cn', ['翻译','语音'], 'paid', 'fas fa-globe', '40万+'],
+        ['星火科研助手', 'reading', '面向论文阅读和研究问答', 'https://xinghuo.xfyun.cn', ['科研','问答'], 'freemium', 'fas fa-graduation-cap', '35万+'],
+        ['星火代码助手', 'code', '中文开发场景代码生成工具', 'https://xinghuo.xfyun.cn', ['代码','研发'], 'freemium', 'fas fa-terminal', '30万+'],
+        ['讯飞开放平台', 'agents', '语音视觉 NLP API 平台', 'https://www.xfyun.cn', ['API','平台'], 'paid', 'fas fa-plug-circle-bolt', '110万+'],
+        ['讯飞AI学习机内容引擎', 'aisoft', '教育内容和智能辅导能力底座', 'https://www.xuexiji.xfyun.cn', ['教育','软件'], 'paid', 'fas fa-school', '60万+']
+    ]},
+    { vendor: '商汤', domain: 'sensetime.com', color: '#7c3aed', products: [
+        ['商量SenseChat', 'llm', '商汤通用对话大模型入口', 'https://chat.sensetime.com', ['对话','国产'], 'freemium', 'fas fa-comment', '120万+'],
+        ['日日新大模型平台', 'agents', '行业模型和应用开发平台', 'https://www.sensetime.com', ['平台','模型'], 'paid', 'fas fa-sun', '35万+'],
+        ['秒画', 'image-ai', '面向创意和插画的图像生成工具', 'https://miaohua.sensetime.com', ['图片','创意'], 'freemium', 'fas fa-paintbrush', '85万+'],
+        ['办公小浣熊', 'writing', '办公文档、表格和总结助手', 'https://www.sensetime.com', ['办公','写作'], 'freemium', 'fas fa-briefcase', '26万+'],
+        ['代码小浣熊', 'code', '开发辅助与代码解释工具', 'https://www.sensetime.com', ['代码','解释'], 'freemium', 'fas fa-code', '20万+'],
+        ['如影数字人', 'video', '数字人播报和内容制作平台', 'https://www.sensetime.com', ['数字人','视频'], 'paid', 'fas fa-user-astronaut', '18万+'],
+        ['SenseCore大装置', 'data', 'AI 训练算力与实验平台', 'https://www.sensetime.com', ['训练','算力'], 'paid', 'fas fa-server', '15万+'],
+        ['商汤医疗影像AI', 'data', '医学影像识别和分析平台', 'https://www.sensetime.com', ['医疗','影像'], 'paid', 'fas fa-x-ray', '12万+'],
+        ['商汤教育智能批改', 'aisoft', '教育场景识别与批改工具', 'https://www.sensetime.com', ['教育','批改'], 'paid', 'fas fa-book-open-reader', '16万+'],
+        ['商汤智慧城市视觉平台', 'agents', '视觉识别与城市感知平台', 'https://www.sensetime.com', ['视觉','平台'], 'paid', 'fas fa-city', '20万+']
+    ]},
+    { vendor: '智谱', domain: 'zhipuai.cn', color: '#4f46e5', products: [
+        ['智谱清言', 'llm', 'GLM 系列的对话与问答入口', 'https://chatglm.cn', ['问答','国产'], 'free', 'fas fa-comments', '300万+'],
+        ['BigModel 开放平台', 'agents', '模型 API 与应用搭建平台', 'https://open.bigmodel.cn', ['API','平台'], 'paid', 'fas fa-plug', '75万+'],
+        ['AutoGLM', 'agents', '浏览器与桌面自动执行助手', 'https://www.zhipuai.cn', ['自动化','Agent'], 'freemium', 'fas fa-robot', '35万+'],
+        ['CodeGeeX', 'code', '国产代码补全与解释助手', 'https://codegeex.cn', ['代码','IDE'], 'free', 'fas fa-code', '160万+'],
+        ['CogView 视觉生成', 'image-ai', '图像生成和编辑模型服务', 'https://open.bigmodel.cn', ['图像','生成'], 'paid', 'fas fa-image', '32万+'],
+        ['GLM 检索增强', 'reading', '面向中文搜索与摘要的工具能力', 'https://open.bigmodel.cn', ['搜索','摘要'], 'paid', 'fas fa-magnifying-glass', '24万+'],
+        ['智谱科研助手', 'reading', '论文阅读、综述与问答支持', 'https://www.zhipuai.cn', ['论文','综述'], 'freemium', 'fas fa-book', '20万+'],
+        ['智谱文档助手', 'writing', '长文档写作和改写工具', 'https://www.zhipuai.cn', ['文档','写作'], 'freemium', 'fas fa-file-lines', '20万+'],
+        ['GLM 语音交互', 'voice', 'ASR/TTS 与语音问答能力', 'https://open.bigmodel.cn', ['语音','TTS'], 'paid', 'fas fa-microphone-lines', '14万+'],
+        ['GLM Agent Studio', 'agents', '多步骤任务编排工作台', 'https://open.bigmodel.cn', ['工作流','Agent'], 'paid', 'fas fa-sitemap', '18万+']
+    ]},
+    { vendor: '月之暗面', domain: 'moonshot.cn', color: '#111827', products: [
+        ['Kimi 智能助手', 'llm', '超长上下文中文助手', 'https://kimi.moonshot.cn', ['长文档','问答'], 'free', 'fas fa-moon', '600万+'],
+        ['Kimi 探索版', 'reading', '搜索增强与问题探索工具', 'https://kimi.moonshot.cn', ['搜索','阅读'], 'freemium', 'fas fa-compass', '120万+'],
+        ['Kimi 论文助手', 'reading', '论文阅读、总结和问答工具', 'https://kimi.moonshot.cn', ['论文','总结'], 'freemium', 'fas fa-file-pdf', '80万+'],
+        ['Kimi 长文写作', 'writing', '长篇写作与资料整合工具', 'https://kimi.moonshot.cn', ['写作','长文'], 'freemium', 'fas fa-pen-nib', '70万+'],
+        ['Kimi 翻译助手', 'voice', '长文档翻译和术语整理工具', 'https://kimi.moonshot.cn', ['翻译','术语'], 'freemium', 'fas fa-language', '35万+'],
+        ['Kimi PPT 助手', 'figure', '演示文稿大纲与视觉排版辅助', 'https://kimi.moonshot.cn', ['PPT','演示'], 'freemium', 'fas fa-display', '25万+'],
+        ['Kimi 浏览器助手', 'reading', '网页总结和标签页问答', 'https://kimi.moonshot.cn', ['网页','总结'], 'freemium', 'fas fa-globe', '22万+'],
+        ['Kimi 会议纪要', 'voice', '音频转写与纪要生成工具', 'https://kimi.moonshot.cn', ['转写','纪要'], 'freemium', 'fas fa-headphones', '20万+'],
+        ['Kimi API 平台', 'agents', '模型接入与工作流开发平台', 'https://platform.moonshot.cn', ['API','平台'], 'paid', 'fas fa-plug-circle-check', '18万+'],
+        ['Kimi 代码问答', 'code', '代码解释、重构和调试问答', 'https://kimi.moonshot.cn', ['代码','调试'], 'freemium', 'fas fa-laptop-code', '24万+']
+    ]},
+    { vendor: 'MiniMax', domain: 'minimaxi.com', color: '#7c3aed', products: [
+        ['MiniMax Chat', 'llm', '国产多模态对话模型入口', 'https://www.minimaxi.com', ['对话','多模态'], 'freemium', 'fas fa-comments', '180万+'],
+        ['海螺AI', 'video', '视频生成和创意内容平台', 'https://hailuoai.com', ['视频','生成'], 'freemium', 'fas fa-video', '140万+'],
+        ['MiniMax 开放平台', 'agents', '模型 API 和应用编排平台', 'https://www.minimaxi.com/platform', ['API','平台'], 'paid', 'fas fa-cloud-arrow-up', '40万+'],
+        ['Talkie 中文版', 'voice', '互动语音陪伴与角色对话工具', 'https://www.minimaxi.com', ['语音','角色'], 'freemium', 'fas fa-headset', '60万+'],
+        ['MiniMax 文案助手', 'writing', '营销文案和摘要生成工具', 'https://www.minimaxi.com', ['写作','文案'], 'freemium', 'fas fa-feather-pointed', '22万+'],
+        ['MiniMax 图像生成', 'image-ai', '图像创建与编辑工具', 'https://www.minimaxi.com', ['图像','编辑'], 'paid', 'fas fa-image', '28万+'],
+        ['MiniMax 音色工坊', 'voice', '语音克隆与配音平台', 'https://www.minimaxi.com', ['语音','配音'], 'paid', 'fas fa-wave-square', '20万+'],
+        ['MiniMax Agent Studio', 'agents', '任务流和智能体搭建工具', 'https://www.minimaxi.com', ['Agent','工作流'], 'paid', 'fas fa-diagram-project', '15万+'],
+        ['MiniMax 代码助手', 'code', '编码问答和补全服务', 'https://www.minimaxi.com', ['代码','补全'], 'paid', 'fas fa-code-branch', '18万+'],
+        ['MiniMax 企业知识库', 'agents', '企业内部知识助手平台', 'https://www.minimaxi.com', ['知识库','企业'], 'paid', 'fas fa-book-atlas', '16万+']
+    ]},
+    { vendor: 'DeepSeek', domain: 'deepseek.com', color: '#0f766e', products: [
+        ['DeepSeek Chat 专业版', 'llm', '中文问答和深度推理助手', 'https://chat.deepseek.com', ['推理','国产'], 'free', 'fas fa-brain', '500万+'],
+        ['DeepSeek Coder 平台', 'code', '代码生成、补全与审查工具', 'https://www.deepseek.com', ['代码','开发'], 'free', 'fas fa-code', '220万+'],
+        ['DeepSeek API 平台', 'agents', '模型调用和应用开发入口', 'https://platform.deepseek.com', ['API','平台'], 'paid', 'fas fa-plug', '70万+'],
+        ['DeepSeek Research', 'reading', '论文、资料和网页问答支持', 'https://chat.deepseek.com', ['研究','阅读'], 'free', 'fas fa-book-open', '90万+'],
+        ['DeepSeek 企业知识助手', 'agents', '企业知识库和流程自动化工具', 'https://www.deepseek.com', ['知识库','自动化'], 'paid', 'fas fa-building', '25万+'],
+        ['DeepSeek Long Context', 'reading', '长文档分析和多文件比较能力', 'https://chat.deepseek.com', ['长文档','比较'], 'free', 'fas fa-file-lines', '55万+'],
+        ['DeepSeek Math', 'data', '数学推理和研究计算助手', 'https://www.deepseek.com', ['推理','数学'], 'free', 'fas fa-square-root-variable', '30万+'],
+        ['DeepSeek Benchmark Lab', 'data', '模型评测和对比工作台', 'https://platform.deepseek.com', ['评测','对比'], 'paid', 'fas fa-chart-column', '18万+'],
+        ['DeepSeek Agent Workbench', 'agents', '多步骤任务和工具调用工作台', 'https://platform.deepseek.com', ['Agent','工作台'], 'paid', 'fas fa-toolbox', '16万+'],
+        ['DeepSeek CLI', 'cli', '终端中的模型调用和问答工具', 'https://platform.deepseek.com', ['CLI','终端'], 'free', 'fas fa-terminal', '20万+']
+    ]},
+    { vendor: '秘塔', domain: 'metaso.cn', color: '#1d4ed8', products: [
+        ['秘塔AI搜索', 'reading', '中文搜索、问答与资料汇总工具', 'https://metaso.cn', ['搜索','资料'], 'free', 'fas fa-search', '300万+'],
+        ['秘塔写作猫', 'writing', '写作改写与语法优化工具', 'https://xiezuocat.com', ['写作','润色'], 'freemium', 'fas fa-cat', '100万+'],
+        ['秘塔翻译', 'voice', '文档翻译与术语统一工具', 'https://metaso.cn', ['翻译','术语'], 'freemium', 'fas fa-language', '25万+'],
+        ['秘塔论文助手', 'reading', '文献检索和综述辅助工具', 'https://metaso.cn', ['论文','检索'], 'freemium', 'fas fa-file-pdf', '20万+'],
+        ['秘塔法律搜索', 'reading', '法规案例与判例问答搜索', 'https://metaso.cn', ['法律','搜索'], 'freemium', 'fas fa-scale-balanced', '16万+'],
+        ['秘塔知识库助手', 'agents', '资料整合与知识问答助手', 'https://metaso.cn', ['知识库','问答'], 'freemium', 'fas fa-book-bookmark', '18万+'],
+        ['秘塔网页总结', 'reading', '网页、报告和链接摘要工具', 'https://metaso.cn', ['网页','总结'], 'free', 'fas fa-globe', '24万+'],
+        ['秘塔文档解析', 'data', 'PDF、表格和报告结构化提取工具', 'https://metaso.cn', ['文档','提取'], 'paid', 'fas fa-table', '14万+'],
+        ['秘塔团队版', 'agents', '团队协作和资料共享空间', 'https://metaso.cn', ['团队','协作'], 'paid', 'fas fa-users-gear', '12万+'],
+        ['秘塔播客摘要', 'voice', '音频内容总结与时间轴提炼工具', 'https://metaso.cn', ['音频','摘要'], 'freemium', 'fas fa-podcast', '10万+']
+    ]},
+    { vendor: '360', domain: '360.com', color: '#16a34a', products: [
+        ['纳米AI搜索', 'reading', '面向中文互联网的 AI 搜索入口', 'https://www.n.cn', ['搜索','中文'], 'free', 'fas fa-magnifying-glass', '260万+'],
+        ['360智脑', 'llm', '360 通用问答与办公助手', 'https://ai.360.com', ['对话','办公'], 'free', 'fas fa-brain', '120万+'],
+        ['360鸿图', 'image-ai', '图像生成与设计辅助平台', 'https://ai.360.com', ['设计','图片'], 'freemium', 'fas fa-image', '40万+'],
+        ['360智绘', 'figure', '海报和视觉创意工具', 'https://ai.360.com', ['海报','视觉'], 'freemium', 'fas fa-palette', '28万+'],
+        ['360数字员工', 'agents', '流程自动化与企业智能助手', 'https://ai.360.com', ['企业','自动化'], 'paid', 'fas fa-user-tie', '18万+'],
+        ['360安全大模型', 'agents', '安全分析与攻击面检测助手', 'https://ai.360.com', ['安全','分析'], 'paid', 'fas fa-shield', '16万+'],
+        ['360文档AI', 'writing', '文档总结、写作和改写工具', 'https://ai.360.com', ['文档','写作'], 'freemium', 'fas fa-file-lines', '20万+'],
+        ['360视频摘要', 'video', '视频理解与摘要生成工具', 'https://ai.360.com', ['视频','摘要'], 'freemium', 'fas fa-film', '12万+'],
+        ['360浏览器AI助手', 'reading', '网页内容总结和问答助手', 'https://browser.360.cn', ['浏览器','问答'], 'free', 'fas fa-window-maximize', '100万+'],
+        ['360企业知识库', 'agents', '知识问答和内部资料助手', 'https://ai.360.com', ['知识库','企业'], 'paid', 'fas fa-building-user', '12万+']
+    ]},
+    { vendor: '昆仑万维', domain: 'kunlun.com', color: '#0284c7', products: [
+        ['天工AI', 'llm', '昆仑万维通用大模型助手', 'https://tiangong.cn', ['对话','搜索'], 'free', 'fas fa-cloud', '180万+'],
+        ['天工AI搜索', 'reading', '搜索与资料整合入口', 'https://tiangong.cn', ['搜索','阅读'], 'free', 'fas fa-search', '65万+'],
+        ['SkyMusic', 'voice', 'AI 音乐创作与配乐工具', 'https://tiangong.cn', ['音乐','创作'], 'freemium', 'fas fa-music', '20万+'],
+        ['SkyReels', 'video', 'AI 短视频生成与脚本工具', 'https://tiangong.cn', ['视频','生成'], 'freemium', 'fas fa-video', '18万+'],
+        ['天工代码助手', 'code', '开发场景的代码生成与问答工具', 'https://tiangong.cn', ['代码','开发'], 'freemium', 'fas fa-code', '16万+'],
+        ['天工PPT助手', 'figure', '演示文稿结构与素材整理工具', 'https://tiangong.cn', ['PPT','图表'], 'freemium', 'fas fa-display', '14万+'],
+        ['天工办公助手', 'writing', '文案总结与日常办公问答工具', 'https://tiangong.cn', ['办公','写作'], 'free', 'fas fa-briefcase', '40万+'],
+        ['天工Agent 平台', 'agents', '任务流和插件调用平台', 'https://tiangong.cn', ['Agent','平台'], 'paid', 'fas fa-sitemap', '12万+'],
+        ['天工语音助手', 'voice', '语音问答与朗读能力平台', 'https://tiangong.cn', ['语音','助手'], 'freemium', 'fas fa-microphone', '12万+'],
+        ['天工科研助手', 'reading', '论文摘要与研究问题问答工具', 'https://tiangong.cn', ['科研','论文'], 'freemium', 'fas fa-flask', '10万+']
+    ]},
+    { vendor: '美图', domain: 'meitu.com', color: '#ec4899', products: [
+        ['美图设计室', 'figure', '海报、电商图和社媒视觉设计工具', 'https://www.meitu.com', ['设计','海报'], 'freemium', 'fas fa-pen-ruler', '260万+'],
+        ['WHEE', 'image-ai', 'AI 绘图和图像生成平台', 'https://www.meitu.com', ['绘图','图片'], 'freemium', 'fas fa-image', '120万+'],
+        ['开拍', 'video', '视频脚本、口播和剪辑工具', 'https://www.meitu.com', ['视频','创作'], 'freemium', 'fas fa-clapperboard', '90万+'],
+        ['美图云修', 'image-ai', '摄影修图与批量处理工具', 'https://www.meitu.com', ['修图','摄影'], 'paid', 'fas fa-camera-retro', '35万+'],
+        ['美图商品图', 'figure', '电商商品图智能生成工具', 'https://www.meitu.com', ['电商','商品图'], 'freemium', 'fas fa-store', '30万+'],
+        ['美图AI PPT', 'figure', 'PPT 视觉与内容编排助手', 'https://www.meitu.com', ['PPT','演示'], 'freemium', 'fas fa-file-powerpoint', '18万+'],
+        ['美图口播数字人', 'video', '数字人视频生成平台', 'https://www.meitu.com', ['数字人','视频'], 'paid', 'fas fa-user-tie', '15万+'],
+        ['美图文案助手', 'writing', '图文营销文案与标题生成', 'https://www.meitu.com', ['文案','营销'], 'freemium', 'fas fa-feather', '22万+'],
+        ['美图AI修片助手', 'image-ai', '影楼和摄影后期批量优化工具', 'https://www.meitu.com', ['修片','后期'], 'paid', 'fas fa-sliders', '14万+'],
+        ['美图创意素材库', 'figure', '素材生成与模板管理平台', 'https://www.meitu.com', ['素材','模板'], 'freemium', 'fas fa-photo-film', '16万+']
+    ]},
+    { vendor: '金山办公', domain: 'wps.cn', color: '#dc2626', products: [
+        ['WPS AI', 'writing', '文档、表格和演示的办公助手', 'https://www.wps.cn', ['办公','写作'], 'freemium', 'fas fa-file-word', '500万+'],
+        ['WPS 灵犀', 'llm', '办公场景问答和内容总结助手', 'https://www.wps.cn', ['问答','办公'], 'freemium', 'fas fa-lightbulb', '140万+'],
+        ['WPS PDF AI', 'reading', 'PDF 阅读、问答和摘要工具', 'https://www.wps.cn', ['PDF','总结'], 'freemium', 'fas fa-file-pdf', '80万+'],
+        ['WPS 表格 Copilot', 'data', '表格公式、分析和可视化辅助', 'https://www.wps.cn', ['表格','分析'], 'freemium', 'fas fa-table-cells', '75万+'],
+        ['WPS 演示美化', 'figure', 'PPT 结构、排版和视觉增强', 'https://www.wps.cn', ['PPT','排版'], 'freemium', 'fas fa-display', '60万+'],
+        ['WPS 云文档助手', 'agents', '知识库和多人协作问答工具', 'https://www.wps.cn', ['协作','知识库'], 'paid', 'fas fa-cloud', '45万+'],
+        ['WPS 智能校对', 'writing', '中文文稿校对、改写和润色', 'https://www.wps.cn', ['校对','润色'], 'freemium', 'fas fa-spell-check', '55万+'],
+        ['WPS 扫描增强', 'data', '票据、表格和扫描件结构化提取', 'https://www.wps.cn', ['扫描','OCR'], 'freemium', 'fas fa-camera', '30万+'],
+        ['WPS AI会议纪要', 'voice', '音频转写和纪要生成工具', 'https://www.wps.cn', ['转写','纪要'], 'freemium', 'fas fa-microphone-lines', '28万+'],
+        ['WPS 企业知识助手', 'agents', '企业知识问答和内容沉淀平台', 'https://www.wps.cn', ['企业','知识库'], 'paid', 'fas fa-building', '22万+']
+    ]},
+    { vendor: '京东', domain: 'jd.com', color: '#ef4444', products: [
+        ['言犀智能助手', 'llm', '京东系对话和业务问答助手', 'https://yanxi.jd.com', ['对话','业务'], 'freemium', 'fas fa-comment-dots', '100万+'],
+        ['言犀数字人', 'video', '直播与客服场景数字人平台', 'https://yanxi.jd.com', ['数字人','直播'], 'paid', 'fas fa-user-tie', '35万+'],
+        ['京东羚珑', 'figure', '商品图、营销图和素材生成工具', 'https://ling.jd.com', ['设计','电商'], 'freemium', 'fas fa-store', '40万+'],
+        ['京东云开发平台', 'agents', '企业模型与应用搭建平台', 'https://www.jdcloud.com', ['平台','企业'], 'paid', 'fas fa-cloud-arrow-up', '18万+'],
+        ['京东云代码助手', 'code', '研发提效和代码问答工具', 'https://www.jdcloud.com', ['代码','研发'], 'paid', 'fas fa-code', '15万+'],
+        ['京东智能客服', 'agents', '问答机器人和服务流程自动化', 'https://yanxi.jd.com', ['客服','自动化'], 'paid', 'fas fa-headset', '25万+'],
+        ['京东广告文案AI', 'writing', '电商标题和活动文案助手', 'https://www.jd.com', ['文案','电商'], 'freemium', 'fas fa-pen-fancy', '16万+'],
+        ['京东工业知识助手', 'agents', '产业知识问答和流程辅助', 'https://www.jd.com', ['产业','知识库'], 'paid', 'fas fa-industry', '10万+'],
+        ['京东语音分析', 'voice', '客服录音转写和质检分析工具', 'https://www.jdcloud.com', ['语音','质检'], 'paid', 'fas fa-wave-square', '12万+'],
+        ['京东数据洞察AI', 'data', '零售数据分析与预测工具', 'https://www.jdcloud.com', ['分析','预测'], 'paid', 'fas fa-chart-column', '14万+']
+    ]},
+    { vendor: '快手', domain: 'kuaishou.com', color: '#f97316', products: [
+        ['可灵AI', 'video', 'AI 视频生成和角色动画工具', 'https://klingai.com', ['视频','生成'], 'freemium', 'fas fa-video', '220万+'],
+        ['快手文生图', 'image-ai', '面向创意内容的图片生成工具', 'https://klingai.com', ['图片','创意'], 'freemium', 'fas fa-image', '60万+'],
+        ['快手脚本助手', 'writing', '短视频脚本和口播文案工具', 'https://www.kuaishou.com', ['脚本','文案'], 'freemium', 'fas fa-scroll', '22万+'],
+        ['磁力开悟', 'data', '营销分析与商业洞察工具', 'https://www.kuaishou.com', ['营销','分析'], 'paid', 'fas fa-chart-line', '18万+'],
+        ['快手数字人', 'video', '内容播报与直播数字人平台', 'https://www.kuaishou.com', ['数字人','直播'], 'paid', 'fas fa-user-astronaut', '12万+'],
+        ['快手智能配音', 'voice', '短视频配音和音色生成工具', 'https://www.kuaishou.com', ['配音','语音'], 'freemium', 'fas fa-volume-high', '18万+'],
+        ['快手创意素材工坊', 'figure', '视频封面和素材视觉平台', 'https://www.kuaishou.com', ['素材','视觉'], 'freemium', 'fas fa-photo-film', '14万+'],
+        ['快手评论摘要', 'reading', '评论和舆情摘要工具', 'https://www.kuaishou.com', ['摘要','舆情'], 'freemium', 'fas fa-comments', '10万+'],
+        ['快手内容 Agent', 'agents', '内容策划和分发工作流工具', 'https://www.kuaishou.com', ['Agent','内容'], 'paid', 'fas fa-sitemap', '8万+'],
+        ['快手创作者工作台', 'aisoft', '创作者运营和 AI 辅助软件入口', 'https://www.kuaishou.com', ['创作者','软件'], 'free', 'fas fa-desktop', '25万+']
+    ]},
+    { vendor: '网易有道', domain: 'youdao.com', color: '#ef4444', products: [
+        ['有道子曰', 'llm', '教育与学习场景的大模型助手', 'https://www.youdao.com', ['教育','问答'], 'freemium', 'fas fa-graduation-cap', '90万+'],
+        ['有道翻译AI', 'voice', '多语言翻译与文档处理工具', 'https://fanyi.youdao.com', ['翻译','文档'], 'free', 'fas fa-language', '500万+'],
+        ['有道速读', 'reading', '长文摘要和知识提炼工具', 'https://www.youdao.com', ['阅读','总结'], 'freemium', 'fas fa-book-open', '35万+'],
+        ['有道写作', 'writing', '英文写作与改写辅助工具', 'https://write.youdao.com', ['写作','英文'], 'freemium', 'fas fa-pen', '40万+'],
+        ['网易天音', 'voice', '音乐和音频生成工具', 'https://tianyin.music.163.com', ['音乐','语音'], 'freemium', 'fas fa-music', '20万+'],
+        ['有道会议同传', 'voice', '会议口译和同传辅助工具', 'https://www.youdao.com', ['会议','同传'], 'paid', 'fas fa-headset', '12万+'],
+        ['有道AI课件', 'figure', '教学课件和演示辅助工具', 'https://www.youdao.com', ['课件','演示'], 'freemium', 'fas fa-chalkboard', '14万+'],
+        ['有道词典AI问答', 'reading', '词典、例句和知识问答工具', 'https://dict.youdao.com', ['词典','问答'], 'free', 'fas fa-book', '300万+'],
+        ['有道研发助手', 'code', '面向教育业务的代码与脚本辅助工具', 'https://www.youdao.com', ['代码','研发'], 'paid', 'fas fa-code', '10万+'],
+        ['有道学习Agent', 'agents', '学习规划与知识整理工具', 'https://www.youdao.com', ['学习','Agent'], 'freemium', 'fas fa-user-graduate', '16万+']
+    ]},
+    { vendor: '作业帮', domain: 'zybang.com', color: '#22c55e', products: [
+        ['银河大模型助手', 'llm', '教育与问答场景国产模型助手', 'https://www.zybang.com', ['教育','问答'], 'free', 'fas fa-star', '80万+'],
+        ['作业帮答疑AI', 'reading', '题目解析与知识点问答工具', 'https://www.zybang.com', ['教育','解析'], 'free', 'fas fa-circle-question', '200万+'],
+        ['作业帮写作批改', 'writing', '作文批改和表达优化工具', 'https://www.zybang.com', ['写作','批改'], 'freemium', 'fas fa-pencil', '40万+'],
+        ['作业帮口语陪练', 'voice', '英语口语练习和语音反馈工具', 'https://www.zybang.com', ['口语','语音'], 'freemium', 'fas fa-microphone', '28万+'],
+        ['作业帮AI课件', 'figure', '教师课件和讲义生成工具', 'https://www.zybang.com', ['课件','图表'], 'freemium', 'fas fa-file-powerpoint', '15万+'],
+        ['作业帮教研数据台', 'data', '教学数据分析和学习报告平台', 'https://www.zybang.com', ['教育','分析'], 'paid', 'fas fa-chart-pie', '12万+'],
+        ['作业帮题库助手', 'reading', '题库检索与组卷辅助工具', 'https://www.zybang.com', ['题库','检索'], 'freemium', 'fas fa-book-open-reader', '25万+'],
+        ['作业帮数字讲师', 'video', '课程讲解数字人平台', 'https://www.zybang.com', ['数字人','课程'], 'paid', 'fas fa-user-tie', '8万+'],
+        ['作业帮智能教辅', 'aisoft', '教学与练习场景软件工具', 'https://www.zybang.com', ['教育','软件'], 'paid', 'fas fa-tablet-screen-button', '10万+'],
+        ['作业帮教学Agent', 'agents', '学习任务编排与助教流程工具', 'https://www.zybang.com', ['Agent','教学'], 'paid', 'fas fa-sitemap', '8万+']
+    ]}
+];
+
+function buildDomesticToolExpansion(startId = 5000) {
+    const existingNames = new Set(TOOLS_DATA.map(tool => tool.name));
+    let id = startId;
+    return DOMESTIC_TOOL_VENDOR_MATRIX.flatMap(entry => entry.products.map(([name, category, summary, url, tags, pricing, icon, users]) => ({
+        id: id++,
+        name,
+        category,
+        desc: `${entry.vendor}生态工具：${summary}`,
+        logo: favicon(hostFromUrl(url)),
+        icon,
+        color: entry.color,
+        tags: [...new Set([...(tags || []), '国产'])],
+        pricing,
+        region: 'domestic',
+        rating: pricing === 'free' ? 4.6 : pricing === 'freemium' ? 4.5 : 4.4,
+        users,
+        url,
+        hot: users.includes('300万') || users.includes('500万')
+    }))).filter(tool => !existingNames.has(tool.name));
+}
+
+TOOLS_DATA.push(...buildDomesticToolExpansion());

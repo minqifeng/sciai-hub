@@ -196,6 +196,7 @@ const ModelRankingAPI = (() => {
     const CACHE_KEY = 'openrouter-models-catalog';
     const CACHE_TTL = 30 * 60 * 1000;
     const SNAPSHOT_DATE = '2026-03-31';
+    const TARGET_LEADERBOARD_SIZE = 50;
 
     function normalizeModelName(name = '') {
         return name
@@ -278,7 +279,8 @@ const ModelRankingAPI = (() => {
             completionPricePerM: toPricePerMillion(model.pricing?.completion),
             cacheReadPricePerM: toPricePerMillion(model.pricing?.input_cache_read),
             cacheWritePricePerM: toPricePerMillion(model.pricing?.input_cache_write),
-            benchmark: {}
+            benchmark: {},
+            rankingSource: 'catalog'
         };
     }
 
@@ -311,7 +313,7 @@ const ModelRankingAPI = (() => {
     function enrichSnapshot(snapshot, catalog) {
         return snapshot.map(item => {
             const liveModel = findCatalogMatch(item, catalog);
-            if (!liveModel) return item;
+            if (!liveModel) return { ...item, rankingSource: 'snapshot' };
             return {
                 ...liveModel,
                 ...item,
@@ -325,19 +327,63 @@ const ModelRankingAPI = (() => {
                 description: liveModel.description || item.description || '',
                 contextLength: liveModel.contextLength,
                 inputModalities: liveModel.inputModalities,
-                outputModalities: liveModel.outputModalities
+                outputModalities: liveModel.outputModalities,
+                rankingSource: 'snapshot'
             };
         });
+    }
+
+    function scoreCatalogModel(model) {
+        const recencyDays = model.createdTs
+            ? Math.max(0, (Date.now() - model.createdTs * 1000) / (24 * 60 * 60 * 1000))
+            : 365;
+        const recencyScore = Math.max(0, 180 - Math.min(180, recencyDays)) * 0.35;
+        const contextScore = Math.min(180, Math.log10(Math.max(1024, model.contextLength || 1024)) * 38);
+        const outputScore = Math.min(80, Math.log10(Math.max(1024, model.maxCompletionTokens || 1024)) * 18);
+        const paramsScore = Math.min(40, (model.supportedParameters || []).length * 3);
+        const modalityScore = model.type === 'Multimodal' ? 24 : model.type === 'Code-Optimized' ? 16 : 8;
+        const priceScore = model.pricing === 'free' ? 18 : 6;
+        const providerBonus = ['OpenAI', 'Anthropic', 'Google', 'DeepSeek', 'xAI', 'MiniMax', 'Qwen', 'Z.ai'].includes(model.provider) ? 12 : 0;
+        return recencyScore + contextScore + outputScore + paramsScore + modalityScore + priceScore + providerBonus;
+    }
+
+    function buildSupplementalModels(snapshot, catalog, targetSize = TARGET_LEADERBOARD_SIZE) {
+        const existingIds = new Set(
+            snapshot.map(model => model.liveId || `${normalizeModelName(model.name)}::${(model.provider || '').toLowerCase()}`)
+        );
+
+        return catalog
+            .filter(model => {
+                const key = model.liveId || `${normalizeModelName(model.name)}::${(model.provider || '').toLowerCase()}`;
+                return !existingIds.has(key);
+            })
+            .sort((a, b) => scoreCatalogModel(b) - scoreCatalogModel(a))
+            .slice(0, Math.max(0, targetSize - snapshot.length))
+            .map((model, index) => ({
+                ...model,
+                rank: snapshot.length + index + 1,
+                weeklyTokens: '',
+                weeklyGrowth: '',
+                hot: index < 8 || model.pricing === 'free',
+                url: model.url || 'https://openrouter.ai/models',
+                benchmark: model.benchmark || {},
+                arena: null,
+                rankingSource: 'catalog'
+            }));
     }
 
     async function getLeaderboard(force = false) {
         const snapshot = Array.isArray(MODELS_RANKING) ? MODELS_RANKING : [];
         const catalog = await fetchCatalog(force);
+        const enrichedSnapshot = enrichSnapshot(snapshot, catalog);
+        const supplementalModels = buildSupplementalModels(enrichedSnapshot, catalog);
         return {
-            models: enrichSnapshot(snapshot, catalog),
+            models: [...enrichedSnapshot, ...supplementalModels],
             snapshotDate: SNAPSHOT_DATE,
             refreshedAt: new Date().toISOString(),
-            liveCatalogCount: catalog.length
+            liveCatalogCount: catalog.length,
+            snapshotTopCount: enrichedSnapshot.length,
+            supplementalCount: supplementalModels.length
         };
     }
 

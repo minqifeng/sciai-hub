@@ -34,60 +34,82 @@
             <kbd class="search-kbd">/</kbd>
         </div>
 
+        <div class="sidebar-overview">
+            <div class="sidebar-overview-badge">Research OS</div>
+            <h3>从选工具到跑研究，全站按任务流组织</h3>
+            <p>先定场景，再进能力域，再进入专题工具箱，避免在 300+ 工具里盲找。</p>
+            <div class="sidebar-overview-metrics">
+                <div>
+                    <strong>300+</strong>
+                    <span>工具收录</span>
+                </div>
+                <div>
+                    <strong>12</strong>
+                    <span>能力域</span>
+                </div>
+                <div>
+                    <strong>5</strong>
+                    <span>专题工具箱</span>
+                </div>
+            </div>
+        </div>
+
         <nav class="sidebar-nav">
             <!-- ① AI工具推荐 -->
             <div class="nav-section">
                 <div class="nav-section-title">AI工具推荐</div>
+                <div class="nav-section-note">按研究流程先粗筛，再进入具体能力区。</div>
                 <a href="#" class="nav-item active" data-category="all">
-                    <i class="fas fa-compass"></i><span>全部工具</span>
+                    <i class="fas fa-compass"></i><span>全部工具</span><small class="nav-item-meta">总览入口</small>
                 </a>
                 <a href="#" class="nav-item" data-category="hot">
-                    <i class="fas fa-fire"></i><span>热门推荐</span>
+                    <i class="fas fa-fire"></i><span>热门推荐</span><small class="nav-item-meta">高频选择</small>
                 </a>
                 <a href="#" class="nav-item" data-category="new">
-                    <i class="fas fa-sparkles"></i><span>最新上线</span>
+                    <i class="fas fa-sparkles"></i><span>最新上线</span><small class="nav-item-meta">新鲜工具</small>
                 </a>
                 <a href="#" class="nav-item" data-category="writing">
-                    <i class="fas fa-pen-fancy"></i><span>论文写作</span>
+                    <i class="fas fa-pen-fancy"></i><span>论文写作</span><small class="nav-item-meta">起草 润色 回复审稿</small>
                 </a>
                 <a href="#" class="nav-item" data-category="reading">
-                    <i class="fas fa-book"></i><span>文献阅读</span>
+                    <i class="fas fa-book"></i><span>文献阅读</span><small class="nav-item-meta">检索 综述 摘要</small>
                 </a>
                 <a href="#" class="nav-item" data-category="data">
-                    <i class="fas fa-database"></i><span>数据分析</span>
+                    <i class="fas fa-database"></i><span>数据分析</span><small class="nav-item-meta">清洗 统计 BI</small>
                 </a>
                 <a href="#" class="nav-item" data-category="figure">
-                    <i class="fas fa-paintbrush"></i><span>科研绘图</span>
+                    <i class="fas fa-paintbrush"></i><span>科研绘图</span><small class="nav-item-meta">图表 示意图 海报</small>
                 </a>
                 <a href="#" class="nav-item" data-category="code">
-                    <i class="fas fa-code"></i><span>代码助手</span>
+                    <i class="fas fa-code"></i><span>代码助手</span><small class="nav-item-meta">IDE CLI 部署</small>
                 </a>
                 <a href="#" class="nav-item" data-category="llm">
-                    <i class="fas fa-brain"></i><span>大语言模型</span>
+                    <i class="fas fa-brain"></i><span>大语言模型</span><small class="nav-item-meta">对话 推理 多模态</small>
                 </a>
             </div>
 
             <!-- ② 科研AI工具箱 -->
             <div class="nav-section">
                 <div class="nav-section-title">科研AI工具箱</div>
+                <div class="nav-section-note">按具体研究动作进入，减少工具切换成本。</div>
                 <a href="#" class="nav-item" data-category="graph">
-                    <i class="fas fa-circle-nodes"></i><span>研究图谱</span>
+                    <i class="fas fa-circle-nodes"></i><span>研究图谱</span><small class="nav-item-meta">发现脉络</small>
                     <span class="nav-badge new-badge">新</span>
                 </a>
                 <a href="#" class="nav-item" data-category="search-papers">
-                    <i class="fas fa-magnifying-glass-chart"></i><span>论文检索</span>
+                    <i class="fas fa-magnifying-glass-chart"></i><span>论文检索</span><small class="nav-item-meta">问题到文献</small>
                     <span class="nav-badge new-badge">新</span>
                 </a>
                 <a href="#" class="nav-item" data-category="journal">
-                    <i class="fas fa-journal-whills"></i><span>选刊助手</span>
+                    <i class="fas fa-journal-whills"></i><span>选刊助手</span><small class="nav-item-meta">期刊匹配</small>
                     <span class="nav-badge new-badge">新</span>
                 </a>
                 <a href="#" class="nav-item" data-category="cite-check">
-                    <i class="fas fa-list-check"></i><span>引文核查</span>
+                    <i class="fas fa-list-check"></i><span>引文核查</span><small class="nav-item-meta">参考文献清洗</small>
                     <span class="nav-badge new-badge">新</span>
                 </a>
                 <a href="#" class="nav-item" data-category="paperdeck">
-                    <i class="fas fa-layer-group"></i><span>PaperDeck</span>
+                    <i class="fas fa-layer-group"></i><span>PaperDeck</span><small class="nav-item-meta">论文卡片流</small>
                     <span class="nav-badge new-badge">新</span>
                 </a>
             </div>
@@ -187,23 +209,166 @@
 
         <!-- Hero 横幅 -->
         <section class="hero-section" id="heroSection">
-            <div class="hero-content">
-                <div class="hero-badge"><i class="fas fa-atom"></i> AI × 科研</div>
-                <h1 class="hero-title">发现最好用的 <span class="hero-highlight">AI 科研工具</span></h1>
-                <p class="hero-desc">精选 300+ 款 AI 工具，覆盖论文写作、文献阅读、数据分析、智能体、CLI 全流程</p>
-                <div class="hero-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="heroSearch" placeholder="搜索工具名称、功能、场景...">
-                    <button class="hero-search-btn" id="heroSearchBtn">搜索</button>
+            <div class="hero-content hero-layout">
+                <div class="hero-main">
+                    <div class="hero-badge"><i class="fas fa-atom"></i> AI × 科研工作流导航</div>
+                    <h1 class="hero-title">把 <span class="hero-highlight">找工具</span> 这件事，做成一张可浏览的研究地图</h1>
+                    <p class="hero-desc">不只罗列工具，而是把“写作、检索、分析、绘图、编码、智能体”串成清晰路径。你可以从研究任务出发，也可以从能力域反向选型。</p>
+                    <div class="hero-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="heroSearch" placeholder="搜索工具名称、功能、场景，比如：文献综述、数据清洗、SCI配图">
+                        <button class="hero-search-btn" id="heroSearchBtn">搜索</button>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="hero-action-card" type="button" data-category="writing">
+                            <span class="hero-action-kicker">Start Here</span>
+                            <strong>写论文</strong>
+                            <small>起草、改写、回复审稿</small>
+                        </button>
+                        <button class="hero-action-card" type="button" data-category="reading">
+                            <span class="hero-action-kicker">Most Used</span>
+                            <strong>读文献</strong>
+                            <small>检索、总结、追踪脉络</small>
+                        </button>
+                        <button class="hero-action-card" type="button" data-category="data">
+                            <span class="hero-action-kicker">Workflow</span>
+                            <strong>做分析</strong>
+                            <small>数据清洗、统计、BI</small>
+                        </button>
+                        <button class="hero-action-card" type="button" data-category="code">
+                            <span class="hero-action-kicker">Build</span>
+                            <strong>跑代码</strong>
+                            <small>Copilot、CLI、部署链路</small>
+                        </button>
+                    </div>
+                    <div class="hero-tags">
+                        <span class="hero-tag" data-category="writing"><i class="fas fa-pen-fancy"></i>论文写作</span>
+                        <span class="hero-tag" data-category="reading"><i class="fas fa-book-open"></i>文献阅读</span>
+                        <span class="hero-tag" data-category="data"><i class="fas fa-chart-line"></i>数据分析</span>
+                        <span class="hero-tag" data-category="figure"><i class="fas fa-dna"></i>科研绘图</span>
+                        <span class="hero-tag" data-category="code"><i class="fas fa-code"></i>代码助手</span>
+                        <span class="hero-tag" data-category="llm"><i class="fas fa-brain"></i>大语言模型</span>
+                    </div>
                 </div>
-                <div class="hero-tags">
-                    <span class="hero-tag" data-category="writing"><i class="fas fa-pen-fancy"></i>论文写作</span>
-                    <span class="hero-tag" data-category="reading"><i class="fas fa-book-open"></i>文献阅读</span>
-                    <span class="hero-tag" data-category="data"><i class="fas fa-chart-line"></i>数据分析</span>
-                    <span class="hero-tag" data-category="figure"><i class="fas fa-dna"></i>科研绘图</span>
-                    <span class="hero-tag" data-category="code"><i class="fas fa-code"></i>代码助手</span>
-                    <span class="hero-tag" data-category="llm"><i class="fas fa-brain"></i>大语言模型</span>
+                <aside class="hero-panel">
+                    <div class="hero-panel-card">
+                        <span class="hero-panel-label">Recommended Route</span>
+                        <h3>问题定义 → 文献脉络 → 数据分析 → 图表生成 → 投稿准备</h3>
+                        <p>首页导航已经按这条链路重排，你可以先从任务阶段进入，再到具体工具。</p>
+                    </div>
+                    <div class="hero-panel-stats">
+                        <div class="hero-stat-block">
+                            <span>写作与阅读</span>
+                            <strong>90+</strong>
+                        </div>
+                        <div class="hero-stat-block">
+                            <span>数据与绘图</span>
+                            <strong>80+</strong>
+                        </div>
+                        <div class="hero-stat-block">
+                            <span>代码与代理</span>
+                            <strong>70+</strong>
+                        </div>
+                    </div>
+                    <div class="hero-mini-list">
+                        <button class="hero-mini-item" type="button" data-category="graph"><i class="fas fa-circle-nodes"></i><span>先看研究图谱</span></button>
+                        <button class="hero-mini-item" type="button" data-category="models"><i class="fas fa-ranking-star"></i><span>追踪最新模型</span></button>
+                        <button class="hero-mini-item" type="button" data-category="github"><i class="fab fa-github"></i><span>找高星开源项目</span></button>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="hero-flow-section">
+            <div class="hero-flow-strip">
+                <button class="hero-flow-step" type="button" data-category="reading">
+                    <span class="hero-flow-index">01</span>
+                    <strong>找资料</strong>
+                    <small>Scholar / arXiv / 检索助手</small>
+                </button>
+                <button class="hero-flow-step" type="button" data-category="writing">
+                    <span class="hero-flow-index">02</span>
+                    <strong>写与改</strong>
+                    <small>提纲、润色、回复审稿</small>
+                </button>
+                <button class="hero-flow-step" type="button" data-category="data">
+                    <span class="hero-flow-index">03</span>
+                    <strong>算与看</strong>
+                    <small>数据清洗、统计、BI</small>
+                </button>
+                <button class="hero-flow-step" type="button" data-category="figure">
+                    <span class="hero-flow-index">04</span>
+                    <strong>出图</strong>
+                    <small>科研示意图、海报、封面</small>
+                </button>
+                <button class="hero-flow-step" type="button" data-category="code">
+                    <span class="hero-flow-index">05</span>
+                    <strong>实现与部署</strong>
+                    <small>Copilot、CLI、云端</small>
+                </button>
+            </div>
+        </section>
+
+        <section class="taxonomy-section">
+            <div class="section-header">
+                <h3><i class="fas fa-shapes"></i> AI 工具分类地图</h3>
+                <span class="section-sub">把“类别名”变成“任务入口”。每张卡片都对应真实研究动作，而不只是标签。</span>
+            </div>
+            <div class="taxonomy-grid">
+                <button class="taxonomy-card" type="button" data-category="writing">
+                    <span class="taxonomy-kicker">Writing Stack</span>
+                    <h4>论文写作与改写</h4>
+                    <p>适合摘要、引言、讨论、cover letter、回复审稿意见。</p>
+                    <div class="taxonomy-tags"><span>起草</span><span>润色</span><span>降重</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="reading">
+                    <span class="taxonomy-kicker">Reading Stack</span>
+                    <h4>文献检索与综述</h4>
+                    <p>适合快速理解一篇论文，或把一个方向的主线梳理清楚。</p>
+                    <div class="taxonomy-tags"><span>检索</span><span>总结</span><span>图谱</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="data">
+                    <span class="taxonomy-kicker">Analysis Stack</span>
+                    <h4>数据清洗与统计分析</h4>
+                    <p>覆盖表格、数据库、可视化、BI，以及科研统计常见软件。</p>
+                    <div class="taxonomy-tags"><span>清洗</span><span>统计</span><span>洞察</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="figure">
+                    <span class="taxonomy-kicker">Figure Stack</span>
+                    <h4>科研绘图与视觉表达</h4>
+                    <p>从论文图表到示意图、实验流程图、投稿海报都在这里。</p>
+                    <div class="taxonomy-tags"><span>图表</span><span>示意图</span><span>海报</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="code">
+                    <span class="taxonomy-kicker">Build Stack</span>
+                    <h4>代码助手与开发工具</h4>
+                    <p>IDE、Copilot、终端、云部署，偏向真正能落地的工程链路。</p>
+                    <div class="taxonomy-tags"><span>IDE</span><span>CLI</span><span>部署</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="llm">
+                    <span class="taxonomy-kicker">Model Stack</span>
+                    <h4>大模型与多模态入口</h4>
+                    <p>适合比较模型能力、价格、上下文和在科研场景中的适配度。</p>
+                    <div class="taxonomy-tags"><span>推理</span><span>多模态</span><span>模型选型</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="agents">
+                    <span class="taxonomy-kicker">Agent Stack</span>
+                    <h4>智能体与自动化流程</h4>
+                    <p>面向多步骤调研、自动报告、工作流编排和长期任务执行。</p>
+                    <div class="taxonomy-tags"><span>编排</span><span>自动化</span><span>代理</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="cli">
+                    <span class="taxonomy-kicker">Terminal Stack</span>
+                    <h4>命令行与研究效率工具</h4>
+                    <p>适合高频用户，把搜索、实验、部署和排错收敛到终端里。</p>
+                    <div class="taxonomy-tags"><span>效率</span><span>调试</span><span>批处理</span></div>
+                </button>
+                <button class="taxonomy-card" type="button" data-category="image-ai">
+                    <span class="taxonomy-kicker">Media Stack</span>
+                    <h4>图像、音频与视频生成</h4>
+                    <p>处理讲座转录、配音、封面图、视频摘要等科研传播需求。</p>
+                    <div class="taxonomy-tags"><span>图像</span><span>语音</span><span>视频</span></div>
+                </button>
             </div>
         </section>
 
@@ -336,7 +501,7 @@
                     <button class="models-filter-btn" data-model-filter="Open Source" type="button">开源</button>
                     <button class="models-filter-btn" data-model-filter="Code-Optimized" type="button">代码优化</button>
                 </div>
-                <div class="models-meta" id="modelsMetaInfo">共 0 个模型 · 周榜快照 2026-03-31</div>
+                <div class="models-meta" id="modelsMetaInfo">共 50 个模型 · Top 10 为周榜快照 2026-03-31</div>
             </div>
             <div class="models-lensbar" id="modelsLensBar">
                 <button class="models-lens-btn active" data-model-lens="overview" type="button">概览</button>
