@@ -106,6 +106,21 @@
         { label: 'Google Research', url: 'https://research.google/blog/rss/' }
     ];
 
+    const TOOL_TAB_CATS = new Set([
+        'all', 'hot', 'new', 'favorites', 'recent',
+        'writing', 'reading', 'data', 'figure', 'code',
+        'experiment', 'llm', 'image-ai', 'voice', 'video',
+        'aisoft', 'agents', 'cli'
+    ]);
+
+    function syncToolTabsVisibility(cat) {
+        const tabsContainer = $('#toolsCategoryTabs');
+        if (!tabsContainer) return;
+        const visible = TOOL_TAB_CATS.has(cat);
+        tabsContainer.style.display = visible ? 'block' : 'none';
+        document.body.classList.toggle('tool-tabs-visible', visible);
+    }
+
     // ---- 收藏 ----
     function isFav(id)    { return favorites.includes(id); }
     function toggleFav(id) {
@@ -1327,7 +1342,26 @@
         // 收藏视图显示导出按钮
         if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
 
-        // GitHub 板块：加载实时数�?        if (cat === 'github') fetchGithubTrending();
+        // Final UI normalization: keep titles and tool tabs consistent.
+        const cleanTitleMap = {
+            all:'全部工具', hot:'热门推荐', new:'最新上线', favorites:'我的收藏', recent:'最近浏览',
+            writing:'论文写作', reading:'文献阅读', data:'数据分析',
+            figure:'科研绘图', code:'代码助手', experiment:'实验设计',
+            llm:'大语言模型', 'image-ai':'AI 绘画', voice:'语音合成', video:'AI 视频',
+            prompts:'提示词库', tutorials:'学习教程', news:'行业资讯', models:'大模型排名',
+            github:'GitHub 推荐', usecases:'应用示例',
+            aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
+            graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
+            'cite-check':'引文核查', paperdeck:'PaperDeck 论文卡片流',
+            stats:'统计方法库'
+        };
+        pageTitle.textContent = cleanTitleMap[cat] || cat;
+        syncToolTabsVisibility(cat);
+        if (TOOL_TAB_CATS.has(cat)) {
+            $$('.tab-item').forEach(t => t.classList.remove('active'));
+            const activeTab = document.querySelector(`.tab-item[data-category="${cat}"]`);
+            if (activeTab) activeTab.classList.add('active');
+        }
     }
 
     // ---- 数字动画 ----
@@ -1736,11 +1770,105 @@
     }
     enrichStatsMethods();
 
+    function buildStatsVisualizationDetailClean(method) {
+        const name = `${method.name || ''} ${method.nameEn || ''}`.toLowerCase();
+        const detail = {
+            charts: ['箱线图', '小提琴图', '散点图', '分组均值图'],
+            implementation: ['Python: pandas / seaborn / statsmodels', 'R: tidyverse / ggplot2 / broom'],
+            steps: ['先确认变量类型与分布', '选择方法前先检查假设', '输出效应量、置信区间和 p 值'],
+            caution: '不要只看 p 值，必须同时报告效应量和样本条件。'
+        };
+
+        if (method.category === 'descriptive') {
+            detail.charts = ['直方图', '箱线图', 'Q-Q 图', '描述统计表'];
+            detail.implementation = ['Python: pandas.describe(), seaborn', 'R: summary(), psych::describe()'];
+            detail.steps = ['清理缺失值与异常值', '汇总均值、中位数、标准差', '检查分布形态与离散程度'];
+            detail.caution = '描述统计是起点，不是结论。';
+        } else if (method.category === 'visualization') {
+            detail.charts = ['折线图', '散点图', '热图', '地理分级图'];
+            detail.implementation = ['Python: matplotlib / seaborn / plotly', 'R: ggplot2 / patchwork / sf'];
+            detail.steps = ['先确定展示目标', '再选图形编码', '统一配色、坐标和注释'];
+            detail.caution = '可视化优先表达结构，不要堆装饰。';
+        } else if (method.category === 'inferential') {
+            detail.charts = ['组间箱线图', '显著性标注图', '森林图'];
+            detail.implementation = ['Python: scipy / statsmodels / pingouin', 'R: rstatix / ggpubr / broom'];
+            detail.steps = ['确认正态性与方差齐性', '选择参数或非参数检验', '展示 p 值、效应量与置信区间'];
+            detail.caution = '推断统计必须交代假设、样本量和多重比较校正。';
+        } else if (method.category === 'multivariate') {
+            detail.charts = ['碎石图', '双标图', '载荷图', '聚类树状图'];
+            detail.implementation = ['Python: sklearn / prince / seaborn', 'R: FactoMineR / factoextra'];
+            detail.steps = ['先标准化变量', '再做降维或聚类', '解释主成分或簇的含义'];
+            detail.caution = '多变量方法依赖变量预处理。';
+        } else if (method.category === 'spatial') {
+            detail.charts = ['分级设色图', '气泡图', 'Moran 散点图', 'LISA 聚类图'];
+            detail.implementation = ['Python: geopandas / esda / contextily', 'R: sf / tmap / spdep / leaflet'];
+            detail.steps = ['统一投影坐标系', '检查空间自相关', '选择静态图或交互地图'];
+            detail.caution = '空间分析先看投影、尺度和邻接矩阵。';
+        } else if (method.category === 'timeseries') {
+            detail.charts = ['时间序列图', 'ACF/PACF 图', '分解图', '预测区间图'];
+            detail.implementation = ['Python: statsmodels / prophet / pmdarima', 'R: forecast / fable / feasts'];
+            detail.steps = ['先看趋势与季节性', '再做平稳化或差分', '最后展示预测区间与残差诊断'];
+            detail.caution = '时间序列要处理自相关和结构突变。';
+        } else if (method.category === 'causal') {
+            detail.charts = ['DAG 因果图', '平衡性图', '事件研究图', '森林图'];
+            detail.implementation = ['Python: dowhy / econml', 'R: MatchIt / fixest / did'];
+            detail.steps = ['明确处理变量、结果变量和混杂项', '检查识别策略', '报告稳健性与敏感性分析'];
+            detail.caution = '因果分析依赖识别假设，不等于相关分析。';
+        } else if (method.category === 'bayesian') {
+            detail.charts = ['后验密度图', '轨迹图', '森林图', '后验预测检验图'];
+            detail.implementation = ['Python: pymc / arviz', 'R: brms / bayesplot / rstan'];
+            detail.steps = ['设定先验与似然', '检查收敛与采样质量', '展示后验区间与预测分布'];
+            detail.caution = '贝叶斯结果要结合先验和收敛诊断。';
+        } else if (method.category === 'ml') {
+            detail.charts = ['特征重要性图', 'SHAP 图', 'ROC/PR 曲线', '混淆矩阵'];
+            detail.implementation = ['Python: scikit-learn / shap', 'R: tidymodels / vip / DALEX'];
+            detail.steps = ['划分训练集和验证集', '交叉验证和调参', '解释模型性能和可解释性'];
+            detail.caution = '机器学习图表要放在验证集上看。';
+        } else if (method.category === 'dl') {
+            detail.charts = ['训练曲线', '学习率曲线', '注意力热图', '特征图'];
+            detail.implementation = ['Python: PyTorch / TensorFlow / Keras', 'TensorBoard / Weights & Biases'];
+            detail.steps = ['记录损失、精度和梯度', '监控过拟合和收敛速度', '输出可视化诊断图'];
+            detail.caution = '深度学习不要只看最终分数。';
+        }
+
+        if (/anova|方差分析/.test(name)) {
+            detail.charts = ['组间箱线图', '均值点图', '事后比较图', '显著性标注图'];
+            detail.implementation = ['Python: statsmodels + seaborn + statannotations', 'R: aov() / emmeans / ggpubr', 'GraphPad Prism'];
+        } else if (/t-test|t检验|welch/.test(name)) {
+            detail.charts = ['两组箱线图', '配对前后散点连线图', '均值差森林图'];
+            detail.implementation = ['Python: scipy.stats.ttest_ind / ttest_rel', 'R: t.test() / ggpubr'];
+        } else if (/regression|回归/.test(name)) {
+            detail.charts = ['散点回归图', '残差图', '系数森林图', '预测值对比图'];
+            detail.implementation = ['Python: statsmodels + seaborn', 'R: ggplot2 + broom + performance'];
+        } else if (/pca|主成分/.test(name)) {
+            detail.charts = ['碎石图', '双标图', '得分散点图', '载荷图'];
+            detail.implementation = ['Python: sklearn + plotly', 'R: FactoMineR + factoextra'];
+        } else if (/cluster|聚类/.test(name)) {
+            detail.charts = ['聚类热图', '树状图', '二维嵌入散点图', '轮廓系数图'];
+            detail.implementation = ['Python: sklearn + seaborn clustermap', 'R: pheatmap + factoextra'];
+        } else if (/spatial|空间|遥感/.test(name)) {
+            detail.charts = ['专题地图', '热点图', '空间权重图', '局部 Moran 图'];
+            detail.implementation = ['Python: geopandas + esda', 'R: sf + tmap + spdep', 'QGIS / ArcGIS'];
+        } else if (/time series|arima|lstm|gru|时序|时间序列/.test(name)) {
+            detail.charts = ['时间序列图', 'ACF/PACF', '预测区间图', '残差诊断图'];
+            detail.implementation = ['Python: statsmodels / prophet / pytorch', 'R: forecast / fable'];
+        }
+
+        return detail;
+    }
+
+    function refreshStatsVisualizationGuides() {
+        if (typeof STATS_METHODS === 'undefined' || !Array.isArray(STATS_METHODS)) return;
+        STATS_METHODS.forEach(method => { method.visualGuide = buildStatsVisualizationDetailClean(method); });
+    }
+
+    refreshStatsVisualizationGuides();
+
     const StatsFeature = (() => {
         let activeStage = 'all', activeDisc = 'all', searchQuery = '';
         const stageBg = {descriptive:'#3b82f6',visualization:'#8b5cf6',inferential:'#10b981',multivariate:'#f59e0b',spatial:'#06b6d4',timeseries:'#ec4899',causal:'#ef4444',bayesian:'#a855f7',ml:'#22c55e',dl:'#f97316'};
-        const stageLbl = {descriptive:'������ͳ��',visualization:'���ݿ��ӻ�',inferential:'�ƶ�ͳ��',multivariate:'���������',spatial:'�ռ����',timeseries:'ʱ������',causal:'����ƶ�',bayesian:'��Ҷ˹����',ml:'����ѧϰ',dl:'���ѧϰ'};
-        const discLbl = {general:'ͨ��',ecology:'��̬ѧ',environmental:'������ѧ',sociology:'���ѧ',economics:'����ѧ'};
+        const stageLbl = {descriptive:'描述统计',visualization:'数据可视化',inferential:'推断统计',multivariate:'多变量分析',spatial:'空间分析',timeseries:'时间序列',causal:'因果推断',bayesian:'贝叶斯',ml:'机器学习',dl:'深度学习'};
+        const discLbl = {general:'通用',ecology:'生态学',environmental:'环境科学',sociology:'社会学',economics:'经济学'};
         function dots(n) { return Array.from({length:5},(_,i)=>'<span class="stats-difficulty-dot'+(i<n?' filled':'')+'"></span>').join(''); }
         function getList() {
             if (typeof STATS_METHODS === 'undefined') return [];
@@ -1756,8 +1884,8 @@
             const info = document.getElementById('statsResultInfo');
             if (!grid) return;
             const list = getList();
-            if (info) info.textContent = '? ' + list.length + ' ???';
-            if (!list.length) { grid.innerHTML = '<div class="stats-empty"><i class="fas fa-search"></i><p>???????</p></div>'; return; }
+            if (info) info.textContent = '共 ' + list.length + ' 个方法';
+            if (!list.length) { grid.innerHTML = '<div class="stats-empty"><i class="fas fa-search"></i><p>没有匹配的方法</p></div>'; return; }
             grid.innerHTML = list.map(m => {
                 const bg = stageBg[m.category] || '#6366f1';
                 const lbl = stageLbl[m.category] || m.category;
@@ -1779,19 +1907,19 @@
                     + '</div>'
                     + '<div class="stats-card-summary-side">'
                     + '<div class="stats-tools">' + tools + '</div>'
-                    + '<div class="stats-difficulty"><span class="stats-difficulty-label">??</span>' + dots(m.difficulty||1) + '</div>'
-                    + '<div class="stats-card-summary-hint"><i class="fas fa-chevron-down"></i> ??????</div>'
+                    + '<div class="stats-difficulty"><span class="stats-difficulty-label">难度</span>' + dots(m.difficulty||1) + '</div>'
+                    + '<div class="stats-card-summary-hint"><i class="fas fa-chevron-down"></i> 查看方法细节</div>'
                     + '</div>'
                     + '</summary>'
                     + '<div class="stats-card-body">'
                     + '<div class="stats-card-body-grid">'
-                    + '<div class="stats-visual-block"><div class="stats-block-title">?????</div><div class="stats-visual-chips">' + charts + '</div></div>'
-                    + '<div class="stats-impl-block"><div class="stats-block-title">????</div>' + impl + '</div>'
+                    + '<div class="stats-visual-block"><div class="stats-block-title">建议图形</div><div class="stats-visual-chips">' + charts + '</div></div>'
+                    + '<div class="stats-impl-block"><div class="stats-block-title">实现方式</div>' + impl + '</div>'
                     + '</div>'
-                    + '<div class="stats-caution"><i class="fas fa-triangle-exclamation"></i><span>' + (guide.caution || '????????????????') + '</span></div>'
+                    + '<div class="stats-caution"><i class="fas fa-triangle-exclamation"></i><span>' + (guide.caution || '注意报告效应量、置信区间和样本条件。') + '</span></div>'
                     + '<div class="stats-card-footer"><div class="stats-tools">' + tools + '</div>'
-                    + '<div class="stats-difficulty"><span class="stats-difficulty-label">??</span>' + dots(m.difficulty||1) + '</div></div>'
-                    + (hasResources ? '<div class="stats-card-resources"><button class="btn-resources-small" data-method-id="' + m.id + '"><i class="fas fa-graduation-cap"></i> ????</button></div>' : '')
+                    + '<div class="stats-difficulty"><span class="stats-difficulty-label">难度</span>' + dots(m.difficulty||1) + '</div></div>'
+                    + (hasResources ? '<div class="stats-card-resources"><button class="btn-resources-small" data-method-id="' + m.id + '"><i class="fas fa-graduation-cap"></i> 参考资源</button></div>' : '')
                     + '<div class="stats-disc-chips">' + discs + '</div>'
                     + '</div>'
                     + '</details>';
@@ -1955,34 +2083,34 @@
 
         if (!resourcesModal || !title || !container) return;
 
-        title.textContent = `${method.name} �?学习资源`;
+        title.textContent = `${method.name} 学习资源`;
 
         const guide = method.visualGuide || {};
         const detailBlock = `
             <div class="resource-section">
-                <h4>����ϸ��</h4>
+                <h4>详细信息</h4>
                 <div class="stats-detail-panel">
                     <div class="stats-detail-group">
-                        <strong>�Ƽ����ӻ�</strong>
+                        <strong>建议图形</strong>
                         <div class="stats-visual-chips">${(guide.charts || []).map(item => `<span class="stats-visual-chip">${item}</span>`).join('')}</div>
                     </div>
                     <div class="stats-detail-group">
-                        <strong>���ӻ�ʵ��</strong>
+                        <strong>实现方式</strong>
                         <div class="stats-detail-lines">${(guide.implementation || []).map(item => `<div class="stats-impl-line">${item}</div>`).join('')}</div>
                     </div>
                     <div class="stats-detail-group">
-                        <strong>�Ƽ�����</strong>
+                        <strong>可视化步骤</strong>
                         <div class="stats-detail-lines">${(guide.steps || []).map(item => `<div class="stats-impl-line">${item}</div>`).join('')}</div>
                     </div>
                     <div class="stats-detail-group">
-                        <strong>ע������</strong>
-                        <div class="stats-impl-line">${guide.caution || '����о���ƺ������ṹ���ͽ����'}</div>
+                        <strong>注意事项</strong>
+                        <div class="stats-impl-line">${guide.caution || '注意报告效应量、置信区间和样本条件。'}</div>
                     </div>
                 </div>
             </div>
         `;
 
-        // �����ͷ�����Դ
+        // 按类型分组学习资源
         const grouped = {};
         method.resources.forEach(r => {
             if (!grouped[r.type]) grouped[r.type] = [];
