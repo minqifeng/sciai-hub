@@ -120,6 +120,7 @@
         if (currentToolId === id) updateModalFavUI(id);
     }
     function updateFavBadge() {
+        if (!favCount) return;
         favCount.textContent = favorites.length;
         favCount.style.display = favorites.length ? '' : 'none';
     }
