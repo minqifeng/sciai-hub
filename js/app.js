@@ -1409,6 +1409,94 @@
         renderModelsRealtimeV2(models);
     }
 
+    function renderFeatured() {
+        if (!featuredGrid) return;
+        featuredGrid.innerHTML = FEATURED_TOOLS.map(f => {
+            const t = TOOLS_DATA.find(tool => tool.id === f.id);
+            if (!t) return '';
+            return `
+            <div class="featured-card" style="--card-color:${t.color}" onclick="window._openTool(${t.id})">
+                <div class="featured-icon" style="background:${t.color}">
+                    ${t.logo ? `<img src="${t.logo}" alt="${t.name}" onerror="this.style.display='none'">` : `<i class="${t.icon}" style="color:#fff;font-size:18px"></i>`}
+                </div>
+                <div class="featured-info">
+                    <h4>${t.name}</h4>
+                    <div class="featured-reason">${f.reason}</div>
+                    <div class="featured-rating">${'★'.repeat(Math.floor(t.rating))} ${t.rating}</div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function openCompareModal() {
+        const tools = compareList.map(id => TOOLS_DATA.find(t => t.id === id)).filter(Boolean);
+        if (tools.length < 2) return;
+
+        const rows = [
+            ['描述', t => `<td>${t.desc}</td>`],
+            ['评分', t => `<td><span class="compare-stars">${'★'.repeat(Math.floor(t.rating))}${'☆'.repeat(5 - Math.floor(t.rating))}</span> ${t.rating}</td>`],
+            ['用户', t => `<td>${t.users}</td>`],
+            ['价格', t => `<td><span class="pricing-badge ${t.pricing}">${{free:'免费',freemium:'免费增值',paid:'付费'}[t.pricing]}</span></td>`],
+            ['地区', t => `<td>${t.region === 'domestic' ? '国产' : '海外'}</td>`],
+            ['标签', t => `<td>${t.tags.join(', ')}</td>`],
+            ['链接', t => `<td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none">查看外链</a></td>`],
+        ];
+
+        const headerCells = tools.map(t => `
+            <th>
+                <div class="compare-tool-header">
+                    <div class="compare-tool-icon" style="background:${t.color}">
+                        ${t.logo ? `<img src="${t.logo}" alt="${t.name}">` : `<i class="${t.icon}"></i>`}
+                    </div>
+                    <span>${t.name}</span>
+                </div>
+            </th>`).join('');
+
+        const bodyRows = rows.map(([label, fn]) => `
+            <tr>
+                <td>${label}</td>
+                ${tools.map(fn).join('')}
+            </tr>`).join('');
+
+        $('#compareModalBody').innerHTML = `
+            <table class="compare-table">
+                <thead><tr><th>对比项</th>${headerCells}</tr></thead>
+                <tbody>${bodyRows}</tbody>
+            </table>`;
+        compareModal.classList.add('show');
+    }
+
+    function openToolModal(id) {
+        const tool = TOOLS_DATA.find(t => t.id === id);
+        if (!tool) return;
+        currentToolId = id;
+        addRecent(id);
+
+        const iconEl = $('#toolModalIcon');
+        iconEl.style.background = tool.color;
+        iconEl.innerHTML = tool.logo
+            ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none'"><i class="${tool.icon}" style="font-size:22px;color:#fff;display:none"></i>`
+            : `<i class="${tool.icon}" style="font-size:22px;color:#fff"></i>`;
+
+        $('#toolModalName').textContent = tool.name;
+        $('#toolModalTags').innerHTML = tool.tags.map(t => `<span class="tool-tag">${t}</span>`).join('');
+        $('#toolModalDesc').textContent = tool.desc;
+        $('#toolModalRating').innerHTML = `${'★'.repeat(Math.floor(tool.rating))} ${tool.rating}`;
+        $('#toolModalUsers').textContent = tool.users;
+        $('#toolModalPricing').textContent = { free:'免费', freemium:'免费增值', paid:'付费' }[tool.pricing] || tool.pricing;
+        $('#toolModalRegion').textContent = tool.region === 'domestic' ? '国产' : '海外';
+        $('#toolModalUrl').href = tool.url;
+        const docBtn = $('#toolModalDoc');
+        const docUrl = typeof TOOL_DOCS !== 'undefined' && TOOL_DOCS[id];
+        if (docUrl) { docBtn.href = docUrl; docBtn.style.display = 'flex'; }
+        else { docBtn.style.display = 'none'; }
+        updateModalFavUI(id);
+        updateModalCompareUI(id);
+        updateModalLikeUI(id);
+        renderRelatedTools(tool);
+        toolModal.classList.add('show');
+    }
+
     const getCategoryLabel = cat => ({writing:'论文写作',review:'文献综述',analysis:'数据分析',translate:'翻译润色'}[cat] || cat);
 
     // ---- 过滤 + 排序 ----
@@ -1451,6 +1539,44 @@
             t.desc.toLowerCase().includes(q) ||
             t.tags.some(tag => tag.toLowerCase().includes(q))
         ));
+        document.getElementById('toolsSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function scrollCategoryIntoView(cat) {
+        const targetIdMap = {
+            all: 'toolsSection',
+            hot: 'toolsSection',
+            new: 'toolsSection',
+            favorites: 'toolsSection',
+            recent: 'toolsSection',
+            writing: 'toolsSection',
+            reading: 'toolsSection',
+            data: 'toolsSection',
+            figure: 'toolsSection',
+            code: 'toolsSection',
+            experiment: 'toolsSection',
+            llm: 'toolsSection',
+            'image-ai': 'toolsSection',
+            voice: 'toolsSection',
+            video: 'toolsSection',
+            prompts: 'promptsSection',
+            tutorials: 'tutorialsSection',
+            news: 'newsSection',
+            models: 'modelsSection',
+            github: 'githubSection',
+            usecases: 'usecasesSection',
+            aisoft: 'toolsSection',
+            agents: 'toolsSection',
+            cli: 'toolsSection',
+            graph: 'graphSection',
+            'search-papers': 'searchPapersSection',
+            journal: 'journalSection',
+            'cite-check': 'citeCheckSection',
+            paperdeck: 'paperdeckSection',
+            stats: 'statMethodsSection'
+        };
+        const targetId = targetIdMap[cat] || 'toolsSection';
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // ---- 显示板块 ----
@@ -1662,6 +1788,7 @@
                 const at = document.querySelector('.tag[data-filter="all"]');
                 if (at) at.classList.add('active');
                 showSection(currentCategory);
+                scrollCategoryIntoView(currentCategory);
                 const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(currentCategory)) filterTools();
                 if (window.innerWidth <= 768) sidebar.classList.remove('open');
@@ -1676,8 +1803,8 @@
                 if (ni) ni.classList.add('active');
                 currentCategory = cat;
                 showSection(cat);
+                scrollCategoryIntoView(cat);
                 if (cat !== 'stats') filterTools();
-                sections.stats.scrollIntoView({ behavior:'smooth' });
             });
         });
 
@@ -1689,9 +1816,10 @@
                 document.querySelector(`.nav-item[data-category="${cat}"]`)?.classList.add('active');
                 currentCategory = cat;
                 showSection(cat);
+                scrollCategoryIntoView(cat);
                 const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(cat)) filterTools();
-                sections.stats.scrollIntoView({ behavior:'smooth' });
+                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
             });
         });
 
@@ -1708,10 +1836,10 @@
                 const at = document.querySelector('.tag[data-filter="all"]');
                 if (at) at.classList.add('active');
                 showSection(cat);
+                scrollCategoryIntoView(cat);
                 const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(cat)) filterTools();
                 // ���� Tab ���ɼ�����
-                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
             });
         });
 
@@ -1759,12 +1887,12 @@
         heroSearch.addEventListener('input', e => {
             clearTimeout(st);
             st = setTimeout(() => {
-                if (e.target.value) { globalSearch.value = e.target.value; doSearch(e.target.value); sections.stats.scrollIntoView({ behavior:'smooth' }); }
+                if (e.target.value) { globalSearch.value = e.target.value; doSearch(e.target.value); }
             }, 300);
         });
         heroSearchBtn.addEventListener('click', () => {
             const q = heroSearch.value;
-            if (q) { globalSearch.value = q; doSearch(q); sections.stats.scrollIntoView({ behavior:'smooth' }); }
+            if (q) { globalSearch.value = q; doSearch(q); }
         });
 
         // 主题

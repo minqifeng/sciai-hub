@@ -215,7 +215,7 @@ body {
     pointer-events: none;
 }
 
-.hero-content { position:relative; z-index:1; max-width: 800px; }
+.hero-content { position:relative; z-index:1; max-width: 1320px; width: 100%; margin: 0 auto; }
 
 .hero-badge {
     display: inline-flex;
@@ -3254,5 +3254,47 @@ textarea {
     .hero-section,
     #heroSection {
         padding: 20px;
+    }
+}
+
+/* ============================================
+   UX overrides: widen hero and stats library
+   Desktop only so mobile stacking still works
+   ============================================ */
+@media (min-width: 961px) {
+    .hero-content {
+        width: 100%;
+        max-width: 1320px;
+        margin: 0 auto;
+    }
+
+    .hero-layout {
+        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+        gap: 24px;
+    }
+
+    .hero-search {
+        max-width: 760px;
+    }
+
+    #statMethodsSection .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 14px;
+    }
+
+    #statMethodsSection .stats-section-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    #statMethodsSection .stats-filter-row {
+        align-items: flex-start;
+    }
+
+    #statMethodsSection .stats-search-wrap {
+        max-width: 360px;
     }
 }
