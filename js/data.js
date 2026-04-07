@@ -13,7 +13,8 @@ const TOOLS_DATA = [
         logo: favicon("chat.openai.com"),
         icon: "fas fa-robot", color: "#10a37f",
         tags: ["大模型", "论文写作"], pricing: "freemium", region: "foreign",
-        rating: 4.8, users: "5000万+", url: "https://chat.openai.com", hot: true
+        rating: 4.8, users: "5000万+", url: "https://chat.openai.com", hot: true,
+        keywords: ['论文写作','摘要','润色','代码','翻译','问答','长文本','GPT','OpenAI']
     },
     {
         id: 2, name: "Claude", category: "writing",
@@ -21,7 +22,8 @@ const TOOLS_DATA = [
         logo: favicon("claude.ai"),
         icon: "fas fa-feather", color: "#7c5cfc",
         tags: ["大模型", "长文本"], pricing: "freemium", region: "foreign",
-        rating: 4.8, users: "1000万+", url: "https://claude.ai", hot: true
+        rating: 4.8, users: "1000万+", url: "https://claude.ai", hot: true,
+        keywords: ['论文写作','长文本','学术','润色','分析','摘要','academic','Anthropic','200K']
     },
     {
         id: 3, name: "Paperpal", category: "writing",
@@ -29,7 +31,8 @@ const TOOLS_DATA = [
         logo: favicon("paperpal.com"),
         icon: "fas fa-pen-nib", color: "#e74c3c",
         tags: ["论文润色", "语法检查"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "100万+", url: "https://paperpal.com", isNew: true
+        rating: 4.5, users: "100万+", url: "https://paperpal.com", isNew: true,
+        keywords: ['论文润色','语法检查','学术写作','Word','投稿','SCI','英文写作']
     },
     {
         id: 4, name: "秘塔写作猫", category: "writing",
@@ -37,7 +40,8 @@ const TOOLS_DATA = [
         logo: favicon("xiezuocat.com"),
         icon: "fas fa-cat", color: "#ff6b35",
         tags: ["论文写作", "国产"], pricing: "freemium", region: "domestic",
-        rating: 4.3, users: "200万+", url: "https://xiezuocat.com"
+        rating: 4.3, users: "200万+", url: "https://xiezuocat.com",
+        keywords: ['论文写作','大纲','查重','降重','中文','翻译','国产']
     },
     {
         id: 5, name: "Writefull", category: "writing",
@@ -45,7 +49,8 @@ const TOOLS_DATA = [
         logo: favicon("writefull.com"),
         icon: "fas fa-spell-check", color: "#2563eb",
         tags: ["学术校对", "Overleaf"], pricing: "freemium", region: "foreign",
-        rating: 4.4, users: "50万+", url: "https://writefull.com"
+        rating: 4.4, users: "50万+", url: "https://writefull.com",
+        keywords: ['学术校对','Overleaf','LaTeX','语言润色','英文写作','释义','投稿']
     },
     {
         id: 6, name: "Jenni AI", category: "writing",
@@ -53,7 +58,8 @@ const TOOLS_DATA = [
         logo: favicon("jenni.ai"),
         icon: "fas fa-pencil", color: "#6366f1",
         tags: ["论文写作", "引用管理"], pricing: "freemium", region: "foreign",
-        rating: 4.4, users: "80万+", url: "https://jenni.ai", isNew: true
+        rating: 4.4, users: "80万+", url: "https://jenni.ai", isNew: true,
+        keywords: ['论文写作','引用管理','段落续写','学术写作','研究报告','文献引用']
     },
 
     // ---- 文献阅读 ----
@@ -63,7 +69,8 @@ const TOOLS_DATA = [
         logo: favicon("typeset.io"),
         icon: "fas fa-satellite", color: "#8b5cf6",
         tags: ["论文阅读", "文献理解"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "500万+", url: "https://typeset.io", hot: true
+        rating: 4.6, users: "500万+", url: "https://typeset.io", hot: true,
+        keywords: ['文献阅读','PDF','论文解读','学术','文献总结','英文阅读']
     },
     {
         id: 8, name: "Elicit", category: "reading",
@@ -71,7 +78,8 @@ const TOOLS_DATA = [
         logo: favicon("elicit.com"),
         icon: "fas fa-magnifying-glass-chart", color: "#059669",
         tags: ["文献检索", "系统综述"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "100万+", url: "https://elicit.com", hot: true
+        rating: 4.6, users: "100万+", url: "https://elicit.com", hot: true,
+        keywords: ['文献综述','系统综述','文献检索','Meta分析','文献筛选','PICO','阅读']
     },
     {
         id: 9, name: "Connected Papers", category: "reading",
@@ -79,7 +87,8 @@ const TOOLS_DATA = [
         logo: favicon("connectedpapers.com"),
         icon: "fas fa-diagram-project", color: "#0ea5e9",
         tags: ["文献图谱", "引用分析"], pricing: "freemium", region: "foreign",
-        rating: 4.4, users: "200万+", url: "https://connectedpapers.com"
+        rating: 4.4, users: "200万+", url: "https://connectedpapers.com",
+        keywords: ['文献关系','引用关系','文献图谱','相关论文','文献发现','可视化']
     },
     {
         id: 10, name: "ReadPaper", category: "reading",
@@ -87,7 +96,8 @@ const TOOLS_DATA = [
         logo: favicon("readpaper.com"),
         icon: "fas fa-book-reader", color: "#f43f5e",
         tags: ["论文阅读", "国产"], pricing: "free", region: "domestic",
-        rating: 4.4, users: "300万+", url: "https://readpaper.com"
+        rating: 4.4, users: "300万+", url: "https://readpaper.com",
+        keywords: ['文献阅读','PDF','论文解读','学术','文献总结','国产','中文','翻译']
     },
     {
         id: 11, name: "Consensus", category: "reading",
@@ -95,7 +105,8 @@ const TOOLS_DATA = [
         logo: favicon("consensus.app"),
         icon: "fas fa-check-double", color: "#6366f1",
         tags: ["学术搜索", "证据合成"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "150万+", url: "https://consensus.app", isNew: true
+        rating: 4.5, users: "150万+", url: "https://consensus.app", isNew: true,
+        keywords: ['文献追踪','文献发现','引用关系','文献网络','推荐论文','学术搜索','证据合成']
     },
     {
         id: 12, name: "Semantic Scholar", category: "reading",
@@ -103,7 +114,8 @@ const TOOLS_DATA = [
         logo: favicon("semanticscholar.org"),
         icon: "fas fa-graduation-cap", color: "#1857b6",
         tags: ["学术搜索", "免费"], pricing: "free", region: "foreign",
-        rating: 4.6, users: "1000万+", url: "https://semanticscholar.org", hot: true
+        rating: 4.6, users: "1000万+", url: "https://semanticscholar.org", hot: true,
+        keywords: ['文献检索','论文搜索','引用分析','学术搜索','影响因子','开放获取']
     },
     {
         id: 13, name: "Kimi", category: "reading",
@@ -111,7 +123,8 @@ const TOOLS_DATA = [
         logo: favicon("kimi.moonshot.cn"),
         icon: "fas fa-moon", color: "#1a1a2e",
         tags: ["长上下文", "国产"], pricing: "free", region: "domestic",
-        rating: 4.6, users: "2000万+", url: "https://kimi.moonshot.cn", hot: true
+        rating: 4.6, users: "2000万+", url: "https://kimi.moonshot.cn", hot: true,
+        keywords: ['长文本','PDF','文献阅读','论文','问答','国产','中文','摘要']
     },
 
     // ---- 数据分析 ----
@@ -121,7 +134,8 @@ const TOOLS_DATA = [
         logo: favicon("julius.ai"),
         icon: "fas fa-chart-pie", color: "#f97316",
         tags: ["数据分析", "可视化"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "30万+", url: "https://julius.ai", isNew: true
+        rating: 4.5, users: "30万+", url: "https://julius.ai", isNew: true,
+        keywords: ['数据分析','可视化','Excel','CSV','Python','图表','AI分析']
     },
     {
         id: 15, name: "通义千问", category: "data",
@@ -129,7 +143,8 @@ const TOOLS_DATA = [
         logo: favicon("tongyi.aliyun.com"),
         icon: "fas fa-cloud", color: "#4f6ef7",
         tags: ["大模型", "国产"], pricing: "free", region: "domestic",
-        rating: 4.5, users: "5000万+", url: "https://tongyi.aliyun.com", hot: true
+        rating: 4.5, users: "5000万+", url: "https://tongyi.aliyun.com", hot: true,
+        keywords: ['数据分析','代码','数学推理','问答','翻译','国产','免费','阿里云']
     },
     {
         id: 16, name: "DeepSeek", category: "data",
@@ -137,7 +152,8 @@ const TOOLS_DATA = [
         logo: favicon("chat.deepseek.com"),
         icon: "fas fa-dragon", color: "#4f6ef7",
         tags: ["开源", "国产", "代码"], pricing: "free", region: "domestic",
-        rating: 4.7, users: "3000万+", url: "https://chat.deepseek.com", hot: true, isNew: true
+        rating: 4.7, users: "3000万+", url: "https://chat.deepseek.com", hot: true, isNew: true,
+        keywords: ['代码','论文写作','数学推理','问答','翻译','开源','国产','免费']
     },
     {
         id: 17, name: "SPSS Statistics", category: "data",
@@ -145,7 +161,8 @@ const TOOLS_DATA = [
         logo: favicon("ibm.com"),
         icon: "fas fa-calculator", color: "#054ada",
         tags: ["统计软件", "社科"], pricing: "paid", region: "foreign",
-        rating: 4.3, users: "500万+", url: "https://www.ibm.com/spss"
+        rating: 4.3, users: "500万+", url: "https://www.ibm.com/spss",
+        keywords: ['统计分析','数据分析','SPSS','社科','问卷','回归','方差分析']
     },
 
     // ---- 科研绘图 ----
@@ -155,7 +172,8 @@ const TOOLS_DATA = [
         logo: favicon("biorender.com"),
         icon: "fas fa-dna", color: "#059669",
         tags: ["科学插图", "生物医学"], pricing: "paid", region: "foreign",
-        rating: 4.8, users: "300万+", url: "https://biorender.com", hot: true
+        rating: 4.8, users: "300万+", url: "https://biorender.com", hot: true,
+        keywords: ['科研绘图','示意图','生物医学','配图','图标','细胞','通路','figure']
     },
     {
         id: 19, name: "GraphPad Prism", category: "figure",
@@ -163,7 +181,8 @@ const TOOLS_DATA = [
         logo: favicon("graphpad.com"),
         icon: "fas fa-chart-line", color: "#e74c3c",
         tags: ["统计绘图", "生物医学"], pricing: "paid", region: "foreign",
-        rating: 4.7, users: "400万+", url: "https://www.graphpad.com", hot: true
+        rating: 4.7, users: "400万+", url: "https://www.graphpad.com", hot: true,
+        keywords: ['数据分析','统计','绘图','科研图表','可视化','生物统计','实验数据']
     },
     {
         id: 20, name: "Adobe Illustrator", category: "figure",
@@ -171,7 +190,8 @@ const TOOLS_DATA = [
         logo: favicon("adobe.com"),
         icon: "fas fa-bezier-curve", color: "#ff9a00",
         tags: ["矢量绘图", "专业设计"], pricing: "paid", region: "foreign",
-        rating: 4.5, users: "2000万+", url: "https://www.adobe.com/illustrator"
+        rating: 4.5, users: "2000万+", url: "https://www.adobe.com/illustrator",
+        keywords: ['矢量图','科研绘图','配图','SVG','示意图','Illustrator','排版','印刷']
     },
     {
         id: 21, name: "Diagrams.net", category: "figure",
@@ -179,7 +199,8 @@ const TOOLS_DATA = [
         logo: favicon("app.diagrams.net"),
         icon: "fas fa-sitemap", color: "#f97316",
         tags: ["流程图", "免费"], pricing: "free", region: "foreign",
-        rating: 4.5, users: "2000万+", url: "https://app.diagrams.net"
+        rating: 4.5, users: "2000万+", url: "https://app.diagrams.net",
+        keywords: ['统计分析','数据分析','回归','方差分析','流程图','架构图','免费']
     },
     {
         id: 22, name: "Origin", category: "figure",
@@ -187,7 +208,8 @@ const TOOLS_DATA = [
         logo: favicon("originlab.com"),
         icon: "fas fa-wave-square", color: "#2a7ae4",
         tags: ["科学绘图", "数据分析"], pricing: "paid", region: "foreign",
-        rating: 4.6, users: "300万+", url: "https://www.originlab.com"
+        rating: 4.6, users: "300万+", url: "https://www.originlab.com",
+        keywords: ['数据分析','绘图','科研图表','可视化','统计','实验数据','物理']
     },
 
     // ---- 代码助手 ----
@@ -197,7 +219,8 @@ const TOOLS_DATA = [
         logo: favicon("github.com"),
         icon: "fab fa-github", color: "#333",
         tags: ["代码补全", "AI编程"], pricing: "paid", region: "foreign",
-        rating: 4.7, users: "1500万+", url: "https://github.com/features/copilot"
+        rating: 4.7, users: "1500万+", url: "https://github.com/features/copilot",
+        keywords: ['代码','编程','自动补全','Python','JavaScript','开发','调试']
     },
     {
         id: 24, name: "Cursor", category: "code",
@@ -205,7 +228,8 @@ const TOOLS_DATA = [
         logo: favicon("cursor.sh"),
         icon: "fas fa-terminal", color: "#000",
         tags: ["IDE", "AI编程"], pricing: "freemium", region: "foreign",
-        rating: 4.8, users: "200万+", url: "https://cursor.sh", hot: true
+        rating: 4.8, users: "200万+", url: "https://cursor.sh", hot: true,
+        keywords: ['代码','编程','AI编辑器','Python','重构','调试','开发']
     },
     {
         id: 25, name: "Google Colab", category: "code",
@@ -213,7 +237,8 @@ const TOOLS_DATA = [
         logo: favicon("colab.research.google.com"),
         icon: "fab fa-google", color: "#f9ab00",
         tags: ["云端GPU", "免费"], pricing: "free", region: "foreign",
-        rating: 4.6, users: "1000万+", url: "https://colab.research.google.com", hot: true
+        rating: 4.6, users: "1000万+", url: "https://colab.research.google.com", hot: true,
+        keywords: ['数据分析','Python','机器学习','GPU','深度学习','免费','代码']
     },
 
     // ---- 实验设计 ----
@@ -223,7 +248,8 @@ const TOOLS_DATA = [
         logo: favicon("benchling.com"),
         icon: "fas fa-flask-vial", color: "#2563eb",
         tags: ["实验管理", "生命科学"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "30万+", url: "https://benchling.com"
+        rating: 4.5, users: "30万+", url: "https://benchling.com",
+        keywords: ['实验记录','生命科学','CRISPR','样品管理','团队协作','实验设计']
     },
     {
         id: 27, name: "Protocols.io", category: "experiment",
@@ -231,7 +257,8 @@ const TOOLS_DATA = [
         logo: favicon("protocols.io"),
         icon: "fas fa-list-check", color: "#059669",
         tags: ["实验方案", "开放科学"], pricing: "free", region: "foreign",
-        rating: 4.4, users: "100万+", url: "https://protocols.io"
+        rating: 4.4, users: "100万+", url: "https://protocols.io",
+        keywords: ['实验方案','开放科学','可重复','实验流程','团队协作','免费']
     },
 
     // ---- 大语言模型 ----
@@ -241,7 +268,8 @@ const TOOLS_DATA = [
         logo: favicon("gemini.google.com"),
         icon: "fas fa-gem", color: "#4285f4",
         tags: ["多模态", "Google"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "5000万+", url: "https://gemini.google.com"
+        rating: 4.5, users: "5000万+", url: "https://gemini.google.com",
+        keywords: ['多模态','论文写作','搜索','问答','摘要','翻译','PDF','Google']
     },
     {
         id: 29, name: "Perplexity", category: "llm",
@@ -249,7 +277,8 @@ const TOOLS_DATA = [
         logo: favicon("perplexity.ai"),
         icon: "fas fa-globe", color: "#20808d",
         tags: ["AI搜索", "带引用"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "1000万+", url: "https://perplexity.ai", hot: true
+        rating: 4.6, users: "1000万+", url: "https://perplexity.ai", hot: true,
+        keywords: ['AI搜索','学术搜索','带引用','arXiv','PubMed','问答','实时检索']
     },
     {
         id: 30, name: "文心一言", category: "llm",
@@ -257,7 +286,8 @@ const TOOLS_DATA = [
         logo: favicon("yiyan.baidu.com"),
         icon: "fas fa-comments", color: "#2932e1",
         tags: ["大模型", "国产"], pricing: "free", region: "domestic",
-        rating: 4.3, users: "1亿+", url: "https://yiyan.baidu.com"
+        rating: 4.3, users: "1亿+", url: "https://yiyan.baidu.com",
+        keywords: ['论文写作','问答','国产','中文','摘要','翻译','百度','免费']
     },
 
     // ---- AI绘画 ----
@@ -267,7 +297,8 @@ const TOOLS_DATA = [
         logo: favicon("midjourney.com"),
         icon: "fas fa-paintbrush", color: "#e74c3c",
         tags: ["AI绘画", "高质量"], pricing: "paid", region: "foreign",
-        rating: 4.8, users: "2000万+", url: "https://midjourney.com"
+        rating: 4.8, users: "2000万+", url: "https://midjourney.com",
+        keywords: ['AI绘画','图像生成','学术海报','封面设计','科普插图','可视化']
     },
     {
         id: 32, name: "Stable Diffusion", category: "image-ai",
@@ -275,7 +306,8 @@ const TOOLS_DATA = [
         logo: favicon("stability.ai"),
         icon: "fas fa-image", color: "#7c3aed",
         tags: ["开源", "本地部署"], pricing: "free", region: "foreign",
-        rating: 4.5, users: "5000万+", url: "https://stability.ai", hot: true
+        rating: 4.5, users: "5000万+", url: "https://stability.ai", hot: true,
+        keywords: ['AI绘画','图像生成','开源','本地部署','科学可视化','免费']
     },
 
     // ---- 语音合成 ----
@@ -285,7 +317,8 @@ const TOOLS_DATA = [
         logo: favicon("elevenlabs.io"),
         icon: "fas fa-volume-high", color: "#000",
         tags: ["语音合成", "声音克隆"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "100万+", url: "https://elevenlabs.io"
+        rating: 4.6, users: "100万+", url: "https://elevenlabs.io",
+        keywords: ['语音合成','声音克隆','配音','语音','多语言','学术报告']
     },
 
     // ---- AI视频 ----
@@ -295,7 +328,8 @@ const TOOLS_DATA = [
         logo: favicon("openai.com"),
         icon: "fas fa-film", color: "#10a37f",
         tags: ["视频生成", "OpenAI"], pricing: "paid", region: "foreign",
-        rating: 4.4, users: "100万+", url: "https://sora.com", isNew: true
+        rating: 4.4, users: "100万+", url: "https://sora.com", isNew: true,
+        keywords: ['视频生成','AI视频','科研演示','科普','OpenAI','实验过程']
     },
     {
         id: 35, name: "Runway", category: "video",
@@ -303,7 +337,8 @@ const TOOLS_DATA = [
         logo: favicon("runwayml.com"),
         icon: "fas fa-clapperboard", color: "#6366f1",
         tags: ["AI视频", "视频编辑"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "300万+", url: "https://runwayml.com"
+        rating: 4.5, users: "300万+", url: "https://runwayml.com",
+        keywords: ['AI视频','视频编辑','视频生成','学术汇报','演示','图片转视频']
     },
     // ---- 文献管理 ----
     {
@@ -312,7 +347,8 @@ const TOOLS_DATA = [
         logo: favicon("zotero.org"),
         icon: "fas fa-book", color: "#cc2936",
         tags: ["文献管理", "免费"], pricing: "free", region: "foreign",
-        rating: 4.7, users: "1000万+", url: "https://zotero.org", hot: true
+        rating: 4.7, users: "1000万+", url: "https://zotero.org", hot: true,
+        keywords: ['文献管理','参考文献','引用','文献库','PDF','书目','免费']
     },
     {
         id: 37, name: "Mendeley", category: "reading",
@@ -320,7 +356,8 @@ const TOOLS_DATA = [
         logo: favicon("mendeley.com"),
         icon: "fas fa-book-bookmark", color: "#9b0000",
         tags: ["文献管理", "学术社交"], pricing: "free", region: "foreign",
-        rating: 4.4, users: "800万+", url: "https://mendeley.com"
+        rating: 4.4, users: "800万+", url: "https://mendeley.com",
+        keywords: ['文献管理','参考文献','引用','PDF','注释','协作','书目']
     },
     {
         id: 38, name: "Litmaps", category: "reading",
@@ -328,7 +365,8 @@ const TOOLS_DATA = [
         logo: favicon("litmaps.com"),
         icon: "fas fa-map", color: "#2d6a4f",
         tags: ["文献地图", "自动追踪"], pricing: "freemium", region: "foreign",
-        rating: 4.3, users: "20万+", url: "https://litmaps.com", isNew: true
+        rating: 4.3, users: "20万+", url: "https://litmaps.com", isNew: true,
+        keywords: ['文献图谱','引用关系','文献发现','可视化','文献追踪']
     },
 
     // ---- 写作辅助 ----
@@ -338,7 +376,8 @@ const TOOLS_DATA = [
         logo: favicon("overleaf.com"),
         icon: "fas fa-leaf", color: "#4cae4f",
         tags: ["LaTeX", "协作写作"], pricing: "freemium", region: "foreign",
-        rating: 4.8, users: "1500万+", url: "https://overleaf.com", hot: true
+        rating: 4.8, users: "1500万+", url: "https://overleaf.com", hot: true,
+        keywords: ['LaTeX','论文写作','协作','学术排版','期刊模板','数学公式']
     },
     {
         id: 40, name: "Grammarly", category: "writing",
@@ -346,7 +385,8 @@ const TOOLS_DATA = [
         logo: favicon("grammarly.com"),
         icon: "fas fa-check-circle", color: "#15c39a",
         tags: ["语法检查", "英文写作"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "3000万+", url: "https://grammarly.com", hot: true
+        rating: 4.6, users: "3000万+", url: "https://grammarly.com", hot: true,
+        keywords: ['语法检查','英文写作','润色','学术写作','语言纠错','论文']
     },
     {
         id: 41, name: "QuillBot", category: "writing",
@@ -354,7 +394,8 @@ const TOOLS_DATA = [
         logo: favicon("quillbot.com"),
         icon: "fas fa-feather-alt", color: "#6ab04c",
         tags: ["改写润色", "引用生成"], pricing: "freemium", region: "foreign",
-        rating: 4.5, users: "2000万+", url: "https://quillbot.com"
+        rating: 4.5, users: "2000万+", url: "https://quillbot.com",
+        keywords: ['改写','释义','英文写作','润色','摘要','语法检查','论文']
     },
 
     // ---- 数据分析 ----
@@ -364,7 +405,8 @@ const TOOLS_DATA = [
         logo: favicon("jasp-stats.org"),
         icon: "fas fa-chart-bar", color: "#0073b7",
         tags: ["统计分析", "免费"], pricing: "free", region: "foreign",
-        rating: 4.5, users: "50万+", url: "https://jasp-stats.org"
+        rating: 4.5, users: "50万+", url: "https://jasp-stats.org",
+        keywords: ['统计分析','贝叶斯','数据分析','免费','SPSS替代','方差分析']
     },
     {
         id: 43, name: "R Studio", category: "data",
@@ -372,7 +414,8 @@ const TOOLS_DATA = [
         logo: favicon("posit.co"),
         icon: "fas fa-registered", color: "#75aadb",
         tags: ["R语言", "统计分析"], pricing: "free", region: "foreign",
-        rating: 4.7, users: "500万+", url: "https://posit.co/products/open-source/rstudio/", hot: true
+        rating: 4.7, users: "500万+", url: "https://posit.co/products/open-source/rstudio/", hot: true,
+        keywords: ['数据分析','统计','R语言','可视化','ggplot2','免费','编程']
     },
     {
         id: 44, name: "Tableau", category: "data",
@@ -380,7 +423,8 @@ const TOOLS_DATA = [
         logo: favicon("tableau.com"),
         icon: "fas fa-chart-area", color: "#e8762b",
         tags: ["数据可视化", "拖拽操作"], pricing: "paid", region: "foreign",
-        rating: 4.5, users: "1500万+", url: "https://tableau.com"
+        rating: 4.5, users: "1500万+", url: "https://tableau.com",
+        keywords: ['数据可视化','图表','仪表盘','商业分析','数据分析','交互']
     },
 
     // ---- 科研绘图 ----
@@ -390,7 +434,8 @@ const TOOLS_DATA = [
         logo: favicon("figma.com"),
         icon: "fab fa-figma", color: "#f24e1e",
         tags: ["矢量设计", "协作"], pricing: "freemium", region: "foreign",
-        rating: 4.7, users: "4000万+", url: "https://figma.com", hot: true
+        rating: 4.7, users: "4000万+", url: "https://figma.com", hot: true,
+        keywords: ['设计','原型','UI','示意图','协作','图形设计','可视化']
     },
     {
         id: 46, name: "Inkscape", category: "figure",
@@ -398,7 +443,8 @@ const TOOLS_DATA = [
         logo: favicon("inkscape.org"),
         icon: "fas fa-vector-square", color: "#000",
         tags: ["矢量绘图", "免费开源"], pricing: "free", region: "foreign",
-        rating: 4.3, users: "200万+", url: "https://inkscape.org"
+        rating: 4.3, users: "200万+", url: "https://inkscape.org",
+        keywords: ['矢量图','科研绘图','图标','SVG','免费','示意图','Illustrator替代']
     },
 
     // ---- 代码助手 ----
@@ -408,7 +454,8 @@ const TOOLS_DATA = [
         logo: favicon("jupyter.org"),
         icon: "fas fa-book-open", color: "#f37626",
         tags: ["交互式计算", "数据科学"], pricing: "free", region: "foreign",
-        rating: 4.8, users: "2000万+", url: "https://jupyter.org", hot: true
+        rating: 4.8, users: "2000万+", url: "https://jupyter.org", hot: true,
+        keywords: ['数据分析','Python','R','可视化','交互式','代码','科学计算']
     },
     {
         id: 48, name: "VS Code", category: "code",
@@ -416,7 +463,8 @@ const TOOLS_DATA = [
         logo: favicon("code.visualstudio.com"),
         icon: "fas fa-code", color: "#007acc",
         tags: ["代码编辑器", "免费"], pricing: "free", region: "foreign",
-        rating: 4.9, users: "1亿+", url: "https://code.visualstudio.com", hot: true
+        rating: 4.9, users: "1亿+", url: "https://code.visualstudio.com", hot: true,
+        keywords: ['代码','编程','编辑器','Python','插件','调试','免费']
     },
 
     // ---- AI 搜索/问答 ----
@@ -426,7 +474,8 @@ const TOOLS_DATA = [
         logo: favicon("researchrabbit.ai"),
         icon: "fas fa-rabbit", color: "#ff6b6b",
         tags: ["文献推荐", "免费"], pricing: "free", region: "foreign",
-        rating: 4.5, users: "60万+", url: "https://researchrabbit.ai", isNew: true
+        rating: 4.5, users: "60万+", url: "https://researchrabbit.ai", isNew: true,
+        keywords: ['文献追踪','文献发现','推荐论文','文献网络','阅读','引用']
     },
     {
         id: 50, name: "Scite.ai", category: "reading",
@@ -434,7 +483,8 @@ const TOOLS_DATA = [
         logo: favicon("scite.ai"),
         icon: "fas fa-quote-right", color: "#5e35b1",
         tags: ["引用分析", "可信度评估"], pricing: "freemium", region: "foreign",
-        rating: 4.4, users: "30万+", url: "https://scite.ai", isNew: true
+        rating: 4.4, users: "30万+", url: "https://scite.ai", isNew: true,
+        keywords: ['引用分析','文献可靠性','支持引用','反驳引用','学术评估','论文']
     },
     {
         id: 51, name: "Scholarcy", category: "reading",
@@ -442,7 +492,8 @@ const TOOLS_DATA = [
         logo: favicon("scholarcy.com"),
         icon: "fas fa-id-card", color: "#1565c0",
         tags: ["自动摘要", "论文提炼"], pricing: "freemium", region: "foreign",
-        rating: 4.3, users: "15万+", url: "https://scholarcy.com"
+        rating: 4.3, users: "15万+", url: "https://scholarcy.com",
+        keywords: ['文献总结','论文摘要','自动摘要','阅读','文献提取','PDF']
     },
 
     // ---- 国产 AI ----
@@ -452,7 +503,8 @@ const TOOLS_DATA = [
         logo: favicon("chatglm.cn"),
         icon: "fas fa-brain", color: "#2a5ae0",
         tags: ["大模型", "国产"], pricing: "free", region: "domestic",
-        rating: 4.4, users: "500万+", url: "https://chatglm.cn"
+        rating: 4.4, users: "500万+", url: "https://chatglm.cn",
+        keywords: ['论文写作','问答','国产','中文','摘要','翻译','代码','免费']
     },
     {
         id: 53, name: "MiniMax", category: "llm",
@@ -460,7 +512,8 @@ const TOOLS_DATA = [
         logo: favicon("minimaxi.com"),
         icon: "fas fa-microchip", color: "#6200ea",
         tags: ["多模态", "国产API"], pricing: "freemium", region: "domestic",
-        rating: 4.3, users: "200万+", url: "https://minimaxi.com", isNew: true
+        rating: 4.3, users: "200万+", url: "https://minimaxi.com", isNew: true,
+        keywords: ['多模态','问答','国产','中文','API','语音','图像']
     },
 
     // ---- 实验设计 ----
@@ -470,7 +523,8 @@ const TOOLS_DATA = [
         logo: favicon("labarchives.com"),
         icon: "fas fa-clipboard-list", color: "#0277bd",
         tags: ["实验记录", "合规管理"], pricing: "paid", region: "foreign",
-        rating: 4.3, users: "50万+", url: "https://labarchives.com"
+        rating: 4.3, users: "50万+", url: "https://labarchives.com",
+        keywords: ['实验记录','电子实验本','合规','团队协作','数据存储','实验设计']
     },
     {
         id: 55, name: "Notion", category: "experiment",
@@ -478,7 +532,8 @@ const TOOLS_DATA = [
         logo: favicon("notion.so"),
         icon: "fas fa-sticky-note", color: "#000",
         tags: ["知识管理", "AI助手"], pricing: "freemium", region: "foreign",
-        rating: 4.6, users: "3000万+", url: "https://notion.so", hot: true
+        rating: 4.6, users: "3000万+", url: "https://notion.so", hot: true,
+        keywords: ['知识管理','实验记录','笔记','项目管理','协作','AI助手','文献笔记']
     },
 
     // ---- AI 软件推荐 ----
