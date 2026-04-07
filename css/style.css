@@ -1255,6 +1255,7 @@ body {
 .sidebar.collapsed .nav-item span,
 .sidebar.collapsed .nav-badge,
 .sidebar.collapsed .sidebar-search,
+.sidebar.collapsed .sidebar-overview,
 .sidebar.collapsed .sidebar-footer { display: none; }
 .sidebar.collapsed .logo { justify-content: center; }
 .sidebar.collapsed .nav-item { justify-content: center; padding: 10px; }
