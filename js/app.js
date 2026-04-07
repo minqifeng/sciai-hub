@@ -1644,10 +1644,13 @@
             }
         }
         else {
-            sections.hero.style.display     = cat === 'all' ? '' : 'none';
-            sections.featured.style.display = cat === 'all' ? '' : 'none';
-            sections.stats.style.display  = '';
-            sections.tools.style.display  = '';
+            const isAll = cat === 'all';
+            sections.hero.style.display      = isAll ? '' : 'none';
+            sections.featured.style.display  = isAll ? '' : 'none';
+            sections.stats.style.display     = '';
+            sections.tools.style.display     = '';
+            const recSec = document.getElementById('recommendSection');
+            if (recSec) recSec.style.display = isAll ? '' : 'none';
         }
         // 收藏视图显示导出按钮
         if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
@@ -1753,6 +1756,7 @@
     window._toggleFav     = id => toggleFav(id);
     window._toggleCompare = id => toggleCompare(id);
     window._openTool      = id => openToolModal(id);
+    window._isFav         = id => isFav(id);
 
     // ---- 键盘快捷�?----
     document.addEventListener('keydown', e => {
@@ -2509,6 +2513,7 @@
             if (currentCategory === 'models') refreshModelsData(true, true);
         }, 30 * 60 * 1000);
         renderUseCases();
+        if (typeof initRecommend === 'function') initRecommend();
         bindEvents();
         animateStats();
         loadTheme();
