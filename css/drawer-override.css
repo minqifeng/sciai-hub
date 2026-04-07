@@ -1,0 +1,218 @@
+body {
+    overflow-x: hidden;
+}
+
+body.sidebar-drawer-open {
+    overflow: hidden;
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+    z-index: 98;
+}
+
+.sidebar-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar {
+    width: min(88vw, 320px);
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    z-index: 99;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    box-shadow: 24px 0 60px rgba(5, 10, 20, 0.18);
+}
+
+.main-content {
+    margin-left: 0 !important;
+    width: 100%;
+    min-width: 0;
+}
+
+.compare-bar {
+    left: 0 !important;
+}
+
+#mainContent::before,
+.main-content::before {
+    inset: 0 !important;
+}
+
+.mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-toggle {
+    display: flex !important;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
+    width: min(88vw, 320px);
+}
+.sidebar.collapsed + .main-content {
+    margin-left: 0;
+}
+.sidebar.collapsed ~ .compare-bar {
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: min(88vw, 320px);
+    }
+}
+
+:root {
+    --sidebar-pinned-width: 320px;
+}
+
+.sidebar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-pin,
+.sidebar-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.sidebar-pin:hover,
+.sidebar-toggle:hover,
+.sidebar-pin.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.sidebar.pinned {
+    width: var(--sidebar-pinned-width);
+    max-width: var(--sidebar-pinned-width);
+    transform: translateX(0) !important;
+    box-shadow: 24px 0 60px rgba(5, 10, 20, 0.18);
+}
+
+body.sidebar-pinned {
+    overflow-x: hidden;
+}
+
+body.sidebar-pinned .sidebar-backdrop {
+    display: none;
+}
+
+body.sidebar-pinned .main-content {
+    margin-left: var(--sidebar-pinned-width) !important;
+    width: calc(100% - var(--sidebar-pinned-width)) !important;
+}
+
+body.sidebar-pinned .compare-bar {
+    left: var(--sidebar-pinned-width) !important;
+    width: calc(100% - var(--sidebar-pinned-width)) !important;
+}
+
+body.sidebar-pinned #mainContent::before,
+body.sidebar-pinned .main-content::before {
+    inset: 0 0 0 var(--sidebar-pinned-width) !important;
+}
+
+body.sidebar-pinned .mobile-menu-btn {
+    display: none !important;
+}
+
+.news-section-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 14px 0 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(248,250,252,0.98));
+    box-shadow: var(--shadow-sm);
+}
+
+.news-section-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.news-section-nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.news-section-nav-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.news-section-tabs,
+.news-section-filters,
+.news-section-jumps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.news-section-tab,
+.news-section-filter,
+.news-section-jump {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.news-section-tab:hover,
+.news-section-filter:hover,
+.news-section-jump:hover,
+.news-section-tab.active,
+.news-section-filter.active,
+.news-section-jump.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(59,130,246,0.08);
+}
+
+.news-section-refresh {
+    margin-left: auto;
+}
+
+.news-day-block {
+    scroll-margin-top: 96px;
+}
