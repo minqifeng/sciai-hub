@@ -366,7 +366,7 @@ const TOOLS_DATA = [
         icon: "fas fa-map", color: "#2d6a4f",
         tags: ["文献地图", "自动追踪"], pricing: "freemium", region: "foreign",
         rating: 4.3, users: "20万+", url: "https://litmaps.com", isNew: true,
-        keywords: ['文献图谱','引用关系','文献发现','可视化','文献追踪']
+        keywords: ['文献图谱','引用关系','文献发现','可视化','文献追踪','种子论文']
     },
 
     // ---- 写作辅助 ----
