@@ -10,6 +10,7 @@
     const sidebar         = $('#sidebar');
     const mainContent     = $('#mainContent');
     const mobileMenuBtn   = $('#mobileMenuBtn');
+    const sidebarBackdrop = $('#sidebarBackdrop');
     const globalSearch    = $('#globalSearch');
     const heroSearch      = $('#heroSearch');
     const heroSearchBtn   = $('#heroSearchBtn');
@@ -59,6 +60,7 @@
     };
 
     // ---- 新增 DOM refs ----
+    const sidebarPinBtn   = $('#sidebarPinBtn');
     const sidebarToggle   = $('#sidebarToggle');
     const shortcutsModal  = $('#shortcutsModal');
     const suggestModal    = $('#suggestModal');
@@ -80,7 +82,8 @@
     let currentModelSnapshotTopCount = Array.isArray(MODELS_RANKING) ? MODELS_RANKING.length : 0;
     let currentArxivUpdatedAt = null;
     let currentNewsUpdatedAt = null;
-    let currentNewsFilter = 'all';
+    let currentNewsFilter = '全部';
+    let currentNewsTab = 'static';
     let currentNewsData = Array.isArray(NEWS_DATA) ? [...NEWS_DATA] : [];
     let newsRefreshInFlight = null;
     let hasRequestedLiveNews = false;
@@ -90,7 +93,8 @@
     let recentlyViewed   = loadLS('sciai-recent', []);
     let compareList      = [];   // max 3 ids
     let userLikes        = loadLS('sciai-likes', {});
-    let sidebarCollapsed = loadLS('sciai-sidebar-collapsed', false);
+    let sidebarDrawerOpen = false;
+    let sidebarPinned     = loadLS('sciai-sidebar-pinned', false);
 
     // ---- LS 工具 ----
     function loadLS(key, def) {
@@ -522,23 +526,44 @@
         return String(value).toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-');
     }
 
-    function normalizeNewsEventType(item) {
-        if (item.eventType) return item.eventType;
-        const map = {
-            LLM: 'ģ�ͷ���',
-            '����': '��Ʒ����',
-            '����': '���Ľ�չ',
-            '�о�': '���Ľ�չ',
-            '����': '��ҵ����',
-            '��ҵ': 'Ͷ���������',
-            '��Դ': '��Դ����',
-            'Ӳ��': '������ʩ'
+    function normalizeNewsEventType(item = {}) {
+        const raw = String(item.eventType || item.category || '').trim();
+        if (!raw) return inferNewsEventType(item.title || '', item.desc || '');
+        const aliases = {
+            all: '全部',
+            '全部': '全部',
+            LLM: '模型发布',
+            Model: '模型发布',
+            model: '模型发布',
+            模型: '模型发布',
+            产品: '产品更新',
+            product: '产品更新',
+            launch: '产品更新',
+            tool: '产品更新',
+            开源: '开源发布',
+            open: '开源发布',
+            release: '开源发布',
+            research: '论文进展',
+            paper: '论文进展',
+            study: '论文进展',
+            论文: '论文进展',
+            投资: '投融资合作',
+            funding: '投融资合作',
+            finance: '投融资合作',
+            report: '行业报告',
+            行业: '行业报告',
+            infra: '基础设施',
+            hardware: '基础设施',
+            基础设施: '基础设施',
+            industry: '行业动态',
+            动态: '行业动态'
         };
-        return map[item.category] || '��ҵ��̬';
+        const key = aliases[raw] || aliases[raw.toLowerCase()] || raw;
+        return key || '行业动态';
     }
 
     function groupNewsByEvent(news) {
-        const order = ['ģ�ͷ���', '��Ʒ����', '��Դ����', '���Ľ�չ', 'Ͷ���������', '��ҵ����', '������ʩ', '��ҵ��̬'];
+        const order = ['模型发布', '产品更新', '开源发布', '论文进展', '投融资合作', '行业报告', '基础设施', '行业动态'];
         const groups = new Map(order.map(key => [key, []]));
         news.forEach(item => {
             const key = normalizeNewsEventType(item);
@@ -555,14 +580,14 @@
 
     function inferNewsEventType(title = '', desc = '') {
         const text = `${title} ${desc}`.toLowerCase();
-        if (/funding|raise|investment|acquire|partnership|����|ս��/.test(text)) return 'Ͷ���������';
-        if (/open source|open-source|��Դ|github|repo|release/.test(text)) return '��Դ����';
-        if (/paper|arxiv|research|study|����|�о�|benchmark/.test(text)) return '���Ľ�չ';
-        if (/gpu|chip|infra|inference|data center|����|оƬ|������ʩ/.test(text)) return '������ʩ';
-        if (/report|survey|index|����|��Ƥ��/.test(text)) return '��ҵ����';
-        if (/model|gpt|claude|gemini|llama|deepseek|qwen|mistral|ģ��/.test(text)) return 'ģ�ͷ���';
-        if (/launch|api|app|feature|tool|agent|product|��Ʒ|����|ƽ̨|����/.test(text)) return '��Ʒ����';
-        return '��ҵ��̬';
+        if (/funding|raise|investment|acquire|partnership|融资|投资|合作/.test(text)) return '投融资合作';
+        if (/open source|open-source|开源|github|repo|release/.test(text)) return '开源发布';
+        if (/paper|arxiv|research|study|论文|研究|benchmark/.test(text)) return '论文进展';
+        if (/gpu|chip|infra|inference|data center|硬件|芯片|基础设施/.test(text)) return '基础设施';
+        if (/report|survey|index|行业|调研/.test(text)) return '行业报告';
+        if (/model|gpt|claude|gemini|llama|deepseek|qwen|mistral|模型/.test(text)) return '模型发布';
+        if (/launch|api|app|feature|tool|agent|product|platform|功能|工具|产品/.test(text)) return '产品更新';
+        return '行业动态';
     }
 
     function normalizeFeedDate(value) {
@@ -596,7 +621,7 @@
             const date = normalizeFeedDate(readText(node, ['pubDate', 'published', 'updated']));
             return {
                 id: `live-${slugifyLabel(feedLabel)}-${slugifyLabel(title || String(index))}-${date}`,
-                title: title || 'δ��������',
+                title: title || '未命名',
                 source: feedLabel,
                 date,
                 category: '实时',
@@ -648,112 +673,141 @@
         return newsRefreshInFlight;
     }
 
-    async function refreshNewsRealtime() {
+        async function refreshNewsRealtime() {
         const result = await fetchLiveNews(true);
         renderNews(result && result.length ? result : currentNewsData);
-        showToast(result && result.length ? '已同步实�?RSS 新闻' : '实时 RSS 暂不可用，已保留本地兜底新闻');
+        showToast(result && result.length ? '已同步实时 RSS 新闻' : '实时 RSS 暂不可用，已保留本地兜底新闻');
     }
     window.refreshNewsRealtime = refreshNewsRealtime;
+
+    function updateNewsSectionMeta() {
+        const el = $('#newsSectionUpdatedAt');
+        if (!el) return;
+        el.textContent = currentNewsUpdatedAt ? `更新于 ${formatModelRefreshTime(currentNewsUpdatedAt)}` : '';
+    }
+
+    function renderNewsSectionNav(allNews) {
+        const container = $('#newsSectionNav');
+        if (!container) return;
+        const all = [...(allNews || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+        const filterOrder = ['全部', '模型发布', '产品更新', '开源发布', '论文进展', '投融资合作', '行业报告', '基础设施', '行业动态'];
+        const availableFilters = filterOrder.filter(key => key === '全部' || all.some(item => normalizeNewsEventType(item) === key));
+        if (!availableFilters.includes(currentNewsFilter)) currentNewsFilter = '全部';
+        const visibleNews = currentNewsFilter === '全部'
+            ? all
+            : all.filter(item => normalizeNewsEventType(item) === currentNewsFilter);
+        const dateJumps = [...new Set(visibleNews.map(item => item.date).filter(Boolean))].slice(0, 8);
+        container.innerHTML = `
+            <div class="news-section-nav-row">
+                <div class="news-section-nav-group">
+                    <span class="news-section-nav-label">新闻快讯</span>
+                    <div class="news-section-tabs">
+                        <button class="news-section-tab ${currentNewsTab === 'static' ? 'active' : ''}" type="button" data-news-tab="static">新闻快讯</button>
+                        <button class="news-section-tab ${currentNewsTab === 'arxiv' ? 'active' : ''}" type="button" data-news-tab="arxiv"><i class="fas fa-rss"></i> arXiv 实时 <span class="live-dot"></span></button>
+                    </div>
+                </div>
+                <button class="arxiv-retry-btn news-section-refresh" type="button" onclick="window.refreshNewsRealtime && window.refreshNewsRealtime()"><i class="fas fa-sync-alt"></i> 实时更新</button>
+            </div>
+            <div class="news-section-nav-group">
+                <span class="news-section-nav-label">分类导航</span>
+                <div class="news-section-filters">
+                    ${availableFilters.map(key => `<button class="news-section-filter ${currentNewsFilter === key ? 'active' : ''}" type="button" data-news-filter="${key}">${key}</button>`).join('')}
+                </div>
+            </div>
+            <div class="news-section-nav-group">
+                <span class="news-section-nav-label">日期跳转</span>
+                <div class="news-section-jumps">
+                    ${dateJumps.map(date => `<button class="news-section-jump" type="button" data-news-jump="news-day-${date}">${date}</button>`).join('') || '<span class="section-sub">暂无可跳转日期</span>'}
+                </div>
+            </div>`;
+
+        container.querySelectorAll('[data-news-tab]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentNewsTab = btn.dataset.newsTab || 'static';
+                if (currentNewsTab === 'arxiv' && $('#arxivList')?.innerHTML === '') fetchArxivLatest();
+                renderNews(all);
+            });
+        });
+        container.querySelectorAll('[data-news-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentNewsFilter = btn.dataset.newsFilter || '全部';
+                renderNews(all);
+            });
+        });
+        container.querySelectorAll('[data-news-jump]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.newsJump || '');
+                target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
 
     function renderNews(news) {
         const newsList = $('#newsList');
         if (!newsList) return;
         currentNewsUpdatedAt = currentNewsUpdatedAt || new Date().toISOString();
         const allNews = [...(news || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
-        const filterOrder = ['all', 'ģ�ͷ���', '��Ʒ����', '��Դ����', '���Ľ�չ', 'Ͷ���������', '��ҵ����', '������ʩ'];
-        const filterLabels = {
-            all: 'ȫ��',
-            'ģ�ͷ���': 'ģ��',
-            '��Ʒ����': '��Ʒ',
-            '��Դ����': '��Դ',
-            '���Ľ�չ': '����',
-            'Ͷ���������': '���ʺ���',
-            '��ҵ����': '����',
-            '������ʩ': '������ʩ'
-        };
-        const availableFilters = filterOrder.filter(key => key === 'all' || allNews.some(item => normalizeNewsEventType(item) === key));
-        if (!availableFilters.includes(currentNewsFilter)) currentNewsFilter = 'all';
+        renderNewsSectionNav(allNews);
+        updateNewsSectionMeta();
+        const filterOrder = ['全部', '模型发布', '产品更新', '开源发布', '论文进展', '投融资合作', '行业报告', '基础设施', '行业动态'];
+        if (!filterOrder.includes(currentNewsFilter)) currentNewsFilter = '全部';
         const filteredNews = allNews
-            .filter(item => currentNewsFilter === 'all' || normalizeNewsEventType(item) === currentNewsFilter)
+            .filter(item => currentNewsFilter === '全部' || normalizeNewsEventType(item) === currentNewsFilter)
             .slice(0, 30);
         const newsByDate = filteredNews.reduce((acc, item) => {
-            const key = item.date || 'δ��ע����';
+            const key = item.date || '未标注日期';
             if (!acc.has(key)) acc.set(key, []);
             acc.get(key).push(item);
             return acc;
         }, new Map());
 
         newsList.innerHTML = `
-            <div class="news-tabs">
-                <button class="news-tab active" data-tab="static">新闻快讯</button>
-                <button class="news-tab" data-tab="arxiv"><i class="fas fa-rss"></i> arXiv 实时 <span class="live-dot"></span></button>
-            </div>
-            <div id="staticNewsList">
-                <div class="news-event-toolbar">
-                    <div>
-                        <h4 class="news-event-title">具体新闻</h4>
-                        <p class="news-event-sub">参考日报站的组织方式，直接按日期看具体新闻。当前展示前 30 条�?/p>
-                    </div>
-                    <div class="news-event-toolbar-right">
-                        <span class="section-sub">更新�?${formatModelRefreshTime(currentNewsUpdatedAt)}</span>
-                        <button class="arxiv-retry-btn" type="button" onclick="window.refreshNewsRealtime && window.refreshNewsRealtime()"><i class="fas fa-sync-alt"></i> 实时更新</button>
-                    </div>
+            <div class="news-feed-toolbar">
+                <div>
+                    <h4 class="news-event-title">具体新闻</h4>
+                    <p class="news-event-sub">按日期展示具体新闻，当前仅保留前 30 条，便于快速浏览。</p>
                 </div>
-                <div class="news-feed-shell">
-                    <div class="news-event-topnav">
-                        ${availableFilters.map(key => {
-                            const count = key === 'all' ? allNews.length : allNews.filter(item => normalizeNewsEventType(item) === key).length;
-                            return `<button class="news-event-link ${currentNewsFilter === key ? 'active' : ''}" type="button" data-news-filter="${key}"><span class="news-event-link-label">${filterLabels[key] || key}</span><span>${Math.min(30, count)}</span></button>`;
-                        }).join('')}
-                    </div>
+                <div class="news-event-toolbar-right">
+                    <span class="section-sub">${currentNewsUpdatedAt ? `更新于 ${formatModelRefreshTime(currentNewsUpdatedAt)}` : ''}</span>
+                    <span class="news-count-pill">${filteredNews.length} 条</span>
+                </div>
+            </div>
+            <div class="news-feed-shell">
+                <div id="staticNewsList" style="display:${currentNewsTab === 'static' ? '' : 'none'};">
                     <div class="news-feed-list">
                         ${Array.from(newsByDate.entries()).map(([date, items]) => `
-                            <section class="news-day-block">
+                            <section class="news-day-block" id="news-day-${date}">
                                 <div class="news-day-header">
                                     <strong>${date}</strong>
-                                    <span>${items.length} 条快�?/span>
+                                    <span>${items.length} 条快讯</span>
                                 </div>
                                 <div class="news-event-stream">
                                     ${items.map(n => {
                                         const d = new Date(n.date);
+                                        const safeDay = Number.isNaN(d.getDate()) ? '--' : d.getDate();
+                                        const safeMonth = Number.isNaN(d.getMonth()) ? '--' : d.getMonth() + 1;
                                         return `<a class="news-event-notice" href="${n.url || '#'}" target="_blank" rel="noopener">
-                                            <div class="news-event-date"><span class="day">${d.getDate()}</span><span class="month">${d.getMonth()+1}�?/span></div>
+                                            <div class="news-event-date"><span class="day">${safeDay}</span><span class="month">${safeMonth}月</span></div>
                                             <div class="news-event-copy">
                                                 <div class="news-event-meta-row">
                                                     <span class="news-tag" style="background:#3b82f618;color:#3b82f6">${normalizeNewsEventType(n)}</span>
                                                     <span class="news-notice-source">${n.source || '行业监测'}</span>
                                                 </div>
-                                                <h4>${n.title}</h4>
-                                                <p>${n.desc}</p>
+                                                <h4>${n.title || '未命名新闻'}</h4>
+                                                <p>${n.desc || '暂无摘要'}</p>
                                             </div>
                                             <span class="news-notice-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
                                         </a>`;
                                     }).join('')}
                                 </div>
                             </section>
-                        `).join('') || `<div class="models-empty"><i class="fas fa-newspaper"></i><p>当前分类下暂无新�?/p></div>`}
+                        `).join('') || `<div class="models-empty"><i class="fas fa-newspaper"></i><p>当前分类下暂无新闻</p></div>`}
                     </div>
                 </div>
-            </div>
-            <div id="arxivList" style="display:none;"></div>`;
+                <div id="arxivList" style="display:${currentNewsTab === 'arxiv' ? '' : 'none'};"></div>
+            </div>`;
 
-        newsList.querySelectorAll('.news-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                newsList.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                const t = tab.dataset.tab;
-                $('#staticNewsList').style.display = t === 'static' ? '' : 'none';
-                $('#arxivList').style.display = t === 'arxiv' ? '' : 'none';
-                if (t === 'arxiv' && $('#arxivList').innerHTML === '') fetchArxivLatest();
-            });
-        });
-
-        newsList.querySelectorAll('.news-event-link').forEach(link => {
-            link.addEventListener('click', () => {
-                currentNewsFilter = link.dataset.newsFilter || 'all';
-                renderNews(news);
-            });
-        });
+        if (currentNewsTab === 'arxiv' && $('#arxivList').innerHTML === '') fetchArxivLatest();
     }
 
     function getProviderTheme(provider) {
@@ -1595,6 +1649,7 @@
             stats:'ͳ������ӻ�������',
         };
         pageTitle.textContent = titleMap[cat] || cat;
+        closeSidebarDrawer();
         const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
 
         // Tab 栏显�?隐藏逻辑
@@ -1637,6 +1692,13 @@
         else if (cat === 'stats')          {
             if (sections.statMethods) {
                 sections.statMethods.style.display = 'block';
+                sections.statMethods.style.width = '100%';
+                sections.statMethods.style.maxWidth = 'none';
+                sections.statMethods.style.marginLeft = '0';
+                sections.statMethods.style.marginRight = '0';
+                sections.statMethods.style.alignSelf = 'stretch';
+                sections.statMethods.style.clear = 'both';
+                sections.statMethods.style.position = 'relative';
                 StatsFeature.render();
                 sections.statMethods.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
@@ -1902,8 +1964,11 @@
         // 主题
         themeToggle.addEventListener('click', toggleTheme);
 
-        // 移动�?        mobileMenuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
-        mainContent.addEventListener('click', () => { if (window.innerWidth <= 768) sidebar.classList.remove('open'); });
+        mobileMenuBtn.addEventListener('click', e => { e.stopPropagation(); toggleSidebarDrawer(); });
+        sidebarToggle?.addEventListener('click', e => { e.stopPropagation(); toggleSidebarDrawer(); });
+        sidebarPinBtn?.addEventListener('click', e => { e.stopPropagation(); toggleSidebarPin(); });
+        sidebarBackdrop?.addEventListener('click', closeSidebarDrawer);
+        mainContent.addEventListener('click', closeSidebarDrawer);
 
         // 工具详情弹窗
         toolModalClose.addEventListener('click', closeToolModal);
@@ -1954,8 +2019,6 @@
         // 收藏导出
         exportFavsBtn?.addEventListener('click', exportFavoritesMarkdown);
 
-        // 侧边栏折�?        sidebarToggle?.addEventListener('click', toggleSidebar);
-
         // 快捷键帮�?        shortcutHelpBtn?.addEventListener('click', () => shortcutsModal?.classList.toggle('show'));
         $('#shortcutsModalClose')?.addEventListener('click', () => shortcutsModal?.classList.remove('show'));
         shortcutsModal?.addEventListener('click', e => { if (e.target === shortcutsModal) shortcutsModal.classList.remove('show'); });
@@ -1976,18 +2039,41 @@
         });
     }
 
-    // ---- 侧边栏折�?----
+    // ---- 抽屉导航 ----
     function applySidebarCollapse() {
-        sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        sidebar.classList.toggle('open', !!sidebarPinned || !!sidebarDrawerOpen);
+        sidebar.classList.toggle('pinned', !!sidebarPinned);
+        sidebarBackdrop?.classList.toggle('show', !!sidebarDrawerOpen && !sidebarPinned);
+        document.body.classList.toggle('sidebar-drawer-open', !!sidebarDrawerOpen && !sidebarPinned);
+        document.body.classList.toggle('sidebar-pinned', !!sidebarPinned);
+        if (sidebarPinBtn) sidebarPinBtn.classList.toggle('active', !!sidebarPinned);
+        if (sidebarPinBtn) sidebarPinBtn.title = sidebarPinned ? '取消固定导航' : '固定导航';
         const icon = sidebarToggle ? sidebarToggle.querySelector('i') : null;
-        if (icon) icon.style.transform = sidebarCollapsed ? 'rotate(180deg)' : '';
+        if (icon) icon.className = sidebarPinned || sidebarDrawerOpen ? 'fas fa-chevron-left' : 'fas fa-bars';
+        if (sidebarToggle) sidebarToggle.title = sidebarPinned ? '取消固定并收起' : (sidebarDrawerOpen ? '收起导航' : '打开导航');
     }
-    function toggleSidebar() {
-        sidebarCollapsed = !sidebarCollapsed;
-        saveLS('sciai-sidebar-collapsed', sidebarCollapsed);
+    function toggleSidebarPin(force) {
+        sidebarPinned = typeof force === 'boolean' ? force : !sidebarPinned;
+        if (sidebarPinned) sidebarDrawerOpen = false;
+        saveLS('sciai-sidebar-pinned', sidebarPinned);
+        saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
         applySidebarCollapse();
     }
-
+    function toggleSidebarDrawer() {
+        if (sidebarPinned) {
+            toggleSidebarPin(false);
+            return;
+        }
+        sidebarDrawerOpen = !sidebarDrawerOpen;
+        saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
+        applySidebarCollapse();
+    }
+    function closeSidebarDrawer() {
+        if (sidebarPinned || !sidebarDrawerOpen) return;
+        sidebarDrawerOpen = false;
+        saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
+        applySidebarCollapse();
+    }
     // ---- 用户点赞 ----
     function isLiked(id)    { return !!userLikes[String(id)]; }
     function toggleLike(id) {
@@ -2249,8 +2335,8 @@
                 const guide = m.visualGuide || {};
                 const charts = (guide.charts || []).slice(0, 4).map(item => '<span class="stats-visual-chip">' + item + '</span>').join('');
                 const impl = (guide.implementation || []).slice(0, 2).map(item => '<div class="stats-impl-line">' + item + '</div>').join('');
-                return '<details class="stats-card" data-method-id="' + m.id + '">'
-                    + '<summary class="stats-card-summary">'
+                return '<article class="stats-card stats-card--full" data-method-id="' + m.id + '">'
+                    + '<div class="stats-card-summary">'
                     + '<div class="stats-card-summary-main">'
                     + '<div class="stats-card-head"><div class="stats-card-icon" style="background:' + bg + '"><i class="' + (m.icon||'fas fa-chart-bar') + '"></i></div>'
                     + '<div class="stats-card-title"><div class="stats-card-name">' + m.name + '</div>'
@@ -2262,9 +2348,8 @@
                     + '<div class="stats-card-summary-side">'
                     + '<div class="stats-tools">' + tools + '</div>'
                     + '<div class="stats-difficulty"><span class="stats-difficulty-label">难度</span>' + dots(m.difficulty||1) + '</div>'
-                    + '<div class="stats-card-summary-hint"><i class="fas fa-chevron-down"></i> 查看方法细节</div>'
+                    + '<div class="stats-card-summary-hint"><i class="fas fa-square-list"></i> 方法内容全展开</div>'
                     + '</div>'
-                    + '</summary>'
                     + '<div class="stats-card-body">'
                     + '<div class="stats-card-body-grid">'
                     + '<div class="stats-visual-block"><div class="stats-block-title">建议图形</div><div class="stats-visual-chips">' + charts + '</div></div>'
@@ -2276,7 +2361,7 @@
                     + (hasResources ? '<div class="stats-card-resources"><button class="btn-resources-small" data-method-id="' + m.id + '"><i class="fas fa-graduation-cap"></i> 参考资源</button></div>' : '')
                     + '<div class="stats-disc-chips">' + discs + '</div>'
                     + '</div>'
-                    + '</details>';
+                    + '</article>';
             }).join('');
             document.querySelectorAll('.btn-resources-small').forEach(btn => {
                 btn.addEventListener('click', (e) => {
