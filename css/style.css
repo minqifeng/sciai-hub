@@ -1165,7 +1165,7 @@ body {
    前沿看点
    ============================================ */
 .github-frontier {
-    background: linear-gradient(135deg, rgba(79,110,247,0.05) 0%, rgba(0,212,170,0.05) 100%);
+    background: linear-gradient(135deg, rgba(79,110,247,0.04) 0%, rgba(0,212,170,0.04) 100%);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 18px 20px;
@@ -1187,7 +1187,10 @@ body {
     gap: 6px;
 }
 .frontier-title i { color: #ef4444; }
-.frontier-sub { font-size: 12px; color: var(--text-muted); }
+.frontier-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+}
 .frontier-topics {
     display: flex;
     gap: 8px;
@@ -1242,7 +1245,7 @@ body {
 .frontier-rising-card:hover {
     border-color: var(--primary-light);
     box-shadow: var(--shadow-sm);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 .frontier-rising-name {
     font-size: 13px;
@@ -1280,9 +1283,9 @@ body {
     font-size: 11px;
     color: #22c55e;
     font-weight: 600;
-    background: rgba(34,197,94,0.12);
+    background: rgba(34,197,94,0.1);
     border-radius: 4px;
-    padding: 2px 6px;
+    padding: 1px 5px;
 }
 .github-grid-label {
     font-size: 13px;
@@ -1291,9 +1294,16 @@ body {
     margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
-.github-grid-label i { color: var(--primary); font-size: 12px; }
+.github-grid-label::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--primary);
+    border-radius: 2px;
+}
 
 /* ============================================
    响应式

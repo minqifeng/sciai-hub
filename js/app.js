@@ -296,39 +296,45 @@
     }
     window._refreshGithub = fetchGithubTrending;
 
-    // ---- 前沿看点：本周飙升 ----
+    // ---- ??????????? ----
     function fetchFrontierRising(topic) {
         const container = $('#frontierRising');
         if (!container) return;
-        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
+        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> ???...</div>';
         const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        let topicQ = topic && topic !== 'all' ? `topic:${topic}+` : '(topic:llm+OR+topic:agent+OR+topic:rag+OR+topic:diffusion+OR+topic:multimodal)+';
-        const url = `https://api.github.com/search/repositories?q=${topicQ}pushed:>${since}+stars:>100&sort=stars&order=desc&per_page=8`;
+        let q = `pushed:>${since}+stars:>50`;
+        if (topic && topic !== 'all') {
+            q = `topic:${topic}+${q}`;
+        } else {
+            q = `(topic:llm+OR+topic:agent+OR+topic:rag+OR+topic:diffusion)+${q}`;
+        }
+        const url = `https://api.github.com/search/repositories?q=${q}&sort=stars&order=desc&per_page=8`;
         fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
             .then(r => { if (!r.ok) throw new Error('api ' + r.status); return r.json(); })
             .then(data => {
                 const items = (data.items || []).slice(0, 8);
-                if (!items.length) { container.innerHTML = '<div class="rec-empty">暂无数据</div>'; return; }
+                if (!items.length) { container.innerHTML = '<div class="rec-empty">????</div>'; return; }
                 container.innerHTML = items.map(r => {
                     const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-                    const desc = (r.description || '暂无描述').slice(0, 55);
+                    const desc = (r.description || '????').slice(0, 55);
+                    const gainPct = Math.min(Math.round((r.stargazers_count / Math.max(r.watchers_count || 1, 1)) * 10), 999);
                     return `<a class="frontier-rising-card" href="${r.html_url}" target="_blank" rel="noopener">
                         <div class="frontier-rising-name">${r.full_name}</div>
                         <div class="frontier-rising-desc">${desc}</div>
                         <div class="frontier-rising-footer">
                             <span class="frontier-rising-stars"><i class="fas fa-star"></i> ${stars}</span>
-                            <span class="frontier-rising-gain">本周活跃</span>
+                            <span class="frontier-rising-gain">????</span>
                         </div>
                     </a>`;
                 }).join('');
             })
             .catch(() => {
-                container.innerHTML = '<div class="rec-empty">API 限流，请稍后重试</div>';
+                container.innerHTML = '<div class="rec-empty">API ????????</div>';
             });
     }
     window._fetchFrontierRising = fetchFrontierRising;
 
-    // ---- 前沿看点话题筛选 ----
+    // ---- ???????? ----
     function bindFrontierEvents() {
         const topicsEl = $('#frontierTopics');
         if (!topicsEl) return;
@@ -339,38 +345,47 @@
             btn.classList.add('active');
             const topic = btn.dataset.topic;
             fetchFrontierRising(topic);
-            const grid = $('#githubGrid');
-            if (!grid) return;
-            if (topic === 'all') { fetchGithubTrending(); return; }
-            grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 筛选中...</div>';
-            const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219' };
-            fetch(`https://api.github.com/search/repositories?q=topic:${topic}+stars:>500&sort=stars&order=desc&per_page=20`, { headers: { 'Accept': 'application/vnd.github+json' } })
-                .then(r => r.json())
-                .then(data => {
-                    const items = data.items || [];
-                    if (!items.length) { grid.innerHTML = '<div class="rec-empty">无匹配结果</div>'; return; }
-                    grid.innerHTML = items.map(r => {
-                        const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-                        const langColor = langColors[r.language] || '#8b949e';
-                        const topics = (r.topics || []).slice(0, 3);
-                        const owner = r.full_name.split('/')[0];
-                        return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
-                            <div class="github-card-header">
-                                <i class="fab fa-github github-card-icon"></i>
-                                <div class="github-card-meta">
-                                    <span class="github-owner">${owner}</span>
-                                    <span class="github-name">/ ${r.name}</span>
-                                </div>
-                                <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
-                            </div>
-                            <p class="github-desc">${(r.description||'暂无描述').slice(0,80)}</p>
-                            <div class="github-footer">
-                                <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language||'N/A'}</span>
-                                <div class="github-topics">${topics.map(t=>`<span class="github-topic">${t}</span>`).join('')}</div>
-                            </div>
-                        </a>`;
-                    }).join('');
-                }).catch(() => {});
+            // Also filter main grid
+            const q = topic === 'all' ? '' : topic;
+            if (q) {
+                const url = `https://api.github.com/search/repositories?q=topic:${q}+stars:>500&sort=stars&order=desc&per_page=20`;
+                const grid = $('#githubGrid');
+                if (grid) {
+                    grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> ???...</div>';
+                    const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
+                    fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+                        .then(r => r.json())
+                        .then(data => {
+                            const items = data.items || [];
+                            if (!items.length) { grid.innerHTML = '<div class="rec-empty">?????</div>'; return; }
+                            grid.innerHTML = items.map(r => {
+                                const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+                                const langColor = langColors[r.language] || '#8b949e';
+                                const topics = (r.topics || []).slice(0, 3);
+                                const owner = r.full_name.split('/')[0];
+                                const desc = (r.description || '????').slice(0, 80);
+                                return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
+                                    <div class="github-card-header">
+                                        <i class="fab fa-github github-card-icon"></i>
+                                        <div class="github-card-meta">
+                                            <span class="github-owner">${owner}</span>
+                                            <span class="github-name">/ ${r.name}</span>
+                                        </div>
+                                        <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
+                                    </div>
+                                    <p class="github-desc">${desc}</p>
+                                    <div class="github-footer">
+                                        <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
+                                        <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
+                                    </div>
+                                </a>`;
+                            }).join('');
+                        })
+                        .catch(() => {});
+                }
+            } else {
+                fetchGithubTrending();
+            }
         });
     }
     window._bindFrontierEvents = bindFrontierEvents;
