@@ -104,11 +104,23 @@
     function saveLS(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
     const LIVE_NEWS_FEEDS = [
-        { label: 'Planet AI', url: 'https://planet-ai.net/rss.xml' },
-        { label: 'OpenAI News', url: 'https://openai.com/news/rss.xml' },
-        { label: 'Hugging Face', url: 'https://huggingface.co/blog/feed.xml' },
-        { label: 'Google Research', url: 'https://research.google/blog/rss/' }
+        { label: 'Planet AI',       url: 'https://planet-ai.net/rss.xml' },
+        { label: 'MIT Tech Review', url: 'https://www.technologyreview.com/feed/' },
+        { label: 'VentureBeat AI',  url: 'https://venturebeat.com/category/ai/feed/' },
+        { label: 'The Verge AI',    url: 'https://www.theverge.com/ai-artificial-intelligence/rss/index.xml' },
+        { label: 'TechCrunch AI',   url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
     ];
+
+    // CORS proxy fallback chain
+    const CORS_PROXIES = [
+        u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+        u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+        u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+    ];
+
+    // GitHub cache config
+    const GITHUB_CACHE_KEY     = 'sciai-github-trending';
+    const GITHUB_CACHE_TTL     = 2 * 60 * 60 * 1000; // 2h
 
     const TOOL_TAB_CATS = new Set([
         'all', 'hot', 'new', 'favorites', 'recent',
@@ -231,8 +243,8 @@
     function renderGithubRepos() {
         const grid = $('#githubGrid');
         if (!grid) return;
-        grid.innerHTML = GITHUB_REPOS.map(r => `
-            <a class="github-card" href="${r.url}" target="_blank" rel="noopener">
+        grid.innerHTML = GITHUB_REPOS.map(r => 
+            `<a class="github-card" href="${r.url}" target="_blank" rel="noopener">
                 <div class="github-card-header">
                     <i class="fab fa-github github-card-icon"></i>
                     <div class="github-card-meta">
@@ -249,87 +261,116 @@
             </a>`).join('');
     }
 
-    // ---- 实时 GitHub Trending（GitHub Search API）---
-    function fetchGithubTrending() {
+    function renderGithubItems(grid, items, timeEl, timeLabel) {
+        const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
+        grid.innerHTML = items.map(r => {
+            const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+            const langColor = langColors[r.language] || '#8b949e';
+            const topics = (r.topics || []).slice(0, 3);
+            const owner = r.full_name.split('/')[0];
+            const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 80);
+            return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
+                <div class="github-card-header">
+                    <i class="fab fa-github github-card-icon"></i>
+                    <div class="github-card-meta">
+                        <span class="github-owner">${owner}</span>
+                        <span class="github-name">/ ${r.name}</span>
+                    </div>
+                    <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
+                </div>
+                <p class="github-desc">${desc}</p>
+                <div class="github-footer">
+                    <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
+                    <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
+                </div>
+            </a>`;
+        }).join('');
+        if (timeEl) timeEl.textContent = timeLabel;
+    }
+
+    function fetchGithubTrending(force = false) {
         const grid = $('#githubGrid');
         const timeEl = $('#githubUpdateTime');
         if (!grid) return;
-        grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在拉取 GitHub 实时高星项目...</div>';
+
+        if (!force) {
+            try {
+                const cached = JSON.parse(localStorage.getItem(GITHUB_CACHE_KEY) || 'null');
+                if (cached && cached.ts && (Date.now() - cached.ts) < GITHUB_CACHE_TTL && cached.items?.length) {
+                    renderGithubItems(grid, cached.items, timeEl, `\u7f13\u5b58\u6570\u636e \u00b7 ${cached.items.length} \u4e2a\u9879\u76ee \u00b7 \u66f4\u65b0\u4e8e ${new Date(cached.ts).toLocaleTimeString('zh-CN', { hour:'2-digit', minute:'2-digit' })}`);
+                    return;
+                }
+            } catch (e) {}
+        }
+
+        grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> \u6b63\u5728\u62c9\u53d6 GitHub \u5b9e\u65f6\u9ad8\u661f\u9879\u76ee...</div>';
         const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
         const url = `https://api.github.com/search/repositories?q=(topic:llm+OR+topic:ai+OR+topic:machine-learning+OR+topic:deep-learning)+pushed:>${since}+stars:>200&sort=stars&order=desc&per_page=50`;
-        fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+        fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
             .then(r => { if (!r.ok) throw new Error('api error ' + r.status); return r.json(); })
             .then(data => {
                 const items = data.items || [];
                 if (!items.length) throw new Error('empty');
-                const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
-                grid.innerHTML = items.map(r => {
-                    const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-                    const langColor = langColors[r.language] || '#8b949e';
-                    const topics = (r.topics || []).slice(0, 3);
-                    const owner = r.full_name.split('/')[0];
-                    const desc = (r.description || '暂无描述').slice(0, 80);
-                    return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
-                        <div class="github-card-header">
-                            <i class="fab fa-github github-card-icon"></i>
-                            <div class="github-card-meta">
-                                <span class="github-owner">${owner}</span>
-                                <span class="github-name">/ ${r.name}</span>
-                            </div>
-                            <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
-                        </div>
-                        <p class="github-desc">${desc}</p>
-                        <div class="github-footer">
-                            <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
-                            <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
-                        </div>
-                    </a>`;
-                }).join('');
-                if (timeEl) {
-                    timeEl.textContent = `已同步 ${items.length} 个项目 · 数据窗口 ${since} 至今 · 更新于 ${formatModelRefreshTime(new Date().toISOString())}`;
-                }
+                try { localStorage.setItem(GITHUB_CACHE_KEY, JSON.stringify({ ts: Date.now(), items })); } catch (e) {}
+                renderGithubItems(grid, items, timeEl, `\u5df2\u540c\u6b65 ${items.length} \u4e2a\u9879\u76ee \u00b7 \u6570\u636e\u7a97\u53e3 ${since} \u81f3\u4eca \u00b7 \u66f4\u65b0\u4e8e ${formatModelRefreshTime(new Date().toISOString())}`);
             })
             .catch(() => {
                 renderGithubRepos();
-                if (timeEl) timeEl.textContent = `API 限流，当前显示本地精选 ${GITHUB_REPOS.length} 个项目`;
+                if (timeEl) timeEl.textContent = `API \u9650\u6d41\uff0c\u5f53\u524d\u663e\u793a\u672c\u5730\u7cbe\u9009 ${GITHUB_REPOS.length} \u4e2a\u9879\u76ee`;
             });
     }
     window._refreshGithub = fetchGithubTrending;
 
-    // ---- ??????????? ----
+    function renderFrontierItems(container, items) {
+        if (!items.length) {
+            container.innerHTML = '<div class="rec-empty">\u6682\u65e0\u6570\u636e</div>';
+            return;
+        }
+        container.innerHTML = items.map(r => {
+            const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+            const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 55);
+            return `<a class="frontier-rising-card" href="${r.html_url}" target="_blank" rel="noopener">
+                <div class="frontier-rising-name">${r.full_name}</div>
+                <div class="frontier-rising-desc">${desc}</div>
+                <div class="frontier-rising-footer">
+                    <span class="frontier-rising-stars"><i class="fas fa-star"></i> ${stars}</span>
+                    <span class="frontier-rising-gain">\u672c\u5468\u6d3b\u8dc3</span>
+                </div>
+            </a>`;
+        }).join('');
+    }
+
     function fetchFrontierRising(topic) {
         const container = $('#frontierRising');
         if (!container) return;
-        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> ???...</div>';
-        const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        let q = `pushed:>${since}+stars:>50`;
-        if (topic && topic !== 'all') {
-            q = `topic:${topic}+${q}`;
-        } else {
-            q = `(topic:llm+OR+topic:agent+OR+topic:rag+OR+topic:diffusion)+${q}`;
+
+        const cacheKey = `sciai-frontier-${topic || 'all'}`;
+        const cached = (() => {
+            try {
+                const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+                return c && (Date.now() - c.ts) < 3600000 ? c.items : null;
+            } catch (e) {
+                return null;
+            }
+        })();
+        if (cached) {
+            renderFrontierItems(container, cached);
+            return;
         }
-        const url = `https://api.github.com/search/repositories?q=${q}&sort=stars&order=desc&per_page=8`;
-        fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+
+        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> \u52a0\u8f7d\u4e2d...</div>';
+        const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        let topicQ = topic && topic !== 'all' ? `topic:${topic}+` : '(topic:llm+OR+topic:agent+OR+topic:rag+OR+topic:diffusion+OR+topic:multimodal)+';
+        const url = `https://api.github.com/search/repositories?q=${topicQ}pushed:>${since}+stars:>100&sort=stars&order=desc&per_page=8`;
+        fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
             .then(r => { if (!r.ok) throw new Error('api ' + r.status); return r.json(); })
             .then(data => {
                 const items = (data.items || []).slice(0, 8);
-                if (!items.length) { container.innerHTML = '<div class="rec-empty">????</div>'; return; }
-                container.innerHTML = items.map(r => {
-                    const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-                    const desc = (r.description || '????').slice(0, 55);
-                    const gainPct = Math.min(Math.round((r.stargazers_count / Math.max(r.watchers_count || 1, 1)) * 10), 999);
-                    return `<a class="frontier-rising-card" href="${r.html_url}" target="_blank" rel="noopener">
-                        <div class="frontier-rising-name">${r.full_name}</div>
-                        <div class="frontier-rising-desc">${desc}</div>
-                        <div class="frontier-rising-footer">
-                            <span class="frontier-rising-stars"><i class="fas fa-star"></i> ${stars}</span>
-                            <span class="frontier-rising-gain">????</span>
-                        </div>
-                    </a>`;
-                }).join('');
+                try { localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), items })); } catch (e) {}
+                renderFrontierItems(container, items);
             })
             .catch(() => {
-                container.innerHTML = '<div class="rec-empty">API ????????</div>';
+                container.innerHTML = '<div class="rec-empty">API ????</div>';
             });
     }
     window._fetchFrontierRising = fetchFrontierRising;
@@ -351,9 +392,9 @@
                 const url = `https://api.github.com/search/repositories?q=topic:${q}+stars:>500&sort=stars&order=desc&per_page=20`;
                 const grid = $('#githubGrid');
                 if (grid) {
-                    grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> ???...</div>';
+                    grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> \u52a0\u8f7d\u4e2d...</div>';
                     const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
-                    fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+                    fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
                         .then(r => r.json())
                         .then(data => {
                             const items = data.items || [];
@@ -363,7 +404,7 @@
                                 const langColor = langColors[r.language] || '#8b949e';
                                 const topics = (r.topics || []).slice(0, 3);
                                 const owner = r.full_name.split('/')[0];
-                                const desc = (r.description || '????').slice(0, 80);
+                                const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 80);
                                 return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
                                     <div class="github-card-header">
                                         <i class="fab fa-github github-card-icon"></i>
@@ -731,15 +772,17 @@
         if (newsRefreshInFlight && !force) return newsRefreshInFlight;
         newsRefreshInFlight = (async () => {
             const requests = LIVE_NEWS_FEEDS.map(async feed => {
-                try {
-                    const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(feed.url)}`);
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    const xml = await response.text();
-                    return extractFeedItems(xml, feed.label);
-                } catch (error) {
-                    console.warn('News feed failed:', feed.url, error);
-                    return [];
+                for (const makeUrl of CORS_PROXIES) {
+                    try {
+                        const res = await fetch(makeUrl(feed.url), { signal: AbortSignal.timeout(8000) });
+                        if (!res.ok) continue;
+                        const xml = await res.text();
+                        const items = extractFeedItems(xml, feed.label);
+                        if (items.length) return items;
+                    } catch (e) { /* try next proxy */ }
                 }
+                console.warn('All proxies failed for:', feed.url);
+                return [];
             });
 
             const merged = (await Promise.all(requests)).flat();
@@ -1049,7 +1092,7 @@
                 .filter(Boolean)
                 .sort()
                 .slice(-1)[0] || '2026-03-31';
-            meta.textContent = `共 ${models.length} 个模型· 数据截至 ${latestModelDate} · 当前视图：{({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码助手' }[currentModelSort] || '综合排名')}排序`;
+            meta.textContent = `\u5171 ${models.length} \u4e2a\u6a21\u578b\u00b7 \u76ee\u5f55\u5b9e\u65f6\u540c\u6b65 \u00b7 \u5468\u699c ${currentModelSnapshotDate} \u00b7 \u5f53\u524d\u89c6\u56fe\uff1a${({ rank:'\u7efc\u5408\u6392\u540d', elo:'ELO', mmlu:'MMLU', code:'\u4ee3\u7801\u52a9\u624b' }[currentModelSort] || '\u7efc\u5408\u6392\u540d')}\u6392\u5e8f`;
         }
 
         if (!models.length) {
@@ -1164,7 +1207,7 @@
                 : `周榜快照 ${currentModelSnapshotDate}`;
             const liveLabel = currentModelLiveUpdatedAt ? ` · 补充目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
             const catalogLabel = currentModelCatalogCount ? ` · 官方目录 ${currentModelCatalogCount} 个模型` : '';
-            meta.textContent = `共 ${models.length} 个模型 · ${snapshotLabel}${liveLabel}${catalogLabel} · 当前视图：${lensLabel} · 按 ${sortLabel} 排序`;
+            meta.textContent = `\u5171 ${models.length} \u4e2a\u6a21\u578b\u00b7 \u76ee\u5f55\u5b9e\u65f6\u540c\u6b65 \u00b7 \u5468\u699c ${currentModelSnapshotDate}${liveLabel}${catalogLabel} \u00b7 \u5f53\u524d\u89c6\u56fe\uff1a${sortLabel}\u6392\u5e8f`;
         }
 
         if (!models.length) {
@@ -1289,7 +1332,7 @@
             const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
             const liveLabel = currentModelLiveUpdatedAt ? ` · 官方目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
             const catalogLabel = currentModelCatalogCount ? ` · 目录 ${currentModelCatalogCount} 个模型` : '';
-            meta.textContent = `共 ${models.length} 个模型· 周榜快照 ${currentModelSnapshotDate}${liveLabel}${catalogLabel} · 当前视图：{sortLabel}排序`;
+            meta.textContent = `\u5171 ${models.length} \u4e2a\u6a21\u578b\u00b7 \u76ee\u5f55\u5b9e\u65f6\u540c\u6b65 \u00b7 \u5468\u699c ${currentModelSnapshotDate}${liveLabel}${catalogLabel} \u00b7 \u5f53\u524d\u89c6\u56fe\uff1a${sortLabel}\u6392\u5e8f`;
         }
 
         if (!models.length) {
