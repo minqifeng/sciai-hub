@@ -67,7 +67,7 @@
     const exportFavsBtn   = $('#exportFavsBtn');
     const shortcutHelpBtn = $('#shortcutHelpBtn');
 
-    // ---- 状�?----
+    // ---- 状态 ----
     let currentCategory  = 'all';
     let currentPricing   = 'all';
     let currentSort      = 'default';
@@ -144,7 +144,7 @@
         favCount.style.display = favorites.length ? '' : 'none';
     }
 
-    // ---- 最近浏�?----
+    // ---- 最近浏览 ----
     function addRecent(id) {
         recentlyViewed = [id, ...recentlyViewed.filter(r => r !== id)].slice(0, 12);
         saveLS('sciai-recent', recentlyViewed);
@@ -249,7 +249,7 @@
             </a>`).join('');
     }
 
-    // ---- 实时 GitHub Trending（GitHub Search API�?---
+    // ---- 实时 GitHub Trending（GitHub Search API）---
     function fetchGithubTrending() {
         const grid = $('#githubGrid');
         const timeEl = $('#githubUpdateTime');
@@ -286,12 +286,12 @@
                     </a>`;
                 }).join('');
                 if (timeEl) {
-                    timeEl.textContent = `已同�?${items.length} 个项�?· 数据窗口 ${since} 至今 · 更新�?${formatModelRefreshTime(new Date().toISOString())}`;
+                    timeEl.textContent = `已同步 ${items.length} 个项目 · 数据窗口 ${since} 至今 · 更新于 ${formatModelRefreshTime(new Date().toISOString())}`;
                 }
             })
             .catch(() => {
                 renderGithubRepos();
-                if (timeEl) timeEl.textContent = `API 限流，当前显示本地精�?${GITHUB_REPOS.length} 个项目`;
+                if (timeEl) timeEl.textContent = `API 限流，当前显示本地精选 ${GITHUB_REPOS.length} 个项目`;
             });
     }
     window._refreshGithub = fetchGithubTrending;
@@ -405,11 +405,11 @@
         if (!container) return;
         container.innerHTML = `
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-                <span class="section-sub" id="arxivUpdateTime">正在同步 arXiv 最新论�?..</span>
+                <span class="section-sub" id="arxivUpdateTime">正在同步 arXiv 最新论文..</span>
                 <button class="arxiv-retry-btn" type="button" onclick="window.fetchArxivLatest && window.fetchArxivLatest()"><i class="fas fa-sync-alt"></i> 刷新</button>
             </div>
             <div id="arxivFeedBody">
-                <div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在加载 arXiv 最新论�?..</div>
+                <div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在加载 arXiv 最新论文..</div>
             </div>`;
         fetch('https://export.arxiv.org/api/query?search_query=(cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL)&sortBy=submittedDate&sortOrder=descending&max_results=6')
             .then(r => r.text())
@@ -441,14 +441,14 @@
                 }
                 const timeEl = $('#arxivUpdateTime');
                 if (timeEl) {
-                    timeEl.textContent = `已同�?6 篇最新论�?· 论文日期截至 ${newestPublished || '未知'} · 更新�?${formatModelRefreshTime(currentArxivUpdatedAt)}`;
+                    timeEl.textContent = `已同步 6 篇最新论文· 论文日期截至 ${newestPublished || '未知'} · 更新于 ${formatModelRefreshTime(currentArxivUpdatedAt)}`;
                 }
             })
             .catch(() => {
                 const feedBody = $('#arxivFeedBody');
                 const timeEl = $('#arxivUpdateTime');
                 if (feedBody) {
-                    feedBody.innerHTML = '<div class="arxiv-error"><i class="fas fa-exclamation-circle"></i> 加载失败，请<button onclick="fetchArxivLatest()">重试</button>或访�?<a href="https://arxiv.org" target="_blank">arxiv.org</a></div>';
+                    feedBody.innerHTML = '<div class="arxiv-error"><i class="fas fa-exclamation-circle"></i> 加载失败，请<button onclick="fetchArxivLatest()">重试</button>或访?<a href="https://arxiv.org" target="_blank">arxiv.org</a></div>';
                 }
                 if (timeEl) {
                     timeEl.textContent = currentArxivUpdatedAt
@@ -459,7 +459,7 @@
     }
     window.fetchArxivLatest = fetchArxivLatest;
 
-    // ---- 渲染精�?----
+    // ---- 渲染精选 ----
     function renderFeatured() {
         featuredGrid.innerHTML = FEATURED_TOOLS.map(f => {
             const t = TOOLS_DATA.find(tool => tool.id === f.id);
@@ -562,7 +562,7 @@
     }
     function closeToolModal() { toolModal.classList.remove('show'); currentToolId = null; }
 
-    // ---- 渲染提示�?----
+    // ---- 渲染提示词 ----
     function renderPrompts(prompts) {
         promptsGrid.innerHTML = prompts.map(p => `
             <div class="prompt-card">
@@ -996,7 +996,7 @@
         btn.classList.toggle('is-loading', isLoading);
         btn.disabled = isLoading;
         btn.innerHTML = isLoading
-            ? '<i class="fas fa-rotate"></i> 刷新�?..'
+            ? '<i class="fas fa-rotate"></i> 刷新中...'
             : '<i class="fas fa-rotate"></i> 实时刷新';
     }
 
@@ -1034,7 +1034,7 @@
                 .filter(Boolean)
                 .sort()
                 .slice(-1)[0] || '2026-03-31';
-            meta.textContent = `�?${models.length} 个模�?· 数据截至 ${latestModelDate} · 当前�?{({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名')}排序`;
+            meta.textContent = `共 ${models.length} 个模型· 数据截至 ${latestModelDate} · 当前视图：{({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码助手' }[currentModelSort] || '综合排名')}排序`;
         }
 
         if (!models.length) {
@@ -1121,7 +1121,7 @@
                 currentModelCatalogCount = Number(payload.liveCatalogCount || 0);
                 currentModelSnapshotTopCount = Number(payload.snapshotTopCount || currentModelSnapshotTopCount || 0);
                 applyModelFilters();
-                if (!silent) showToast(`已同�?OpenRouter 官方模型目录 (${currentModelCatalogCount || currentModelsData.length} 个模�?`);
+                if (!silent) showToast(`已同步 OpenRouter 官方模型目录 (${currentModelCatalogCount || currentModelsData.length} 个模型`);
                 return payload;
             } catch (error) {
                 console.warn('Model refresh failed:', error);
@@ -1165,7 +1165,7 @@
                 { key:'code', label:'代码', value: getModelMetric(model, 'code') },
                 { key:'gsm8k', label:'GSM8K', value: getModelMetric(model, 'gsm8k') }
             ].filter(metric => metric.value > 0);
-            const primaryLabel = model.weeklyTokens ? '��ʹ����' : (model.elo ? 'ELO' : '������');
+            const primaryLabel = model.weeklyTokens ? '月使用量' : (model.elo ? 'ELO' : '参数量');
             const primaryValue = model.weeklyTokens || model.elo || model.params;
             const growthClass = !model.weeklyGrowth || model.weeklyGrowth === '0%' ? 'flat' : '';
             const growthBadge = model.weeklyGrowth
@@ -1175,7 +1175,7 @@
             const arenaSummary = model.arena ? `
                 <div class="model-lens-panel">
                     <div class="model-lens-item"><span>Arena 评分</span><strong>${model.arena.score}${model.arena.spread || ''}</strong></div>
-                    <div class="model-lens-item"><span>真实投票</span><strong>${Number(model.arena.votes || 0).toLocaleString()} �?/strong></div>
+                    <div class="model-lens-item"><span>真实投票</span><strong>${Number(model.arena.votes || 0).toLocaleString()} 票</strong></div>
                     <div class="model-lens-item"><span>基准模型</span><strong>${model.arena.model}${model.arena.exact === false ? ' · 邻近公开版本' : ''}</strong></div>
                     <div class="model-lens-item"><span>快照日期</span><strong>${model.arena.snapshotDate}</strong></div>
                 </div>
@@ -1184,27 +1184,27 @@
             const panels = {
                 overview: `
                     <div class="model-live-summary">
-                        <div class="model-live-stat"><span>上下�?/span><strong>${model.params || '未知'}</strong></div>
+                        <div class="model-live-stat"><span>上下文/span><strong>${model.params || '未知'}</strong></div>
                         <div class="model-live-stat"><span>更新日期</span><strong>${model.date || currentModelSnapshotDate}</strong></div>
-                        <div class="model-live-stat"><span>输入模�?/span><strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong></div>
-                        <div class="model-live-stat"><span>输出模�?/span><strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong></div>
+                        <div class="model-live-stat"><span>输入模态/span><strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong></div>
+                        <div class="model-live-stat"><span>输出模态/span><strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong></div>
                     </div>
                 `,
                 performance: `
                     <div class="model-lens-panel">
-                        <div class="model-lens-item"><span>上下文长�?/span><strong>${model.arena?.context || model.params || '未知'}</strong></div>
-                        <div class="model-lens-item"><span>������</span><strong>${model.maxCompletionTokens ? `${Math.round(model.maxCompletionTokens / 1000)}K tokens` : 'δ��¶'}</strong></div>
-                        <div class="model-lens-item"><span>支持参数</span><strong>${(model.supportedParameters || []).length || 0} �?/strong></div>
-                        <div class="model-lens-item"><span>����ժҪ</span><strong>${model.arena ? 'Arena ' + model.arena.score + (model.arena.spread || '') + ' / ' + Number(model.arena.votes || 0).toLocaleString() + 'Ʊ' : (metrics.length ? metrics.map(item => item.label + ' ' + item.value.toFixed(1) + '%').join(' / ') : model.type + ' / ' + ((model.inputModalities || []).join('/') || 'text'))}</strong></div>
+                        <div class="model-lens-item"><span>上下文长度/span><strong>${model.arena?.context || model.params || '未知'}</strong></div>
+                        <div class="model-lens-item"><span>参数量</span><strong>${model.maxCompletionTokens ? `${Math.round(model.maxCompletionTokens / 1000)}K tokens` : '未公布'}</strong></div>
+                        <div class="model-lens-item"><span>支持参数</span><strong>${(model.supportedParameters || []).length || 0} 票</strong></div>
+                        <div class="model-lens-item"><span>模型摘要</span><strong>${model.arena ? 'Arena ' + model.arena.score + (model.arena.spread || '') + ' / ' + Number(model.arena.votes || 0).toLocaleString() + 'Ʊ' : (metrics.length ? metrics.map(item => item.label + ' ' + item.value.toFixed(1) + '%').join(' / ') : model.type + ' / ' + ((model.inputModalities || []).join('/') || 'text'))}</strong></div>
                     </div>
                     ${arenaSummary}
                 `,
                 usage: `
                     <div class="model-lens-panel">
-                        <div class="model-lens-item"><span>��ʹ����</span><strong>${model.weeklyTokens || 'δ��¶'}</strong></div>
-                        <div class="model-lens-item"><span>��������</span><strong>${model.weeklyGrowth || 'δ��¶'}</strong></div>
+                        <div class="model-lens-item"><span>月使用量</span><strong>${model.weeklyTokens || '未公布'}</strong></div>
+                        <div class="model-lens-item"><span>周增长率</span><strong>${model.weeklyGrowth || '未公布'}</strong></div>
                         <div class="model-lens-item"><span>榜单排名</span><strong>#${model.rank}</strong></div>
-                        <div class="model-lens-item"><span>��Ծ�ź�</span><strong>${model.hot ? '���ȶ�' : feedback.label}</strong></div>
+                        <div class="model-lens-item"><span>Ծź</span><strong>${model.hot ? '较稳定' : feedback.label}</strong></div>
                     </div>
                 `,
                 price: `
@@ -1274,7 +1274,7 @@
             const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
             const liveLabel = currentModelLiveUpdatedAt ? ` · 官方目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
             const catalogLabel = currentModelCatalogCount ? ` · 目录 ${currentModelCatalogCount} 个模型` : '';
-            meta.textContent = `�?${models.length} 个模�?· 周榜快照 ${currentModelSnapshotDate}${liveLabel}${catalogLabel} · 当前�?{sortLabel}排序`;
+            meta.textContent = `共 ${models.length} 个模型· 周榜快照 ${currentModelSnapshotDate}${liveLabel}${catalogLabel} · 当前视图：{sortLabel}排序`;
         }
 
         if (!models.length) {
@@ -1292,7 +1292,7 @@
             const metrics = metricDefs
                 .map(metric => ({ ...metric, value: getModelMetric(model, metric.key) }))
                 .filter(metric => metric.value > 0);
-            const primaryLabel = model.weeklyTokens ? '��ʹ����' : (model.elo ? 'ELO' : '������');
+            const primaryLabel = model.weeklyTokens ? '月使用量' : (model.elo ? 'ELO' : '参数量');
             const primaryValue = model.weeklyTokens || model.elo || model.params;
             const growthClass = !model.weeklyGrowth || model.weeklyGrowth === '0%' ? 'flat' : '';
             const growthBadge = model.weeklyGrowth
@@ -1301,7 +1301,7 @@
             const liveSummary = `
                 <div class="model-live-summary">
                     <div class="model-live-stat">
-                        <span>上下�?/span>
+                        <span>上下文/span>
                         <strong>${model.params || '未知'}</strong>
                     </div>
                     <div class="model-live-stat">
@@ -1309,11 +1309,11 @@
                         <strong>${model.date || currentModelSnapshotDate}</strong>
                     </div>
                     <div class="model-live-stat">
-                        <span>输入模�?/span>
+                        <span>输入模态/span>
                         <strong>${(model.inputModalities || []).join(' / ') || 'text'}</strong>
                     </div>
                     <div class="model-live-stat">
-                        <span>输出模�?/span>
+                        <span>输出模态/span>
                         <strong>${(model.outputModalities || []).join(' / ') || 'text'}</strong>
                     </div>
                 </div>
@@ -1731,14 +1731,14 @@
         closeSidebarDrawer();
         const toolboxCats = ['graph', 'search-papers', 'journal', 'cite-check', 'paperdeck'];
 
-        // Tab 栏显�?隐藏逻辑
+        // Tab 栏显示/隐藏逻辑
         const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
         const tabsContainer = $('#toolsCategoryTabs');
         if (NON_TOOL_CATS.includes(cat)) {
             if (tabsContainer) tabsContainer.style.display = 'none';
         } else {
             if (tabsContainer) tabsContainer.style.display = 'block';
-            // 同步 Tab �?active 状�?            $$('.tab-item').forEach(t => t.classList.remove('active'));
+            // 同步 Tab 的 active 状态            $$('.tab-item').forEach(t => t.classList.remove('active'));
             const activeTab = document.querySelector(`.tab-item[data-category="${cat}"]`);
             if (activeTab) activeTab.classList.add('active');
         }
@@ -1899,7 +1899,7 @@
     window._openTool      = id => openToolModal(id);
     window._isFav         = id => isFav(id);
 
-    // ---- 键盘快捷�?----
+    // ---- 键盘快捷键 ----
     document.addEventListener('keydown', e => {
         const tag = document.activeElement.tagName;
         if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
@@ -1921,7 +1921,7 @@
 
     // ---- 绑定事件 ----
     function bindEvents() {
-        // ���������
+        // 周增长率
         $$('.nav-item').forEach(item => {
             item.addEventListener('click', e => {
                 e.preventDefault();
@@ -1968,7 +1968,7 @@
             });
         });
 
-        // ���� Tab ������
+        // 切换 Tab 参数量
         $$('.tab-item').forEach(tab => {
             tab.addEventListener('click', () => {
                 $$('.tab-item').forEach(t => t.classList.remove('active'));
@@ -1984,11 +1984,11 @@
                 scrollCategoryIntoView(cat);
                 const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(cat)) filterTools();
-                // ���� Tab ���ɼ�����
+                // 切换 Tab 成功回调
             });
         });
 
-        // ���߼۸�ɸѡ
+        // ߼۸ɸѡ
         $$('.tag[data-filter]').forEach(tag => {
             tag.addEventListener('click', () => {
                 $$('.tag[data-filter]').forEach(t => t.classList.remove('active'));
@@ -1998,7 +1998,7 @@
             });
         });
 
-        // ��ʾ��ɸѡ
+        // 显示筛选
         $$('.tag[data-prompt-filter]').forEach(tag => {
             tag.addEventListener('click', () => {
                 $$('.tag[data-prompt-filter]').forEach(t => t.classList.remove('active'));
@@ -2067,7 +2067,7 @@
         resourcesModalClose?.addEventListener('click', () => resourcesModal?.classList.remove('show'));
         resourcesModal?.addEventListener('click', e => { if (e.target === resourcesModal) resourcesModal.classList.remove('show'); });
 
-        // 精�?view-all
+        // 精选 view-all
         document.querySelector('.view-all')?.addEventListener('click', e => {
             e.preventDefault();
             const cat = e.target.dataset.category || 'hot';
@@ -2098,7 +2098,7 @@
         // 收藏导出
         exportFavsBtn?.addEventListener('click', exportFavoritesMarkdown);
 
-        // 快捷键帮�?        shortcutHelpBtn?.addEventListener('click', () => shortcutsModal?.classList.toggle('show'));
+        // 快捷键帮助        shortcutHelpBtn?.addEventListener('click', () => shortcutsModal?.classList.toggle('show'));
         $('#shortcutsModalClose')?.addEventListener('click', () => shortcutsModal?.classList.remove('show'));
         shortcutsModal?.addEventListener('click', e => { if (e.target === shortcutsModal) shortcutsModal.classList.remove('show'); });
 
@@ -2160,14 +2160,14 @@
         userLikes[key] = userLikes[key] ? 0 : 1;
         saveLS('sciai-likes', userLikes);
         updateModalLikeUI(id);
-        showToast(userLikes[key] ? '�ѵ��� ??' : '��ȡ������');
+        showToast(userLikes[key] ? '已登录 ✅' : '取消固定');
     }
     function updateModalLikeUI(id) {
         const btn = $('#toolModalLike');
         if (!btn) return;
         const liked = isLiked(id);
         btn.classList.toggle('active', liked);
-        $('#toolModalLikeText').textContent = liked ? '�ѵ���' : '����';
+        $('#toolModalLikeText').textContent = liked ? '已点赞' : '点赞';
     }
 
     // ---- 相关工具推荐 ----
@@ -2189,11 +2189,11 @@
                         : `<i class="${t.icon}"></i>`}
                 </div>
                 <span>${t.name}</span>
-                <span class="related-chip-rating">${t.rating}�?/span>
+                <span class="related-chip-rating">${t.rating}个/span>
             </button>`).join('');
     }
 
-    // ---- 统计与可视化方法�?----
+    // ---- 统计与可视化方法库 ----
     function buildStatsVisualizationDetail(method) {
         return buildStatsVisualizationDetailClean(method);
     }
@@ -2387,7 +2387,7 @@
         return { init, render };
     })();
 
-    // ---- 登录系统（localStorage 模拟�?---
+    // ---- 登录系统（localStorage 模拟）---
     function getUser() { return loadLS('sciai-user', null); }
     function makeAvatar(name) {
         const colors = ['#6366f1','#8b5cf6','#ec4899','#f97316','#10b981','#3b82f6','#ef4444','#f59e0b'];
@@ -2419,7 +2419,7 @@
             profileEl.style.display = '';
             renderAvatarEl($('#userAvatarLg'), user.name);
             $('#userNameDisplay').textContent = user.name;
-            $('#userEmailDisplay').textContent = user.email || '��δ��д���䣩';
+            $('#userEmailDisplay').textContent = user.email || 'δд䣩';
             $('#userFavCount').textContent = favorites.length;
             $('#userSavedCount').textContent = JSON.parse(localStorage.getItem('sciai-saved-papers') || '[]').length;
             $('#userDeckCount').textContent = JSON.parse(localStorage.getItem('sciai-deck-saved') || '[]').length;
@@ -2435,7 +2435,7 @@
         const email = $('#loginEmail')?.value.trim() || '';
         const user = { name, email, createdAt: Date.now() };
         saveLS('sciai-user', user);
-        // 迁移收藏到用�?key
+        // 迁移收藏到用户 key
         saveLS(`sciai-favs-${name}`, favorites);
         updateLoginBtn(user);
         refreshLoginModal();
@@ -2480,7 +2480,7 @@
         a.download = `sciai-favorites-${new Date().toISOString().slice(0,10)}.md`;
         a.click();
         URL.revokeObjectURL(a.href);
-        showToast('�ղ��ѵ��� ?');
+        showToast('ղ已登录 ?');
     }
 
     // ---- 学习资源模态框 ----
@@ -2571,7 +2571,7 @@
         resourcesModal.classList.add('show');
     }
 
-    // ---- 初始�?----
+    // ---- 初始化 ----
     function init() {
         renderFeatured();
         renderTools(TOOLS_DATA);
@@ -2610,16 +2610,16 @@
         if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
         StatsFeature.init();
         StatsFeature.init();
-        // ��ʼ��ʵʱ API �Ͷ�̬��ǩ
+        // ʼʵʱ API Ͷ̬ǩ
         if (typeof initializeRealtimeAPIs !== 'undefined') {
             initializeRealtimeAPIs();
         }
-        // ����ȫ�����������Ǳ�
+        // ȫ周增长率Ǳ
         const badge = $('#navBadgeAll');
         if (badge) badge.textContent = TOOLS_DATA.length;
-        // �ָ���¼״̬
+        // ָ¼״̬
         updateLoginBtn(getUser());
-        // ��ʼ�������书��ģ��
+        // ʼ参数量书ģ
         if (typeof GraphFeature !== 'undefined') GraphFeature.init();
         if (typeof SearchFeature !== 'undefined') SearchFeature.init();
         if (typeof JournalFeature !== 'undefined') JournalFeature.init();
