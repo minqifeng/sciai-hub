@@ -132,7 +132,7 @@
         saveLS('sciai-favs', favorites);
         updateFavBadge();
         syncFavUI(id);
-        showToast(isFav(id) ? '�Ѽ����ղ� ??' : '��ȡ���ղ�');
+        showToast(isFav(id) ? '已加入收藏 ❤' : '取消收藏');
     }
     function syncFavUI(id) {
         $$('.card-fav-btn').forEach(b => { if (+b.dataset.id === id) b.classList.toggle('active', isFav(id)); });
@@ -156,7 +156,7 @@
         if (isInCompare(id)) {
             compareList = compareList.filter(c => c !== id);
         } else {
-            if (compareList.length >= 3) { showToast('���Ա� 3 ������'); return; }
+            if (compareList.length >= 3) { showToast('对比已满3个工具'); return; }
             compareList.push(id);
         }
         updateCompareBar();
@@ -195,12 +195,12 @@
 
         const rows = [
             ['描述', t => `<td>${t.desc}</td>`],
-            ['����', t => `<td><span class="compare-stars">${'��'.repeat(Math.floor(t.rating))}${'��'.repeat(5 - Math.floor(t.rating))}</span> ${t.rating}</td>`],
-            ['�û���', t => `<td>${t.users}</td>`],
-            ['�۸�', t => `<td><span class="pricing-badge ${t.pricing}">${{free:'���',freemium:'�����ֵ',paid:'����'}[t.pricing]}</span></td>`],
-            ['����', t => `<td>${t.region === 'domestic' ? '�й�����' : '����'}</td>`],
-            ['����', t => `<td>${t.tags.join(', ')}</td>`],
-            ['����', t => `<td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none">���� �J</a></td>`],
+            ['评分', t => `<td><span class="compare-stars">${'★'.repeat(Math.floor(t.rating))}${'☆'.repeat(5 - Math.floor(t.rating))}</span> ${t.rating}</td>`],
+            ['用户量', t => `<td>${t.users}</td>`],
+            ['价格', t => `<td><span class="pricing-badge ${t.pricing}">${{free:'免费',freemium:'免费增值',paid:'付费'}[t.pricing]}</span></td>`],
+            ['地区', t => `<td>${t.region === 'domestic' ? '中国地区' : '海外'}</td>`],
+            ['标签', t => `<td>${t.tags.join(', ')}</td>`],
+            ['官网', t => `<td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none">访问 ↗</a></td>`],
         ];
 
         const headerCells = tools.map(t => `
@@ -221,7 +221,7 @@
 
         $('#compareModalBody').innerHTML = `
             <table class="compare-table">
-                <thead><tr><th>对比�?/th>${headerCells}</tr></thead>
+                <thead><tr><th>对比项</th>${headerCells}</tr></thead>
                 <tbody>${bodyRows}</tbody>
             </table>`;
         compareModal.classList.add('show');
@@ -295,6 +295,85 @@
             });
     }
     window._refreshGithub = fetchGithubTrending;
+
+    // ---- 前沿看点：本周飙升 ----
+    function fetchFrontierRising(topic) {
+        const container = $('#frontierRising');
+        if (!container) return;
+        container.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
+        const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        let topicQ = topic && topic !== 'all' ? `topic:${topic}+` : '(topic:llm+OR+topic:agent+OR+topic:rag+OR+topic:diffusion+OR+topic:multimodal)+';
+        const url = `https://api.github.com/search/repositories?q=${topicQ}pushed:>${since}+stars:>100&sort=stars&order=desc&per_page=8`;
+        fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+            .then(r => { if (!r.ok) throw new Error('api ' + r.status); return r.json(); })
+            .then(data => {
+                const items = (data.items || []).slice(0, 8);
+                if (!items.length) { container.innerHTML = '<div class="rec-empty">暂无数据</div>'; return; }
+                container.innerHTML = items.map(r => {
+                    const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+                    const desc = (r.description || '暂无描述').slice(0, 55);
+                    return `<a class="frontier-rising-card" href="${r.html_url}" target="_blank" rel="noopener">
+                        <div class="frontier-rising-name">${r.full_name}</div>
+                        <div class="frontier-rising-desc">${desc}</div>
+                        <div class="frontier-rising-footer">
+                            <span class="frontier-rising-stars"><i class="fas fa-star"></i> ${stars}</span>
+                            <span class="frontier-rising-gain">本周活跃</span>
+                        </div>
+                    </a>`;
+                }).join('');
+            })
+            .catch(() => {
+                container.innerHTML = '<div class="rec-empty">API 限流，请稍后重试</div>';
+            });
+    }
+    window._fetchFrontierRising = fetchFrontierRising;
+
+    // ---- 前沿看点话题筛选 ----
+    function bindFrontierEvents() {
+        const topicsEl = $('#frontierTopics');
+        if (!topicsEl) return;
+        topicsEl.addEventListener('click', e => {
+            const btn = e.target.closest('.frontier-topic');
+            if (!btn) return;
+            topicsEl.querySelectorAll('.frontier-topic').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const topic = btn.dataset.topic;
+            fetchFrontierRising(topic);
+            const grid = $('#githubGrid');
+            if (!grid) return;
+            if (topic === 'all') { fetchGithubTrending(); return; }
+            grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 筛选中...</div>';
+            const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219' };
+            fetch(`https://api.github.com/search/repositories?q=topic:${topic}+stars:>500&sort=stars&order=desc&per_page=20`, { headers: { 'Accept': 'application/vnd.github+json' } })
+                .then(r => r.json())
+                .then(data => {
+                    const items = data.items || [];
+                    if (!items.length) { grid.innerHTML = '<div class="rec-empty">无匹配结果</div>'; return; }
+                    grid.innerHTML = items.map(r => {
+                        const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
+                        const langColor = langColors[r.language] || '#8b949e';
+                        const topics = (r.topics || []).slice(0, 3);
+                        const owner = r.full_name.split('/')[0];
+                        return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
+                            <div class="github-card-header">
+                                <i class="fab fa-github github-card-icon"></i>
+                                <div class="github-card-meta">
+                                    <span class="github-owner">${owner}</span>
+                                    <span class="github-name">/ ${r.name}</span>
+                                </div>
+                                <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
+                            </div>
+                            <p class="github-desc">${(r.description||'暂无描述').slice(0,80)}</p>
+                            <div class="github-footer">
+                                <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language||'N/A'}</span>
+                                <div class="github-topics">${topics.map(t=>`<span class="github-topic">${t}</span>`).join('')}</div>
+                            </div>
+                        </a>`;
+                    }).join('');
+                }).catch(() => {});
+        });
+    }
+    window._bindFrontierEvents = bindFrontierEvents;
 
     // ---- 渲染应用示例 ----
     function renderUseCases() {
@@ -393,7 +472,7 @@
                 <div class="featured-info">
                     <h4>${t.name}</h4>
                     <div class="featured-reason">${f.reason}</div>
-                    <div class="featured-rating">${'��'.repeat(Math.floor(t.rating))} ${t.rating}</div>
+                    <div class="featured-rating">${'★'.repeat(Math.floor(t.rating))} ${t.rating}</div>
                 </div>
             </div>`;
         }).join('');
@@ -455,9 +534,9 @@
         $('#toolModalName').textContent = tool.name;
         $('#toolModalTags').innerHTML = tool.tags.map(t => `<span class="tool-tag">${t}</span>`).join('');
         $('#toolModalDesc').textContent = tool.desc;
-        $('#toolModalRating').innerHTML = `${'��'.repeat(Math.floor(tool.rating))} ${tool.rating}`;
+        $('#toolModalRating').innerHTML = `${'★'.repeat(Math.floor(tool.rating))} ${tool.rating}`;
         $('#toolModalUsers').textContent = tool.users;
-        $('#toolModalPricing').textContent = { free:'���', freemium:'�����ֵ', paid:'����' }[tool.pricing] || tool.pricing;
+        $('#toolModalPricing').textContent = { free:'免费', freemium:'免费增值', paid:'付费' }[tool.pricing] || tool.pricing;
         $('#toolModalRegion').textContent = tool.region === 'domestic' ? '🇨🇳 国产' : '🌐 海外';
         $('#toolModalUrl').href = tool.url;
         const docBtn = $('#toolModalDoc');
@@ -473,13 +552,13 @@
     function updateModalFavUI(id) {
         const fav = isFav(id);
         $('#toolModalFavBtn').classList.toggle('active', fav);
-        $('#toolModalFavText').textContent = fav ? '���ղ�' : '�ղع���';
+        $('#toolModalFavText').textContent = fav ? '已收藏' : '收藏该工具';
         $('#toolModalFav').classList.toggle('active', fav);
     }
     function updateModalCompareUI(id) {
         const inC = isInCompare(id);
         $('#toolModalCompare').classList.toggle('active', inC);
-        $('#toolModalCompareText').textContent = inC ? '�Ѽ���Ա�' : '����Ա�';
+        $('#toolModalCompareText').textContent = inC ? '已加入对比' : '加入对比';
     }
     function closeToolModal() { toolModal.classList.remove('show'); currentToolId = null; }
 
@@ -499,7 +578,7 @@
             btn.addEventListener('click', () => {
                 navigator.clipboard.writeText(decodeURIComponent(btn.dataset.content)).then(() => {
                     const orig = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check"></i> �Ѹ���';
+                    btn.innerHTML = '<i class="fas fa-check"></i> 已复制';
                     btn.style.color = '#059669';
                     setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 1500);
                 });
@@ -869,7 +948,7 @@
             const score = model.arena.score || 0;
             const votes = Number(model.arena.votes || 0);
             const starScore = score >= 1490 ? 5 : score >= 1470 ? 4 : score >= 1440 ? 3 : score >= 1410 ? 2 : 1;
-            const label = score >= 1490 ? '��ʵͶƱ�ڱ���ǿ' : score >= 1470 ? '��ʵͶƱ��������' : score >= 1440 ? '��ʵͶƱ�����Ƚ�' : '��ʵͶƱ����һ��';
+            const label = score >= 1490 ? '真实投票领先超强' : score >= 1470 ? '真实投票表现优秀' : score >= 1440 ? '真实投票表现较好' : '真实投票表现一般';
             const reasons = [
                 `Arena 评分 ${score}${model.arena.spread || ''}`,
                 `累计 ${votes.toLocaleString()} 票`,
@@ -879,7 +958,7 @@
             return {
                 score: starScore,
                 label,
-                summary: reasons.join('��')
+                summary: reasons.join(' · ')
             };
         }
 
@@ -894,20 +973,20 @@
         if (model.pricing === 'free') score += 0.5;
         score = Math.max(1, Math.min(5, Math.round(score)));
 
-        const label = score >= 5 ? '�û��ȶȺܸ�' : score >= 4 ? '�û���������' : score >= 3 ? '�����Ƚ�' : '����ƫ����';
+        const label = score >= 5 ? '用户满意度很高' : score >= 4 ? '用户评价较好' : score >= 3 ? '表现较好' : '数据偏少';
         const reasons = [];
-        if (usage >= 1e12) reasons.push('��ʹ�������ڸ�λ');
-        else if (usage >= 8e11) reasons.push('���ȶ�ʹ�ù�ģ');
+        if (usage >= 1e12) reasons.push('月使用量处于高位');
+        else if (usage >= 8e11) reasons.push('稳定使用规模');
         if (growth >= 30) reasons.push('近期增长明显');
         else if (growth > 0) reasons.push('保持增长');
-        if (model.pricing === 'free') reasons.push('����ż��Ѻ�');
+        if (model.pricing === 'free') reasons.push('免费可用优先');
         else if (price > 20) reasons.push('价格偏高');
-        if (model.type === 'Multimodal') reasons.push('��ģ̬��������');
-        if (model.type === 'Code-Optimized') reasons.push('������ƫ������');
+        if (model.type === 'Multimodal') reasons.push('多模态支持广泛');
+        if (model.type === 'Code-Optimized') reasons.push('代码能力偏强');
         return {
             score,
             label,
-            summary: reasons.slice(0, 3).join('��') || '��ǰ��Ҫ���ݹٷ�Ŀ¼��ʹ�����ź��ƶ�'
+            summary: reasons.slice(0, 3).join(' · ') || '当前主要依据官方目录使用信号推导'
         };
     }
 
@@ -1064,13 +1143,13 @@
 
         if (meta) {
             const sortLabel = ({ rank:'综合排名', elo:'ELO', mmlu:'MMLU', code:'代码能力' }[currentModelSort] || '综合排名');
-            const lensLabel = ({ overview:'����', performance:'����', usage:'ʹ����', price:'�۸�', feedback:'�û�����' }[currentModelLens] || '����');
+            const lensLabel = ({ overview:'概览', performance:'性能', usage:'使用量', price:'价格', feedback:'用户反馈' }[currentModelLens] || '概览');
             const snapshotLabel = currentModelSnapshotTopCount
-                ? `Top ${currentModelSnapshotTopCount} 为周榜快�?${currentModelSnapshotDate}`
+                ? `Top ${currentModelSnapshotTopCount} 为周榜快照 ${currentModelSnapshotDate}`
                 : `周榜快照 ${currentModelSnapshotDate}`;
             const liveLabel = currentModelLiveUpdatedAt ? ` · 补充目录同步 ${formatModelRefreshTime(currentModelLiveUpdatedAt)}` : '';
             const catalogLabel = currentModelCatalogCount ? ` · 官方目录 ${currentModelCatalogCount} 个模型` : '';
-            meta.textContent = `�?${models.length} 个模�?· ${snapshotLabel}${liveLabel}${catalogLabel} · 当前视图 ${lensLabel} · 当前�?{sortLabel}排序`;
+            meta.textContent = `共 ${models.length} 个模型 · ${snapshotLabel}${liveLabel}${catalogLabel} · 当前视图：${lensLabel} · 按 ${sortLabel} 排序`;
         }
 
         if (!models.length) {
@@ -1138,12 +1217,12 @@
                 `,
                 feedback: `
                     <div class="model-lens-panel">
-                        <div class="model-lens-item"><span>�����ȼ�</span><strong>${'��'.repeat(feedback.score)}${'��'.repeat(5 - feedback.score)}</strong></div>
-                        <div class="model-lens-item"><span>�г��ڱ�</span><strong>${feedback.label}</strong></div>
-                        <div class="model-lens-item"><span>��Ҫ����</span><strong>${feedback.summary}</strong></div>
-                        <div class="model-lens-item"><span>�ٷ���Դ</span><strong>${model.arena ? 'arena.ai ͶƱ���� + OpenRouter �ٷ�Ŀ¼' : 'OpenRouter �ٷ�Ŀ¼��ʹ�����ź�'}</strong></div>
+                        <div class="model-lens-item"><span>星级反馈</span><strong>${'★'.repeat(feedback.score)}${'☆'.repeat(5 - feedback.score)}</strong></div>
+                        <div class="model-lens-item"><span>判断依据</span><strong>${feedback.label}</strong></div>
+                        <div class="model-lens-item"><span>摘要说明</span><strong>${feedback.summary}</strong></div>
+                        <div class="model-lens-item"><span>官方来源</span><strong>${model.arena ? 'arena.ai 投票结果 + OpenRouter 官方目录' : 'OpenRouter 官方目录月使用信号'}</strong></div>
                     </div>
-                    <div class="model-feedback-note">${model.arena ? '�û�����������ʵͶƱ�ۺϣ�����α���֡���ǰչʾ���� arena.ai ��ͶƱ���գ����������������ı���' : '��ǰģ�������ȶ�ӳ��Ĺ���ͶƱ���գ����Թٷ�Ŀ¼��ʹ�����źŲ���չʾ��'}</div>
+                    <div class="model-feedback-note">${model.arena ? '用户在 arena.ai 的真实投票综合，以投票数为权重，当前展示基于 arena.ai 的投票结果，随着数据量增加结果更稳定' : '当前模型数据较稳定，映射的官方投票结果，可以官方目录使用信号补充展示'}</div>
                 `,
             };
 
@@ -1414,9 +1493,9 @@
                         <div class="model-lens-item"><span>星级反馈</span><strong class="model-stars">${'★'.repeat(feedback.score)}${'☆'.repeat(5 - feedback.score)}</strong></div>
                         <div class="model-lens-item"><span>判断依据</span><strong>${feedback.label}</strong></div>
                         <div class="model-lens-item"><span>摘要说明</span><strong>${feedback.summary}</strong></div>
-                        <div class="model-lens-item"><span>数据来源</span><strong>${model.arena ? 'arena.ai 投票数据 + OpenRouter 官方目录' : 'OpenRouter 官方目录 + 使用趋势'}</strong></div>
+                        <div class="model-lens-item"><span>数据来源</span><strong>${model.arena ? 'arena.ai 投票结果 + OpenRouter 官方目录' : 'OpenRouter 官方目录月使用信号'}</strong></div>
                     </div>
-                    <div class="model-feedback-note">${model.arena ? '优先展示真实投票结果，避免把截图或二手转载当成排名依据。' : '当前模型榜单以官方目录和公开使用趋势为准。'}</div>
+                    <div class="model-feedback-note">${model.arena ? '用户在 arena.ai 的真实投票综合，以投票数为权重，当前展示基于 arena.ai 的投票结果，随着数据量增加结果更稳定' : '当前模型数据较稳定，映射的官方投票结果，可以官方目录使用信号补充展示'}</div>
                 `,
             };
 
@@ -1574,8 +1653,8 @@
     }
     function parseUsers(s) {
         const n = parseFloat(s.replace(/[^\d.]/g,''));
-        if (s.includes('��')) return n*1e8;
-        if (s.includes('��')) return n*1e4;
+        if (s.includes('亿')) return n*1e8;
+        if (s.includes('万')) return n*1e4;
         return n;
     }
     function filterTools() { renderTools(getFilteredTools()); }
@@ -1637,16 +1716,16 @@
     function showSection(cat) {
         Object.values(sections).forEach(s => { if (s) s.style.display = 'none'; });
         const titleMap = {
-            all:'ȫ������', hot:'�����Ƽ�', new:'�����ϼ�', favorites:'�ҵ��ղ�', recent:'������',
-            writing:'����д��', reading:'�����Ķ�', data:'���ݷ���',
-            figure:'������ͼ', code:'��������', experiment:'ʵ�����',
-            llm:'������ģ��', 'image-ai':'AI ��ͼ', voice:'�����ϳ�', video:'AI ��Ƶ',
-            prompts:'������ʾ�ʿ�', tutorials:'ѧϰ�̳�', news:'��ҵ��Ѷ', models:'��ģ������',
-            github:'GitHub �Ƽ�', usecases:'���� AI Ӧ��ʾ��',
-            aisoft:'AI �����Ƽ�', agents:'���������Զ���', cli:'CLI ����',
-            graph:'�о�ͼ��', 'search-papers':'���ļ���', journal:'ѡ������',
-            'cite-check':'���ĺ˲�', paperdeck:'PaperDeck ����ѧϰ��Ƭ',
-            stats:'ͳ������ӻ�������',
+            all:'全部工具', hot:'热门推荐', new:'最新上线', favorites:'我的收藏', recent:'最近浏览',
+            writing:'论文写作', reading:'文献阅读', data:'数据分析',
+            figure:'科研绘图', code:'代码助手', experiment:'实验设计',
+            llm:'大语言模型', 'image-ai':'AI 绘画', voice:'语音合成', video:'AI 视频',
+            prompts:'提示词库', tutorials:'学习教程', news:'行业资讯', models:'大模型排名',
+            github:'GitHub 推荐', usecases:'科研 AI 应用示例',
+            aisoft:'AI 软件推荐', agents:'智能体与自动化', cli:'CLI 工具',
+            graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
+            'cite-check':'引文核查', paperdeck:'PaperDeck 论文学习卡片',
+            stats:'统计方法可视化库',
         };
         pageTitle.textContent = titleMap[cat] || cat;
         closeSidebarDrawer();
@@ -1724,11 +1803,11 @@
             figure:'科研绘图', code:'代码助手', experiment:'实验设计',
             llm:'大语言模型', 'image-ai':'AI 绘画', voice:'语音合成', video:'AI 视频',
             prompts:'提示词库', tutorials:'学习教程', news:'行业资讯', models:'大模型排名',
-            github:'GitHub 推荐', usecases:'应用示例',
-            aisoft:'AI 软件推荐', agents:'智能体管理', cli:'CLI 工具',
+            github:'GitHub 推荐', usecases:'科研 AI 应用示例',
+            aisoft:'AI 软件推荐', agents:'智能体与自动化', cli:'CLI 工具',
             graph:'研究图谱', 'search-papers':'论文检索', journal:'选刊助手',
-            'cite-check':'引文核查', paperdeck:'PaperDeck 论文卡片流',
-            stats:'统计方法库'
+            'cite-check':'引文核查', paperdeck:'PaperDeck 论文学习卡片',
+            stats:'统计方法可视化库'
         };
         pageTitle.textContent = cleanTitleMap[cat] || cat;
         syncToolTabsVisibility(cat);
@@ -1760,16 +1839,16 @@
             news: '行业资讯',
             models: '大模型排名',
             github: 'GitHub 推荐',
-            usecases: '应用示例',
+            usecases: '科研 AI 应用示例',
             aisoft: 'AI 软件推荐',
-            agents: '智能体管理',
+            agents: '智能体与自动化',
             cli: 'CLI 工具',
             graph: '研究图谱',
             'search-papers': '论文检索',
             journal: '选刊助手',
             'cite-check': '引文核查',
-            paperdeck: 'PaperDeck',
-            stats: '统计方法库'
+            paperdeck: 'PaperDeck 论文学习卡片',
+            stats: '统计方法可视化库'
         };
         pageTitle.textContent = finalTitleMap[cat] || cat;
         if (cat === 'stats' && sections.statMethods) {
@@ -2116,90 +2195,7 @@
 
     // ---- 统计与可视化方法�?----
     function buildStatsVisualizationDetail(method) {
-        const name = `${method.name || ''} ${method.nameEn || ''}`.toLowerCase();
-        const presets = {
-            descriptive: {
-                charts: ['ֱ��ͼ', '����ͼ', 'С����ͼ', '����ͳ�Ʊ�'],
-                implementation: ['Python: pandas + seaborn', 'R: ggplot2 + psych', 'SPSS / Prism'],
-                steps: ['���ȱʧֵ���쳣ֵ', '�����ֵ/��λ��/��׼��', '�÷ֲ�ͼ�˶�������̬'],
-                caution: '������ͳ��Ҫ��������������ھ�һ�𱨸档'
-            },
-            visualization: {
-                charts: ['ɢ��ͼ', '��ͼ', '����ͼ', '�����Ǳ���'],
-                implementation: ['Python: matplotlib / seaborn / plotly', 'R: ggplot2 / plotly', 'Tableau / Power BI'],
-                steps: ['���жϱ�������', '��ѡ��ͼ������', '���ͳһ��ע����ɫ�͵�����ʽ'],
-                caution: '���ӻ����ȱ����ϵ����Ҫ��װ�Ρ�'
-            },
-            inferential: {
-                charts: ['�����ͼ', '���Ƚ�����ͼ', '�����Ա�עͼ'],
-                implementation: ['Python: scipy + statsmodels', 'R: rstatix + ggpubr', 'SPSS / GraphPad Prism'],
-                steps: ['�����̬���뷽������', 'ѡ����鷽��', '����ЧӦ���������������'],
-                caution: '��Ҫֻ�� p ֵ�����ٲ���ЧӦ�����������䡣'
-            },
-            multivariate: {
-                charts: ['��ؾ�����ͼ', '˫��ͼ', '�غ�ͼ', '������ͼ'],
-                implementation: ['Python: sklearn + seaborn', 'R: FactoMineR + factoextra', 'Origin / JMP'],
-                steps: ['������׼��', 'ִ�н�ά�����', '����غɺͷ�����ͽ��'],
-                caution: '����������Ա����߶ȸ߶����С�'
-            },
-            spatial: {
-                charts: ['�ּ���ɫ��ͼ', '�ȵ�ͼ', '�ռ�в�ͼ', '���ܶ�ͼ'],
-                implementation: ['Python: geopandas + matplotlib', 'R: sf + tmap + spdep', 'QGIS / ArcGIS'],
-                steps: ['ͳһ����ϵ', '��ɿռ�������ۺ�', '�����ͼ��ռ����ͼ'],
-                caution: '��ͼ����ǰ����ȷ��ͶӰ�Ϳռ�߶�һ�¡�'
-            },
-            timeseries: {
-                charts: ['ʱ������ͼ', '������ֵͼ', 'ACF/PACF ͼ', 'Ԥ������ͼ'],
-                implementation: ['Python: statsmodels / prophet', 'R: forecast / fable', 'EViews / Excel'],
-                steps: ['������ƺͼ�����', 'ƽ�Ȼ���ģ', '���Ԥ������Ͳв����'],
-                caution: 'ʱ�������ܺ����������ṹͻ�䡣'
-            },
-            causal: {
-                charts: ['���ͼ', 'ƽ������ͼ', '����ЧӦɭ��ͼ'],
-                implementation: ['Python: dowhy / econml', 'R: MatchIt / fixest / did', 'Stata'],
-                steps: ['���崦����Ͷ�����', '��֤ʶ�����', '���ЧӦ���ƺ��Ƚ���ͼ'],
-                caution: '����ƶ��ص���ʶ����裬��ֻ�ǻع�ϵ����'
-            },
-            bayesian: {
-                charts: ['����ֲ�ͼ', '�켣ͼ', 'ɭ��ͼ', 'Ԥ�����ͼ'],
-                implementation: ['Python: pymc + arviz', 'R: brms / bayesplot'],
-                steps: ['��������', '�������������', 'չʾ���������ģ�ͼ���'],
-                caution: '���뱨�������趨��������ϡ�'
-            },
-            ml: {
-                charts: ['������Ҫ��ͼ', 'SHAP ͼ', 'ROC/PR ����', '��������'],
-                implementation: ['Python: sklearn + shap', 'R: tidymodels + vip', 'H2O AutoML'],
-                steps: ['���ѵ��/��֤��', '��ģ����', '������ܺͿɽ�����ͼ'],
-                caution: '����ѧϰͼ����������ѵ������֤�����'
-            },
-            dl: {
-                charts: ['ѵ����ʧ����', 'ѧϰ������', 'ע������ͼ', 'Ƕ����ӻ�'],
-                implementation: ['Python: PyTorch / TensorFlow + TensorBoard', 'Weights & Biases', 'Matplotlib / Plotly'],
-                steps: ['�����������������ָ��', 'ѵ���м�¼����', '���������ģ�Ϳ��ӻ�'],
-                caution: '���ѧϰ�����������ָ�꣬��Ҫ��ѵ���ȶ��ԡ�'
-            }
-        };
-        const detail = { ...(presets[method.category] || presets.descriptive) };
-        if (/anova|�������/.test(name)) {
-            detail.charts = ['��������ͼ', 'С����ͼ', '��ֵ�����ͼ', '�º�����עͼ'];
-            detail.implementation = ['Python: statsmodels + seaborn + statannotations', 'R: rstatix + ggpubr', 'GraphPad Prism'];
-        } else if (/regression|�ع�/.test(name)) {
-            detail.charts = ['ɢ�����ͼ', 'ϵ��ɭ��ͼ', '�в�ͼ', 'Ԥ��Ա�ͼ'];
-            detail.implementation = ['Python: statsmodels + seaborn', 'R: ggplot2 + broom', 'Stata / SPSS'];
-        } else if (/pca|���ɷ�/.test(name)) {
-            detail.charts = ['��ʯͼ', '˫��ͼ', '�÷�ɢ��ͼ', '�غ���ͼ'];
-            detail.implementation = ['Python: sklearn + plotly', 'R: FactoMineR + factoextra'];
-        } else if (/cluster|����/.test(name)) {
-            detail.charts = ['������ͼ', '��״ͼ', '��άǶ��ɢ��ͼ', '����ϵ��ͼ'];
-            detail.implementation = ['Python: sklearn + seaborn clustermap', 'R: pheatmap + factoextra'];
-        } else if (/spatial|�ռ�|����|ң��/.test(name)) {
-            detail.charts = ['ר���ͼ', '�ȵ�ͼ', '�ռ�в�ͼ', '�ֲ� Moran ͼ'];
-            detail.implementation = ['Python: geopandas + esda', 'R: sf + tmap + spdep', 'QGIS / ArcGIS'];
-        } else if (/time series|arima|lstm|gru|ʱ��|ʱ������/.test(name)) {
-            detail.charts = ['ʱ������ͼ', 'ACF/PACF', 'Ԥ������ͼ', '�в����ͼ'];
-            detail.implementation = ['Python: statsmodels / prophet / pytorch', 'R: forecast / fable'];
-        }
-        return detail;
+        return buildStatsVisualizationDetailClean(method);
     }
 
     function enrichStatsMethods() {
@@ -2443,13 +2439,13 @@
         saveLS(`sciai-favs-${name}`, favorites);
         updateLoginBtn(user);
         refreshLoginModal();
-        showToast(`欢迎�?{name}！已本地登录 ✅`);
+        showToast(`欢迎 ${name}！已本地登录 ✅`);
     }
     function doLogout() {
         localStorage.removeItem('sciai-user');
         updateLoginBtn(null);
         loginModal.classList.remove('show');
-        showToast('���˳���¼');
+        showToast('退出登录');
     }
 
     // ---- 收藏导出 Markdown ----
@@ -2460,20 +2456,20 @@
             writing:'论文写作', reading:'文献阅读', data:'数据分析',
             figure:'科研绘图', code:'代码助手', experiment:'实验设计',
             llm:'大语言模型', 'image-ai':'AI绘画', voice:'语音合成',
-            video:'AI��Ƶ', aisoft:'AI ����', agents:'���������Զ���', cli:'CLI ����'
+            video:'AI 视频', aisoft:'AI 软件推荐', agents:'智能体与自动化', cli:'CLI 工具'
         };
-        const pricingMap = { free:'���', freemium:'�����ֵ', paid:'����' };
+        const pricingMap = { free:'免费', freemium:'免费增值', paid:'付费' };
         const cats = [...new Set(favTools.map(t => t.category))];
         const lines = [
             '# 我的 SciAI Hub 收藏\n',
-            `> �?${favTools.length} 款工�?· 导出�?${new Date().toLocaleDateString('zh-CN')}\n`,
+            `> 共 ${favTools.length} 款工具 · 导出于 ${new Date().toLocaleDateString('zh-CN')}\n`,
             '---\n',
         ];
         cats.forEach(cat => {
             lines.push(`\n## ${catNames[cat] || cat}\n`);
             favTools.filter(t => t.category === cat).forEach(t => {
                 lines.push(`### [${t.name}](${t.url})`);
-                lines.push(`- **评分**: ${t.rating} / 5.0 · **用户�?*: ${t.users} · **价格**: ${pricingMap[t.pricing] || t.pricing}`);
+                lines.push(`- **评分**: ${t.rating} / 5.0 · **用户量**: ${t.users} · **价格**: ${pricingMap[t.pricing] || t.pricing}`);
                 lines.push(`- ${t.desc}\n`);
             });
         });
@@ -2586,6 +2582,8 @@
             if (Array.isArray(data) && data.length) renderNews(data);
         }).catch(() => {});
         renderGithubRepos();
+        fetchFrontierRising('all');
+        bindFrontierEvents();
         fetchGithubTrending();
         setInterval(fetchGithubTrending, 10 * 60 * 1000);
         setInterval(() => {
