@@ -370,12 +370,12 @@
                 renderFrontierItems(container, items);
             })
             .catch(() => {
-                container.innerHTML = '<div class="rec-empty">API ????</div>';
+                container.innerHTML = '<div class="rec-empty">API 请求失败，请稍后重试</div>';
             });
     }
     window._fetchFrontierRising = fetchFrontierRising;
 
-    // ---- ???????? ----
+    // ---- 绑定前沿看点事件 ----
     function bindFrontierEvents() {
         const topicsEl = $('#frontierTopics');
         if (!topicsEl) return;
@@ -389,40 +389,30 @@
             // Also filter main grid
             const q = topic === 'all' ? '' : topic;
             if (q) {
-                const url = `https://api.github.com/search/repositories?q=topic:${q}+stars:>500&sort=stars&order=desc&per_page=20`;
                 const grid = $('#githubGrid');
+                const timeEl = $('#githubUpdateTime');
                 if (grid) {
-                    grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> \u52a0\u8f7d\u4e2d...</div>';
-                    const langColors = { Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489', Rust:'#dea584', Go:'#00ADD8', 'C++':'#f34b7d', Java:'#b07219', Shell:'#89e051' };
+                    // Check topic-specific cache first (1h TTL)
+                    const topicCacheKey = `sciai-github-topic-${q}`;
+                    try {
+                        const cached = JSON.parse(localStorage.getItem(topicCacheKey) || 'null');
+                        if (cached && cached.ts && (Date.now() - cached.ts) < 3600000 && cached.items?.length) {
+                            renderGithubItems(grid, cached.items, timeEl, `话题 #${q} · 缓存 ${cached.items.length} 个项目`);
+                            return;
+                        }
+                    } catch(e) {}
+
+                    const url = `https://api.github.com/search/repositories?q=topic:${q}+stars:>500&sort=stars&order=desc&per_page=20`;
+                    grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
                     fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
                         .then(r => r.json())
                         .then(data => {
                             const items = data.items || [];
-                            if (!items.length) { grid.innerHTML = '<div class="rec-empty">?????</div>'; return; }
-                            grid.innerHTML = items.map(r => {
-                                const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-                                const langColor = langColors[r.language] || '#8b949e';
-                                const topics = (r.topics || []).slice(0, 3);
-                                const owner = r.full_name.split('/')[0];
-                                const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 80);
-                                return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
-                                    <div class="github-card-header">
-                                        <i class="fab fa-github github-card-icon"></i>
-                                        <div class="github-card-meta">
-                                            <span class="github-owner">${owner}</span>
-                                            <span class="github-name">/ ${r.name}</span>
-                                        </div>
-                                        <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
-                                    </div>
-                                    <p class="github-desc">${desc}</p>
-                                    <div class="github-footer">
-                                        <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
-                                        <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
-                                    </div>
-                                </a>`;
-                            }).join('');
+                            if (!items.length) { grid.innerHTML = '<div class="rec-empty">暂无数据</div>'; return; }
+                            try { localStorage.setItem(topicCacheKey, JSON.stringify({ ts: Date.now(), items })); } catch(e) {}
+                            renderGithubItems(grid, items, timeEl, `话题 #${q} · ${items.length} 个项目`);
                         })
-                        .catch(() => {});
+                        .catch(() => { grid.innerHTML = '<div class="rec-empty">加载失败，请稍后重试</div>'; });
                 }
             } else {
                 fetchGithubTrending();
