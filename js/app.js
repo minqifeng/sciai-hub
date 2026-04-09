@@ -101,7 +101,8 @@
         try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(def)); }
         catch { return def; }
     }
-    function saveLS(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+    function saveLS(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) { console.warn('localStorage write failed:', key, e); } }
+    function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
     const LIVE_NEWS_FEEDS = [
         { label: 'Planet AI',       url: 'https://planet-ai.net/rss.xml' },
@@ -267,21 +268,22 @@
             const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
             const langColor = langColors[r.language] || '#8b949e';
             const topics = (r.topics || []).slice(0, 3);
-            const owner = r.full_name.split('/')[0];
-            const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 80);
-            return `<a class="github-card" href="${r.html_url}" target="_blank" rel="noopener">
+            const owner = escapeHtml(r.full_name.split('/')[0]);
+            const desc = escapeHtml((r.description || '暂无描述').slice(0, 80));
+            const name = escapeHtml(r.name);
+            return `<a class="github-card" href="${encodeURI(r.html_url)}" target="_blank" rel="noopener">
                 <div class="github-card-header">
                     <i class="fab fa-github github-card-icon"></i>
                     <div class="github-card-meta">
                         <span class="github-owner">${owner}</span>
-                        <span class="github-name">/ ${r.name}</span>
+                        <span class="github-name">/ ${name}</span>
                     </div>
                     <span class="github-stars"><i class="fas fa-star"></i> ${stars}</span>
                 </div>
                 <p class="github-desc">${desc}</p>
                 <div class="github-footer">
-                    <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${r.language || 'N/A'}</span>
-                    <div class="github-topics">${topics.map(t => `<span class="github-topic">${t}</span>`).join('')}</div>
+                    <span class="github-lang"><span class="lang-dot" style="background:${langColor}"></span>${escapeHtml(r.language || 'N/A')}</span>
+                    <div class="github-topics">${topics.map(t => `<span class="github-topic">${escapeHtml(t)}</span>`).join('')}</div>
                 </div>
             </a>`;
         }).join('');
@@ -319,7 +321,7 @@
                 if (timeEl) timeEl.textContent = `API \u9650\u6d41\uff0c\u5f53\u524d\u663e\u793a\u672c\u5730\u7cbe\u9009 ${GITHUB_REPOS.length} \u4e2a\u9879\u76ee`;
             });
     }
-    window._refreshGithub = fetchGithubTrending;
+    window._refreshGithub = () => fetchGithubTrending(true);
 
     function renderFrontierItems(container, items) {
         if (!items.length) {
@@ -328,9 +330,9 @@
         }
         container.innerHTML = items.map(r => {
             const stars = r.stargazers_count >= 1000 ? (r.stargazers_count / 1000).toFixed(1) + 'k' : r.stargazers_count;
-            const desc = (r.description || '\u6682\u65e0\u63cf\u8ff0').slice(0, 55);
-            return `<a class="frontier-rising-card" href="${r.html_url}" target="_blank" rel="noopener">
-                <div class="frontier-rising-name">${r.full_name}</div>
+            const desc = escapeHtml((r.description || '暂无描述').slice(0, 55));
+            return `<a class="frontier-rising-card" href="${encodeURI(r.html_url)}" target="_blank" rel="noopener">
+                <div class="frontier-rising-name">${escapeHtml(r.full_name)}</div>
                 <div class="frontier-rising-desc">${desc}</div>
                 <div class="frontier-rising-footer">
                     <span class="frontier-rising-stars"><i class="fas fa-star"></i> ${stars}</span>
@@ -405,7 +407,7 @@
                     const url = `https://api.github.com/search/repositories?q=topic:${q}+stars:>500&sort=stars&order=desc&per_page=20`;
                     grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
                     fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
-                        .then(r => r.json())
+                        .then(r => { if (!r.ok) throw new Error('API ' + r.status); return r.json(); })
                         .then(data => {
                             const items = data.items || [];
                             if (!items.length) { grid.innerHTML = '<div class="rec-empty">暂无数据</div>'; return; }
@@ -725,6 +727,7 @@
     function extractFeedItems(xmlText, feedLabel) {
         const parser = new DOMParser();
         const xml = parser.parseFromString(xmlText, 'text/xml');
+        if (xml.querySelector('parsererror')) return []; // proxy returned HTML error page
         const readText = (node, selectors) => {
             for (const selector of selectors) {
                 const found = node.querySelector(selector);
