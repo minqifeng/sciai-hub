@@ -305,20 +305,29 @@
             } catch (e) {}
         }
 
-        grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> \u6b63\u5728\u62c9\u53d6 GitHub \u5b9e\u65f6\u9ad8\u661f\u9879\u76ee...</div>';
+        // 刷新按钮 loading 状态
+        const refreshBtn = $('#githubRefreshBtn');
+        if (refreshBtn) { refreshBtn.disabled = true; refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 刷新中...'; }
+        const resetBtn = () => { if (refreshBtn) { refreshBtn.disabled = false; refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新'; } };
+
+        grid.innerHTML = '<div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 正在拉取 GitHub 实时高星项目...</div>';
         const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
         const url = `https://api.github.com/search/repositories?q=(topic:llm+OR+topic:ai+OR+topic:machine-learning+OR+topic:deep-learning)+pushed:>${since}+stars:>200&sort=stars&order=desc&per_page=50`;
         fetch(url, { headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } })
-            .then(r => { if (!r.ok) throw new Error('api error ' + r.status); return r.json(); })
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(data => {
                 const items = data.items || [];
                 if (!items.length) throw new Error('empty');
                 try { localStorage.setItem(GITHUB_CACHE_KEY, JSON.stringify({ ts: Date.now(), items })); } catch (e) {}
-                renderGithubItems(grid, items, timeEl, `\u5df2\u540c\u6b65 ${items.length} \u4e2a\u9879\u76ee \u00b7 \u6570\u636e\u7a97\u53e3 ${since} \u81f3\u4eca \u00b7 \u66f4\u65b0\u4e8e ${formatModelRefreshTime(new Date().toISOString())}`);
+                renderGithubItems(grid, items, timeEl, `已同步 ${items.length} 个项目 · 数据窗口 ${since} 至今 · 更新于 ${formatModelRefreshTime(new Date().toISOString())}`);
+                showToast(`GitHub 已刷新，共 ${items.length} 个项目`);
+                resetBtn();
             })
-            .catch(() => {
+            .catch(err => {
                 renderGithubRepos();
-                if (timeEl) timeEl.textContent = `API \u9650\u6d41\uff0c\u5f53\u524d\u663e\u793a\u672c\u5730\u7cbe\u9009 ${GITHUB_REPOS.length} \u4e2a\u9879\u76ee`;
+                if (timeEl) timeEl.textContent = `API 限流，显示本地精选 ${GITHUB_REPOS.length} 个项目`;
+                showToast('GitHub API 限流（60次/小时），已显示本地精选项目');
+                resetBtn();
             });
     }
     window._refreshGithub = () => fetchGithubTrending(true);
@@ -1047,8 +1056,8 @@
         btn.classList.toggle('is-loading', isLoading);
         btn.disabled = isLoading;
         btn.innerHTML = isLoading
-            ? '<i class="fas fa-rotate"></i> 刷新中...'
-            : '<i class="fas fa-rotate"></i> 实时刷新';
+            ? '<i class="fas fa-spinner fa-spin"></i> 同步中...'
+            : '<i class="fas fa-rotate"></i> 同步官方目录';
     }
 
     function syncModelFilterUI() {
@@ -1172,12 +1181,12 @@
                 currentModelCatalogCount = Number(payload.liveCatalogCount || 0);
                 currentModelSnapshotTopCount = Number(payload.snapshotTopCount || currentModelSnapshotTopCount || 0);
                 applyModelFilters();
-                if (!silent) showToast(`已同步 OpenRouter 官方模型目录 (${currentModelCatalogCount || currentModelsData.length} 个模型`);
+                if (!silent) showToast(`已同步 OpenRouter 官方模型目录（${currentModelCatalogCount || currentModelsData.length} 个模型）`);
                 return payload;
             } catch (error) {
                 console.warn('Model refresh failed:', error);
                 applyModelFilters();
-                if (!silent) showToast('实时刷新失败，已保留 2026-03-31 周榜快照');
+                if (!silent) showToast(`目录同步失败，显示周榜快照 ${currentModelSnapshotDate}`);
                 return null;
             } finally {
                 setModelsRefreshLoading(false);
