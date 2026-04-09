@@ -1,0 +1,39 @@
+name: Weekly Model Catalog Sync
+
+on:
+  schedule:
+    # 每周一 UTC 02:00 (北京时间 10:00) 自动触发
+    - cron: '0 2 * * 1'
+  workflow_dispatch:   # 也支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch OpenRouter catalog & update data.js
+        run: node .github/scripts/sync-models.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/data.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            WEEK=$(date -u '+%Y-%m-%d')
+            git commit -m "chore: auto-sync OpenRouter model catalog ($WEEK)"
+            git push origin main
+            echo "Pushed updated catalog."
+          fi
