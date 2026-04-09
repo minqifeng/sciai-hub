@@ -554,36 +554,36 @@
         <!-- GitHub 高星推荐 -->
         <section class="github-section" id="githubSection" style="display:none;">
             <div class="section-header">
-                <h3><i class="fab fa-github"></i> GitHub ?????? <span class="live-dot" title="????"></span></h3>
+                <h3><i class="fab fa-github"></i> GitHub 开源热榜 <span class="live-dot" title="实时更新"></span></h3>
                 <div style="display:flex;align-items:center;gap:10px;">
-                    <span class="section-sub" id="githubUpdateTime">????...</span>
-                    <button class="arxiv-retry-btn" id="githubRefreshBtn" onclick="window._refreshGithub && window._refreshGithub()" style="font-size:12px;padding:3px 10px;"><i class="fas fa-sync-alt"></i> ??</button>
+                    <span class="section-sub" id="githubUpdateTime">加载中...</span>
+                    <button class="arxiv-retry-btn" id="githubRefreshBtn" onclick="window._refreshGithub && window._refreshGithub()" style="font-size:12px;padding:3px 10px;"><i class="fas fa-sync-alt"></i> 刷新</button>
                 </div>
             </div>
 
-            <!-- ???? -->
+            <!-- 前沿看点 -->
             <div class="github-frontier" id="githubFrontier">
                 <div class="frontier-header">
-                    <span class="frontier-title"><i class="fas fa-fire"></i> ????</span>
-                    <span class="frontier-sub">AI ?????????????</span>
+                    <span class="frontier-title"><i class="fas fa-fire"></i> 前沿看点</span>
+                    <span class="frontier-sub">AI 领域最热话题实时追踪</span>
                 </div>
                 <div class="frontier-topics" id="frontierTopics">
-                    <button class="frontier-topic active" data-topic="all">??</button>
+                    <button class="frontier-topic active" data-topic="all">全部</button>
                     <button class="frontier-topic" data-topic="llm">LLM</button>
                     <button class="frontier-topic" data-topic="agent">Agent</button>
                     <button class="frontier-topic" data-topic="rag">RAG</button>
-                    <button class="frontier-topic" data-topic="multimodal">???</button>
-                    <button class="frontier-topic" data-topic="fine-tuning">??</button>
-                    <button class="frontier-topic" data-topic="diffusion">????</button>
-                    <button class="frontier-topic" data-topic="robotics">???</button>
+                    <button class="frontier-topic" data-topic="multimodal">多模态</button>
+                    <button class="frontier-topic" data-topic="fine-tuning">微调</button>
+                    <button class="frontier-topic" data-topic="diffusion">扩散模型</button>
+                    <button class="frontier-topic" data-topic="robotics">具身智能</button>
                 </div>
-                <div class="frontier-rising-label"><i class="fas fa-chart-line"></i> ????</div>
+                <div class="frontier-rising-label"><i class="fas fa-chart-line"></i> 本周飙升</div>
                 <div class="frontier-rising" id="frontierRising">
-                    <div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> ???...</div>
+                    <div class="arxiv-loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>
                 </div>
             </div>
 
-            <div class="github-grid-label">??????</div>
+            <div class="github-grid-label">精选热门项目</div>
             <div class="github-grid" id="githubGrid"></div>
         </section>
 
