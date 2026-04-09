@@ -195,7 +195,7 @@ const ModelRankingAPI = (() => {
     const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models';
     const CACHE_KEY = 'openrouter-models-catalog';
     const CACHE_TTL = 30 * 60 * 1000;
-    const SNAPSHOT_DATE = '2026-03-31'; // weekly ranking snapshot; catalog is always live
+    const SNAPSHOT_DATE = '2026-04-07'; // weekly ranking snapshot; catalog is always live
     const TARGET_LEADERBOARD_SIZE = 50;
 
     function normalizeModelName(name = '') {

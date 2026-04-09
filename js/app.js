@@ -76,7 +76,7 @@
     let currentModelSort   = 'rank';
     let currentModelLens   = 'overview';
     let currentModelsData  = [...(MODELS_RANKING || [])];
-    let currentModelSnapshotDate = '2026-03-31';
+    let currentModelSnapshotDate = '2026-04-07';
     let currentModelLiveUpdatedAt = null;
     let currentModelCatalogCount = 0;
     let currentModelSnapshotTopCount = Array.isArray(MODELS_RANKING) ? MODELS_RANKING.length : 0;
