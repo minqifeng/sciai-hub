@@ -1,8 +1,9 @@
-name: Weekly Model Snapshot Freeze
+name: Daily Model Catalog Sync
 
 on:
   schedule:
-    - cron: '0 2 * * 1'
+    # Run daily at 02:00 UTC except Monday, when the weekly snapshot owns the slot.
+    - cron: '0 2 * * 0,2-6'
   workflow_dispatch:
 
 concurrency:
@@ -10,7 +11,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  snapshot:
+  sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -24,8 +25,8 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Freeze weekly OpenRouter snapshot
-        run: node .github/scripts/sync-models.js --snapshot
+      - name: Fetch OpenRouter catalog
+        run: node .github/scripts/sync-models.js
 
       - name: Validate manifests
         run: node .github/scripts/validate-manifests.js
@@ -38,8 +39,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            WEEK=$(date -u '+%Y-%m-%d')
-            git commit -m "chore: freeze OpenRouter model snapshot ($WEEK)"
+            DAY=$(date -u '+%Y-%m-%d')
+            git commit -m "chore: auto-sync OpenRouter model catalog ($DAY)"
             git push origin main
-            echo "Pushed updated snapshot."
+            echo "Pushed updated catalog."
           fi

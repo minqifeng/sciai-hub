@@ -22,7 +22,17 @@ const SciAPI = (() => {
     async function searchPapers(query, { page = 1, perPage = 20, yearFrom, yearTo, sort = 'relevance' } = {}) {
         const sortMap = { relevance: 'relevance_score:desc', citations: 'cited_by_count:desc', year: 'publication_date:desc' };
         let url = `${OA}/works?search=${encodeURIComponent(query)}&per-page=${perPage}&page=${page}&sort=${sortMap[sort] || 'relevance_score:desc'}&select=id,display_name,authorships,primary_location,publication_year,cited_by_count,doi,abstract_inverted_index`;
-        if (yearFrom || yearTo) url += `&filter=publication_year:${yearFrom || ''}-${yearTo || ''}`;
+        const fromYear = Number.parseInt(yearFrom, 10);
+        const toYear = Number.parseInt(yearTo, 10);
+        const yearFilters = [];
+        if (Number.isFinite(fromYear) && Number.isFinite(toYear)) {
+            yearFilters.push(`publication_year:${Math.min(fromYear, toYear)}-${Math.max(fromYear, toYear)}`);
+        } else if (Number.isFinite(fromYear)) {
+            yearFilters.push(`publication_year:>${fromYear - 1}`);
+        } else if (Number.isFinite(toYear)) {
+            yearFilters.push(`publication_year:<${toYear + 1}`);
+        }
+        if (yearFilters.length) url += `&filter=${yearFilters.join(',')}`;
         try {
             const res = await fetch(url);
             const data = await res.json();

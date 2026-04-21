@@ -1,0 +1,21 @@
+{
+  "datasetId": "github.seed",
+  "schemaVersion": "1.0.0",
+  "sourceName": "GitHub trending seed",
+  "sourceUrl": "https://github.com/trending",
+  "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+  "validatedAt": "2026-04-21T00:00:00.000Z",
+  "status": "static",
+  "freshness": {
+    "cadence": "daily",
+    "freshnessPolicy": "trending-seed",
+    "snapshotDate": "2026-04-21",
+    "refreshHint": "ui-consumes-static-seed"
+  },
+  "lineage": {
+    "mode": "seeded-manifest",
+    "generator": "manual-foundation"
+  },
+  "recordCount": 0,
+  "records": []
+}

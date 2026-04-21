@@ -1,0 +1,21 @@
+{
+  "datasetId": "models.catalog",
+  "schemaVersion": "1.0.0",
+  "sourceName": "OpenRouter Model Catalog",
+  "sourceUrl": "https://openrouter.ai/api/v1/models",
+  "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+  "validatedAt": "2026-04-21T00:00:00.000Z",
+  "status": "live",
+  "freshness": {
+    "cadence": "daily",
+    "freshnessPolicy": "live-catalog",
+    "refreshedAt": "2026-04-21T00:00:00.000Z",
+    "snapshotDate": "2026-04-21"
+  },
+  "lineage": {
+    "mode": "catalog-seed",
+    "generator": ".github/scripts/sync-models.js"
+  },
+  "recordCount": 0,
+  "records": []
+}

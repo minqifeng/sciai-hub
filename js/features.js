@@ -539,9 +539,12 @@ const PaperDeckFeature = (() => {
 
     window.PaperDeckFeature = {
         _skip() {
+            const paper = deck[currentIdx];
+            if (paper) {
+                seenIds.push(paper.paperId);
+                localStorage.setItem('sciai-deck-seen', JSON.stringify(seenIds.slice(-500)));
+            }
             if (currentIdx >= deck.length - 1) { loadDeck(); return; }
-            seenIds.push(deck[currentIdx].paperId);
-            localStorage.setItem('sciai-deck-seen', JSON.stringify(seenIds.slice(-500)));
             currentIdx++;
             showCard(currentIdx);
         },

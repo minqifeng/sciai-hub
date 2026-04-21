@@ -1,142 +1,234 @@
 /**
- * sync-models.js — GitHub Actions 自动同步脚本
- * 每周一从 OpenRouter 公开 API 获取最新模型目录，
- * 更新 js/data.js 中已知模型的 pricing / context / date 字段。
- * 注意：周榜 Token 使用量排名无公开 API，不自动更新。
+ * sync-models.js
+ *
+ * Daily catalog sync:
+ * - Fetch the OpenRouter model catalog.
+ * - Write a provenance-rich manifest under data/models.manifest.json.
+ *
+ * Weekly snapshot:
+ * - Freeze the current catalog into data/models.snapshot.manifest.json.
+ *
+ * This script no longer patches js/app.js or js/api.js. The app can continue
+ * using its existing static snapshot until the UI is ready to consume the new
+ * data layer.
  */
 
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const DATA_FILE = path.join(__dirname, '../../js/data.js');
-const TODAY = new Date().toISOString().slice(0, 10);
+const ROOT = path.join(__dirname, '../..');
+const DATA_DIR = path.join(ROOT, 'data');
+const LIVE_MANIFEST_FILE = path.join(DATA_DIR, 'models.manifest.json');
+const SNAPSHOT_MANIFEST_FILE = path.join(DATA_DIR, 'models.snapshot.manifest.json');
+const SOURCE_URL = 'https://openrouter.ai/api/v1/models';
 
-// ---- 1. Fetch OpenRouter catalog ----
+function isoNow() {
+  return new Date().toISOString();
+}
+
+function today() {
+  return isoNow().slice(0, 10);
+}
+
 function fetchJSON(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, { headers: { 'User-Agent': 'sciai-hub-sync/1.0' } }, res => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch (e) { reject(new Error('JSON parse failed: ' + e.message)); }
-      });
-    }).on('error', reject);
+    https
+      .get(url, { headers: { 'User-Agent': 'sciai-hub-sync/1.0' } }, res => {
+        let data = '';
+        res.on('data', chunk => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          try {
+            resolve(JSON.parse(data));
+          } catch (err) {
+            reject(new Error(`JSON parse failed: ${err.message}`));
+          }
+        });
+      })
+      .on('error', reject);
   });
 }
 
-// ---- 2. Build lookup map from catalog ----
-function buildCatalogMap(models) {
-  const map = {};
-  for (const m of models) {
-    map[m.id] = m;
-    // also index by short id (after last /)
-    const short = m.id.split('/').pop();
-    if (!map[short]) map[short] = m;
-  }
-  return map;
+function ensureDataDir() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-// ---- 3. Patch MODELS_RANKING array in data.js ----
-function patchDataJs(content, catalogMap) {
-  let changed = 0;
+function writeJson(filePath, value) {
+  fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
+}
 
-  // Match each entry in MODELS_RANKING and update fields
-  const updated = content.replace(
-    /\{ rank: (\d+), liveId: "([^"]+)", name: "([^"]+)", provider: "([^"]+)", type: "([^"]+)", params: "([^"]+)", date: "(\d{4}-\d{2}-\d{2})"(.*?)\}/gs,
-    (match, rank, liveId, name, provider, type, params, date, rest) => {
-      const catalogEntry = catalogMap[liveId] || catalogMap[liveId.replace(':free', '')];
-      if (!catalogEntry) return match; // not found in catalog, leave unchanged
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
 
-      const ctx = catalogEntry.context_length
-        ? formatCtx(catalogEntry.context_length)
-        : params;
+function normalizeModel(model) {
+  return {
+    id: model.id,
+    name: model.name || model.id,
+    provider: model.id?.split('/')?.[0] || '',
+    contextLength: model.context_length ?? null,
+    pricing: model.pricing
+      ? {
+          prompt: model.pricing.prompt ?? null,
+          completion: model.pricing.completion ?? null,
+          request: model.pricing.request ?? null,
+          image: model.pricing.image ?? null,
+        }
+      : null,
+    architecture: model.architecture ?? null,
+    topProvider: model.top_provider ?? null,
+    supportedParameters: Array.isArray(model.supported_parameters) ? model.supported_parameters : [],
+  };
+}
 
-      // Extract pricing from catalog
-      let promptPrice = null, completionPrice = null;
-      if (catalogEntry.pricing) {
-        promptPrice     = parseFloat(catalogEntry.pricing.prompt)     * 1e6 || null;
-        completionPrice = parseFloat(catalogEntry.pricing.completion) * 1e6 || null;
-      }
+function ensureNonEmptyRecords(records, context) {
+  if (!Array.isArray(records)) {
+    throw new Error(`${context} did not produce a records array`);
+  }
+  if (records.length === 0) {
+    throw new Error(`${context} produced zero records`);
+  }
+  return records;
+}
 
-      // Only update if something actually changed
-      const newParams = ctx !== params ? ctx : params;
-      const newDate   = TODAY;
+function buildManifest({
+  datasetId,
+  sourceName,
+  sourceUrl,
+  status,
+  freshness,
+  records,
+  sourceFetchedAt,
+  validatedAt,
+  lineage,
+}) {
+  return {
+    datasetId,
+    schemaVersion: '1.0.0',
+    sourceName,
+    sourceUrl,
+    sourceFetchedAt,
+    validatedAt,
+    status,
+    freshness,
+    lineage: lineage || {},
+    recordCount: Array.isArray(records) ? records.length : 0,
+    records,
+  };
+}
 
-      if (newParams === params && newDate === date) return match;
+async function fetchOpenRouterModels() {
+  const catalog = await fetchJSON(SOURCE_URL);
+  if (!catalog || !Array.isArray(catalog.data)) {
+    throw new Error('OpenRouter response missing data array');
+  }
+  const records = ensureNonEmptyRecords(
+    catalog.data.map(normalizeModel).filter(model => model && model.id),
+    'OpenRouter catalog fetch'
+  );
+  return {
+    fetchedAt: isoNow(),
+    records,
+  };
+}
 
-      changed++;
-      return match
-        .replace(`date: "${date}"`, `date: "${newDate}"`)
-        .replace(`params: "${params}"`, `params: "${newParams}"`);
+async function writeLiveCatalog() {
+  const { fetchedAt, records } = await fetchOpenRouterModels();
+  const manifest = buildManifest({
+    datasetId: 'models.catalog',
+    sourceName: 'OpenRouter Model Catalog',
+    sourceUrl: SOURCE_URL,
+    sourceFetchedAt: fetchedAt,
+    validatedAt: isoNow(),
+    status: 'live',
+    freshness: {
+      cadence: 'daily',
+      freshnessPolicy: 'live-catalog',
+      refreshedAt: fetchedAt,
+      snapshotDate: today(),
+    },
+    lineage: {
+      mode: 'catalog-sync',
+      generator: '.github/scripts/sync-models.js',
+    },
+    records,
+  });
+
+  writeJson(LIVE_MANIFEST_FILE, manifest);
+  console.log(`Wrote ${path.relative(ROOT, LIVE_MANIFEST_FILE)} (${manifest.recordCount} records).`);
+  return manifest;
+}
+
+async function writeSnapshot() {
+  let sourceManifest = null;
+
+  if (fs.existsSync(LIVE_MANIFEST_FILE)) {
+    try {
+      sourceManifest = readJson(LIVE_MANIFEST_FILE);
+    } catch (err) {
+      console.warn(`Live manifest could not be parsed, falling back to a fresh fetch: ${err.message}`);
     }
-  );
-
-  // Also update the SNAPSHOT_DATE comment line for api.js (not done here — separate)
-  console.log(`Patched ${changed} model entries.`);
-  return updated;
-}
-
-function formatCtx(n) {
-  if (n >= 1e6) return `${(n / 1e6).toFixed(0)}M ctx`;
-  if (n >= 1e3) return `${Math.round(n / 1000)}K ctx`;
-  return `${n} ctx`;
-}
-
-// ---- 4. Update SNAPSHOT_DATE in api.js ----
-function updateSnapshotDate(apiFile) {
-  const content = fs.readFileSync(apiFile, 'utf8');
-  const updated = content.replace(
-    /const SNAPSHOT_DATE = '\d{4}-\d{2}-\d{2}'/,
-    `const SNAPSHOT_DATE = '${TODAY}'`
-  );
-  if (updated !== content) {
-    fs.writeFileSync(apiFile, updated, 'utf8');
-    console.log(`Updated SNAPSHOT_DATE in api.js → ${TODAY}`);
   }
+
+  let records;
+  let sourceFetchedAt;
+
+  if (sourceManifest && Array.isArray(sourceManifest.records) && sourceManifest.records.length > 0) {
+    records = sourceManifest.records;
+    sourceFetchedAt = sourceManifest.sourceFetchedAt || isoNow();
+  } else {
+    const fetched = await fetchOpenRouterModels();
+    records = fetched.records;
+    sourceFetchedAt = fetched.fetchedAt;
+  }
+  ensureNonEmptyRecords(records, 'Snapshot source');
+
+  const snapshotAt = isoNow();
+  const manifest = buildManifest({
+    datasetId: 'models.snapshot',
+    sourceName: 'OpenRouter Weekly Model Snapshot',
+    sourceUrl: SOURCE_URL,
+    sourceFetchedAt,
+    validatedAt: snapshotAt,
+    status: 'snapshot',
+    freshness: {
+      cadence: 'weekly',
+      freshnessPolicy: 'frozen-snapshot',
+      snapshotTakenAt: snapshotAt,
+      sourceDatasetId: 'models.catalog',
+      snapshotDate: today(),
+    },
+    lineage: {
+      mode: 'weekly-snapshot',
+      sourceManifest: path.relative(ROOT, LIVE_MANIFEST_FILE),
+    },
+    records,
+  });
+
+  writeJson(SNAPSHOT_MANIFEST_FILE, manifest);
+  console.log(`Wrote ${path.relative(ROOT, SNAPSHOT_MANIFEST_FILE)} (${manifest.recordCount} records).`);
+  return manifest;
 }
 
-// ---- 5. Update currentModelSnapshotDate in app.js ----
-function updateAppDate(appFile) {
-  const content = fs.readFileSync(appFile, 'utf8');
-  const updated = content.replace(
-    /let currentModelSnapshotDate = '\d{4}-\d{2}-\d{2}'/,
-    `let currentModelSnapshotDate = '${TODAY}'`
-  );
-  if (updated !== content) {
-    fs.writeFileSync(appFile, updated, 'utf8');
-    console.log(`Updated currentModelSnapshotDate in app.js → ${TODAY}`);
-  }
+function parseArgs(argv) {
+  return new Set(argv.slice(2));
 }
 
-// ---- Main ----
-(async () => {
-  try {
-    console.log('Fetching OpenRouter model catalog...');
-    const catalog = await fetchJSON('https://openrouter.ai/api/v1/models');
-    const models  = catalog.data || [];
-    console.log(`Fetched ${models.length} models from OpenRouter.`);
+async function main() {
+  ensureDataDir();
+  const args = parseArgs(process.argv);
 
-    const catalogMap = buildCatalogMap(models);
-
-    // Patch data.js
-    const dataContent = fs.readFileSync(DATA_FILE, 'utf8');
-    const patched     = patchDataJs(dataContent, catalogMap);
-    if (patched !== dataContent) {
-      fs.writeFileSync(DATA_FILE, patched, 'utf8');
-      console.log('data.js updated.');
-    } else {
-      console.log('data.js unchanged.');
-    }
-
-    // Update date fields in api.js and app.js
-    updateSnapshotDate(path.join(__dirname, '../../js/api.js'));
-    updateAppDate(path.join(__dirname, '../../js/app.js'));
-
-    console.log('Sync complete.');
-  } catch (err) {
-    console.error('Sync failed:', err.message);
-    process.exit(1);
+  if (args.has('--snapshot')) {
+    await writeSnapshot();
+    return;
   }
-})();
+
+  await writeLiveCatalog();
+}
+
+main().catch(err => {
+  console.error(`Sync failed: ${err.message}`);
+  process.exit(1);
+});

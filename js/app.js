@@ -2024,7 +2024,7 @@
                 scrollCategoryIntoView(cat);
                 const NON_TOOL_CATS = ['prompts','tutorials','news','models','github','usecases','graph','search-papers','journal','cite-check','paperdeck','stats'];
                 if (!NON_TOOL_CATS.includes(cat)) filterTools();
-                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                document.querySelector(`.tab-item[data-category="${cat}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
             });
         });
 
@@ -2669,7 +2669,6 @@
         if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
         if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
         StatsFeature.init();
-        StatsFeature.init();
         // ʼʵʱ API Ͷ̬ǩ
         if (typeof initializeRealtimeAPIs !== 'undefined') {
             initializeRealtimeAPIs();
@@ -2680,11 +2679,6 @@
         // ָ¼״̬
         updateLoginBtn(getUser());
         // ʼ参数量书ģ
-        if (typeof GraphFeature !== 'undefined') GraphFeature.init();
-        if (typeof SearchFeature !== 'undefined') SearchFeature.init();
-        if (typeof JournalFeature !== 'undefined') JournalFeature.init();
-        if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
-        if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
     }
 
     function bootApp() {
@@ -2704,4 +2698,3 @@
         bootApp();
     }
 })();
-

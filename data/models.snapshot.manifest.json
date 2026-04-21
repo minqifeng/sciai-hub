@@ -1,0 +1,22 @@
+{
+  "datasetId": "models.snapshot",
+  "schemaVersion": "1.0.0",
+  "sourceName": "OpenRouter Weekly Model Snapshot",
+  "sourceUrl": "https://openrouter.ai/api/v1/models",
+  "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+  "validatedAt": "2026-04-21T00:00:00.000Z",
+  "status": "snapshot",
+  "freshness": {
+    "cadence": "weekly",
+    "freshnessPolicy": "frozen-snapshot",
+    "snapshotTakenAt": "2026-04-21T00:00:00.000Z",
+    "sourceDatasetId": "models.catalog",
+    "snapshotDate": "2026-04-21"
+  },
+  "lineage": {
+    "mode": "weekly-snapshot",
+    "sourceManifest": "data/models.manifest.json"
+  },
+  "recordCount": 0,
+  "records": []
+}
