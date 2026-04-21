@@ -402,6 +402,92 @@ const ModelRankingAPI = (() => {
 
 window.ModelRankingAPI = ModelRankingAPI;
 
+// ---- Local manifest loading ----
+const DataManifestAPI = (() => {
+    const DATASET_FILES = {
+        news: ['data/news.manifest.json'],
+        github: ['data/github.manifest.json'],
+        models: ['data/models.snapshot.manifest.json', 'data/models.manifest.json']
+    };
+    const manifestCache = new Map();
+    const datasetCache = new Map();
+
+    function normalizeManifest(payload, filePath) {
+        if (!payload || typeof payload !== 'object') return null;
+        return {
+            ...payload,
+            filePath,
+            loadedAt: new Date().toISOString()
+        };
+    }
+
+    async function loadManifest(filePath) {
+        if (manifestCache.has(filePath)) return manifestCache.get(filePath);
+        try {
+            const res = await fetch(filePath, { cache: 'no-store' });
+            if (!res.ok) {
+                manifestCache.set(filePath, null);
+                return null;
+            }
+            const data = await res.json();
+            const manifest = normalizeManifest(data, filePath);
+            manifestCache.set(filePath, manifest);
+            return manifest;
+        } catch (error) {
+            console.warn('Manifest load failed:', filePath, error);
+            manifestCache.set(filePath, null);
+            return null;
+        }
+    }
+
+    function pickPrimaryManifest(datasetKey, manifests) {
+        if (!manifests.length) return null;
+        if (datasetKey === 'models') {
+            return manifests.find(m => m && m.status === 'snapshot') || manifests[0];
+        }
+        return manifests[0];
+    }
+
+    async function loadDataset(datasetKey) {
+        if (datasetCache.has(datasetKey)) return datasetCache.get(datasetKey);
+        const files = DATASET_FILES[datasetKey] || [];
+        const manifests = (await Promise.all(files.map(loadManifest))).filter(Boolean);
+        const primary = pickPrimaryManifest(datasetKey, manifests);
+        const bundle = {
+            key: datasetKey,
+            filePaths: files,
+            manifests,
+            primary,
+            secondary: primary ? manifests.filter(m => m !== primary) : manifests,
+            available: !!primary,
+            loadedAt: new Date().toISOString()
+        };
+        datasetCache.set(datasetKey, bundle);
+        return bundle;
+    }
+
+    function getLoadedDataset(datasetKey) {
+        return datasetCache.get(datasetKey) || {
+            key: datasetKey,
+            filePaths: DATASET_FILES[datasetKey] || [],
+            manifests: [],
+            primary: null,
+            secondary: [],
+            available: false,
+            loadedAt: null
+        };
+    }
+
+    function clearCache() {
+        manifestCache.clear();
+        datasetCache.clear();
+    }
+
+    return { loadManifest, loadDataset, getLoadedDataset, clearCache };
+})();
+
+window.DataManifestAPI = DataManifestAPI;
+
 // ---- 动态标签生成函数 ----
 function generateDynamicTags(tool) {
     const tags = [];
