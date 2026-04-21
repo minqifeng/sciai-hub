@@ -1,0 +1,110 @@
+{
+  "datasetId": "updates.manifest",
+  "schemaVersion": "1.0.0",
+  "sourceName": "SciAI Hub curated station updates",
+  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+  "sourceFetchedAt": "2026-04-21T14:43:17.071Z",
+  "validatedAt": "2026-04-21T14:43:17.071Z",
+  "status": "snapshot",
+  "freshness": {
+    "cadence": "daily",
+    "freshnessPolicy": "curated-update-log",
+    "snapshotTakenAt": "2026-04-21T14:43:17.071Z",
+    "sourceDatasetId": "news.models.github.manifests",
+    "snapshotDate": "2026-04-21"
+  },
+  "lineage": {
+    "mode": "curated-update-log",
+    "generator": ".github/scripts/generate-station-updates.js",
+    "sourceManifests": {
+      "news": "data/news.manifest.json",
+      "modelsSnapshot": "data/models.snapshot.manifest.json",
+      "modelsLive": "data/models.manifest.json",
+      "github": "data/github.manifest.json"
+    }
+  },
+  "recordCount": 1,
+  "records": [
+    {
+      "id": "update-2026-04-21-static-snapshot-static",
+      "kind": "curated-daily-rollup",
+      "title": "Curated station update",
+      "summary": "Manifest-backed daily update log for news, models, and GitHub.",
+      "generatedAt": "2026-04-21T14:43:17.070Z",
+      "date": "2026-04-21",
+      "sources": [
+        {
+          "key": "news",
+          "datasetId": "news.seed",
+          "sourceName": "SciAI Hub curated news seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "daily",
+            "freshnessPolicy": "editorial-seed",
+            "snapshotDate": "2026-04-21",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "ui-consumes-static-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-21",
+          "recordCount": 0,
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "manifest": "data/news.manifest.json"
+        },
+        {
+          "key": "models",
+          "datasetId": "models.snapshot",
+          "sourceName": "OpenRouter Weekly Model Snapshot",
+          "status": "snapshot",
+          "freshness": {
+            "cadence": "weekly",
+            "freshnessPolicy": "frozen-snapshot",
+            "snapshotDate": "2026-04-21",
+            "refreshedAt": null,
+            "snapshotTakenAt": "2026-04-21T00:00:00.000Z",
+            "sourceDatasetId": "models.catalog",
+            "refreshHint": null
+          },
+          "freshnessLabel": "snapshot 2026-04-21",
+          "recordCount": 0,
+          "sourceUrl": "https://openrouter.ai/api/v1/models",
+          "manifest": [
+            "data/models.snapshot.manifest.json",
+            "data/models.manifest.json"
+          ]
+        },
+        {
+          "key": "github",
+          "datasetId": "github.seed",
+          "sourceName": "GitHub trending seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "daily",
+            "freshnessPolicy": "trending-seed",
+            "snapshotDate": "2026-04-21",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "ui-consumes-static-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-21",
+          "recordCount": 0,
+          "sourceUrl": "https://github.com/trending",
+          "manifest": "data/github.manifest.json"
+        }
+      ],
+      "highlights": [
+        "news: static · snapshot 2026-04-21",
+        "models: snapshot · snapshot 2026-04-21",
+        "github: static · snapshot 2026-04-21"
+      ],
+      "manifestRefs": [
+        "data/news.manifest.json",
+        "data/models.snapshot.manifest.json",
+        "data/models.manifest.json",
+        "data/github.manifest.json"
+      ]
+    }
+  ]
+}

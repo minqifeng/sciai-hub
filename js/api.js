@@ -407,7 +407,8 @@ const DataManifestAPI = (() => {
     const DATASET_FILES = {
         news: ['data/news.manifest.json'],
         github: ['data/github.manifest.json'],
-        models: ['data/models.snapshot.manifest.json', 'data/models.manifest.json']
+        models: ['data/models.snapshot.manifest.json', 'data/models.manifest.json'],
+        updates: ['data/updates.manifest.json']
     };
     const manifestCache = new Map();
     const datasetCache = new Map();

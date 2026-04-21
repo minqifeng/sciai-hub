@@ -1,0 +1,46 @@
+name: Curated Station Refresh
+
+on:
+  schedule:
+    # Run after the model sync jobs so this log can reuse their manifest freshness.
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: curated-station-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Generate curated update log
+        run: node .github/scripts/generate-station-updates.js
+
+      - name: Validate manifests
+        run: node .github/scripts/validate-manifests.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/*.manifest.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            DAY=$(date -u '+%Y-%m-%d')
+            git commit -m "chore: refresh curated station updates ($DAY)"
+            git push origin main
+            echo "Pushed curated update log."
+          fi

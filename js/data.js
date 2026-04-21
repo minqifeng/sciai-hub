@@ -1142,6 +1142,604 @@ const TUTORIALS_DATA = [
     },
 ];
 
+// ---- Curated station overrides ----
+const CURATED_STATION_SECTIONS = {
+    weekly: {
+        label: "本周精选",
+        hint: "编辑挑选的当周优先入口，适合硕博用户快速起步。"
+    },
+    essential: {
+        label: "高频必备",
+        hint: "长期稳定可复用的研究工具，按任务而不是全目录堆叠。"
+    }
+};
+
+const CURATED_TOOL_EDITORIAL = [
+    {
+        id: 2,
+        stationSection: "weekly",
+        sortOrder: 10,
+        editorialStatus: "编辑复核",
+        reviewedAt: "2026-04-20",
+        reviewNote: "长上下文稳定，适合整篇论文拆读、审稿前复盘和 rebuttal 草拟。",
+        usageGuide: "先让它按“研究问题 / 方法 / 结果 / 局限”四栏拆全文，再追问你最关心的部分。",
+        bestFor: "整篇论文拆解、rebuttal、方法复盘",
+        quickStart: "上传全文后先问：这篇文章最值得我复现的部分是什么？",
+        caution: "数字、页码和引文仍需手工核对。",
+        aliases: ["长上下文", "全文精读", "paper analysis"],
+        relatedIds: [8, 39, 50]
+    },
+    {
+        id: 8,
+        stationSection: "weekly",
+        sortOrder: 20,
+        editorialStatus: "编辑复核",
+        reviewedAt: "2026-04-19",
+        reviewNote: "更像研究助理而不是搜索框，适合文献摸排和证据表起草。",
+        usageGuide: "先用一句研究问题检索，再要求它输出纳排标准、变量字段和空白点。",
+        bestFor: "文献摸排、系统综述前期、证据表",
+        quickStart: "输入研究问题时直接写比较对象、样本和结局变量。",
+        caution: "结论表述要回到原文核证，不要直接复制到综述正文。",
+        aliases: ["systematic review", "evidence table", "文献摸排"],
+        relatedIds: [36, 50, 12]
+    },
+    {
+        id: 50,
+        stationSection: "weekly",
+        sortOrder: 30,
+        editorialStatus: "编辑复核",
+        reviewedAt: "2026-04-18",
+        reviewNote: "适合在读文献时做“支持 / 反驳 / 提及”判断，能快速筛掉站不住脚的引文。",
+        usageGuide: "把关键核心文献先丢进来，看它被谁支持、被谁反驳，再决定是否写进综述主线。",
+        bestFor: "引文可信度审查、争议点定位",
+        quickStart: "优先核查综述里最关键的 5-10 篇锚点文献。",
+        caution: "引用语境仍要回到原文，不要只看 citation statement。",
+        aliases: ["citation check", "支持引用", "反驳引用"],
+        relatedIds: [8, 36, 1]
+    },
+    {
+        id: 39,
+        stationSection: "weekly",
+        sortOrder: 40,
+        editorialStatus: "编辑复核",
+        reviewedAt: "2026-04-17",
+        reviewNote: "成稿、协作和投稿前格式修正最稳，适合论文进入“要交稿”的阶段。",
+        usageGuide: "从期刊模板起步，和 Zotero 或 BibTeX 联动，不要等到最后一天再调格式。",
+        bestFor: "LaTeX 成稿、协作写作、期刊模板",
+        quickStart: "先选目标期刊模板，再反推图表、引用和附录结构。",
+        caution: "模板本身不等于投稿规范，仍要核查作者指南。",
+        aliases: ["latex", "期刊模板", "manuscript"],
+        relatedIds: [36, 3, 2]
+    },
+    {
+        id: 1,
+        stationSection: "essential",
+        sortOrder: 50,
+        editorialStatus: "高频",
+        reviewedAt: "2026-04-20",
+        reviewNote: "适合快速改写、结构重排和把粗糙想法整理成导师能看的版本。",
+        usageGuide: "给它明确角色和输出格式，例如“按审稿回复表格输出”或“先列提纲再成段”。",
+        bestFor: "摘要、引言、回复信、结构改写",
+        quickStart: "先让它生成提纲，不要一上来就要求完整成稿。",
+        caution: "不要直接让它编造引用或实验结果。",
+        aliases: ["摘要", "引言", "rebuttal"],
+        relatedIds: [3, 39, 36]
+    },
+    {
+        id: 3,
+        stationSection: "essential",
+        sortOrder: 60,
+        editorialStatus: "语言把关",
+        reviewedAt: "2026-04-18",
+        reviewNote: "适合论文接近定稿时做语言层精修，比通用模型更贴近投稿语体。",
+        usageGuide: "先自己完成结构和论证，再把单段或单节交给它做语法与表达修正。",
+        bestFor: "投稿前语言润色、句级修正",
+        quickStart: "按段处理，顺便让它指出逻辑跳跃和术语不一致。",
+        caution: "不负责替你修复研究设计问题。",
+        aliases: ["language polish", "proofread", "投稿润色"],
+        relatedIds: [1, 39, 2]
+    },
+    {
+        id: 12,
+        stationSection: "essential",
+        sortOrder: 70,
+        editorialStatus: "稳定",
+        reviewedAt: "2026-04-16",
+        reviewNote: "适合做第一轮学术检索和作者脉络梳理，免费入口价值高。",
+        usageGuide: "先找综述和高被引锚点，再顺着作者与引用网络扩展。",
+        bestFor: "免费学术检索、作者脉络",
+        quickStart: "把主题词拆成 2-3 组核心检索词分别搜。",
+        caution: "不要把覆盖面误当完整性，关键数据库仍要补查。",
+        aliases: ["semantic scholar", "citation graph", "学术检索"],
+        relatedIds: [8, 29, 36]
+    },
+    {
+        id: 29,
+        stationSection: "essential",
+        sortOrder: 80,
+        editorialStatus: "高频",
+        reviewedAt: "2026-04-16",
+        reviewNote: "适合快速拿到带来源的背景信息，但更适合作为探索入口而不是最终证据。",
+        usageGuide: "用它快速摸清关键词、机构、数据源，再回到正式数据库做核查。",
+        bestFor: "带引用背景调查、跨领域摸底",
+        quickStart: "把问题写成“主题 + 对象 + 时间范围 + 是否要论文来源”。",
+        caution: "来源质量差异很大，高风险结论必须二次验证。",
+        aliases: ["带引用搜索", "background search", "cross-domain"],
+        relatedIds: [12, 8, 1]
+    },
+    {
+        id: 36,
+        stationSection: "essential",
+        sortOrder: 90,
+        editorialStatus: "必备",
+        reviewedAt: "2026-04-20",
+        reviewNote: "文献管理底座，能把阅读、标注、引用和团队共享串起来。",
+        usageGuide: "先建 collection 和 tag 规则，再批量收论文，不要把资料堆成一个大库。",
+        bestFor: "文献管理、引用输出、阅读归档",
+        quickStart: "按“综述 / 方法 / 数据 / rebuttal”建四个主集合即可。",
+        caution: "元数据抓取常有错误，导入后要立即校正作者与期刊信息。",
+        aliases: ["reference manager", "bib", "citation library"],
+        relatedIds: [39, 8, 50]
+    },
+    {
+        id: 42,
+        stationSection: "essential",
+        sortOrder: 100,
+        editorialStatus: "方法友好",
+        reviewedAt: "2026-04-15",
+        reviewNote: "适合社科、心理和教育研究做基础统计与贝叶斯分析，学习成本低。",
+        usageGuide: "先用它确认方法和结果表，再决定是否需要转到 R/Python 做复现图表。",
+        bestFor: "统计入门、社科分析、SPSS 替代",
+        quickStart: "先跑描述统计和假设检验，再补效应量与可视化。",
+        caution: "复杂建模或自动化流程仍建议切到脚本工具。",
+        aliases: ["bayesian", "stats gui", "SPSS替代"],
+        relatedIds: [47, 25, 19]
+    },
+    {
+        id: 47,
+        stationSection: "essential",
+        sortOrder: 110,
+        editorialStatus: "必备",
+        reviewedAt: "2026-04-20",
+        reviewNote: "科研脚本、可视化和复现记录的默认工作台。",
+        usageGuide: "把数据清洗、分析、图表和解释写在同一 notebook 里，方便回溯与分享。",
+        bestFor: "可复现分析、探索性计算、实验记录",
+        quickStart: "每一步都写 markdown 注释，别只留代码。",
+        caution: "正式项目仍要把核心逻辑沉淀成脚本或包。",
+        aliases: ["notebook", "reproducible", "分析记录"],
+        relatedIds: [25, 24, 42]
+    },
+    {
+        id: 25,
+        stationSection: "essential",
+        sortOrder: 120,
+        editorialStatus: "高频",
+        reviewedAt: "2026-04-15",
+        reviewNote: "最适合临时实验、模型复跑和和导师共享 notebook 链接。",
+        usageGuide: "需要 GPU 或远程协作时再开，用完及时把结果和代码同步回仓库。",
+        bestFor: "临时实验、共享 notebook、GPU 尝试",
+        quickStart: "开头就挂载 Drive 或 GitHub，避免实验结束后找不到文件。",
+        caution: "临时环境不适合作为唯一实验归档。",
+        aliases: ["colab", "gpu", "remote notebook"],
+        relatedIds: [47, 24, 16]
+    },
+    {
+        id: 24,
+        stationSection: "essential",
+        sortOrder: 130,
+        editorialStatus: "高频",
+        reviewedAt: "2026-04-19",
+        reviewNote: "适合把分析脚本、爬虫和实验 pipeline 从零搭起来，并连续迭代。",
+        usageGuide: "让它先解释已有代码库，再做增量修改；不要在陌生仓库里直接放权重构。",
+        bestFor: "科研编程、脚本迭代、实验 pipeline",
+        quickStart: "先问“这个项目的输入输出和依赖是什么”，再改代码。",
+        caution: "自动修改前要先看 diff，尤其是数据处理逻辑。",
+        aliases: ["ai ide", "research coding", "pipeline"],
+        relatedIds: [47, 25, 16]
+    },
+    {
+        id: 16,
+        stationSection: "essential",
+        sortOrder: 140,
+        editorialStatus: "国产可用",
+        reviewedAt: "2026-04-18",
+        reviewNote: "适合快速生成分析脚本和中文思路梳理，是低成本的编程助理。",
+        usageGuide: "把你的变量名、数据结构和目标图表说清楚，让它先出分析 plan 再出代码。",
+        bestFor: "中文科研编程、脚本草拟、数学推理",
+        quickStart: "优先要求它解释每一步为什么这样做。",
+        caution: "输出代码要手动跑通，不要把生成结果当可直接发表代码。",
+        aliases: ["deepseek", "国产编程", "中文代码"],
+        relatedIds: [24, 47, 25]
+    },
+    {
+        id: 13,
+        stationSection: "essential",
+        sortOrder: 150,
+        editorialStatus: "中文友好",
+        reviewedAt: "2026-04-17",
+        reviewNote: "适合中文环境下做多篇论文并读、会议纪要整理和初步提炼。",
+        usageGuide: "先给阅读任务边界，例如“只比较数据集、方法和局限”，避免它泛泛总结。",
+        bestFor: "中文阅读、多文档对比、会议纪要",
+        quickStart: "一次只处理一类问题，例如先做方法矩阵，再做争议点。",
+        caution: "多文档摘要容易丢细节，最终表格要自己复核。",
+        aliases: ["中文阅读", "multi-pdf", "论文对比"],
+        relatedIds: [2, 8, 36]
+    },
+    {
+        id: 18,
+        stationSection: "essential",
+        sortOrder: 160,
+        editorialStatus: "视觉首选",
+        reviewedAt: "2026-04-14",
+        reviewNote: "生物医学与机制图场景最省时间，适合做论文主图和图形摘要。",
+        usageGuide: "先定图的叙事层级，再选 icon；不要一上来就开始堆细胞器。",
+        bestFor: "机制图、图形摘要、生物医学插图",
+        quickStart: "先画黑白结构草图，再上色和统一字体。",
+        caution: "最终图例和标注要按目标期刊规范收口。",
+        aliases: ["mechanism figure", "graphical abstract", "生物医学"],
+        relatedIds: [19, 39, 1]
+    },
+    {
+        id: 19,
+        stationSection: "essential",
+        sortOrder: 170,
+        editorialStatus: "实验常用",
+        reviewedAt: "2026-04-14",
+        reviewNote: "对生物、医学实验数据非常高频，出图和统计一体化体验好。",
+        usageGuide: "把原始数据表清理干净后再导入，优先统一分组命名和单位。",
+        bestFor: "实验统计、剂量反应、生存曲线",
+        quickStart: "出图前先确认检验方法和误差线定义。",
+        caution: "默认图不一定符合投稿要求，颜色和标注要手调。",
+        aliases: ["survival curve", "dose response", "prism"],
+        relatedIds: [42, 18, 47]
+    }
+];
+
+const TOOL_DIRECTORY_INDEX = new Map(TOOLS_DATA.map(tool => [tool.id, tool]));
+const CURATED_TOOLS = CURATED_TOOL_EDITORIAL.map(meta => {
+    const base = TOOL_DIRECTORY_INDEX.get(meta.id);
+    if (!base) return null;
+    const sectionMeta = CURATED_STATION_SECTIONS[meta.stationSection] || CURATED_STATION_SECTIONS.essential;
+    const tags = [...new Set([...(base.tags || []), sectionMeta.label])];
+    const keywords = [
+        ...(base.keywords || []),
+        ...(meta.aliases || []),
+        meta.bestFor,
+        meta.editorialStatus,
+        sectionMeta.label
+    ].filter(Boolean);
+    return {
+        ...base,
+        entryKind: "tool",
+        sortOrder: meta.sortOrder,
+        stationSection: meta.stationSection,
+        stationSectionLabel: sectionMeta.label,
+        editorialStatus: meta.editorialStatus,
+        reviewedAt: meta.reviewedAt,
+        reviewNote: meta.reviewNote,
+        usageGuide: meta.usageGuide,
+        bestFor: meta.bestFor,
+        quickStart: meta.quickStart,
+        caution: meta.caution,
+        relatedIds: meta.relatedIds || [],
+        tags,
+        keywords: [...new Set(keywords)],
+        provenance: {
+            ...(base.provenance || {}),
+            sourceName: "研究站编辑台",
+            status: meta.editorialStatus,
+            freshness: `复核 ${meta.reviewedAt}`,
+            note: meta.reviewNote
+        }
+    };
+}).filter(Boolean).sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
+if (CURATED_TOOLS.length) {
+    TOOLS_DATA.splice(0, TOOLS_DATA.length, ...CURATED_TOOLS);
+}
+
+FEATURED_TOOLS.splice(0, FEATURED_TOOLS.length, ...[
+    {
+        id: 2,
+        kicker: "整篇论文拆读",
+        reason: "把论文先拆成问题、方法、结果和限制，再决定你要不要继续深读。",
+        usage: "适合开题摸底、组会前复盘、审稿回复草稿。",
+        status: "本周精选"
+    },
+    {
+        id: 8,
+        kicker: "文献摸排",
+        reason: "先做纳排标准和证据表，再写综述，能少走很多弯路。",
+        usage: "适合系统综述前期、研究空白定位。",
+        status: "本周精选"
+    },
+    {
+        id: 50,
+        kicker: "引文可靠性",
+        reason: "读文献时先看它被支持还是被反驳，能更快识别争议点。",
+        usage: "适合综述写作、回复审稿、争议文献排雷。",
+        status: "本周精选"
+    },
+    {
+        id: 39,
+        kicker: "临近交稿",
+        reason: "从模板和引用开始收口，能避免最后阶段全局返工。",
+        usage: "适合 LaTeX 成稿、多人协作和格式整理。",
+        status: "本周精选"
+    }
+]);
+
+PROMPTS_DATA.splice(0, PROMPTS_DATA.length, ...[
+    {
+        id: 1,
+        entryKind: "script",
+        title: "开题前 2 小时文献摸排剧本",
+        category: "review",
+        status: "高频",
+        usage: "适合硕士开题、博士换题或导师临时让你快速补背景。",
+        output: "输出：关键词组、10 篇锚点文献、3 个研究空白句。",
+        tools: ["Elicit", "Semantic Scholar", "Zotero"],
+        keywords: ["开题", "文献摸排", "综述", "research gap"],
+        content: `你现在是我的研究助理。请围绕研究问题「[研究主题]」帮我完成一轮可执行的文献摸排。
+
+任务要求：
+1. 先把问题拆成 3 组核心检索词，分别给出英文同义词和布尔检索式。
+2. 为每组检索词推荐适合的数据库（如 Web of Science、PubMed、Semantic Scholar）及原因。
+3. 输出 10 篇优先阅读的锚点文献，按“综述 / 方法 / 代表性实证 / 争议文献”分组。
+4. 总结这个方向目前最常见的 3 条研究路径与 3 个尚未解决的问题。
+5. 最后给我一个 30 分钟内能执行完的阅读顺序。
+
+输出格式：
+- 检索词表
+- 锚点文献清单
+- 研究空白句（可直接写进开题报告）`
+    },
+    {
+        id: 2,
+        entryKind: "script",
+        title: "论文初稿重写剧本",
+        category: "writing",
+        status: "常用",
+        usage: "适合已经有粗稿，但导师说“逻辑还不够清楚”的场景。",
+        output: "输出：重排后的结构、每段功能、需要补证据的位置。",
+        tools: ["ChatGPT", "Claude", "Overleaf"],
+        keywords: ["初稿", "结构重写", "introduction", "discussion"],
+        content: `请把以下论文初稿重写成更适合投稿的结构化版本，但不要改动我的核心发现。
+
+请按下面步骤工作：
+1. 先判断当前稿件的逻辑问题，指出哪些段落在重复、跳步或证据不足。
+2. 重新输出一版章节和段落提纲，说明每段的功能。
+3. 对每一段给出“保留 / 合并 / 前移 / 删除 / 需要补证据”的判断。
+4. 只重写一段示范段落，保持学术语气，不要替我编造文献。
+5. 最后给我一个“作者自己需要补什么”的待办清单。
+
+原稿：
+[粘贴草稿]`
+    },
+    {
+        id: 3,
+        entryKind: "script",
+        title: "统计方法确认剧本",
+        category: "analysis",
+        status: "方法",
+        usage: "适合拿到数据后，不确定该做 t 检验、回归、混合模型还是贝叶斯分析。",
+        output: "输出：方法选择理由、前提检验、结果表与图表建议。",
+        tools: ["JASP", "Jupyter Notebook", "GraphPad Prism"],
+        keywords: ["统计", "方法选择", "假设检验", "回归"],
+        content: `请根据我的研究设计和变量类型，帮我确认统计分析路线，而不是只给一个方法名称。
+
+研究设计：[横断面 / 纵向 / 实验 / 观察]
+样本量：[N=?]
+因变量：[连续 / 分类 / 计数] + 描述
+自变量：[连续 / 分类] + 描述
+重复测量：[有 / 无]
+我最关心的问题：[组间差异 / 关联 / 预测 / 机制]
+
+请输出：
+1. 推荐方法及为什么不用其他常见替代方法。
+2. 我需要先检查哪些前提假设。
+3. 结果表应该包含哪些列。
+4. 最适合的 2-3 张图以及图注里要交代什么。
+5. 给我 JASP、R 或 Python 的最小实现示例。`
+    },
+    {
+        id: 4,
+        entryKind: "script",
+        title: "审稿回复剧本",
+        category: "writing",
+        status: "投稿",
+        usage: "适合收到 revise decision 后，先把评论拆成可执行任务清单。",
+        output: "输出：逐条回复框架、证据补充清单、争议意见回应策略。",
+        tools: ["Claude", "ChatGPT", "Scite.ai"],
+        keywords: ["审稿回复", "rebuttal", "revision", "reviewer comments"],
+        content: `请帮我把以下审稿意见转成一份专业、可执行的回复计划。
+
+要求：
+1. 先按“可直接修改 / 需要补实验或补分析 / 需要礼貌反驳”三类拆分意见。
+2. 每条意见输出三栏：审稿人关切、作者拟回复、需要在稿件中改动的位置。
+3. 对存在争议的意见，补一个“可引用哪些证据”的建议。
+4. 帮我写一版语气稳妥、不过度承诺的回复模板。
+5. 最后给我一个 revision 优先级列表。
+
+审稿意见：
+[粘贴 reviewer comments]`
+    }
+]);
+
+TUTORIALS_DATA.splice(0, TUTORIALS_DATA.length, ...[
+    {
+        id: 1,
+        title: "首页切换为 curated research station",
+        desc: "首页从“全目录逛站”改为“本周精选 / 研究剧本 / 高频必备 / 方法工具 / 更新记录”五段式工作台。",
+        cover: "linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%)",
+        icon: "fas fa-compass-drafting",
+        views: "结构更新",
+        date: "2026-04-21",
+        status: "已上线",
+        note: "搜索和推荐改为围绕精选条目、研究剧本与方法模块工作。"
+    },
+    {
+        id: 2,
+        title: "推荐逻辑收窄到研究任务",
+        desc: "不再把空结果导回“查看全部工具”，改成围绕研究任务、剧本和方法模块给出建议。",
+        cover: "linear-gradient(135deg, #1d4ed8 0%, #06b6d4 100%)",
+        icon: "fas fa-route",
+        views: "推荐策略",
+        date: "2026-04-20",
+        status: "已校验",
+        note: "适合研究生快速定位“下一步该做什么”，而不是继续逛目录。"
+    },
+    {
+        id: 3,
+        title: "方法工具纳入首页壳层",
+        desc: "选刊助手、引文核查、PaperDeck 和统计方法库不再像孤立页面，而是作为首页方法工具入口保留。",
+        cover: "linear-gradient(135deg, #7c3aed 0%, #2563eb 100%)",
+        icon: "fas fa-toolbox",
+        views: "模块整合",
+        date: "2026-04-19",
+        status: "已上线",
+        note: "缺少 manifest 或状态数据时仍显示本地说明，不阻断模块使用。"
+    },
+    {
+        id: 4,
+        title: "高频工具改成编辑台账",
+        desc: "工具卡片增加使用场景、编辑复核状态、注意事项，避免只展示评分和用户数。",
+        cover: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)",
+        icon: "fas fa-clipboard-check",
+        views: "元数据增强",
+        date: "2026-04-18",
+        status: "已复核",
+        note: "更适合硕博用户做任务判断，而不是单看热度。"
+    }
+]);
+
+const METHOD_TOOL_MODULES = [
+    {
+        id: "journal",
+        entryKind: "method",
+        category: "journal",
+        title: "选刊助手",
+        icon: "fas fa-journal-whills",
+        color: "#2563eb",
+        status: "内置模块",
+        usageGuide: "先明确学科、分区和审稿周期，再看候选期刊。",
+        desc: "把投稿约束转成候选期刊清单，适合论文接近成稿时缩小目标范围。",
+        keywords: ["投稿", "期刊", "journal", "分区", "审稿周期"],
+        ctaLabel: "打开模块"
+    },
+    {
+        id: "cite-check",
+        entryKind: "method",
+        category: "cite-check",
+        title: "引文核查",
+        icon: "fas fa-list-check",
+        color: "#7c3aed",
+        status: "内置模块",
+        usageGuide: "先核关键锚点文献，再批量清理引用格式和高风险表述。",
+        desc: "适合投稿前、综述成稿前和审稿回复前做最后一轮引文排雷。",
+        keywords: ["引文", "citation", "核查", "参考文献", "quote"],
+        ctaLabel: "打开模块"
+    },
+    {
+        id: "paperdeck",
+        entryKind: "method",
+        category: "paperdeck",
+        title: "PaperDeck",
+        icon: "fas fa-layer-group",
+        color: "#059669",
+        status: "内置模块",
+        usageGuide: "把单篇论文拆成研究问题、方法、数据和可迁移做法四张卡。",
+        desc: "适合组会、文献精读和把阅读记录沉淀成自己的方法库。",
+        keywords: ["paperdeck", "精读", "读书卡", "文献卡片", "组会"],
+        ctaLabel: "打开模块"
+    },
+    {
+        id: "stats",
+        entryKind: "method",
+        category: "stats",
+        title: "统计方法库",
+        icon: "fas fa-chart-bar",
+        color: "#f59e0b",
+        status: "内置模块",
+        usageGuide: "按研究目标先找方法，再看图表建议和实现方式。",
+        desc: "把常用统计方法、可视化建议和实现入口留在站内，减少来回切换。",
+        keywords: ["统计", "方法", "visualization", "回归", "ANOVA"],
+        ctaLabel: "打开模块"
+    }
+];
+
+const STATION_RECOMMEND_SCENES = [
+    {
+        id: "lit-map",
+        label: "文献摸排",
+        icon: "fas fa-compass",
+        keywords: ["文献", "综述", "检索", "gap", "证据表"]
+    },
+    {
+        id: "drafting",
+        label: "成稿重写",
+        icon: "fas fa-pen-fancy",
+        keywords: ["摘要", "引言", "讨论", "重写", "润色"]
+    },
+    {
+        id: "methods",
+        label: "方法确认",
+        icon: "fas fa-square-poll-vertical",
+        keywords: ["统计", "回归", "检验", "建模", "分析"]
+    },
+    {
+        id: "submission",
+        label: "投稿检查",
+        icon: "fas fa-paper-plane",
+        keywords: ["投稿", "期刊", "审稿", "rebuttal", "引用"]
+    },
+    {
+        id: "figure",
+        label: "配图展示",
+        icon: "fas fa-bezier-curve",
+        keywords: ["图", "figure", "graphical abstract", "汇报", "幻灯"]
+    }
+];
+
+const STATION_SEARCH_INDEX = [
+    ...TOOLS_DATA.map(tool => ({
+        entryKind: "tool",
+        refId: tool.id,
+        title: tool.name,
+        desc: tool.reviewNote || tool.desc,
+        usageGuide: tool.usageGuide,
+        status: tool.editorialStatus || tool.stationSectionLabel || "",
+        icon: tool.icon,
+        color: tool.color,
+        keywords: [...new Set([...(tool.keywords || []), ...(tool.tags || []), tool.bestFor, tool.stationSectionLabel].filter(Boolean))],
+        actionLabel: "查看工具"
+    })),
+    ...PROMPTS_DATA.map(script => ({
+        entryKind: "script",
+        refId: script.id,
+        title: script.title,
+        desc: script.usage,
+        usageGuide: script.output,
+        status: script.status,
+        icon: "fas fa-scroll",
+        color: "#0f766e",
+        keywords: [...new Set([...(script.keywords || []), ...(script.tools || []), script.category, script.status].filter(Boolean))],
+        actionLabel: "复制剧本"
+    })),
+    ...METHOD_TOOL_MODULES.map(module => ({
+        entryKind: "method",
+        refId: module.category,
+        title: module.title,
+        desc: module.desc,
+        usageGuide: module.usageGuide,
+        status: module.status,
+        icon: module.icon,
+        color: module.color,
+        keywords: [...new Set([...(module.keywords || []), module.title, module.status].filter(Boolean))],
+        actionLabel: module.ctaLabel || "打开模块"
+    }))
+];
+
 // ---- 工具官方文档 ----
 const TOOL_DOCS = {
     // new tools

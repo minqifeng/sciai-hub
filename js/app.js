@@ -12,8 +12,8 @@
     const mobileMenuBtn   = $('#mobileMenuBtn');
     const sidebarBackdrop = $('#sidebarBackdrop');
     const globalSearch    = $('#globalSearch');
-    const heroSearch      = $('#heroSearch');
-    const heroSearchBtn   = $('#heroSearchBtn');
+    const heroSearch      = $('.editorial-hero-search input') || $('#heroSearch');
+    const heroSearchBtn   = $('.editorial-hero-search .hero-search-btn') || $('#heroSearchBtn');
     const themeToggle     = $('#themeToggle');
     const loginBtn        = $('#loginBtn');
     const loginModal      = $('#loginModal');
@@ -39,6 +39,9 @@
     const compareModalClose = $('#compareModalClose');
     const resourcesModal  = $('#resourcesModal');
     const resourcesModalClose = $('#resourcesModalClose');
+    const homePlaybooksGrid = document.querySelector('#homePlaybooksSection .playbooks-grid');
+    const homeUpdatesGrid = document.querySelector('#homeUpdatesSection .updates-grid');
+    const methodQuickGrid = document.querySelector('#toolsSection .method-quick-grid');
 
     const sections = {
         hero:         $('#heroSection'),
@@ -94,7 +97,8 @@
         loadedAt: null,
         news: null,
         models: null,
-        github: null
+        github: null,
+        updates: null
     };
     let newsRefreshInFlight = null;
     let hasRequestedLiveNews = false;
@@ -247,6 +251,8 @@
     function resolveHomeFocus(label = '', category = '') {
         const text = `${label} ${category}`.replace(/\s+/g, '');
         if (/科研路线|路线|route|roadmap/i.test(text)) return 'route';
+        if (/剧本|playbook/i.test(text)) return 'playbooks';
+        if (/更新|changelog|update/i.test(text)) return 'updates';
         if (/找工具|工具|tool|search/i.test(text)) return 'tools';
         if (/精选推荐|推荐|featured/i.test(text)) return 'featured';
         if (/首页|home|全部工具|all|总览|overview/i.test(text)) return 'home';
@@ -258,15 +264,17 @@
         const explicitFocus = String(item?.dataset?.homeFocus || '').trim();
         const label = String(item?.querySelector('span')?.textContent || item?.textContent || '').trim();
         const normalizedLabel = label.replace(/\s+/g, '');
-        const homeAlias = /^(all|home|homepage|overview|首页|全部工具|科研路线|找工具|精选推荐)$/i.test(rawCategory)
-            || /首页|全部工具|科研路线|找工具|精选推荐/.test(normalizedLabel);
+        const homeAlias = /^(all|home|homepage|overview|首页|全部工具|科研路线|找工具|精选推荐|研究剧本|更新记录)$/i.test(rawCategory)
+            || /首页|全部工具|科研路线|找工具|精选推荐|研究剧本|更新记录/.test(normalizedLabel);
         if (homeAlias) {
             const focus = explicitFocus || resolveHomeFocus(label, rawCategory);
             const titleMap = {
                 home: '首页',
                 route: '科研路线',
-                tools: '找工具',
-                featured: '精选推荐'
+                playbooks: '研究剧本',
+                tools: '工具评测',
+                featured: '本周精选',
+                updates: '更新记录'
             };
             return {
                 category: 'all',
@@ -283,8 +291,10 @@
 
     function getHomeAnchorSelector(focus) {
         if (focus === 'route') return '#researchRouteSection';
+        if (focus === 'playbooks') return '#homePlaybooksSection';
         if (focus === 'tools') return '#toolsSection';
         if (focus === 'featured') return '#featuredSection';
+        if (focus === 'updates') return '#homeUpdatesSection';
         return '#heroSection';
     }
 
@@ -435,22 +445,25 @@
                 loadedAt: new Date().toISOString(),
                 news: null,
                 models: null,
-                github: null
+                github: null,
+                updates: null
             };
             return Promise.resolve(manifestState);
         }
         manifestLoadInFlight = (async () => {
-            const [news, models, github] = await Promise.all([
+            const [news, models, github, updates] = await Promise.all([
                 DataManifestAPI.loadDataset('news'),
                 DataManifestAPI.loadDataset('models'),
-                DataManifestAPI.loadDataset('github')
+                DataManifestAPI.loadDataset('github'),
+                DataManifestAPI.loadDataset('updates')
             ]);
             manifestState = {
                 loaded: true,
                 loadedAt: new Date().toISOString(),
                 news,
                 models,
-                github
+                github,
+                updates
             };
             currentNewsUpdatedAt = news.primary?.validatedAt || news.primary?.sourceFetchedAt || currentNewsUpdatedAt;
             currentModelLiveUpdatedAt = models.primary?.validatedAt || models.primary?.sourceFetchedAt || currentModelLiveUpdatedAt;
@@ -470,6 +483,21 @@
         updateNewsSectionMeta();
         updateModelsSectionMeta();
         updateGithubSectionMeta();
+        updateHomeUpdatesSectionMeta();
+    }
+
+    function updateHomeUpdatesSectionMeta() {
+        const el = document.querySelector('#homeUpdatesSection .section-sub');
+        if (!el) return;
+        const newsMeta = describeManifestBundle('news');
+        const modelMeta = describeManifestBundle('models');
+        const githubMeta = describeManifestBundle('github');
+        const updatesMeta = describeManifestBundle('updates');
+        if (updatesMeta.available) {
+            el.textContent = `更新记录已接入每日汇总清单：${updatesMeta.freshness} · 新闻 ${newsMeta.freshness} · 模型 ${modelMeta.freshness} · GitHub ${githubMeta.freshness}。`;
+            return;
+        }
+        el.textContent = `站内变更之外，还会同步显示数据节奏：新闻 ${newsMeta.freshness} · 模型 ${modelMeta.freshness} · GitHub ${githubMeta.freshness}。`;
     }
 
     function updateModelsSectionMeta() {
@@ -509,12 +537,7 @@
     const GITHUB_CACHE_KEY     = 'sciai-github-trending';
     const GITHUB_CACHE_TTL     = 2 * 60 * 60 * 1000; // 2h
 
-    const TOOL_TAB_CATS = new Set([
-        'all', 'hot', 'new', 'favorites', 'recent',
-        'writing', 'reading', 'data', 'figure', 'code',
-        'experiment', 'llm', 'image-ai', 'voice', 'video',
-        'aisoft', 'agents', 'cli'
-    ]);
+    const TOOL_TAB_CATS = new Set();
 
     function syncToolTabsVisibility(cat) {
         const tabsContainer = $('#toolsCategoryTabs');
@@ -522,6 +545,214 @@
         const visible = TOOL_TAB_CATS.has(cat);
         tabsContainer.style.display = visible ? 'block' : 'none';
         document.body.classList.toggle('tool-tabs-visible', visible);
+    }
+
+    function getMethodToolModules() {
+        if (Array.isArray(METHOD_TOOL_MODULES) && METHOD_TOOL_MODULES.length) return METHOD_TOOL_MODULES;
+        return [
+            { category: 'journal', title: '选刊助手', status: '内置模块', usageGuide: '根据学科和投稿约束筛期刊。', icon: 'fas fa-journal-whills', color: '#2563eb' },
+            { category: 'cite-check', title: '引文核查', status: '内置模块', usageGuide: '投稿前集中核查关键引文。', icon: 'fas fa-list-check', color: '#7c3aed' },
+            { category: 'paperdeck', title: 'PaperDeck', status: '内置模块', usageGuide: '把精读内容压成可复用卡片。', icon: 'fas fa-layer-group', color: '#059669' },
+            { category: 'stats', title: '统计方法库', status: '内置模块', usageGuide: '按研究目标挑方法、图表和实现。', icon: 'fas fa-chart-bar', color: '#f59e0b' }
+        ];
+    }
+
+    function getStationSearchIndex() {
+        if (Array.isArray(STATION_SEARCH_INDEX) && STATION_SEARCH_INDEX.length) return STATION_SEARCH_INDEX;
+        const toolEntries = Array.isArray(TOOLS_DATA) ? TOOLS_DATA.map(tool => ({
+            entryKind: 'tool',
+            refId: tool.id,
+            title: tool.name,
+            desc: tool.desc,
+            usageGuide: tool.usageGuide || '',
+            status: tool.editorialStatus || '',
+            icon: tool.icon,
+            color: tool.color,
+            keywords: [...new Set([...(tool.keywords || []), ...(tool.tags || [])])],
+            actionLabel: '查看工具'
+        })) : [];
+        const scriptEntries = Array.isArray(PROMPTS_DATA) ? PROMPTS_DATA.map(script => ({
+            entryKind: 'script',
+            refId: script.id,
+            title: script.title,
+            desc: script.usage || script.content,
+            usageGuide: script.output || '',
+            status: script.status || '',
+            icon: 'fas fa-scroll',
+            color: '#0f766e',
+            keywords: [...new Set([...(script.keywords || []), ...(script.tools || []), script.category].filter(Boolean))],
+            actionLabel: '复制剧本'
+        })) : [];
+        const methodEntries = getMethodToolModules().map(module => ({
+            entryKind: 'method',
+            refId: module.category,
+            title: module.title,
+            desc: module.desc || module.usageGuide,
+            usageGuide: module.usageGuide || '',
+            status: module.status || '',
+            icon: module.icon,
+            color: module.color,
+            keywords: [...new Set([...(module.keywords || []), module.title, module.status].filter(Boolean))],
+            actionLabel: module.ctaLabel || '打开模块'
+        }));
+        return [...toolEntries, ...scriptEntries, ...methodEntries];
+    }
+
+    function findPromptScript(id) {
+        return Array.isArray(PROMPTS_DATA) ? PROMPTS_DATA.find(item => String(item.id) === String(id)) : null;
+    }
+
+    function activateNavItem(cat, homeFocus = '') {
+        $$('.nav-item').forEach(n => n.classList.remove('active'));
+        const selector = homeFocus
+            ? `.nav-item[data-category="${cat}"][data-home-focus="${homeFocus}"]`
+            : `.nav-item[data-category="${cat}"]`;
+        document.querySelector(selector)?.classList.add('active');
+    }
+
+    function openStationHomeFocus(focus = 'tools', title = '') {
+        currentCategory = 'all';
+        currentHomeFocus = focus;
+        if (title) currentHomeFocusTitle = title;
+        activateNavItem('all', focus);
+        showSection('all');
+        filterTools();
+        scrollCategoryIntoView('all', { focus });
+    }
+
+    function copyPromptScript(id) {
+        const prompt = findPromptScript(id);
+        if (!prompt) {
+            showToast('研究剧本暂不可用');
+            return;
+        }
+        navigator.clipboard.writeText(prompt.content).then(() => {
+            showToast('研究剧本已复制');
+        }).catch(() => {
+            showToast('复制失败，请稍后再试');
+        });
+    }
+
+    function renderHomePlaybooks(prompts) {
+        if (!homePlaybooksGrid) return;
+        homePlaybooksGrid.innerHTML = prompts.map((prompt, index) => `
+            <article class="playbook-card">
+                <div class="tool-card-header">
+                    <div class="tool-icon" style="background:#0f766e">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <div class="tool-card-info">
+                        <h4>${escapeHtml(prompt.title)}</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">${String(index + 1).padStart(2, '0')}</span>
+                            <span class="tool-tag">${escapeHtml(prompt.status || getCategoryLabel(prompt.category))}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card-desc">${escapeHtml(prompt.usage || '')}</div>
+                ${prompt.output ? `<div class="tool-card-desc">${escapeHtml(prompt.output)}</div>` : ''}
+                <div class="tool-card-footer">
+                    <div class="tool-users"><i class="fas fa-toolbox"></i>${escapeHtml((prompt.tools || []).slice(0, 2).join(' · ') || '研究剧本')}</div>
+                    <button class="btn-copy station-search-action" data-kind="script" data-ref="${prompt.id}">复制剧本</button>
+                </div>
+            </article>
+        `).join('');
+
+        homePlaybooksGrid.querySelectorAll('.station-search-action').forEach(btn => {
+            btn.addEventListener('click', event => {
+                event.preventDefault();
+                handleStationEntryAction(btn.dataset.kind, btn.dataset.ref);
+            });
+        });
+    }
+
+    function renderHomeUpdates(updates) {
+        if (!homeUpdatesGrid) return;
+        homeUpdatesGrid.innerHTML = updates.map(update => `
+            <article class="update-card">
+                <span class="update-date">${escapeHtml(update.date || '')}</span>
+                <h4>${escapeHtml(update.title)}</h4>
+                <p>${escapeHtml(update.desc || '')}</p>
+                <div class="tool-tags">
+                    ${update.status ? `<span class="tool-tag">${escapeHtml(update.status)}</span>` : ''}
+                    ${update.views ? `<span class="tool-tag">${escapeHtml(update.views)}</span>` : ''}
+                </div>
+                ${update.note ? `<div class="tool-card-desc">${escapeHtml(update.note)}</div>` : ''}
+            </article>
+        `).join('');
+    }
+
+    function renderMethodQuickModules() {
+        if (!methodQuickGrid) return;
+        const modules = getMethodToolModules();
+        methodQuickGrid.innerHTML = modules.map(module => `
+            <button class="hero-flow-step method-quick-card" type="button" data-category="${escapeHtml(module.category)}">
+                <span class="hero-flow-index">Module</span>
+                <strong>${escapeHtml(module.title)}</strong>
+                <small>${escapeHtml(module.desc || module.usageGuide || '')}</small>
+            </button>
+        `).join('');
+
+        methodQuickGrid.querySelectorAll('[data-category]').forEach(btn => {
+            btn.addEventListener('click', () => openMethodTool(btn.dataset.category));
+        });
+    }
+
+    function openMethodTool(cat) {
+        activateNavItem(cat);
+        currentCategory = cat;
+        showSection(cat);
+        scrollCategoryIntoView(cat);
+    }
+
+    function handleStationEntryAction(kind, refId) {
+        if (kind === 'tool') {
+            openToolModal(Number(refId));
+            return;
+        }
+        if (kind === 'script') {
+            copyPromptScript(refId);
+            openStationHomeFocus('playbooks', '研究剧本');
+            document.getElementById('homePlaybooksSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        }
+        if (kind === 'method') {
+            openMethodTool(String(refId));
+        }
+    }
+
+    function applyCuratedStationCopy() {
+        const featuredTitle = document.querySelector('#featuredSection .section-header h3');
+        if (featuredTitle) featuredTitle.innerHTML = '<i class="fas fa-crown"></i> 本周精选';
+        const promptsTitle = document.querySelector('#promptsSection .section-header h3');
+        if (promptsTitle) promptsTitle.textContent = '研究剧本';
+        const tutorialsTitle = document.querySelector('#tutorialsSection .section-header h3');
+        if (tutorialsTitle) tutorialsTitle.textContent = '更新记录';
+        const toolsTitle = $('#toolsSectionTitle');
+        if (toolsTitle && currentCategory === 'all') toolsTitle.textContent = '精选工具评测';
+        if (globalSearch) globalSearch.placeholder = '搜索精选工具、研究剧本或方法模块... (按 / 聚焦)';
+
+        const featuredViewAll = document.querySelector('#featuredSection .view-all');
+        if (featuredViewAll) featuredViewAll.style.display = 'none';
+
+        const promptFilters = document.querySelector('#promptsSection .filter-tags');
+        if (promptFilters) promptFilters.style.display = 'none';
+
+        const toolTabs = $('#toolsCategoryTabs');
+        if (toolTabs) toolTabs.style.display = 'none';
+
+        const recFallbackBtn = document.querySelector('.rec-view-all-btn');
+        if (recFallbackBtn) {
+            recFallbackBtn.textContent = '回到高频必备';
+            recFallbackBtn.onclick = () => {
+                openStationHomeFocus('tools', '工具评测');
+                const recommendResults = document.getElementById('recommendResults');
+                if (recommendResults) recommendResults.style.display = 'none';
+            };
+        }
+
+        const emptyText = emptyState?.querySelector('p');
+        if (emptyText) emptyText.textContent = '未找到匹配的精选工具、研究剧本或方法模块';
     }
 
     // ---- 收藏 ----
@@ -896,6 +1127,12 @@
                     </div>
                 </div>
                 <div class="tool-card-desc">${tool.desc}</div>
+                <div class="tool-card-desc">${escapeHtml(tool.reviewNote || tool.usageGuide || '')}</div>
+                <div class="tool-tags">
+                    ${tool.stationSectionLabel ? `<span class="tool-tag">${tool.stationSectionLabel}</span>` : ''}
+                    ${tool.editorialStatus ? `<span class="tool-tag">${tool.editorialStatus}</span>` : ''}
+                    ${tool.bestFor ? `<span class="tool-tag">${tool.bestFor}</span>` : ''}
+                </div>
                 ${renderTrustStatusRow(getToolTrustMeta(tool), false)}
                 <div class="tool-card-footer">
                     <div class="tool-rating">${'<i class="fas fa-star"></i>'.repeat(Math.floor(tool.rating))}<span>${tool.rating}</span></div>
@@ -925,10 +1162,12 @@
     function renderPrompts(prompts) {
         promptsGrid.innerHTML = prompts.map(p => `
             <div class="prompt-card">
-                <h4><i class="fas fa-lightbulb"></i>${p.title}</h4>
-                <p>${p.content}</p>
+                <h4><i class="fas fa-scroll"></i>${p.title}</h4>
+                <p>${escapeHtml(p.usage || '')}</p>
+                ${p.output ? `<div class="section-sub">${escapeHtml(p.output)}</div>` : ''}
                 <div class="prompt-card-footer">
-                    <span class="prompt-category">${getCategoryLabel(p.category)}</span>
+                    <span class="prompt-category">${escapeHtml(p.status || getCategoryLabel(p.category))}</span>
+                    <span class="prompt-category">${escapeHtml((p.tools || []).slice(0, 2).join(' · ') || '研究剧本')}</span>
                     <button class="btn-copy" data-content="${encodeURIComponent(p.content)}"><i class="fas fa-copy"></i> 复制</button>
                 </div>
             </div>`).join('');
@@ -943,11 +1182,13 @@
                 });
             });
         });
+
+        renderHomePlaybooks(prompts);
     }
 
     function renderTutorials(tutorials) {
         tutorialsGrid.innerHTML = tutorials.map(t => `
-            <a class="tutorial-card" href="${t.url || '#'}" target="_blank" rel="noopener">
+            <article class="tutorial-card">
                 <div class="tutorial-cover" style="background:${t.cover}"><i class="${t.icon}"></i></div>
                 <div class="tutorial-body">
                     <h4>${t.title}</h4><p>${t.desc}</p>
@@ -957,7 +1198,9 @@
                         ${t.url ? '<span class="tutorial-link"><i class="fas fa-external-link-alt"></i> 查看</span>' : ''}
                     </div>
                 </div>
-            </a>`).join('');
+            </article>`).join('');
+
+        renderHomeUpdates(tutorials);
     }
 
     function slugifyLabel(value = '') {
@@ -1979,7 +2222,7 @@
 
         $('#toolModalName').textContent = tool.name;
         $('#toolModalTags').innerHTML = tool.tags.map(t => `<span class="tool-tag">${t}</span>`).join('');
-        $('#toolModalDesc').textContent = tool.desc;
+        $('#toolModalDesc').textContent = [tool.desc, tool.reviewNote, tool.quickStart ? `起步：${tool.quickStart}` : ''].filter(Boolean).join(' ');
         $('#toolModalRating').innerHTML = `${'★'.repeat(Math.floor(tool.rating))} ${tool.rating}`;
         $('#toolModalUsers').textContent = tool.users;
         $('#toolModalPricing').textContent = { free:'免费', freemium:'免费增值', paid:'付费' }[tool.pricing] || tool.pricing;
@@ -2028,7 +2271,7 @@
     // ---- 搜索 ----
     function doSearch(query) {
         currentHomeFocus = 'tools';
-        currentHomeFocusTitle = '找工具';
+        currentHomeFocusTitle = '工具评测';
         showSection('all');
         $$('.nav-item').forEach(n => n.classList.remove('active'));
         document.querySelector('.nav-item[data-home-focus="tools"]')?.classList.add('active');
@@ -2408,11 +2651,7 @@
         // 精选 view-all
         document.querySelector('.view-all')?.addEventListener('click', e => {
             e.preventDefault();
-            const cat = e.target.dataset.category || 'hot';
-            $$('.nav-item').forEach(n => n.classList.remove('active'));
-            document.querySelector(`.nav-item[data-category="${cat}"]`)?.classList.add('active');
-            currentCategory = cat; showSection(cat);
-            if (cat !== 'stats') filterTools();
+            openStationHomeFocus('tools', '工具评测');
         });
 
         // 登录
@@ -2530,6 +2769,305 @@
                 <span class="related-chip-rating">${t.rating}</span>
             </button>`).join('');
     }
+
+    function renderPrompts(prompts) {
+        promptsGrid.innerHTML = prompts.map(p => `
+            <div class="prompt-card">
+                <h4><i class="fas fa-scroll"></i>${escapeHtml(p.title)}</h4>
+                <p>${escapeHtml(p.usage || '')}</p>
+                ${p.output ? `<div class="section-sub">${escapeHtml(p.output)}</div>` : ''}
+                <div class="prompt-card-footer">
+                    <span class="prompt-category">${escapeHtml(p.status || getCategoryLabel(p.category))}</span>
+                    <span class="prompt-category">${escapeHtml((p.tools || []).slice(0, 2).join(' · ') || '研究剧本')}</span>
+                    <button class="btn-copy" data-content="${encodeURIComponent(p.content)}"><i class="fas fa-copy"></i> 复制剧本</button>
+                </div>
+            </div>`).join('');
+
+        $$('.btn-copy').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigator.clipboard.writeText(decodeURIComponent(btn.dataset.content)).then(() => {
+                    const orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> 已复制';
+                    btn.style.color = '#059669';
+                    setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 1500);
+                });
+            });
+        });
+    }
+
+    function renderTutorials(tutorials) {
+        tutorialsGrid.innerHTML = tutorials.map(t => `
+            <article class="tutorial-card">
+                <div class="tutorial-cover" style="background:${t.cover}"><i class="${t.icon}"></i></div>
+                <div class="tutorial-body">
+                    <h4>${escapeHtml(t.title)}</h4>
+                    <p>${escapeHtml(t.desc)}</p>
+                    <div class="tutorial-meta">
+                        <span><i class="fas fa-eye"></i> ${escapeHtml(t.views)}</span>
+                        <span><i class="fas fa-calendar"></i> ${escapeHtml(t.date)}</span>
+                        ${t.status ? `<span class="tutorial-link"><i class="fas fa-clipboard-check"></i> ${escapeHtml(t.status)}</span>` : ''}
+                    </div>
+                    ${t.note ? `<div class="section-sub">${escapeHtml(t.note)}</div>` : ''}
+                </div>
+            </article>`).join('');
+    }
+
+    function renderFeatured() {
+        if (!featuredGrid) return;
+        featuredGrid.innerHTML = FEATURED_TOOLS.map(item => {
+            const tool = TOOLS_DATA.find(entry => entry.id === item.id);
+            if (!tool) return '';
+            return `
+                <div class="featured-card" style="--card-color:${tool.color}" onclick="window._openTool(${tool.id})">
+                    <div class="featured-icon" style="background:${tool.color}">
+                        ${tool.logo ? `<img src="${tool.logo}" alt="${tool.name}" onerror="this.style.display='none'">` : `<i class="${tool.icon}" style="color:#fff;font-size:18px"></i>`}
+                    </div>
+                    <div class="featured-info">
+                        <h4>${escapeHtml(tool.name)}</h4>
+                        <div class="featured-reason">${escapeHtml(item.kicker || item.status || '本周精选')}</div>
+                        <div class="featured-reason">${escapeHtml(item.reason || tool.reviewNote || '')}</div>
+                        ${item.usage ? `<div class="section-sub">${escapeHtml(item.usage)}</div>` : ''}
+                        ${renderTrustStatusRow(getToolTrustMeta(tool, 'featured'), true)}
+                        <div class="featured-rating">${'★'.repeat(Math.floor(tool.rating))} ${tool.rating}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderQualityStatusBand() {
+        const band = $('#statsSection');
+        if (!band) return;
+        const modules = getMethodToolModules();
+        const newsMeta = describeManifestBundle('news');
+        const kicker = band.querySelector('.quality-band-kicker');
+        const headline = band.querySelector('.quality-band-head h3');
+        const subline = band.querySelector('.quality-band-head p');
+        if (kicker) kicker.textContent = 'Method tools';
+        if (headline) headline.textContent = '方法工具';
+        if (subline) subline.textContent = newsMeta.available
+            ? '把 journal / cite-check / paperdeck / stats 保留为首页可直达的内置模块。'
+            : '当前未读到 manifest，仍回退到本地说明，保证方法模块可继续使用。';
+
+        ['catalog', 'freshness', 'provenance', 'fallback'].forEach((slot, index) => {
+            const card = band.querySelector(`.quality-card[data-status-slot="${slot}"]`);
+            const module = modules[index];
+            if (!card || !module) return;
+            const strong = card.querySelector('strong');
+            const small = card.querySelector('small');
+            if (strong) strong.textContent = module.title;
+            if (small) small.textContent = `${module.status} · ${module.usageGuide}`;
+            card.style.cursor = 'pointer';
+            card.onclick = () => openMethodTool(module.category);
+        });
+    }
+
+    function getFilteredTools() {
+        let list = [...TOOLS_DATA];
+        if (currentCategory === 'favorites') list = list.filter(t => isFav(t.id));
+        else if (currentCategory === 'recent') list = recentlyViewed.map(id => list.find(t => t.id === id)).filter(Boolean);
+        else if (currentCategory === 'hot') list = list.filter(t => t.stationSection === 'weekly');
+        else if (currentCategory === 'new') list = list.filter(t => String(t.reviewedAt || '').startsWith('2026-04'));
+        else if (currentCategory !== 'all') list = list.filter(t => t.category === currentCategory);
+
+        if (currentPricing === 'domestic' || currentPricing === 'foreign') {
+            list = list.filter(t => t.region === currentPricing);
+        } else if (currentPricing !== 'all') {
+            list = list.filter(t => t.pricing === currentPricing);
+        }
+
+        if (currentSort === 'rating') list.sort((a, b) => b.rating - a.rating);
+        else if (currentSort === 'users') list.sort((a, b) => parseUsers(b.users) - parseUsers(a.users));
+        else if (currentSort === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+        else list.sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
+        return list;
+    }
+
+    function filterTools() {
+        renderTools(getFilteredTools());
+    }
+
+    function doSearch(query) {
+        currentHomeFocus = 'tools';
+        currentHomeFocusTitle = '工具评测';
+        showSection('all');
+        activateNavItem('all', 'tools');
+        currentCategory = 'all';
+        const q = String(query || '').trim().toLowerCase();
+        if (!q) {
+            filterTools();
+            return;
+        }
+
+        const results = getStationSearchIndex().map(entry => {
+            let score = 0;
+            const haystack = [entry.title, entry.desc, entry.usageGuide, entry.status].join(' ').toLowerCase();
+            if (haystack.includes(q)) score += 3;
+            if (String(entry.title || '').toLowerCase().includes(q)) score += 2;
+            (entry.keywords || []).forEach(keyword => {
+                const value = String(keyword).toLowerCase();
+                if (value.includes(q) || q.includes(value)) score += 2;
+            });
+            return { ...entry, score };
+        }).filter(entry => entry.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 8);
+
+        if (!results.length) {
+            toolsGrid.innerHTML = '';
+            emptyState.style.display = 'block';
+            document.getElementById('toolsSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        }
+
+        emptyState.style.display = 'none';
+        toolsGrid.innerHTML = results.map(entry => `
+            <article class="tool-card" data-station-kind="${entry.entryKind}" data-station-ref="${entry.refId}">
+                <div class="tool-card-header">
+                    <div class="tool-icon" style="background:${entry.color || '#334155'}">
+                        <i class="${entry.icon || 'fas fa-compass'}"></i>
+                    </div>
+                    <div class="tool-card-info">
+                        <h4>${escapeHtml(entry.title)}</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">${escapeHtml(entry.entryKind === 'tool' ? '精选工具' : entry.entryKind === 'script' ? '研究剧本' : '方法工具')}</span>
+                            ${entry.status ? `<span class="tool-tag">${escapeHtml(entry.status)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card-desc">${escapeHtml(entry.desc || '')}</div>
+                ${entry.usageGuide ? `<div class="tool-card-desc">${escapeHtml(entry.usageGuide)}</div>` : ''}
+                <div class="tool-card-footer">
+                    <div class="tool-users"><i class="fas fa-compass"></i>${escapeHtml(entry.actionLabel || '打开')}</div>
+                    <button class="btn-copy station-search-action" data-kind="${entry.entryKind}" data-ref="${entry.refId}">${escapeHtml(entry.actionLabel || '打开')}</button>
+                </div>
+            </article>
+        `).join('');
+
+        toolsGrid.querySelectorAll('.station-search-action').forEach(btn => {
+            btn.addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                handleStationEntryAction(btn.dataset.kind, btn.dataset.ref);
+            });
+        });
+        toolsGrid.querySelectorAll('[data-station-kind]').forEach(card => {
+            card.addEventListener('click', () => handleStationEntryAction(card.dataset.stationKind, card.dataset.stationRef));
+        });
+        document.getElementById('toolsSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showSection(cat) {
+        Object.values(sections).forEach(section => { if (section) section.style.display = 'none'; });
+        const titleMap = {
+            all: '首页',
+            hot: '本周精选',
+            new: '最近更新',
+            favorites: '我的收藏',
+            recent: '最近浏览',
+            prompts: '研究剧本',
+            tutorials: '更新记录',
+            news: '行业资讯',
+            models: '大模型排名',
+            github: 'GitHub 推荐',
+            usecases: '应用示例',
+            graph: '科研路线',
+            'search-papers': '论文检索',
+            journal: '选刊助手',
+            'cite-check': '引文核查',
+            paperdeck: 'PaperDeck',
+            stats: '统计方法库'
+        };
+        pageTitle.textContent = titleMap[cat] || currentHomeFocusTitle || cat;
+        closeSidebarDrawer();
+        syncToolTabsVisibility(cat);
+        const recSec = document.getElementById('recommendSection');
+
+        if (cat === 'prompts') sections.prompts.style.display = 'block';
+        else if (cat === 'tutorials') sections.tutorials.style.display = 'block';
+        else if (cat === 'news') {
+            sections.news.style.display = 'block';
+            renderNews(currentNewsData || []);
+            if (!hasRequestedLiveNews) {
+                hasRequestedLiveNews = true;
+                fetchLiveNews(false).then(data => renderNews(data || currentNewsData)).catch(() => renderNews(currentNewsData || []));
+            }
+        } else if (cat === 'models') {
+            sections.models.style.display = 'block';
+            applyModelFilters();
+            if (!hasRequestedLiveModelRefresh) {
+                hasRequestedLiveModelRefresh = true;
+                refreshModelsData(false, true);
+            }
+        } else if (cat === 'github') sections.github.style.display = 'block';
+        else if (cat === 'usecases') sections.usecases.style.display = 'block';
+        else if (cat === 'graph') sections.graph.style.display = 'block';
+        else if (cat === 'search-papers') sections.searchPapers.style.display = 'block';
+        else if (cat === 'journal') sections.journal.style.display = 'block';
+        else if (cat === 'cite-check') sections.citeCheck.style.display = 'block';
+        else if (cat === 'paperdeck') sections.paperdeck.style.display = 'block';
+        else if (cat === 'stats') {
+            if (sections.statMethods) {
+                sections.statMethods.style.display = 'block';
+                sections.statMethods.style.width = '100%';
+                sections.statMethods.style.maxWidth = 'none';
+                sections.statMethods.style.marginLeft = '0';
+                sections.statMethods.style.marginRight = '0';
+                sections.statMethods.style.alignSelf = 'stretch';
+                sections.statMethods.style.clear = 'both';
+                sections.statMethods.style.position = 'relative';
+                StatsFeature.render();
+                sections.statMethods.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                StatsFeature.render();
+            }
+        } else {
+            const isHome = cat === 'all';
+            if (sections.hero) sections.hero.style.display = isHome ? '' : 'none';
+            if (sections.featured) sections.featured.style.display = '';
+            if (sections.stats) sections.stats.style.display = 'none';
+            if (sections.tools) sections.tools.style.display = '';
+            if (sections.prompts) sections.prompts.style.display = cat === 'prompts' ? '' : 'none';
+            if (sections.tutorials) sections.tutorials.style.display = cat === 'tutorials' ? '' : 'none';
+            if (recSec) recSec.style.display = isHome ? '' : 'none';
+            const toolsTitle = $('#toolsSectionTitle');
+            if (toolsTitle) {
+                if (cat === 'hot') toolsTitle.textContent = '本周精选候选';
+                else if (cat === 'favorites') toolsTitle.textContent = '我的收藏';
+                else if (cat === 'recent') toolsTitle.textContent = '最近浏览';
+                else if (cat === 'new') toolsTitle.textContent = '最近更新工具';
+                else toolsTitle.textContent = '精选工具评测';
+            }
+        }
+        if (exportFavsBtn) exportFavsBtn.style.display = cat === 'favorites' ? 'flex' : 'none';
+        applyCuratedStationCopy();
+    }
+
+    function renderRelatedTools(tool) {
+        const sec = $('#relatedToolsSection');
+        const list = $('#relatedToolsList');
+        if (!sec || !list) return;
+        const relatedIds = Array.isArray(tool.relatedIds) && tool.relatedIds.length
+            ? tool.relatedIds
+            : TOOLS_DATA.filter(t => t.id !== tool.id && t.category === tool.category).map(t => t.id);
+        const related = relatedIds.map(id => TOOLS_DATA.find(t => t.id === id)).filter(Boolean).slice(0, 4);
+        if (!related.length) {
+            sec.style.display = 'none';
+            return;
+        }
+        sec.style.display = '';
+        list.innerHTML = related.map(t => `
+            <button class="related-tool-chip" onclick="window._openTool(${t.id})">
+                <div class="related-tool-chip-icon" style="background:${t.color}">
+                    ${t.logo ? `<img src="${t.logo}" alt="${t.name}" onerror="this.style.display='none'">` : `<i class="${t.icon}"></i>`}
+                </div>
+                <span>${escapeHtml(t.name)}</span>
+                <span class="related-chip-rating">${t.rating}</span>
+            </button>`).join('');
+    }
+
+    window._stationAction = handleStationEntryAction;
+    window._openStationHomeFocus = openStationHomeFocus;
 
     // ---- 统计与可视化方法库 ----
     function buildStatsVisualizationDetail(method) {
@@ -2915,6 +3453,9 @@
         renderTools(TOOLS_DATA);
         renderPrompts(PROMPTS_DATA);
         renderTutorials(TUTORIALS_DATA);
+        renderMethodQuickModules();
+        applyCuratedStationCopy();
+        showSection('all');
         renderHomepageTrustSummary();
         renderQualityStatusBand();
         renderNews(currentNewsData);
@@ -2956,7 +3497,7 @@
         }
         // ȫ周增长率Ǳ
         const badge = $('#navBadgeAll');
-        if (badge) badge.textContent = TOOLS_DATA.length;
+        if (badge) badge.textContent = FEATURED_TOOLS.length;
         // ָ¼״̬
         updateLoginBtn(getUser());
         // ʼ参数量书ģ
