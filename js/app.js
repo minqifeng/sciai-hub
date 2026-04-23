@@ -79,16 +79,17 @@
     let currentModelFilter = 'all';
     let currentModelSort   = 'rank';
     let currentModelLens   = 'overview';
-    let currentModelsData  = [...(MODELS_RANKING || [])];
+    const initialModelsRanking = typeof MODELS_RANKING !== 'undefined' && Array.isArray(MODELS_RANKING) ? MODELS_RANKING : [];
+    let currentModelsData  = [...initialModelsRanking];
     let currentModelSnapshotDate = '2026-04-09';
     let currentModelLiveUpdatedAt = null;
     let currentModelCatalogCount = 0;
-    let currentModelSnapshotTopCount = Array.isArray(MODELS_RANKING) ? MODELS_RANKING.length : 0;
+    let currentModelSnapshotTopCount = initialModelsRanking.length;
     let currentArxivUpdatedAt = null;
     let currentNewsUpdatedAt = null;
     let currentNewsFilter = '全部';
     let currentNewsTab = 'static';
-    let currentNewsData = Array.isArray(NEWS_DATA) ? [...NEWS_DATA] : [];
+    let currentNewsData = typeof NEWS_DATA !== 'undefined' && Array.isArray(NEWS_DATA) ? [...NEWS_DATA] : [];
     let currentGithubUpdatedAt = null;
     let currentHomeFocus = 'home';
     let currentHomeFocusTitle = '今日精选情报';
@@ -122,6 +123,152 @@
     }
     function saveLS(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) { console.warn('localStorage write failed:', key, e); } }
     function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function showToast(message) {
+        const text = String(message || '');
+        let toast = document.querySelector('.toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'toast';
+            document.body?.appendChild(toast);
+        }
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+    function getCategoryLabel(category) {
+        const labels = {
+            all: '全部',
+            writing: '论文写作',
+            reading: '文献阅读',
+            data: '数据分析',
+            search: '论文检索',
+            graph: '研究图谱',
+            'search-papers': '论文检索',
+            journal: '选刊助手',
+            'cite-check': '引文核查',
+            paperdeck: 'PaperDeck',
+            stats: '统计方法',
+            prompts: '研究剧本',
+            tutorials: '使用说明',
+            news: '资讯',
+            models: '模型',
+            github: 'GitHub',
+            usecases: '案例',
+            code: '代码工具',
+            agents: '智能体',
+            llm: '大模型'
+        };
+        return labels[String(category || '')] || category || '研究任务';
+    }
+    function parseUsers(value) {
+        const text = String(value || '').replace(/,/g, '').trim().toLowerCase();
+        const number = parseFloat(text);
+        if (Number.isNaN(number)) return 0;
+        if (text.includes('亿')) return number * 100000000;
+        if (text.includes('万')) return number * 10000;
+        if (text.includes('m')) return number * 1000000;
+        if (text.includes('k')) return number * 1000;
+        return number;
+    }
+    function closeSidebarDrawer() {
+        sidebarDrawerOpen = false;
+        saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
+        sidebar?.classList.remove('drawer-open', 'open');
+        sidebarBackdrop?.classList.remove('show');
+        document.body?.classList.remove('sidebar-drawer-open');
+    }
+    function renderNews(items = currentNewsData) {
+        if (!newsList) return;
+        const entries = Array.isArray(items) ? items : [];
+        newsList.innerHTML = entries.slice(0, 12).map(item => `
+            <article class="news-item">
+                <div class="news-icon"><i class="${item.icon || 'fas fa-newspaper'}"></i></div>
+                <div class="news-info">
+                    <div class="news-meta">
+                        <span class="news-tag">${escapeHtml(item.category || item.source || '资讯')}</span>
+                        <span>${escapeHtml(item.date || '')}</span>
+                    </div>
+                    <h4>${escapeHtml(item.title || '')}</h4>
+                    <p>${escapeHtml(item.desc || item.summary || '')}</p>
+                </div>
+            </article>
+        `).join('');
+    }
+    function fetchLiveNews() {
+        return Promise.resolve(currentNewsData);
+    }
+    function applyModelFilters() {
+        return renderModels(currentModelsData);
+    }
+    function refreshModelsData() {
+        applyModelFilters();
+        return Promise.resolve(currentModelsData);
+    }
+    function renderModels(models = currentModelsData) {
+        const grid = $('#modelsGrid');
+        if (!grid) return;
+        const entries = Array.isArray(models) ? models : [];
+        grid.innerHTML = entries.slice(0, 20).map(model => `
+            <article class="model-card">
+                <div class="model-card-head">
+                    <div class="model-card-name">${escapeHtml(model.name || model.model || '')}</div>
+                    <span class="model-chip strong">${escapeHtml(model.provider || model.source || 'Model')}</span>
+                </div>
+                <p class="model-feedback-note">${escapeHtml(model.desc || model.summary || model.note || '')}</p>
+            </article>
+        `).join('');
+    }
+    function updateModalFavUI(id) {
+        $$('.modal-fav-btn, .card-fav-btn').forEach(btn => {
+            if (!btn.dataset.id || sameId(btn.dataset.id, id)) btn.classList.toggle('active', favorites.some(item => sameId(item, id)));
+        });
+    }
+    function updateModalCompareUI(id) {
+        $$('.modal-compare-btn, .card-compare-cb').forEach(btn => {
+            if (!btn.dataset.id || sameId(btn.dataset.id, id)) btn.classList.toggle('active', compareList.some(item => sameId(item, id)));
+        });
+    }
+    function updateModalLikeUI() {}
+    function fetchArxivLatest() {
+        return Promise.resolve([]);
+    }
+    function renderUseCases() {
+        const grid = $('#usecasesGrid');
+        if (!grid) return;
+        const entries = typeof USE_CASES_DATA !== 'undefined' && Array.isArray(USE_CASES_DATA) ? USE_CASES_DATA : [];
+        grid.innerHTML = entries.slice(0, 8).map(item => `
+            <article class="usecase-card">
+                <div class="usecase-icon"><i class="${item.icon || 'fas fa-flask'}"></i></div>
+                <h4>${escapeHtml(item.title || item.name || '')}</h4>
+                <p>${escapeHtml(item.desc || item.summary || '')}</p>
+                ${item.impact ? `<span class="usecase-impact">${escapeHtml(item.impact)}</span>` : ''}
+            </article>
+        `).join('');
+    }
+    function bindEvents() {
+        heroSearchBtn?.addEventListener('click', () => doSearch(heroSearch?.value || globalSearch?.value || ''));
+        heroSearch?.addEventListener('keydown', event => {
+            if (event.key === 'Enter') doSearch(heroSearch.value);
+        });
+        globalSearch?.addEventListener('keydown', event => {
+            if (event.key === 'Enter') doSearch(globalSearch.value);
+        });
+        toolModalClose?.addEventListener('click', () => toolModal?.classList.remove('show'));
+        compareModalClose?.addEventListener('click', () => compareModal?.classList.remove('show'));
+        resourcesModalClose?.addEventListener('click', () => resourcesModal?.classList.remove('show'));
+    }
+    function animateStats() {}
+    function loadTheme() {
+        const theme = loadLS('sciai-theme', 'light');
+        document.documentElement?.setAttribute('data-theme', theme);
+        themeToggle?.querySelector('i')?.classList.toggle('fa-sun', theme === 'dark');
+    }
+    function applySidebarCollapse() {
+        if (!sidebar) return;
+        sidebar.classList.toggle('drawer-open', !!sidebarDrawerOpen);
+        document.body?.classList.toggle('sidebar-pinned', !!sidebarPinned);
+    }
     const CURATED_MANIFEST_KEYS = ['curated-tools', 'academic-entrypoints', 'ai-daily'];
     const METHOD_ENTRYPOINT_IDS = ['journal', 'cite-check', 'paperdeck', 'stats'];
     const PRIMARY_ENTRYPOINT_IDS = ['graph', 'search-papers', ...METHOD_ENTRYPOINT_IDS];
@@ -837,7 +984,7 @@
             .map((record, index) => normalizeGithubRepo(record, index))
             .filter(Boolean);
         if (manifestRepos.length) return manifestRepos;
-        return (Array.isArray(GITHUB_REPOS) ? GITHUB_REPOS : [])
+        return (typeof GITHUB_REPOS !== 'undefined' && Array.isArray(GITHUB_REPOS) ? GITHUB_REPOS : [])
             .map((record, index) => normalizeGithubRepo(record, index))
             .filter(Boolean);
     }
@@ -969,8 +1116,10 @@
     }
 
     function getStaticToolCatalog() {
-        if (Array.isArray(CURATED_TOOLS_FALLBACK) && CURATED_TOOLS_FALLBACK.length) return CURATED_TOOLS_FALLBACK;
-        return Array.isArray(TOOLS_DATA) ? TOOLS_DATA : [];
+        if (typeof CURATED_TOOLS_FALLBACK !== 'undefined' && Array.isArray(CURATED_TOOLS_FALLBACK) && CURATED_TOOLS_FALLBACK.length) {
+            return CURATED_TOOLS_FALLBACK;
+        }
+        return typeof TOOLS_DATA !== 'undefined' && Array.isArray(TOOLS_DATA) ? TOOLS_DATA : [];
     }
 
     function getManifestPrimaryRecords(key) {
@@ -1537,6 +1686,10 @@ function getFilteredTools() {
         return window.SciAIStationHome.renderHomepageTrustSummary(getStationHomeDeps());
     }
 
+    function renderQualityStatusBand() {
+        return window.SciAIStationHome.renderQualityStatusBand(getStationHomeDeps());
+    }
+
     window.__SCIAI_STATION_DATA = {
         getTools: () => getToolCatalog(),
         getPlaybooks: () => getHomepagePlaybookCatalog(),
@@ -1965,12 +2118,12 @@ function getFilteredTools() {
         updateFavBadge();
         updateCompareBar();
         applySidebarCollapse();
-        if (typeof GraphFeature !== 'undefined') GraphFeature.init();
-        if (typeof SearchFeature !== 'undefined') SearchFeature.init();
-        if (typeof JournalFeature !== 'undefined') JournalFeature.init();
-        if (typeof CiteCheckFeature !== 'undefined') CiteCheckFeature.init();
-        if (typeof PaperDeckFeature !== 'undefined') PaperDeckFeature.init();
-        StatsFeature.init();
+        if (typeof GraphFeature !== 'undefined' && typeof GraphFeature.init === 'function') GraphFeature.init();
+        if (typeof SearchFeature !== 'undefined' && typeof SearchFeature.init === 'function') SearchFeature.init();
+        if (typeof JournalFeature !== 'undefined' && typeof JournalFeature.init === 'function') JournalFeature.init();
+        if (typeof CiteCheckFeature !== 'undefined' && typeof CiteCheckFeature.init === 'function') CiteCheckFeature.init();
+        if (typeof PaperDeckFeature !== 'undefined' && typeof PaperDeckFeature.init === 'function') PaperDeckFeature.init();
+        if (typeof StatsFeature !== 'undefined' && typeof StatsFeature.init === 'function') StatsFeature.init();
         // ʼʵʱ API Ͷ̬ǩ
         if (typeof initializeRealtimeAPIs !== 'undefined') {
             initializeRealtimeAPIs();
