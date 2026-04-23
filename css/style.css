@@ -3988,7 +3988,6 @@ textarea {
 .nav-section-more .nav-item {
     padding-top: 8px;
     padding-bottom: 8px;
-    opacity: 0.82;
 }
 
 .sidebar-footer {
@@ -4495,9 +4494,10 @@ textarea {
 #heroSection .hero-main,
 #heroSection .hero-trust-panel,
 #heroSection > .research-route-section,
+#recommendSection .recommend-inner,
+#recommendSection > .recommend-results,
 #featuredSection > .section-header,
 #statsSection,
-#dailyDigestSection,
 .view-all,
 .rec-view-all,
 .rec-view-all-btn,
@@ -4604,10 +4604,6 @@ textarea {
     color: var(--accent);
 }
 
-.nav-section-more {
-    opacity: 0.92;
-}
-
 #heroSection {
     order: 1;
 }
@@ -4620,12 +4616,16 @@ textarea {
     order: 3;
 }
 
-#toolsSection {
+#recommendSection {
     order: 4;
 }
 
-#homeUpdatesSection {
+#toolsSection {
     order: 5;
+}
+
+#homeUpdatesSection {
+    order: 6;
 }
 
 #heroSection[style*="display: none"] ~ #homePlaybooksSection,
@@ -4683,412 +4683,13 @@ textarea {
     max-width: 640px;
 }
 
-.today-intel-points {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
-}
-
-.today-intel-points span,
-.section-chip {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(15,118,110,0.10);
-    color: #0f766e;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
-
-.today-intel-stream {
-    display: grid;
-    gap: 12px;
-}
-
-.today-intel-grid {
-    display: grid;
-    gap: 10px;
-}
-
-.today-intel-card {
-    min-height: 0;
-}
-
-/* Phase 1 copy tightening: keep the visible homepage story positive and fixed to five blocks. */
-.today-intel-lead .hero-desc,
-.today-intel-points span,
-.hero-trust-card > h3,
-.hero-trust-card > p,
-.today-intel-card[data-status-slot="freshness"] small,
-.today-intel-card[data-status-slot="coverage"] small,
-#toolsSection .tools-editorial-head .section-sub,
-#toolsSection .section-panel-note h4,
-#toolsSection .section-panel-note > p,
-#toolsSectionTitle,
-#toolsSection .curated-tools-head > p,
-#homeUpdatesSection .editorial-section-head .section-sub,
-#homeUpdatesSection .usage-grid .usage-card:nth-child(1) p,
-#homeUpdatesSection .usage-grid .usage-card:nth-child(3) p,
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) h4,
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) p,
-#newsSection .section-header > div:first-child h3,
-#newsSection .section-header > div:first-child .section-sub,
-#modelsSection .section-header > div:first-child h3,
-#modelsSection .section-header > div:first-child .section-sub,
-#githubSection .section-header > h3,
-#githubSection .frontier-sub,
-#githubSection .github-grid-label,
-#usecasesSection .section-header > h3,
-#usecasesSection .section-header > .section-sub {
-    font-size: 0;
-    line-height: 0;
-}
-
-.today-intel-lead .hero-desc::before {
-    content: "先用今日情报完成定向，再顺着本周精选、研究剧本和高频模块推进当前任务；需要更宽的资讯、模型或案例扫描时，再进入扩展入口。";
-    display: block;
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.72);
-}
-
-.today-intel-points span:nth-child(1)::before {
-    content: "先定向再展开";
-}
-
-.today-intel-points span:nth-child(2)::before {
-    content: "先剧本后进模块";
-}
-
-.today-intel-points span:nth-child(3)::before {
-    content: "扩展入口后置";
-}
-
-.today-intel-points span::before {
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
-
-.hero-trust-card > h3::before {
-    content: "首页入口顺序已经固定：今日情报、每周精选、研究剧本、高频模块、使用说明。";
-    display: block;
-    font-size: 1.1rem;
-    line-height: 1.55;
-    color: #fff;
-}
-
-.hero-trust-card > p::before {
-    content: "如果你要快速进入工作，先在这里完成定向；后续区块分别负责精选判断、任务剧本、模块直达和站内使用说明。";
-    display: block;
-    font-size: 0.97rem;
-    line-height: 1.7;
-    color: rgba(241,246,248,0.72);
-}
-
-.today-intel-card[data-status-slot="freshness"] small::before {
-    content: "先用今日情报和本周精选缩小判断范围，再决定今天真正要推进的研究任务。";
-    display: block;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: #5c6770;
-}
-
-.today-intel-card[data-status-slot="coverage"] small::before {
-    content: "高频模块继续承担直达任务，资讯、模型、GitHub 与案例只在需要扩展扫描时打开。";
-    display: block;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: #5c6770;
-}
-
-#toolsSection .tools-editorial-head .section-sub::before {
-    content: "这里保留研究流程里回访频率最高的学术模块，下面再接一层 curated tools shell，作为补充工作台而不是首页主位。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-    max-width: 56ch;
-}
-
-#toolsSection .section-panel-note h4::before {
-    content: "高频学术模块负责直达，curated tools shell 负责补充打开面。";
-    display: block;
-    font-size: 1.04rem;
-    line-height: 1.45;
-    color: var(--ink);
-}
-
-#toolsSection .section-panel-note > p::before {
-    content: "首页可见层只保留高频模块；精选工具卡片作为补充工作台承接，用来补齐次级打开面，而不是打断主叙事。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-}
-
-#toolsSectionTitle::before {
-    content: "Curated tools shell";
-    display: block;
-    font-size: 1.04rem;
-    line-height: 1.45;
-    color: var(--ink);
-}
-
-#toolsSection .curated-tools-head > p::before {
-    content: "这里展示精选工具卡片，用来补充研究工作台的打开面；需要快速扩展时使用，不承担首页导览职责。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-}
-
-#homeUpdatesSection .editorial-section-head .section-sub::before {
-    content: "这一块只负责说明本站如何使用、五块主叙事如何阅读，以及本轮首页收口更新了什么。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: rgba(241,246,248,0.72);
-    max-width: 56ch;
-}
-
-#homeUpdatesSection .usage-grid .usage-card:nth-child(1) p::before {
-    content: "第一屏先帮你判断今天该从哪里开始，再按顺序进入每周精选、研究剧本和高频模块。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#homeUpdatesSection .usage-grid .usage-card:nth-child(3) p::before {
-    content: "选刊、引文核查、PaperDeck 与统计方法继续一跳直达，作为高频学术模块持续服务写作、阅读与分析。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) h4::before {
-    content: "首页说明改成纯正向使用指引";
-    display: block;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #fff;
-}
-
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) p::before {
-    content: "可见文案统一围绕先定向、再展开、按任务进入模块来组织，首页主叙事稳定收束为五块。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#newsSection .section-header > div:first-child h3::before {
-    content: "资讯扩展入口";
-    display: block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-}
-
-#newsSection .section-header > div:first-child .section-sub::before {
-    content: "需要补充扫描行业动态时再打开，按新闻类型、事件日期和实时源切换。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
-
-#modelsSection .section-header > div:first-child h3::before {
-    content: "模型扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-#modelsSection .section-header > div:first-child .section-sub::before {
-    content: "需要横向比较模型能力、类型和价格时再打开，用作主叙事之后的扩展扫描。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
-
-#githubSection .section-header > h3::before {
-    content: "GitHub 扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-#githubSection .frontier-sub::before {
-    content: "需要继续追踪社区热点时再展开";
-    display: block;
-    font-size: 12px;
-    line-height: 1.55;
-    color: #6f7c85;
-}
-
-#githubSection .github-grid-label::before {
-    content: "扩展项目清单";
-    display: block;
-    font-size: 12px;
-    line-height: 1.4;
-    color: #6f7c85;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-#usecasesSection .section-header > h3::before {
-    content: "研究案例扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-}
-
-#usecasesSection .section-header > .section-sub::before {
-    content: "需要补充真实案例、工具组合和落地方式时再打开。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
-
-.daily-digest-section {
-    margin: 22px 32px 0;
-    padding: 28px 32px;
-    border-radius: 28px;
-    border: 1px solid rgba(17, 33, 44, 0.08);
-    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(244,247,249,0.92));
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.05);
-}
-
-.daily-digest-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.daily-digest-brief {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-    gap: 18px;
-    margin-bottom: 18px;
-    padding: 20px;
-    border-radius: 24px;
-    border: 1px solid rgba(15,118,110,0.12);
-    background:
-        radial-gradient(circle at 8% 10%, rgba(15,118,110,0.14), transparent 30%),
-        linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,253,250,0.86));
-}
-
-.daily-brief-main h4 {
-    margin-top: 12px;
-    color: var(--ink);
-    font-size: 1.28rem;
-    line-height: 1.35;
-}
-
-.daily-brief-main p {
-    margin-top: 10px;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-.daily-brief-actions {
-    display: grid;
-    gap: 8px;
-    align-content: center;
-}
-
-.daily-brief-actions span {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 16px;
-    background: rgba(15,118,110,0.08);
-    color: #0f766e;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.45;
-}
-
-.digest-card {
-    padding: 20px;
-    border-radius: 24px;
-    border: 1px solid rgba(17, 33, 44, 0.08);
-    background: rgba(255,255,255,0.88);
-    box-shadow: 0 14px 26px rgba(17, 33, 44, 0.05);
-}
-
-.digest-card h4 {
-    margin-top: 12px;
-    color: var(--ink);
-    font-size: 1.04rem;
-    line-height: 1.45;
-}
-
-.digest-card p {
-    margin-top: 12px;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-.digest-card-label {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(29,78,216,0.08);
-    color: #1d4ed8;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
-
-.digest-card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
-}
-
-.digest-card-source {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-    color: #0f766e;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.digest-card-source:hover {
-    color: #115e59;
-}
-
 .editorial-brief-card,
 .editorial-status-card,
 .playbooks-section,
 .method-quick-card,
+.essential-card,
 .home-updates-section,
-.update-card,
-.usage-card,
-.section-panel-note,
-.curated-tools-shell {
+.update-card {
     border: 1px solid rgba(17, 33, 44, 0.08);
     border-radius: 24px;
     background: rgba(255,255,255,0.82);
@@ -5147,8 +4748,8 @@ textarea {
 
 .playbooks-section,
 .home-updates-section,
-#dailyDigestSection,
 #featuredSection,
+#recommendSection,
 #toolsSection {
     margin: 22px 32px 0;
     padding: 28px 32px;
@@ -5159,8 +4760,9 @@ textarea {
 }
 
 .playbooks-grid,
+.editorial-essentials-grid,
 .method-quick-grid,
-.usage-grid,
+.method-module-grid,
 .updates-grid {
     display: grid;
     gap: 14px;
@@ -5170,15 +4772,21 @@ textarea {
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.editorial-essentials-grid,
 .method-quick-grid,
-.usage-grid,
 .updates-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.method-module-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 16px;
 }
 
 .playbook-card,
+.essential-card,
 .method-quick-card,
-.usage-card {
+.research-module-card {
     min-height: 148px;
     padding: 18px;
     border-radius: 22px;
@@ -5188,8 +4796,9 @@ textarea {
 }
 
 .playbook-card:hover,
+.essential-card:hover,
 .method-quick-card:hover,
-.usage-card:hover {
+.research-module-card:hover {
     transform: translateY(-2px);
     border-color: rgba(15,118,110,0.18);
     box-shadow: 0 14px 26px rgba(17, 33, 44, 0.06);
@@ -5199,56 +4808,34 @@ textarea {
     margin-top: 6px;
 }
 
-.section-panel-note,
-.curated-tools-shell {
-    padding: 18px 20px;
+#recommendSection {
+    background: linear-gradient(135deg, rgba(15,118,110,0.06), rgba(29,78,216,0.03));
 }
 
-.section-panel-note {
-    display: flex;
-    align-items: flex-start;
+#toolsSection > .section-header {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(17, 33, 44, 0.08);
+}
+
+#toolsSection > .section-header h3 {
+    display: none;
+}
+
+#toolsSection .section-controls {
+    width: 100%;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
 }
 
-.section-panel-note h4,
-.curated-tools-head h4,
-.usage-card h4 {
-    margin-top: 10px;
-    color: var(--ink);
-    font-size: 1.04rem;
-    line-height: 1.45;
+#toolsSection .filter-tags {
+    gap: 10px;
 }
 
-.section-panel-note p,
-.curated-tools-head p,
-.usage-card p,
-.updates-block-head p {
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-.curated-tools-head,
-.updates-block-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-
-.curated-tools-head {
-    margin-bottom: 18px;
-}
-
-.updates-block-head {
-    margin: 20px 0 14px;
-}
-
-.curated-tools-shell .tools-grid {
-    margin-top: 0;
+#toolsSection .tag {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.72);
 }
 
 #toolsSection .tools-grid {
@@ -5262,26 +4849,21 @@ textarea {
 
 .home-updates-section .editorial-section-head h3,
 .home-updates-section .editorial-section-head .section-sub,
-.home-updates-section .update-card h4,
-.home-updates-section .usage-card h4 {
+.home-updates-section .update-card h4 {
     color: #fff;
 }
 
 .home-updates-section .section-kicker,
-.home-updates-section .update-date,
-.home-updates-section .section-chip {
+.home-updates-section .update-date {
     color: #86efac;
 }
 
 .home-updates-section .section-sub,
-.home-updates-section .update-card p,
-.home-updates-section .usage-card p,
-.home-updates-section .updates-block-head p {
+.home-updates-section .update-card p {
     color: rgba(241,246,248,0.72);
 }
 
-.update-card,
-.usage-card {
+.update-card {
     padding: 18px;
     background: rgba(255,255,255,0.06);
     border-color: rgba(255,255,255,0.08);
@@ -5297,69 +4879,15 @@ textarea {
     line-height: 1.65;
 }
 
-.extension-entry-section {
-    position: relative;
-    margin: 14px 32px 0;
-    padding: 18px 20px;
-    border-radius: 24px;
-    border: 1px dashed rgba(17, 33, 44, 0.10);
-    background: linear-gradient(180deg, rgba(248,250,251,0.9), rgba(255,255,255,0.62));
-    box-shadow: none;
-    opacity: 0.82;
-}
-
-.extension-entry-section::before {
-    content: "Extension entry only";
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 12px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(17, 33, 44, 0.06);
-    color: #5c6770;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-.extension-entry-section .section-header {
-    margin-bottom: 16px;
-    align-items: flex-start;
-}
-
-.extension-entry-section .section-header h3 {
-    color: #22313a;
-    font-size: 1.08rem;
-}
-
-.extension-entry-section .section-sub {
-    color: #6f7c85;
-    font-size: 13px;
-    max-width: 54ch;
-}
-
-.extension-entry-section .news-list,
-.extension-entry-section .models-grid,
-.extension-entry-section .github-grid,
-.extension-entry-section .usecases-grid,
-.extension-entry-section .github-frontier,
-.extension-entry-section .news-section-nav,
-.extension-entry-section .models-toolbar,
-.extension-entry-section .models-lensbar {
-    opacity: 0.84;
-    filter: saturate(0.9);
-}
-
 @media (max-width: 1280px) {
     .playbooks-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .editorial-essentials-grid,
     .method-quick-grid,
-    .usage-grid,
     .updates-grid,
-    .today-intel-grid,
-    .daily-digest-grid {
+    .method-module-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -5382,31 +4910,23 @@ textarea {
     .playbooks-section,
     .home-updates-section,
     #featuredSection,
-    #toolsSection,
-    .extension-entry-section {
+    #recommendSection,
+    #toolsSection {
         margin: 16px;
         padding: 20px;
         border-radius: 22px;
     }
 
     .editorial-hero-actions,
-    .daily-digest-grid,
-    .daily-digest-brief,
     .playbooks-grid,
+    .editorial-essentials-grid,
     .method-quick-grid,
     .updates-grid,
-    .usage-grid,
-    .today-intel-grid {
+    .method-module-grid {
         grid-template-columns: 1fr;
     }
 
     .editorial-section-head {
-        align-items: flex-start;
-    }
-
-    .section-panel-note,
-    .curated-tools-head,
-    .updates-block-head {
         align-items: flex-start;
     }
 }
