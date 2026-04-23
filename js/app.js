@@ -115,6 +115,7 @@
     let userLikes        = loadLS('sciai-likes', {});
     let sidebarDrawerOpen = loadLS('sciai-sidebar-drawer-open', false);
     let sidebarPinned     = loadLS('sciai-sidebar-pinned', window.innerWidth >= 1200);
+    let sidebarCollapsed  = loadLS('sciai-sidebar-collapsed', false);
 
     // ---- LS 工具 ----
     function loadLS(key, def) {
@@ -177,6 +178,23 @@
         sidebar?.classList.remove('drawer-open', 'open');
         sidebarBackdrop?.classList.remove('show');
         document.body?.classList.remove('sidebar-drawer-open');
+    }
+    function isMobileSidebar() {
+        return window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : window.innerWidth <= 768;
+    }
+    function openSidebarDrawer() {
+        sidebarDrawerOpen = true;
+        saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
+        applySidebarCollapse();
+    }
+    function toggleSidebar() {
+        if (isMobileSidebar()) {
+            sidebarDrawerOpen ? closeSidebarDrawer() : openSidebarDrawer();
+            return;
+        }
+        sidebarCollapsed = !sidebarCollapsed;
+        saveLS('sciai-sidebar-collapsed', sidebarCollapsed);
+        applySidebarCollapse();
     }
     function renderNews(items = currentNewsData) {
         if (!newsList) return;
@@ -247,6 +265,20 @@
         `).join('');
     }
     function bindEvents() {
+        mobileMenuBtn?.addEventListener('click', openSidebarDrawer);
+        sidebarToggle?.addEventListener('click', toggleSidebar);
+        sidebarBackdrop?.addEventListener('click', closeSidebarDrawer);
+        sidebarPinBtn?.addEventListener('click', () => {
+            sidebarPinned = !sidebarPinned;
+            saveLS('sciai-sidebar-pinned', sidebarPinned);
+            applySidebarCollapse();
+        });
+        $$('.nav-anchor').forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                if (isMobileSidebar()) closeSidebarDrawer();
+            });
+        });
+        window.addEventListener('resize', applySidebarCollapse);
         heroSearchBtn?.addEventListener('click', () => doSearch(heroSearch?.value || globalSearch?.value || ''));
         heroSearch?.addEventListener('keydown', event => {
             if (event.key === 'Enter') doSearch(heroSearch.value);
@@ -266,8 +298,23 @@
     }
     function applySidebarCollapse() {
         if (!sidebar) return;
-        sidebar.classList.toggle('drawer-open', !!sidebarDrawerOpen);
-        document.body?.classList.toggle('sidebar-pinned', !!sidebarPinned);
+        const mobile = isMobileSidebar();
+        const drawerVisible = mobile && !!sidebarDrawerOpen;
+        const desktopCollapsed = !mobile && !!sidebarCollapsed;
+
+        sidebar.classList.toggle('open', drawerVisible);
+        sidebar.classList.toggle('drawer-open', drawerVisible);
+        sidebar.classList.toggle('collapsed', desktopCollapsed);
+        sidebarBackdrop?.classList.toggle('show', drawerVisible);
+        document.body?.classList.toggle('sidebar-drawer-open', drawerVisible);
+        document.body?.classList.toggle('sidebar-pinned', !mobile && !!sidebarPinned);
+        document.body?.classList.toggle('sidebar-collapsed', desktopCollapsed);
+
+        if (mainContent) mainContent.style.marginLeft = mobile ? '0' : (desktopCollapsed ? '64px' : '');
+        if (compareBar) compareBar.style.left = mobile ? '0' : (desktopCollapsed ? '64px' : '');
+        sidebarToggle?.setAttribute('title', mobile ? (drawerVisible ? '关闭导航' : '打开导航') : (desktopCollapsed ? '展开导航' : '收起导航'));
+        sidebarPinBtn?.classList.toggle('active', !mobile && !!sidebarPinned);
+        mobileMenuBtn?.setAttribute('aria-expanded', drawerVisible ? 'true' : 'false');
     }
     const CURATED_MANIFEST_KEYS = ['curated-tools', 'academic-entrypoints', 'ai-daily'];
     const METHOD_ENTRYPOINT_IDS = ['journal', 'cite-check', 'paperdeck', 'stats'];
