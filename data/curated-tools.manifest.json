@@ -1,0 +1,311 @@
+{
+  "datasetId": "curated-tools.seed",
+  "schemaVersion": "1.0.0",
+  "sourceName": "SciAI Hub curated tools seed",
+  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+  "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+  "validatedAt": "2026-04-22T00:00:00.000Z",
+  "status": "static",
+  "freshness": {
+    "cadence": "weekly",
+    "freshnessPolicy": "editorial-seed",
+    "snapshotDate": "2026-04-22",
+    "refreshHint": "curated-tools-seed"
+  },
+  "lineage": {
+    "mode": "seeded-manifest",
+    "generator": "manual-foundation",
+    "editorialIntent": "reviewed-tool-cards"
+  },
+  "recordCount": 6,
+  "records": [
+    {
+      "id": "tool-chatgpt-editorial",
+      "toolId": 1,
+      "stationSection": "essential",
+      "sortOrder": 10,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Best used as a fast drafting and restructuring surface when the user already knows the question and needs speed more than deep provenance.",
+      "positioning": "General-purpose thinking partner for outlining, rewriting, and turning messy notes into a first usable draft.",
+      "suitableFor": [
+        "abstract and introduction drafts",
+        "research note cleanup",
+        "turning bullet notes into prose"
+      ],
+      "whenToUse": "Use when you need fast iteration on wording, structure, or code-adjacent reasoning and you already have source material in hand.",
+      "howToUse": [
+        "Start with the task, audience, and output format instead of asking for general help.",
+        "Paste only the relevant excerpts, then ask for one concrete transformation at a time.",
+        "Run a separate verification pass for citations, numerical claims, and quoted language."
+      ],
+      "limitations": [
+        "Can sound confident while inventing details.",
+        "Not a substitute for citation verification or journal-specific compliance checks."
+      ],
+      "alternatives": [
+        "Claude for longer context-heavy review",
+        "Paperpal for language polishing inside an academic writing workflow"
+      ],
+      "bestFor": [
+        "fast drafting",
+        "outline repair",
+        "prompted rewriting"
+      ],
+      "avoidIf": [
+        "you need source-grounded evidence extraction",
+        "you want manuscript-ready references without manual checking"
+      ],
+      "tags": [
+        "editorial-pick",
+        "writing-core"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    },
+    {
+      "id": "tool-claude-long-context",
+      "toolId": 2,
+      "stationSection": "essential",
+      "sortOrder": 20,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Useful when the work depends on holding large context windows together: long manuscripts, review comments, appendices, and code-adjacent documentation.",
+      "positioning": "Long-context reviewer for synthesis, critique, and revision planning across large source bundles.",
+      "suitableFor": [
+        "multi-section manuscript review",
+        "response-to-reviewer planning",
+        "long prompt or policy interpretation"
+      ],
+      "whenToUse": "Use when context continuity matters more than quick conversational speed.",
+      "howToUse": [
+        "Upload the manuscript, reviewer notes, and any constraints in one pass.",
+        "Ask for a structured diagnosis before requesting rewritten text.",
+        "Break final edits into section-level passes once the revision plan is stable."
+      ],
+      "limitations": [
+        "Still requires fact-checking and reference verification.",
+        "Can overproduce polished prose when what you need is a strict decision memo."
+      ],
+      "alternatives": [
+        "ChatGPT for faster short-form iteration",
+        "Kimi for Chinese-heavy long-context reading"
+      ],
+      "bestFor": [
+        "long-context review",
+        "revision planning",
+        "document synthesis"
+      ],
+      "avoidIf": [
+        "the task is a quick wording tweak",
+        "you need an integrated academic language checker"
+      ],
+      "tags": [
+        "editorial-pick",
+        "long-context"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    },
+    {
+      "id": "tool-elicit-evidence-mapper",
+      "toolId": 8,
+      "stationSection": "essential",
+      "sortOrder": 30,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Strong fit for moving from a question to a structured evidence table without manually opening dozens of papers first.",
+      "positioning": "Evidence-mapping tool for narrowing a literature question into comparable studies and extracted fields.",
+      "suitableFor": [
+        "early-stage literature review",
+        "evidence table building",
+        "question refinement before a formal review"
+      ],
+      "whenToUse": "Use when the goal is to compare papers systematically rather than simply read one paper deeply.",
+      "howToUse": [
+        "Phrase the query as a research question, not a keyword bag.",
+        "Inspect the retrieved papers and prune the obvious mismatches early.",
+        "Export or manually transfer the extracted fields into your own review sheet."
+      ],
+      "limitations": [
+        "Coverage and extraction quality still need manual review.",
+        "Not enough on its own for a publishable systematic review workflow."
+      ],
+      "alternatives": [
+        "Semantic Scholar for broader search and citation graphing",
+        "Consensus for quick evidence-oriented question answering"
+      ],
+      "bestFor": [
+        "literature triage",
+        "structured comparison",
+        "review prep"
+      ],
+      "avoidIf": [
+        "you already know the exact paper set",
+        "you need line-by-line PDF interpretation"
+      ],
+      "tags": [
+        "research-core",
+        "evidence-mapping"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    },
+    {
+      "id": "tool-scispace-paper-reader",
+      "toolId": 7,
+      "stationSection": "essential",
+      "sortOrder": 40,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Good at helping users get through difficult PDFs faster, especially when terminology and methods are slowing down comprehension.",
+      "positioning": "Interactive paper-reading layer for unpacking dense papers before you decide whether they belong in the serious shortlist.",
+      "suitableFor": [
+        "first-pass PDF reading",
+        "term and method clarification",
+        "cross-language paper comprehension"
+      ],
+      "whenToUse": "Use when reading friction is the bottleneck and you need a guided first pass through a paper.",
+      "howToUse": [
+        "Upload one paper at a time when the goal is close reading.",
+        "Ask targeted questions about methods, assumptions, and limitations.",
+        "Capture your own notes separately so the paper remains usable outside the tool."
+      ],
+      "limitations": [
+        "Answers can flatten nuance from complex methods sections.",
+        "Not designed to replace your own citation or claim verification."
+      ],
+      "alternatives": [
+        "Kimi for long-context comparison across multiple PDFs",
+        "ChatGPT for custom note transformation after reading"
+      ],
+      "bestFor": [
+        "paper comprehension",
+        "term clarification",
+        "first-pass reading"
+      ],
+      "avoidIf": [
+        "you need a corpus-level search workflow",
+        "the paper must be reviewed with exact quotations only"
+      ],
+      "tags": [
+        "reading-core",
+        "paper-reader"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    },
+    {
+      "id": "tool-cursor-research-coding",
+      "toolId": 24,
+      "stationSection": "weekly",
+      "sortOrder": 50,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Worth featuring when the station wants to show how AI tools move from chat into repo-level execution and review.",
+      "positioning": "Research coding environment for iterative implementation, refactoring, and code-aware assistant loops.",
+      "suitableFor": [
+        "prototype implementation",
+        "repo-level refactors",
+        "analysis notebooks graduating into maintainable code"
+      ],
+      "whenToUse": "Use when the task depends on understanding multiple files and making changes with project context.",
+      "howToUse": [
+        "Open the narrowest folder that still contains the real context.",
+        "Ask for inspection and constraints before asking for edits.",
+        "Keep tests or validation commands ready and treat generated changes as reviewable diffs."
+      ],
+      "limitations": [
+        "Can spread mistakes across multiple files quickly if the initial instruction is vague.",
+        "Still needs human review for architecture and correctness."
+      ],
+      "alternatives": [
+        "GitHub Copilot for inline completion inside an existing editor workflow",
+        "ChatGPT for isolated code explanation and planning"
+      ],
+      "bestFor": [
+        "repo-context coding",
+        "refactors",
+        "implementation loops"
+      ],
+      "avoidIf": [
+        "the task is a single short snippet",
+        "you cannot verify the resulting code"
+      ],
+      "tags": [
+        "weekly-focus",
+        "coding-workflow"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    },
+    {
+      "id": "tool-biorender-figure-stack",
+      "toolId": 18,
+      "stationSection": "weekly",
+      "sortOrder": 60,
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22",
+      "whySelected": "Featured as a specialist recommendation: expensive for casual use, but hard to replace when the figure must communicate cleanly in a paper or presentation.",
+      "positioning": "Specialist figure-production tool for researchers who need polished biological or scientific schematics quickly.",
+      "suitableFor": [
+        "paper figures",
+        "graphical abstracts",
+        "lab presentations"
+      ],
+      "whenToUse": "Use when visual clarity and professional scientific iconography matter more than full design flexibility.",
+      "howToUse": [
+        "Start from an existing template close to your mechanism or workflow.",
+        "Reduce the figure to one claim per panel before polishing style.",
+        "Export a draft early and check whether the figure still reads outside the editor."
+      ],
+      "limitations": [
+        "Less suitable for generic product diagrams or highly custom layouts.",
+        "Subscription cost is hard to justify for occasional figure work."
+      ],
+      "alternatives": [
+        "Diagrams.net for free structural diagrams",
+        "Adobe Illustrator for fully custom publication graphics"
+      ],
+      "bestFor": [
+        "scientific schematics",
+        "figure polish",
+        "biomedical visuals"
+      ],
+      "avoidIf": [
+        "you only need a rough workflow box diagram",
+        "budget is the primary constraint"
+      ],
+      "tags": [
+        "weekly-focus",
+        "figure-production"
+      ],
+      "source": {
+        "type": "editorial-seed",
+        "label": "SciAI Hub review desk",
+        "url": "https://github.com/minqifeng/sciai-hub"
+      },
+      "updatedAt": "2026-04-22T00:00:00.000Z"
+    }
+  ]
+}

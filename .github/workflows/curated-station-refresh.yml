@@ -2,7 +2,7 @@ name: Curated Station Refresh
 
 on:
   schedule:
-    # Run after the model sync jobs so this log can reuse their manifest freshness.
+    # Run after the model sync jobs so the curated stream rollup can reuse model/source manifest freshness.
     - cron: '15 3 * * *'
   workflow_dispatch:
 
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Generate curated update log
+      - name: Generate curated station content rollup
         run: node .github/scripts/generate-station-updates.js
 
       - name: Validate manifests
@@ -40,7 +40,7 @@ jobs:
             echo "No changes to commit."
           else
             DAY=$(date -u '+%Y-%m-%d')
-            git commit -m "chore: refresh curated station updates ($DAY)"
+            git commit -m "chore: refresh curated station content streams ($DAY)"
             git push origin main
-            echo "Pushed curated update log."
+            echo "Pushed curated station content streams."
           fi

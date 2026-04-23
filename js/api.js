@@ -405,6 +405,9 @@ window.ModelRankingAPI = ModelRankingAPI;
 // ---- Local manifest loading ----
 const DataManifestAPI = (() => {
     const DATASET_FILES = {
+        'ai-daily': ['data/ai-daily.manifest.json'],
+        'curated-tools': ['data/curated-tools.manifest.json'],
+        'academic-entrypoints': ['data/academic-entrypoints.manifest.json'],
         news: ['data/news.manifest.json'],
         github: ['data/github.manifest.json'],
         models: ['data/models.snapshot.manifest.json', 'data/models.manifest.json'],

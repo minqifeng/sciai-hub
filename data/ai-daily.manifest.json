@@ -1,0 +1,246 @@
+{
+  "datasetId": "ai-daily.seed",
+  "schemaVersion": "1.0.0",
+  "sourceName": "SciAI Hub AI Daily seed",
+  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+  "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+  "validatedAt": "2026-04-23T00:00:00.000Z",
+  "status": "static",
+  "freshness": {
+    "cadence": "daily",
+    "freshnessPolicy": "editorial-seed",
+    "snapshotDate": "2026-04-23",
+    "refreshHint": "curated-daily-seed"
+  },
+  "lineage": {
+    "mode": "seeded-manifest",
+    "generator": "manual-foundation",
+    "editorialIntent": "homepage-daily-digest"
+  },
+  "recordCount": 4,
+  "records": [
+    {
+      "id": "digest-2026-04-23-ai-research-brief",
+      "kind": "daily-digest",
+      "title": "每日 AI+科研日报：把前沿信号转成今天的研究动作",
+      "summary": "今日版聚焦四类信号：开源模型与工具继续高速迭代，GitHub 前沿项目适合做工作流观察，学术 RAG 与多模态检索值得跟踪，AI 辅助开发带来的安全与引用核查风险需要前置处理。",
+      "date": "2026-04-23",
+      "generatedAt": "2026-04-23T00:00:00.000Z",
+      "reviewStatus": "reviewed",
+      "editorialTheme": "frontier signal to research action",
+      "coverageWindow": "24h editorial scan",
+      "audience": [
+        "graduate students",
+        "PhD researchers",
+        "research tool builders"
+      ],
+      "sections": [
+        "open-source watch",
+        "academic workflow",
+        "research infrastructure",
+        "risk check"
+      ],
+      "takeaways": [
+        "先看开源项目能否降低验证成本，再决定是否纳入研究流程。",
+        "把 RAG、多模态检索和 Agent 框架当作任务入口，而不是单纯追热点。",
+        "AI 辅助开发和论文生产都需要前置隐私、引用和可复现检查。"
+      ],
+      "highlights": [
+        {
+          "id": "digest-2026-04-23-open-source-watch",
+          "category": "Open-source watch",
+          "headline": "开源 AI 项目仍是判断前沿方向的最快窗口",
+          "summary": "本周 GitHub 与 Hugging Face 相关观察继续显示模型、Agent、MCP、推理和开发工具同步升温。本站应保留 GitHub 前沿项目入口，但使用精选快照而不是后台轮询。",
+          "importance": "high-signal",
+          "sourceRefs": [
+            {
+              "label": "Open source AI projects roundup",
+              "url": "https://fazm.ai/blog/new-open-source-ai-projects-github-hugging-face-april-2026"
+            },
+            {
+              "label": "OSSInsight AI trending",
+              "url": "https://ossinsight.io/trending/ai"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-23-github-frontier",
+          "category": "GitHub frontier",
+          "headline": "GitHub 推荐更适合作为前沿雷达，不适合作为无限刷新热榜",
+          "summary": "研究者真正需要的是知道哪些项目影响文献阅读、模型评测、RAG、Agent 或本地推理工作流；因此前沿项目应按任务线筛选，而不是追实时 API 排名。",
+          "importance": "editor-pick",
+          "sourceRefs": [
+            {
+              "label": "GitHub trending repositories April 2026",
+              "url": "https://www.mapodev.com/en/posts/2026-04-18-github-github-trending-repositories-april-18-2026"
+            },
+            {
+              "label": "GHTrending AI tools",
+              "url": "https://www.ghtrending.com/ai-tools"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-23-academic-rag",
+          "category": "Academic workflow",
+          "headline": "学术 RAG 的重点正在从“能搜到”转向“能解释和验证”",
+          "summary": "多模态 RAG、领域教育 RAG 和集合探索类系统都在强化任务规划、检索前决策和可解释探索。对科研站来说，入口应围绕文献、证据、图像和引用核查拆分。",
+          "importance": "practical",
+          "sourceRefs": [
+            {
+              "label": "ARIA multimodal RAG",
+              "url": "https://arxiv.org/abs/2604.06179"
+            },
+            {
+              "label": "CollEX agentic RAG",
+              "url": "https://arxiv.org/abs/2504.07643"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-23-risk-check",
+          "category": "Risk check",
+          "headline": "AI 辅助开发和科研写作都要把隐私、引用和密钥风险前置",
+          "summary": "AI 编码与协作工具提高产出速度，也会放大泄密、不可复现和错误引用风险。日报板块应持续提醒研究者保留人工核查和可追踪来源。",
+          "importance": "watchlist",
+          "sourceRefs": [
+            {
+              "label": "GitHub Copilot policy reporting",
+              "url": "https://www.windowscentral.com/software-apps/microsofts-github-is-going-to-start-using-copilot-interactions-to-train-ai-models-and-its-starting-soon"
+            },
+            {
+              "label": "GitHub secrets and AI risk reporting",
+              "url": "https://www.techradar.com/pro/security/over-29-million-secrets-were-leaked-on-github-in-2025-and-ai-really-isnt-helping"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "digest-2026-04-22-morning-brief",
+      "kind": "daily-digest",
+      "title": "Morning brief: what deserves attention today",
+      "summary": "A homepage-ready editorial digest that prioritizes workflow shifts, research infrastructure, and tools worth retesting rather than raw news volume.",
+      "date": "2026-04-22",
+      "generatedAt": "2026-04-22T00:00:00.000Z",
+      "reviewStatus": "reviewed",
+      "editorialTheme": "practical signal over feed noise",
+      "coverageWindow": "24h editorial scan",
+      "audience": [
+        "researchers",
+        "graduate students",
+        "applied AI builders"
+      ],
+      "sections": [
+        "models to retest",
+        "workflow patterns",
+        "academic tooling",
+        "open-source watch"
+      ],
+      "takeaways": [
+        "Retest familiar tools when the surrounding workflow changes, not only when a new launch appears.",
+        "The most useful daily items are often reusable patterns and setup decisions rather than announcements.",
+        "Homepage digest cards should stay concise enough to scan in under a minute."
+      ],
+      "highlights": [
+        {
+          "id": "digest-2026-04-22-model-retest",
+          "category": "Models worth retesting",
+          "headline": "Retest your default model stack after every prompt or context shift",
+          "summary": "Editorial note: teams often keep the same default model too long. Once prompts, file lengths, or review style change, the old ranking is usually wrong.",
+          "importance": "high-signal",
+          "sourceRefs": [
+            {
+              "label": "SciAI editorial seed",
+              "url": "https://github.com/minqifeng/sciai-hub"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-22-academic-stack",
+          "category": "Academic workflow",
+          "headline": "Treat literature search, evidence extraction, and citation cleanup as separate jobs",
+          "summary": "A single assistant rarely handles all three stages well. Curated stacks should recommend a primary search tool, a synthesis tool, and a verification step.",
+          "importance": "editor-pick",
+          "sourceRefs": [
+            {
+              "label": "Curated workflow note",
+              "url": "https://github.com/minqifeng/sciai-hub"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-22-operator-pattern",
+          "category": "Workflow pattern",
+          "headline": "Operator prompts outperform generic chat when the output has a fixed slot in your pipeline",
+          "summary": "Prompts with explicit input assumptions, output structure, and stop conditions are easier to verify and reuse across a lab or editorial team.",
+          "importance": "practical",
+          "sourceRefs": [
+            {
+              "label": "Station playbook direction",
+              "url": "https://github.com/minqifeng/sciai-hub"
+            }
+          ]
+        },
+        {
+          "id": "digest-2026-04-22-open-source-watch",
+          "category": "Open-source watch",
+          "headline": "Open tooling matters most when it reduces verification cost, not only license cost",
+          "summary": "The tools most worth watching are the ones that leave artifacts you can inspect, rerun, and hand off, especially for figures, notebooks, and paper prep.",
+          "importance": "watchlist",
+          "sourceRefs": [
+            {
+              "label": "Research ops heuristic",
+              "url": "https://github.com/minqifeng/sciai-hub"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "digest-2026-04-21-editorial-scan",
+      "kind": "daily-digest",
+      "title": "Editorial scan: reliable upgrades over novelty",
+      "summary": "Seed issue for the archive rail. Focuses on the less glamorous upgrades that improve a research station: validation, source trails, and narrower tool recommendations.",
+      "date": "2026-04-21",
+      "generatedAt": "2026-04-21T00:00:00.000Z",
+      "reviewStatus": "reviewed",
+      "editorialTheme": "narrow the stack",
+      "highlights": [
+        {
+          "id": "digest-2026-04-21-validation",
+          "category": "Infrastructure",
+          "headline": "Manifest validation is part of editorial quality control",
+          "summary": "If data envelopes break, the homepage becomes impossible to trust regardless of how polished the cards look.",
+          "importance": "practical"
+        },
+        {
+          "id": "digest-2026-04-21-curation",
+          "category": "Curation",
+          "headline": "Smaller reviewed lists beat large unsorted catalogs for repeat visits",
+          "summary": "The station should help users decide quickly, not reproduce an undifferentiated directory.",
+          "importance": "editor-pick"
+        }
+      ]
+    },
+    {
+      "id": "digest-2026-04-20-station-notes",
+      "kind": "daily-digest",
+      "title": "Station notes: homepage as briefing, not dashboard",
+      "summary": "Seed issue that frames the product direction: fewer metrics, clearer judgments, and structured entrypoints into research work.",
+      "date": "2026-04-20",
+      "generatedAt": "2026-04-20T00:00:00.000Z",
+      "reviewStatus": "reviewed",
+      "editorialTheme": "briefing-first",
+      "highlights": [
+        {
+          "id": "digest-2026-04-20-homepage",
+          "category": "Homepage direction",
+          "headline": "Use the top of the page to answer what matters now",
+          "summary": "A good editorial homepage opens with a point of view, then offers a small number of actionable routes.",
+          "importance": "high-signal"
+        }
+      ]
+    }
+  ]
+}
