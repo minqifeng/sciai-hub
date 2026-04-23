@@ -196,6 +196,18 @@
         saveLS('sciai-sidebar-collapsed', sidebarCollapsed);
         applySidebarCollapse();
     }
+    function getSidebarCollapsedWidth() {
+        if (typeof getComputedStyle !== 'function') return '68px';
+        const value = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width').trim();
+        return value || '68px';
+    }
+    function setWorkbenchActive(activeItem) {
+        $$('.workbench-sidebar-nav .workbench-nav-item').forEach(item => {
+            item.classList.toggle('active', item === activeItem);
+            if (item === activeItem) item.setAttribute('aria-current', 'page');
+            else item.removeAttribute('aria-current');
+        });
+    }
     function renderNews(items = currentNewsData) {
         if (!newsList) return;
         const entries = Array.isArray(items) ? items : [];
@@ -274,7 +286,34 @@
             applySidebarCollapse();
         });
         $$('.nav-anchor').forEach(anchor => {
-            anchor.addEventListener('click', () => {
+            anchor.addEventListener('click', event => {
+                if (anchor.classList.contains('workbench-nav-item')) {
+                    event.preventDefault();
+                    currentCategory = 'all';
+                    currentHomeFocus = 'home';
+                    showSection('all');
+                    filterTools();
+                    applyNavigationProminence();
+                    setWorkbenchActive(anchor);
+                    const target = anchor.hash ? document.querySelector(anchor.hash) : null;
+                    const scrollTarget = () => target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(scrollTarget);
+                    else setTimeout(scrollTarget, 0);
+                }
+                if (isMobileSidebar()) closeSidebarDrawer();
+            });
+        });
+        $$('.workbench-sidebar-nav .workbench-nav-item.nav-item[data-category]').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                const category = item.dataset.category || 'all';
+                const homeFocus = item.dataset.homeFocus || '';
+                if (category === 'all' && homeFocus) {
+                    openStationHomeFocus(homeFocus, item.textContent.trim() || '首页总览');
+                } else {
+                    openMethodTool(category);
+                }
+                setWorkbenchActive(item);
                 if (isMobileSidebar()) closeSidebarDrawer();
             });
         });
@@ -301,6 +340,7 @@
         const mobile = isMobileSidebar();
         const drawerVisible = mobile && !!sidebarDrawerOpen;
         const desktopCollapsed = !mobile && !!sidebarCollapsed;
+        const collapsedWidth = getSidebarCollapsedWidth();
 
         sidebar.classList.toggle('open', drawerVisible);
         sidebar.classList.toggle('drawer-open', drawerVisible);
@@ -310,8 +350,8 @@
         document.body?.classList.toggle('sidebar-pinned', !mobile && !!sidebarPinned);
         document.body?.classList.toggle('sidebar-collapsed', desktopCollapsed);
 
-        if (mainContent) mainContent.style.marginLeft = mobile ? '0' : (desktopCollapsed ? '64px' : '');
-        if (compareBar) compareBar.style.left = mobile ? '0' : (desktopCollapsed ? '64px' : '');
+        if (mainContent) mainContent.style.marginLeft = mobile ? '0' : (desktopCollapsed ? collapsedWidth : '');
+        if (compareBar) compareBar.style.left = mobile ? '0' : (desktopCollapsed ? collapsedWidth : '');
         sidebarToggle?.setAttribute('title', mobile ? (drawerVisible ? '关闭导航' : '打开导航') : (desktopCollapsed ? '展开导航' : '收起导航'));
         sidebarPinBtn?.classList.toggle('active', !mobile && !!sidebarPinned);
         mobileMenuBtn?.setAttribute('aria-expanded', drawerVisible ? 'true' : 'false');
@@ -1520,7 +1560,10 @@
     }
 
     function openMethodTool(cat) {
-        return window.SciAIStationInteractions.openMethodTool(getStationInteractionDeps(), cat);
+        const result = window.SciAIStationInteractions.openMethodTool(getStationInteractionDeps(), cat);
+        const item = document.querySelector(`.workbench-sidebar-nav .workbench-nav-item.nav-item[data-category="${String(cat).replace(/"/g, '\\"')}"]`);
+        if (item) setWorkbenchActive(item);
+        return result;
     }
 
     function applyCuratedStationCopy() {
