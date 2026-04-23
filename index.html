@@ -12,7 +12,7 @@
     <meta property="og:url" content="https://sciai-hub.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="css/style.css?v=20260423-visual1">
-    <link rel="stylesheet" href="css/drawer-override.css?v=20260423-sidebar1">
+    <link rel="stylesheet" href="css/drawer-override.css?v=20260423-sidebar2">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231d4ed8'/%3E%3Cpath d='M32 12l9 18 20 2-15 13 5 19-19-10-19 10 5-19-15-13 20-2z' fill='%2300d4aa'/%3E%3Ccircle cx='32' cy='32' r='6' fill='white'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
@@ -25,14 +25,9 @@
                 <i class="fas fa-atom"></i>
                 <span>SciAI Hub</span>
             </div>
-            <div class="sidebar-actions">
-                <button class="sidebar-pin" id="sidebarPinBtn" title="固定导航">
-                    <i class="fas fa-thumbtack"></i>
-                </button>
-                <button class="sidebar-toggle" id="sidebarToggle" title="收起导航">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+            <button class="sidebar-toggle" id="sidebarToggle" title="收起导航" aria-label="收起导航">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
         <div class="sidebar-search">
@@ -41,65 +36,59 @@
             <kbd class="search-kbd">/</kbd>
         </div>
 
-        <div class="editorial-sidebar-shell">
-            <div class="editorial-sidebar-overview">
-                <div class="sidebar-overview-badge">Curated Station</div>
-                <h3>给硕士与博士研究者的一座策展型研究站。</h3>
-                <p>先看本周精选、研究剧本和高频必备，再进入真正需要的方法模块，让首页始终服务研究节奏而不是信息漫游。</p>
-                <div class="sidebar-overview-chips">
-                    <span>Intel first</span>
-                    <span>Weekly curation</span>
-                    <span>Module aware</span>
-                </div>
+        <nav class="workbench-sidebar-nav" aria-label="研究工作台导航">
+            <div class="workbench-nav-group">
+                <div class="workbench-nav-label">今日工作台</div>
+                <a href="#" class="workbench-nav-item nav-item active" data-category="all" data-home-focus="home">
+                    <i class="fas fa-house"></i>
+                    <span>首页总览</span>
+                </a>
+                <a href="#dailyDigestSection" class="workbench-nav-item nav-anchor">
+                    <i class="fas fa-newspaper"></i>
+                    <span>AI+科研日报</span>
+                </a>
+                <a href="#featuredSection" class="workbench-nav-item nav-anchor">
+                    <i class="fas fa-star"></i>
+                    <span>本周精选</span>
+                </a>
             </div>
 
-            <nav class="editorial-sidebar-nav">
-                <div class="nav-section nav-section-primary">
-                    <div class="nav-section-title">Station Narrative</div>
-                    <a href="#" class="nav-item active" data-category="all" data-home-focus="home">
-                        <i class="fas fa-house"></i><span>Today Intel</span><small class="nav-item-meta">Lead</small>
-                    </a>
-                    <a href="#featuredSection" class="nav-anchor">
-                        <i class="fas fa-star"></i><span>Weekly Picks</span><small class="nav-item-meta">Week</small>
-                    </a>
-                    <a href="#homePlaybooksSection" class="nav-anchor">
-                        <i class="fas fa-route"></i><span>Playbooks</span><small class="nav-item-meta">Scripts</small>
-                    </a>
-                    <a href="#toolsSection" class="nav-anchor">
-                        <i class="fas fa-flask-vial"></i><span>Academic Modules</span><small class="nav-item-meta">Core</small>
-                    </a>
-                    <a href="#homeUpdatesSection" class="nav-anchor">
-                        <i class="fas fa-circle-info"></i><span>Usage & Updates</span><small class="nav-item-meta">Guide</small>
-                    </a>
-                </div>
-                <div class="nav-section nav-section-more">
-                    <div class="nav-section-title">Quick Modules</div>
-                    <div class="nav-section-note">高频方法模块仍保持一跳可达。</div>
-                    <a href="#" class="nav-item" data-category="journal">
-                        <i class="fas fa-journal-whills"></i><span>选刊助手</span>
-                    </a>
-                    <a href="#" class="nav-item" data-category="cite-check">
-                        <i class="fas fa-quote-right"></i><span>引文核查</span>
-                    </a>
-                    <a href="#" class="nav-item" data-category="paperdeck">
-                        <i class="fas fa-layer-group"></i><span>PaperDeck</span>
-                    </a>
-                    <a href="#" class="nav-item" data-category="stats">
-                        <i class="fas fa-chart-bar"></i><span>统计方法</span>
-                    </a>
-                </div>
-            </nav>
-
-            <div class="editorial-sidebar-footer">
-                <div class="sidebar-footer-note">Research OS · curated station</div>
-                <div class="sidebar-footer-links">
-                    <span>今日情报</span>
-                    <span>每周精选</span>
-                    <span>剧本优先</span>
-                    <span>方法直达</span>
-                </div>
+            <div class="workbench-nav-group">
+                <div class="workbench-nav-label">研究流程</div>
+                <a href="#homePlaybooksSection" class="workbench-nav-item nav-anchor">
+                    <i class="fas fa-route"></i>
+                    <span>研究剧本</span>
+                </a>
+                <a href="#toolsSection" class="workbench-nav-item nav-anchor">
+                    <i class="fas fa-flask-vial"></i>
+                    <span>学术模块</span>
+                </a>
+                <a href="#homeUpdatesSection" class="workbench-nav-item nav-anchor">
+                    <i class="fas fa-circle-info"></i>
+                    <span>使用说明</span>
+                </a>
             </div>
-        </div>
+
+            <div class="workbench-nav-group">
+                <div class="workbench-nav-label">高频模块</div>
+                <a href="#" class="workbench-nav-item nav-item" data-category="journal">
+                    <i class="fas fa-journal-whills"></i>
+                    <span>选刊助手</span>
+                </a>
+                <a href="#" class="workbench-nav-item nav-item" data-category="cite-check">
+                    <i class="fas fa-quote-right"></i>
+                    <span>引文核查</span>
+                </a>
+                <a href="#" class="workbench-nav-item nav-item" data-category="paperdeck">
+                    <i class="fas fa-layer-group"></i>
+                    <span>PaperDeck</span>
+                </a>
+                <a href="#" class="workbench-nav-item nav-item" data-category="stats">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>统计方法</span>
+                </a>
+            </div>
+        </nav>
     </aside>
     <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
