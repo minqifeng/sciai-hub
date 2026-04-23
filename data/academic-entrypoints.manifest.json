@@ -1,0 +1,147 @@
+{
+  "datasetId": "academic-entrypoints.seed",
+  "schemaVersion": "1.0.0",
+  "sourceName": "SciAI Hub academic entrypoints seed",
+  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+  "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+  "validatedAt": "2026-04-22T00:00:00.000Z",
+  "status": "static",
+  "freshness": {
+    "cadence": "weekly",
+    "freshnessPolicy": "editorial-seed",
+    "snapshotDate": "2026-04-22",
+    "refreshHint": "academic-entrypoints-seed"
+  },
+  "lineage": {
+    "mode": "seeded-manifest",
+    "generator": "manual-foundation",
+    "editorialIntent": "homepage-module-entrypoints"
+  },
+  "recordCount": 4,
+  "records": [
+    {
+      "id": "journal",
+      "category": "journal",
+      "entryKind": "method",
+      "taskLine": "Where should this paper go?",
+      "moduleSlug": "journal",
+      "title": "Journal",
+      "summary": "Shortlist venues by matching manuscript type, field norms, review speed, and submission constraints before formatting work begins.",
+      "desc": "Venue triage entrypoint for researchers who need a faster way to narrow candidate journals instead of browsing endlessly.",
+      "usageGuide": "Start with field, manuscript type, constraints, and your non-negotiables. Use it early, then revisit after the paper stabilizes.",
+      "status": "reviewed module",
+      "phase": "entrypoint-ready",
+      "icon": "fas fa-journal-whills",
+      "color": "#2563eb",
+      "keywords": [
+        "journal selection",
+        "venue fit",
+        "submission planning",
+        "scope check"
+      ],
+      "aliases": [
+        "journal finder",
+        "venue selector"
+      ],
+      "actionLabel": "Open module",
+      "audience": [
+        "authors preparing submission",
+        "students choosing a target venue"
+      ],
+      "outcome": "A smaller, defensible venue shortlist with explicit tradeoffs."
+    },
+    {
+      "id": "cite-check",
+      "category": "cite-check",
+      "entryKind": "method",
+      "taskLine": "Are the references and claims still defensible?",
+      "moduleSlug": "cite-check",
+      "title": "Cite Check",
+      "summary": "Run a focused verification pass on references, quotations, and support claims before submission or publication.",
+      "desc": "Citation integrity entrypoint for catching broken support chains, weak references, and quote drift before they become reviewer problems.",
+      "usageGuide": "Use near the end of drafting or after a major revision. Prioritize the abstract, introduction, results claims, and any sentence carrying strong evidence language.",
+      "status": "reviewed module",
+      "phase": "entrypoint-ready",
+      "icon": "fas fa-list-check",
+      "color": "#7c3aed",
+      "keywords": [
+        "citation audit",
+        "claim verification",
+        "reference QA",
+        "quote check"
+      ],
+      "aliases": [
+        "reference checker",
+        "claim audit"
+      ],
+      "actionLabel": "Open module",
+      "audience": [
+        "authors before submission",
+        "editors doing a final evidence pass"
+      ],
+      "outcome": "A cleaner manuscript with obvious reference risks surfaced before reviewers do."
+    },
+    {
+      "id": "paperdeck",
+      "category": "paperdeck",
+      "entryKind": "method",
+      "taskLine": "How do we turn reading into reusable knowledge?",
+      "moduleSlug": "paperdeck",
+      "title": "PaperDeck",
+      "summary": "Convert papers, notes, and takeaways into reusable cards that preserve method, finding, and relevance in a compact format.",
+      "desc": "Knowledge capture entrypoint for people who read a lot but lose the useful parts because nothing gets normalized into a repeatable note structure.",
+      "usageGuide": "Use after reading a paper worth keeping. Capture the question, method, key result, and why it matters to your own work.",
+      "status": "reviewed module",
+      "phase": "entrypoint-ready",
+      "icon": "fas fa-layer-group",
+      "color": "#059669",
+      "keywords": [
+        "paper notes",
+        "knowledge cards",
+        "literature memory",
+        "reading workflow"
+      ],
+      "aliases": [
+        "reading cards",
+        "paper notes deck"
+      ],
+      "actionLabel": "Open module",
+      "audience": [
+        "heavy literature readers",
+        "labs building shared paper memory"
+      ],
+      "outcome": "A reusable card deck that makes later synthesis and briefing much easier."
+    },
+    {
+      "id": "stats",
+      "category": "stats",
+      "entryKind": "method",
+      "taskLine": "What analysis path actually fits the question?",
+      "moduleSlug": "stats",
+      "title": "Stats",
+      "summary": "Guide the user from research question and data shape to a narrower analysis path, with method caveats stated plainly.",
+      "desc": "Method selection entrypoint for users who need a practical route through statistical options rather than a long undifferentiated list.",
+      "usageGuide": "Start with the research question, variable types, sample structure, and the decision you need to make. Use it before running software menus blindly.",
+      "status": "reviewed module",
+      "phase": "entrypoint-ready",
+      "icon": "fas fa-chart-bar",
+      "color": "#f59e0b",
+      "keywords": [
+        "method selection",
+        "analysis planning",
+        "statistical workflow",
+        "research design"
+      ],
+      "aliases": [
+        "stats guide",
+        "analysis selector"
+      ],
+      "actionLabel": "Open module",
+      "audience": [
+        "students planning analyses",
+        "researchers checking method fit"
+      ],
+      "outcome": "A smaller set of defensible analysis routes with assumptions visible up front."
+    }
+  ]
+}

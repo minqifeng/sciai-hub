@@ -1,21 +1,142 @@
 {
   "datasetId": "github.seed",
   "schemaVersion": "1.0.0",
-  "sourceName": "GitHub trending seed",
+  "sourceName": "SciAI Hub GitHub curated seed",
   "sourceUrl": "https://github.com/trending",
   "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
-  "validatedAt": "2026-04-21T00:00:00.000Z",
+  "validatedAt": "2026-04-23T00:00:00.000Z",
   "status": "static",
   "freshness": {
-    "cadence": "daily",
-    "freshnessPolicy": "trending-seed",
-    "snapshotDate": "2026-04-21",
-    "refreshHint": "ui-consumes-static-seed"
+    "cadence": "manual",
+    "freshnessPolicy": "curated-github-seed",
+    "snapshotDate": "2026-04-23",
+    "refreshHint": "ui-consumes-static-seed-no-live-api"
   },
   "lineage": {
     "mode": "seeded-manifest",
     "generator": "manual-foundation"
   },
-  "recordCount": 0,
-  "records": []
+  "recordCount": 10,
+  "records": [
+    {
+      "id": "gpt-academic",
+      "name": "gpt_academic",
+      "owner": "binary-husky",
+      "stars": "65k",
+      "desc": "为 GPT/GLM 等大语言模型提供论文阅读、润色、翻译、批改和代码调试入口，适合作为中文学术工作流补充。",
+      "topics": ["论文润色", "代码调试", "批量处理"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/binary-husky/gpt_academic",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "chatpaper",
+      "name": "ChatPaper",
+      "owner": "kaixindelele",
+      "stars": "8.4k",
+      "desc": "利用 ChatGPT 总结 arXiv 论文，快速提取摘要、创新点、方法论和实验结果，适合文献初筛。",
+      "topics": ["文献阅读", "arXiv", "批量总结"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/kaixindelele/ChatPaper",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "whisper",
+      "name": "whisper",
+      "owner": "openai",
+      "stars": "67k",
+      "desc": "多语言语音识别模型，可把学术讲座、会议录音和访谈材料转为文字，适合质性资料整理。",
+      "topics": ["语音识别", "多语言", "录音转文字"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/openai/whisper",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "segment-anything",
+      "name": "segment-anything",
+      "owner": "facebookresearch",
+      "stars": "46k",
+      "desc": "通用图像分割模型，可用于医学图像、遥感图像和实验图像的零样本分割探索。",
+      "topics": ["图像分割", "医学图像", "零样本"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/facebookresearch/segment-anything",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "transformers",
+      "name": "transformers",
+      "owner": "huggingface",
+      "stars": "130k",
+      "desc": "Hugging Face 的模型生态基础库，覆盖 NLP、CV、语音和多模态任务，是 AI 科研复现实验的常用底座。",
+      "topics": ["预训练模型", "NLP", "迁移学习"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/huggingface/transformers",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "gpt-researcher",
+      "name": "gpt-researcher",
+      "owner": "assafelovic",
+      "stars": "14k",
+      "desc": "基于智能体的自动化研究工具，可围绕问题搜索、综合信息并生成带引用的研究报告。",
+      "topics": ["自动调研", "智能体", "报告生成"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/assafelovic/gpt-researcher",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "deepchem",
+      "name": "deepchem",
+      "owner": "deepchem",
+      "stars": "5.3k",
+      "desc": "面向化学、生物和材料科学的深度学习库，适合药物发现、分子机器学习和科研建模。",
+      "topics": ["药物发现", "分子ML", "化学信息学"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/deepchem/deepchem",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "autogen",
+      "name": "autogen",
+      "owner": "microsoft",
+      "stars": "32k",
+      "desc": "多智能体协作框架，可搭建文献检索、代码生成、实验分析和报告撰写的自动化流程。",
+      "topics": ["多智能体", "自动化流程", "科研pipeline"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/microsoft/autogen",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "llama-cpp",
+      "name": "llama.cpp",
+      "owner": "ggerganov",
+      "stars": "65k",
+      "desc": "本地运行 LLaMA 等模型的高性能推理项目，适合隐私敏感或离线科研环境。",
+      "topics": ["本地部署", "隐私保护", "离线推理"],
+      "lang": "C++",
+      "langColor": "#f34b7d",
+      "url": "https://github.com/ggerganov/llama.cpp",
+      "updatedAt": "2026-04-23"
+    },
+    {
+      "id": "lm-evaluation-harness",
+      "name": "lm-evaluation-harness",
+      "owner": "EleutherAI",
+      "stars": "7.2k",
+      "desc": "LLM 标准化评测框架，覆盖 MMLU、GSM8K 等基准，适合模型能力复现和对比。",
+      "topics": ["模型评测", "基准测试", "对比分析"],
+      "lang": "Python",
+      "langColor": "#3572A5",
+      "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+      "updatedAt": "2026-04-23"
+    }
+  ]
 }

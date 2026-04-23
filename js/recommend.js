@@ -33,53 +33,84 @@ const SCENES = Array.isArray(typeof STATION_RECOMMEND_SCENES !== 'undefined' ? S
 
 let activeSceneIds = new Set();
 
-function getStationIndex() {
-    if (Array.isArray(typeof STATION_SEARCH_INDEX !== 'undefined' ? STATION_SEARCH_INDEX : null) && STATION_SEARCH_INDEX.length) {
-        return STATION_SEARCH_INDEX;
-    }
+function dedupeEntries(entries) {
+    const seen = new Set();
+    return entries.filter(entry => {
+        const key = `${entry.entryKind}:${entry.refId}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+}
+
+function buildToolEntry(tool) {
+    return {
+        entryKind: 'tool',
+        refId: tool.id,
+        title: tool.name,
+        desc: tool.reviewNote || tool.desc || '',
+        usageGuide: tool.usageGuide || '',
+        status: tool.editorialStatus || tool.status || '',
+        icon: tool.icon || 'fas fa-toolbox',
+        color: tool.color || '#0f766e',
+        keywords: [...new Set([...(tool.keywords || []), ...(tool.tags || []), tool.bestFor].filter(Boolean))],
+        actionLabel: '查看工具'
+    };
+}
+
+function buildScriptEntry(script) {
+    return {
+        entryKind: script.entryKind || 'script',
+        refId: script.refId || script.id,
+        title: script.title,
+        desc: script.desc || script.usage || '',
+        usageGuide: script.usageGuide || script.output || '',
+        status: script.status || '',
+        icon: script.icon || 'fas fa-scroll',
+        color: script.color || '#0f766e',
+        keywords: [...new Set([...(script.keywords || []), ...(script.tools || []), script.category, script.meta].filter(Boolean))],
+        actionLabel: script.actionLabel || '复制剧本'
+    };
+}
+
+function buildEntrypointEntry(entry) {
+    return {
+        entryKind: entry.entryKind || 'method',
+        refId: entry.refId || entry.category || entry.id,
+        title: entry.title,
+        desc: entry.desc || entry.usageGuide || '',
+        usageGuide: entry.usageGuide || '',
+        status: entry.status || '',
+        icon: entry.icon || 'fas fa-flask-vial',
+        color: entry.color || '#1d4ed8',
+        keywords: [...new Set([...(entry.keywords || []), entry.title, entry.category].filter(Boolean))],
+        actionLabel: entry.actionLabel || entry.ctaLabel || '打开模块'
+    };
+}
+
+function getFallbackStationIndex() {
     const tools = Array.isArray(typeof TOOLS_DATA !== 'undefined' ? TOOLS_DATA : null)
-        ? TOOLS_DATA.map(tool => ({
-            entryKind: 'tool',
-            refId: tool.id,
-            title: tool.name,
-            desc: tool.reviewNote || tool.desc,
-            usageGuide: tool.usageGuide || '',
-            status: tool.editorialStatus || '',
-            icon: tool.icon,
-            color: tool.color,
-            keywords: [...new Set([...(tool.keywords || []), ...(tool.tags || []), tool.bestFor].filter(Boolean))],
-            actionLabel: '查看工具'
-        }))
+        ? TOOLS_DATA.map(buildToolEntry)
         : [];
     const scripts = Array.isArray(typeof PROMPTS_DATA !== 'undefined' ? PROMPTS_DATA : null)
-        ? PROMPTS_DATA.map(script => ({
-            entryKind: 'script',
-            refId: script.id,
-            title: script.title,
-            desc: script.usage || '',
-            usageGuide: script.output || '',
-            status: script.status || '',
-            icon: 'fas fa-scroll',
-            color: '#0f766e',
-            keywords: [...new Set([...(script.keywords || []), ...(script.tools || []), script.category].filter(Boolean))],
-            actionLabel: '复制剧本'
-        }))
+        ? PROMPTS_DATA.map(buildScriptEntry)
         : [];
     const methods = Array.isArray(typeof METHOD_TOOL_MODULES !== 'undefined' ? METHOD_TOOL_MODULES : null)
-        ? METHOD_TOOL_MODULES.map(module => ({
-            entryKind: 'method',
-            refId: module.category,
-            title: module.title,
-            desc: module.desc || module.usageGuide || '',
-            usageGuide: module.usageGuide || '',
-            status: module.status || '',
-            icon: module.icon,
-            color: module.color,
-            keywords: [...new Set([...(module.keywords || []), module.title].filter(Boolean))],
-            actionLabel: module.ctaLabel || '打开模块'
-        }))
+        ? METHOD_TOOL_MODULES.map(buildEntrypointEntry)
         : [];
-    return [...tools, ...scripts, ...methods];
+    return dedupeEntries([...tools, ...scripts, ...methods]);
+}
+
+function getStationIndex() {
+    const stationData = window.__SCIAI_STATION_DATA;
+    if (stationData && typeof stationData.getSearchIndex === 'function') {
+        const entries = stationData.getSearchIndex();
+        if (Array.isArray(entries) && entries.length) return dedupeEntries(entries);
+    }
+    if (Array.isArray(typeof STATION_SEARCH_INDEX !== 'undefined' ? STATION_SEARCH_INDEX : null) && STATION_SEARCH_INDEX.length) {
+        return dedupeEntries(STATION_SEARCH_INDEX);
+    }
+    return getFallbackStationIndex();
 }
 
 function buildReason(entry, query, scenes) {
@@ -132,9 +163,10 @@ function matchEngine(query, activeScenes) {
 function getActionMarkup(entry) {
     const actionLabel = entry.actionLabel || (entry.entryKind === 'tool' ? '查看工具' : entry.entryKind === 'script' ? '复制剧本' : '打开模块');
     if (entry.entryKind === 'tool') {
-        return `<button class="rec-btn-detail" onclick="window._openTool(${entry.refId})">${actionLabel}</button>`;
+        const ref = String(entry.refId).replace(/'/g, "\\'");
+        return `<button class="rec-btn-detail" onclick="window._openTool('${ref}')">${actionLabel}</button>`;
     }
-    return `<button class="rec-btn-detail" onclick="window._stationAction && window._stationAction('${entry.entryKind}', '${entry.refId}')">${actionLabel}</button>`;
+    return `<button class="rec-btn-detail" onclick="window._stationAction && window._stationAction('${entry.entryKind}', '${String(entry.refId).replace(/'/g, "\\'")}')">${actionLabel}</button>`;
 }
 
 function renderRecommendResults(results, label) {
@@ -175,7 +207,7 @@ function renderRecommendResults(results, label) {
                 <div class="rec-actions">
                     ${getActionMarkup(entry)}
                     ${entry.entryKind === 'tool'
-                        ? `<button class="rec-btn-fav ${window._isFav && window._isFav(entry.refId) ? 'active' : ''}" onclick="window._toggleFav(${entry.refId});this.classList.toggle('active')"><i class="fas fa-heart"></i></button>`
+                        ? `<button class="rec-btn-fav ${window._isFav && window._isFav(entry.refId) ? 'active' : ''}" onclick="window._toggleFav('${String(entry.refId).replace(/'/g, "\\'")}');this.classList.toggle('active')"><i class="fas fa-heart"></i></button>`
                         : ''}
                 </div>
             </div>

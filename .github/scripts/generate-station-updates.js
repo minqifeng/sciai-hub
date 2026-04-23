@@ -20,7 +20,53 @@ const SOURCE_FILES = {
   modelsLive: path.join(DATA_DIR, 'models.manifest.json'),
   modelsSnapshot: path.join(DATA_DIR, 'models.snapshot.manifest.json'),
   github: path.join(DATA_DIR, 'github.manifest.json'),
+  aiDaily: path.join(DATA_DIR, 'ai-daily.manifest.json'),
+  curatedTools: path.join(DATA_DIR, 'curated-tools.manifest.json'),
+  academicEntrypoints: path.join(DATA_DIR, 'academic-entrypoints.manifest.json'),
 };
+
+const SOURCE_DEFINITIONS = [
+  { key: 'news', fallbackLabel: 'news', fileKey: 'news', highlightLabel: 'news' },
+  { key: 'github', fallbackLabel: 'github', fileKey: 'github', highlightLabel: 'github' },
+  { key: 'aiDaily', fallbackLabel: 'ai-daily', fileKey: 'aiDaily', highlightLabel: 'ai-daily' },
+  { key: 'curatedTools', fallbackLabel: 'curated-tools', fileKey: 'curatedTools', highlightLabel: 'curated-tools' },
+  {
+    key: 'academicEntrypoints',
+    fallbackLabel: 'academic-entrypoints',
+    fileKey: 'academicEntrypoints',
+    highlightLabel: 'academic-entrypoints',
+  },
+];
+
+const STREAM_DEFINITIONS = [
+  {
+    key: 'daily-digest',
+    title: 'Today digest',
+    badge: 'daily-digest',
+    icon: 'fas fa-newspaper',
+    sourceKey: 'aiDaily',
+    contextKeys: ['news', 'models', 'github'],
+    summary: 'Daily editorial digest sourced from the AI daily manifest, with model, news, and GitHub context attached.',
+  },
+  {
+    key: 'curated-picks',
+    title: 'Weekly picks',
+    badge: 'curated-picks',
+    icon: 'fas fa-crown',
+    sourceKey: 'curatedTools',
+    contextKeys: ['models', 'github'],
+    summary: 'Weekly curated picks from the reviewed tool manifest, with model and source context preserved for the homepage.',
+  },
+  {
+    key: 'academic-portal',
+    title: 'Research playbooks',
+    badge: 'academic-portal',
+    icon: 'fas fa-compass',
+    sourceKey: 'academicEntrypoints',
+    contextKeys: ['models', 'news'],
+    summary: 'Academic entrypoints and research playbooks, kept separate from the old portal sections but still connected to source context.',
+  },
+];
 
 function isoNow() {
   return new Date().toISOString();
@@ -97,38 +143,48 @@ function manifestSummary(manifest, fallbackLabel) {
 
   return {
     label: fallbackLabel,
-      status: manifest.status || 'unknown',
+    status: manifest.status || 'unknown',
     sourceName: manifest.sourceName || fallbackLabel,
     datasetId: manifest.datasetId || fallbackLabel,
-      sourceUrl: manifest.sourceUrl || '',
+    sourceUrl: manifest.sourceUrl || '',
     sourceFetchedAt: manifest.sourceFetchedAt || null,
     validatedAt: manifest.validatedAt || null,
     recordCount: Number(manifest.recordCount || 0),
-      freshness: normalizeFreshness(manifest),
+    freshness: normalizeFreshness(manifest),
     freshnessLabel: freshnessLabel(manifest),
     lineage: manifest.lineage || {},
   };
 }
 
+function loadConfiguredSources() {
+  const summaries = {};
+  const refs = {};
+
+  for (const definition of SOURCE_DEFINITIONS) {
+    const manifest = safeLoadManifest(SOURCE_FILES[definition.fileKey]);
+    summaries[definition.key] = manifestSummary(manifest, definition.fallbackLabel);
+    refs[definition.key] = manifest ? toPosix(path.relative(ROOT, SOURCE_FILES[definition.fileKey])) : null;
+  }
+
+  return { summaries, refs };
+}
+
 function loadSourceSet() {
-  const news = safeLoadManifest(SOURCE_FILES.news);
+  const configuredSources = loadConfiguredSources();
   const modelsSnapshot = safeLoadManifest(SOURCE_FILES.modelsSnapshot);
   const modelsLive = safeLoadManifest(SOURCE_FILES.modelsLive);
-  const github = safeLoadManifest(SOURCE_FILES.github);
 
   const modelsPrimary = modelsSnapshot || modelsLive;
   const modelsSecondary = modelsSnapshot && modelsLive && modelsSnapshot !== modelsLive ? modelsLive : null;
 
   return {
-    news: manifestSummary(news, 'news'),
+    ...configuredSources.summaries,
     models: manifestSummary(modelsPrimary, 'models'),
     modelsSecondary: modelsSecondary ? manifestSummary(modelsSecondary, 'models-live') : null,
-    github: manifestSummary(github, 'github'),
     refs: {
-      news: news ? toPosix(path.relative(ROOT, SOURCE_FILES.news)) : null,
+      ...configuredSources.refs,
       modelsSnapshot: modelsSnapshot ? toPosix(path.relative(ROOT, SOURCE_FILES.modelsSnapshot)) : null,
       modelsLive: modelsLive ? toPosix(path.relative(ROOT, SOURCE_FILES.modelsLive)) : null,
-      github: github ? toPosix(path.relative(ROOT, SOURCE_FILES.github)) : null,
     },
   };
 }
@@ -136,28 +192,85 @@ function loadSourceSet() {
 function buildRecordId(date, sourceSet) {
   const pieces = [
     date,
-    sourceSet.news.status,
+    sourceSet.aiDaily.status,
+    sourceSet.curatedTools.status,
+    sourceSet.academicEntrypoints.status,
     sourceSet.models.status,
-    sourceSet.github.status,
   ];
   return `update-${pieces.join('-')}`;
+}
+
+function buildEditorialSource(definition, sourceSet) {
+  const source = sourceSet[definition.key];
+  return {
+    key: definition.key,
+    datasetId: source.datasetId,
+    sourceName: source.sourceName,
+    status: source.status,
+    freshness: source.freshness,
+    freshnessLabel: source.freshnessLabel,
+    recordCount: source.recordCount,
+    sourceUrl: source.sourceUrl,
+    manifest: sourceSet.refs[definition.key],
+  };
+}
+
+function buildContextSummary(key, sourceSet) {
+  const source = sourceSet[key];
+  if (!source) return null;
+  return {
+    key,
+    datasetId: source.datasetId,
+    sourceName: source.sourceName,
+    status: source.status,
+    freshnessLabel: source.freshnessLabel,
+    recordCount: source.recordCount,
+    sourceUrl: source.sourceUrl,
+  };
+}
+
+function buildContentStream(definition, sourceSet) {
+  const source = sourceSet[definition.sourceKey];
+  const contextSources = definition.contextKeys
+    .map(key => buildContextSummary(key, sourceSet))
+    .filter(Boolean);
+  const modelContext = contextSources.find(item => item.key === 'models');
+  const manifestRef = sourceSet.refs[definition.sourceKey];
+
+  return {
+    key: definition.key,
+    title: definition.title,
+    badge: definition.badge,
+    icon: definition.icon,
+    status: source.status,
+    summary: definition.summary,
+    freshnessLabel: source.freshnessLabel,
+    datasetId: source.datasetId,
+    sourceName: source.sourceName,
+    sourceUrl: source.sourceUrl,
+    recordCount: source.recordCount,
+    manifest: manifestRef,
+    highlights: [
+      `${source.sourceName}: ${source.status}`,
+      source.freshnessLabel,
+      `${source.recordCount} records`,
+    ],
+    contextSources: contextSources.map(item => `${item.sourceName} (${item.status}; ${item.freshnessLabel})`),
+    contextNote: contextSources.length
+      ? `Context: ${contextSources.map(item => `${item.key}=${item.status}`).join(' / ')}`
+      : '',
+    modelContext: modelContext
+      ? `${modelContext.sourceName} ${modelContext.freshnessLabel}`
+      : '',
+  };
 }
 
 function buildRunRecord(sourceSet) {
   const now = isoNow();
   const date = today();
+  const contentStreams = STREAM_DEFINITIONS.map(definition => buildContentStream(definition, sourceSet));
   const sources = [
-    {
-      key: 'news',
-      datasetId: sourceSet.news.datasetId,
-      sourceName: sourceSet.news.sourceName,
-      status: sourceSet.news.status,
-      freshness: sourceSet.news.freshness,
-      freshnessLabel: sourceSet.news.freshnessLabel,
-      recordCount: sourceSet.news.recordCount,
-      sourceUrl: sourceSet.news.sourceUrl,
-      manifest: SOURCE_FILES.news ? toPosix(path.relative(ROOT, SOURCE_FILES.news)) : null,
-    },
+    ...SOURCE_DEFINITIONS.map(definition => buildEditorialSource(definition, sourceSet)),
     {
       key: 'models',
       datasetId: sourceSet.models.datasetId,
@@ -167,37 +280,26 @@ function buildRunRecord(sourceSet) {
       freshnessLabel: sourceSet.models.freshnessLabel,
       recordCount: sourceSet.models.recordCount,
       sourceUrl: sourceSet.models.sourceUrl,
-      manifest: SOURCE_FILES.modelsSnapshot && SOURCE_FILES.modelsLive
-        ? [toPosix(path.relative(ROOT, SOURCE_FILES.modelsSnapshot)), toPosix(path.relative(ROOT, SOURCE_FILES.modelsLive))]
-            .filter(Boolean)
-        : [sourceSet.refs.modelsSnapshot || sourceSet.refs.modelsLive].filter(Boolean),
-    },
-    {
-      key: 'github',
-      datasetId: sourceSet.github.datasetId,
-      sourceName: sourceSet.github.sourceName,
-      status: sourceSet.github.status,
-      freshness: sourceSet.github.freshness,
-      freshnessLabel: sourceSet.github.freshnessLabel,
-      recordCount: sourceSet.github.recordCount,
-      sourceUrl: sourceSet.github.sourceUrl,
-      manifest: SOURCE_FILES.github ? toPosix(path.relative(ROOT, SOURCE_FILES.github)) : null,
+      manifest: [sourceSet.refs.modelsSnapshot, sourceSet.refs.modelsLive].filter(Boolean),
     },
   ];
 
-  const highlights = [
-    `news: ${sourceSet.news.status} · ${sourceSet.news.freshnessLabel}`,
-    `models: ${sourceSet.models.status} · ${sourceSet.models.freshnessLabel}`,
-    `github: ${sourceSet.github.status} · ${sourceSet.github.freshnessLabel}`,
-  ];
+  const highlights = contentStreams
+    .map(stream => `${stream.badge}: ${stream.status} | ${stream.freshnessLabel}`)
+    .concat([
+      `news: ${sourceSet.news.status} | ${sourceSet.news.freshnessLabel}`,
+      `github: ${sourceSet.github.status} | ${sourceSet.github.freshnessLabel}`,
+      `models: ${sourceSet.models.status} | ${sourceSet.models.freshnessLabel}`,
+    ]);
 
   return {
     id: buildRecordId(date, sourceSet),
     kind: 'curated-daily-rollup',
-    title: 'Curated station update',
-    summary: 'Manifest-backed daily update log for news, models, and GitHub.',
+    title: 'Curated station streams update',
+    summary: 'Manifest-backed daily rollup for daily-digest, curated-picks, and academic-portal, with news, GitHub, and model context attached.',
     generatedAt: now,
     date,
+    contentStreams,
     sources,
     highlights,
     manifestRefs: Object.values(sourceSet.refs).filter(Boolean).map(toPosix),
@@ -224,7 +326,7 @@ function buildManifest(existing) {
       cadence: 'daily',
       freshnessPolicy: 'curated-update-log',
       snapshotTakenAt: now,
-      sourceDatasetId: 'news.models.github.manifests',
+      sourceDatasetId: 'daily-digest.curated-picks.academic-portal.plus-context.manifests',
       snapshotDate: today(),
     },
     lineage: {
