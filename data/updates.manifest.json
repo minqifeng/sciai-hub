@@ -3,15 +3,15 @@
   "schemaVersion": "1.0.0",
   "sourceName": "SciAI Hub curated station updates",
   "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-  "sourceFetchedAt": "2026-04-24T05:43:46.715Z",
-  "validatedAt": "2026-04-24T05:43:46.715Z",
+  "sourceFetchedAt": "2026-04-25T05:22:26.584Z",
+  "validatedAt": "2026-04-25T05:22:26.584Z",
   "status": "snapshot",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "curated-update-log",
-    "snapshotTakenAt": "2026-04-24T05:43:46.715Z",
+    "snapshotTakenAt": "2026-04-25T05:22:26.584Z",
     "sourceDatasetId": "daily-digest.curated-picks.academic-portal.plus-context.manifests",
-    "snapshotDate": "2026-04-24"
+    "snapshotDate": "2026-04-25"
   },
   "lineage": {
     "mode": "curated-update-log",
@@ -26,8 +26,230 @@
       "modelsLive": "data/models.manifest.json"
     }
   },
-  "recordCount": 2,
+  "recordCount": 3,
   "records": [
+    {
+      "id": "update-2026-04-25-static-static-static-snapshot",
+      "kind": "curated-daily-rollup",
+      "title": "Curated station streams update",
+      "summary": "Manifest-backed daily rollup for daily-digest, curated-picks, and academic-portal, with news, GitHub, and model context attached.",
+      "generatedAt": "2026-04-25T05:22:26.584Z",
+      "date": "2026-04-25",
+      "contentStreams": [
+        {
+          "key": "daily-digest",
+          "title": "Today digest",
+          "badge": "daily-digest",
+          "icon": "fas fa-newspaper",
+          "status": "static",
+          "summary": "Daily editorial digest sourced from the AI daily manifest, with model, news, and GitHub context attached.",
+          "freshnessLabel": "snapshot 2026-04-23",
+          "datasetId": "ai-daily.seed",
+          "sourceName": "SciAI Hub AI Daily seed",
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "recordCount": 4,
+          "manifest": "data/ai-daily.manifest.json",
+          "highlights": [
+            "SciAI Hub AI Daily seed: static",
+            "snapshot 2026-04-23",
+            "4 records"
+          ],
+          "contextSources": [
+            "SciAI Hub curated news seed (static; snapshot 2026-04-21)",
+            "OpenRouter Weekly Model Snapshot (snapshot; snapshot 2026-04-21)",
+            "SciAI Hub GitHub curated seed (static; snapshot 2026-04-23)"
+          ],
+          "contextNote": "Context: news=static / models=snapshot / github=static",
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-21"
+        },
+        {
+          "key": "curated-picks",
+          "title": "Weekly picks",
+          "badge": "curated-picks",
+          "icon": "fas fa-crown",
+          "status": "static",
+          "summary": "Weekly curated picks from the reviewed tool manifest, with model and source context preserved for the homepage.",
+          "freshnessLabel": "snapshot 2026-04-22",
+          "datasetId": "curated-tools.seed",
+          "sourceName": "SciAI Hub curated tools seed",
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "recordCount": 6,
+          "manifest": "data/curated-tools.manifest.json",
+          "highlights": [
+            "SciAI Hub curated tools seed: static",
+            "snapshot 2026-04-22",
+            "6 records"
+          ],
+          "contextSources": [
+            "OpenRouter Weekly Model Snapshot (snapshot; snapshot 2026-04-21)",
+            "SciAI Hub GitHub curated seed (static; snapshot 2026-04-23)"
+          ],
+          "contextNote": "Context: models=snapshot / github=static",
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-21"
+        },
+        {
+          "key": "academic-portal",
+          "title": "Research playbooks",
+          "badge": "academic-portal",
+          "icon": "fas fa-compass",
+          "status": "static",
+          "summary": "Academic entrypoints and research playbooks, kept separate from the old portal sections but still connected to source context.",
+          "freshnessLabel": "snapshot 2026-04-22",
+          "datasetId": "academic-entrypoints.seed",
+          "sourceName": "SciAI Hub academic entrypoints seed",
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "recordCount": 4,
+          "manifest": "data/academic-entrypoints.manifest.json",
+          "highlights": [
+            "SciAI Hub academic entrypoints seed: static",
+            "snapshot 2026-04-22",
+            "4 records"
+          ],
+          "contextSources": [
+            "OpenRouter Weekly Model Snapshot (snapshot; snapshot 2026-04-21)",
+            "SciAI Hub curated news seed (static; snapshot 2026-04-21)"
+          ],
+          "contextNote": "Context: models=snapshot / news=static",
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-21"
+        }
+      ],
+      "sources": [
+        {
+          "key": "news",
+          "datasetId": "news.seed",
+          "sourceName": "SciAI Hub curated news seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "daily",
+            "freshnessPolicy": "editorial-seed",
+            "snapshotDate": "2026-04-21",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "ui-consumes-static-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-21",
+          "recordCount": 0,
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "manifest": "data/news.manifest.json"
+        },
+        {
+          "key": "github",
+          "datasetId": "github.seed",
+          "sourceName": "SciAI Hub GitHub curated seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "manual",
+            "freshnessPolicy": "curated-github-seed",
+            "snapshotDate": "2026-04-23",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "ui-consumes-static-seed-no-live-api"
+          },
+          "freshnessLabel": "snapshot 2026-04-23",
+          "recordCount": 10,
+          "sourceUrl": "https://github.com/trending",
+          "manifest": "data/github.manifest.json"
+        },
+        {
+          "key": "aiDaily",
+          "datasetId": "ai-daily.seed",
+          "sourceName": "SciAI Hub AI Daily seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "daily",
+            "freshnessPolicy": "editorial-seed",
+            "snapshotDate": "2026-04-23",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "curated-daily-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-23",
+          "recordCount": 4,
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "manifest": "data/ai-daily.manifest.json"
+        },
+        {
+          "key": "curatedTools",
+          "datasetId": "curated-tools.seed",
+          "sourceName": "SciAI Hub curated tools seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "weekly",
+            "freshnessPolicy": "editorial-seed",
+            "snapshotDate": "2026-04-22",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "curated-tools-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-22",
+          "recordCount": 6,
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "manifest": "data/curated-tools.manifest.json"
+        },
+        {
+          "key": "academicEntrypoints",
+          "datasetId": "academic-entrypoints.seed",
+          "sourceName": "SciAI Hub academic entrypoints seed",
+          "status": "static",
+          "freshness": {
+            "cadence": "weekly",
+            "freshnessPolicy": "editorial-seed",
+            "snapshotDate": "2026-04-22",
+            "refreshedAt": null,
+            "snapshotTakenAt": null,
+            "sourceDatasetId": null,
+            "refreshHint": "academic-entrypoints-seed"
+          },
+          "freshnessLabel": "snapshot 2026-04-22",
+          "recordCount": 4,
+          "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+          "manifest": "data/academic-entrypoints.manifest.json"
+        },
+        {
+          "key": "models",
+          "datasetId": "models.snapshot",
+          "sourceName": "OpenRouter Weekly Model Snapshot",
+          "status": "snapshot",
+          "freshness": {
+            "cadence": "weekly",
+            "freshnessPolicy": "frozen-snapshot",
+            "snapshotDate": "2026-04-21",
+            "refreshedAt": null,
+            "snapshotTakenAt": "2026-04-21T00:00:00.000Z",
+            "sourceDatasetId": "models.catalog",
+            "refreshHint": null
+          },
+          "freshnessLabel": "snapshot 2026-04-21",
+          "recordCount": 0,
+          "sourceUrl": "https://openrouter.ai/api/v1/models",
+          "manifest": [
+            "data/models.snapshot.manifest.json",
+            "data/models.manifest.json"
+          ]
+        }
+      ],
+      "highlights": [
+        "daily-digest: static | snapshot 2026-04-23",
+        "curated-picks: static | snapshot 2026-04-22",
+        "academic-portal: static | snapshot 2026-04-22",
+        "news: static | snapshot 2026-04-21",
+        "github: static | snapshot 2026-04-23",
+        "models: snapshot | snapshot 2026-04-21"
+      ],
+      "manifestRefs": [
+        "data/news.manifest.json",
+        "data/github.manifest.json",
+        "data/ai-daily.manifest.json",
+        "data/curated-tools.manifest.json",
+        "data/academic-entrypoints.manifest.json",
+        "data/models.snapshot.manifest.json",
+        "data/models.manifest.json"
+      ]
+    },
     {
       "id": "update-2026-04-24-static-static-static-snapshot",
       "kind": "curated-daily-rollup",
