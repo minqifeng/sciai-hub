@@ -5,6 +5,44 @@
   "sourceUrl": "https://openrouter.ai/api/v1/models",
   "sourceFetchedAt": "2026-04-28T05:24:02.082Z",
   "validatedAt": "2026-04-28T05:24:02.082Z",
+  "manifestRefs": {
+    "live": "data/models.manifest.json",
+    "snapshot": "data/models.snapshot.manifest.json"
+  },
+  "sourceLayers": [
+    {
+      "layer": "live",
+      "role": "model-catalog-of-record",
+      "sourceName": "OpenRouter Model Catalog",
+      "sourceUrl": "https://openrouter.ai/api/v1/models",
+      "verification": "synced-json-manifest"
+    },
+    {
+      "layer": "snapshot",
+      "role": "homepage-stability-reference",
+      "sourceName": "OpenRouter Weekly Model Snapshot",
+      "sourceUrl": "data/models.snapshot.manifest.json",
+      "verification": "referenced-frozen-snapshot"
+    }
+  ],
+  "sourceProfile": {
+    "trustTier": "live-catalog",
+    "verificationMode": "scheduled-sync-output",
+    "liveFetchRequired": true,
+    "uiUse": "Use as the live model manifest reference; prefer the weekly snapshot for stable homepage rollups."
+  },
+  "editorialReview": {
+    "status": "machine-generated-reviewed",
+    "reviewedAt": "2026-04-28T05:24:02.082Z",
+    "reviewer": "sync-models.js",
+    "scope": "models live manifest",
+    "checks": [
+      "json-parse",
+      "record-count",
+      "live-manifest-reference",
+      "snapshot-reference"
+    ]
+  },
   "status": "live",
   "freshness": {
     "cadence": "daily",

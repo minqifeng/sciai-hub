@@ -3546,10 +3546,6 @@ textarea {
 /* ============================================
    Directory Layout Cleanup 2026-04
    ============================================ */
-#toolsCategoryTabs {
-    display: block !important;
-}
-
 .hero-tags,
 .hero-mini-list,
 .hero-flow-section,
@@ -4606,54 +4602,8 @@ textarea {
     min-width: 0;
 }
 
-.top-bar-nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.top-nav-link {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,0.6);
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 12px;
-    transition: var(--transition);
-}
-
-.top-nav-link:hover {
-    border-color: rgba(15,118,110,0.22);
-    background: rgba(15,118,110,0.08);
-    color: var(--accent);
-}
-
 .nav-section-more {
     opacity: 0.92;
-}
-
-#heroSection {
-    order: 1;
-}
-
-#featuredSection {
-    order: 2;
-}
-
-#homePlaybooksSection {
-    order: 3;
-}
-
-#toolsSection {
-    order: 4;
-}
-
-#homeUpdatesSection {
-    order: 5;
 }
 
 #heroSection[style*="display: none"] ~ #homePlaybooksSection,
@@ -4746,255 +4696,7 @@ textarea {
     min-height: 0;
 }
 
-/* Phase 1 copy tightening: keep the visible homepage story positive and fixed to five blocks. */
-.today-intel-lead .hero-desc,
-.today-intel-points span,
-.hero-trust-card > h3,
-.hero-trust-card > p,
-.today-intel-card[data-status-slot="freshness"] small,
-.today-intel-card[data-status-slot="coverage"] small,
-#toolsSection .tools-editorial-head .section-sub,
-#toolsSection .section-panel-note h4,
-#toolsSection .section-panel-note > p,
-#toolsSectionTitle,
-#toolsSection .curated-tools-head > p,
-#homeUpdatesSection .editorial-section-head .section-sub,
-#homeUpdatesSection .usage-grid .usage-card:nth-child(1) p,
-#homeUpdatesSection .usage-grid .usage-card:nth-child(3) p,
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) h4,
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) p,
-#newsSection .section-header > div:first-child h3,
-#newsSection .section-header > div:first-child .section-sub,
-#modelsSection .section-header > div:first-child h3,
-#modelsSection .section-header > div:first-child .section-sub,
-#githubSection .section-header > h3,
-#githubSection .frontier-sub,
-#githubSection .github-grid-label,
-#usecasesSection .section-header > h3,
-#usecasesSection .section-header > .section-sub {
-    font-size: 0;
-    line-height: 0;
-}
-
-.today-intel-lead .hero-desc::before {
-    content: "先用今日情报完成定向，再顺着本周精选、研究剧本和高频模块推进当前任务；需要更宽的资讯、模型或案例扫描时，再进入扩展入口。";
-    display: block;
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.72);
-}
-
-.today-intel-points span:nth-child(1)::before {
-    content: "先定向再展开";
-}
-
-.today-intel-points span:nth-child(2)::before {
-    content: "先剧本后进模块";
-}
-
-.today-intel-points span:nth-child(3)::before {
-    content: "扩展入口后置";
-}
-
-.today-intel-points span::before {
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
-
-.hero-trust-card > h3::before {
-    content: "首页入口顺序已经固定：今日情报、每周精选、研究剧本、高频模块、使用说明。";
-    display: block;
-    font-size: 1.1rem;
-    line-height: 1.55;
-    color: #fff;
-}
-
-.hero-trust-card > p::before {
-    content: "如果你要快速进入工作，先在这里完成定向；后续区块分别负责精选判断、任务剧本、模块直达和站内使用说明。";
-    display: block;
-    font-size: 0.97rem;
-    line-height: 1.7;
-    color: rgba(241,246,248,0.72);
-}
-
-.today-intel-card[data-status-slot="freshness"] small::before {
-    content: "先用今日情报和本周精选缩小判断范围，再决定今天真正要推进的研究任务。";
-    display: block;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: #5c6770;
-}
-
-.today-intel-card[data-status-slot="coverage"] small::before {
-    content: "高频模块继续承担直达任务，资讯、模型、GitHub 与案例只在需要扩展扫描时打开。";
-    display: block;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: #5c6770;
-}
-
-#toolsSection .tools-editorial-head .section-sub::before {
-    content: "这里保留研究流程里回访频率最高的学术模块，下面再接一层 curated tools shell，作为补充工作台而不是首页主位。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-    max-width: 56ch;
-}
-
-#toolsSection .section-panel-note h4::before {
-    content: "高频学术模块负责直达，curated tools shell 负责补充打开面。";
-    display: block;
-    font-size: 1.04rem;
-    line-height: 1.45;
-    color: var(--ink);
-}
-
-#toolsSection .section-panel-note > p::before {
-    content: "首页可见层只保留高频模块；精选工具卡片作为补充工作台承接，用来补齐次级打开面，而不是打断主叙事。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-}
-
-#toolsSectionTitle::before {
-    content: "Curated tools shell";
-    display: block;
-    font-size: 1.04rem;
-    line-height: 1.45;
-    color: var(--ink);
-}
-
-#toolsSection .curated-tools-head > p::before {
-    content: "这里展示精选工具卡片，用来补充研究工作台的打开面；需要快速扩展时使用，不承担首页导览职责。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-}
-
-#homeUpdatesSection .editorial-section-head .section-sub::before {
-    content: "这一块只负责说明本站如何使用、五块主叙事如何阅读，以及本轮首页收口更新了什么。";
-    display: block;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: rgba(241,246,248,0.72);
-    max-width: 56ch;
-}
-
-#homeUpdatesSection .usage-grid .usage-card:nth-child(1) p::before {
-    content: "第一屏先帮你判断今天该从哪里开始，再按顺序进入每周精选、研究剧本和高频模块。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#homeUpdatesSection .usage-grid .usage-card:nth-child(3) p::before {
-    content: "选刊、引文核查、PaperDeck 与统计方法继续一跳直达，作为高频学术模块持续服务写作、阅读与分析。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) h4::before {
-    content: "首页说明改成纯正向使用指引";
-    display: block;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #fff;
-}
-
-#homeUpdatesSection .updates-grid .update-card:nth-child(2) p::before {
-    content: "可见文案统一围绕先定向、再展开、按任务进入模块来组织，首页主叙事稳定收束为五块。";
-    display: block;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: rgba(241,246,248,0.72);
-}
-
-#newsSection .section-header > div:first-child h3::before {
-    content: "资讯扩展入口";
-    display: block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-}
-
-#newsSection .section-header > div:first-child .section-sub::before {
-    content: "需要补充扫描行业动态时再打开，按新闻类型、事件日期和实时源切换。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
-
-#modelsSection .section-header > div:first-child h3::before {
-    content: "模型扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-#modelsSection .section-header > div:first-child .section-sub::before {
-    content: "需要横向比较模型能力、类型和价格时再打开，用作主叙事之后的扩展扫描。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
-
-#githubSection .section-header > h3::before {
-    content: "GitHub 扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-#githubSection .frontier-sub::before {
-    content: "需要继续追踪社区热点时再展开";
-    display: block;
-    font-size: 12px;
-    line-height: 1.55;
-    color: #6f7c85;
-}
-
-#githubSection .github-grid-label::before {
-    content: "扩展项目清单";
-    display: block;
-    font-size: 12px;
-    line-height: 1.4;
-    color: #6f7c85;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-#usecasesSection .section-header > h3::before {
-    content: "研究案例扩展入口";
-    display: inline-block;
-    font-size: 1.08rem;
-    line-height: 1.35;
-    color: #22313a;
-}
-
-#usecasesSection .section-header > .section-sub::before {
-    content: "需要补充真实案例、工具组合和落地方式时再打开。";
-    display: block;
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6f7c85;
-}
+/* (removed) Phase 1 copy-tightening block: CSS was hiding HTML via font-size:0 and re-injecting verbose copy through ::before — now content lives in HTML directly. */
 
 .daily-digest-section {
     margin: 22px 32px 0;
@@ -5393,10 +5095,6 @@ textarea {
 }
 
 @media (max-width: 980px) {
-    .top-bar-nav {
-        display: none;
-    }
-
     .editorial-hero-grid {
         grid-template-columns: 1fr;
     }
@@ -5479,10 +5177,6 @@ body {
     background: rgba(247, 244, 236, 0.82);
     border-bottom: 1px solid rgba(17, 33, 44, 0.07);
     backdrop-filter: blur(18px);
-}
-
-.top-bar-nav {
-    display: none;
 }
 
 .main-content {
@@ -5671,6 +5365,599 @@ body {
     .hero-actions.editorial-hero-actions,
     .playbooks-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   Accessibility and workflow foundation
+   ============================================ */
+:root {
+    --focus-ring: 0 0 0 3px rgba(15, 118, 110, 0.18), 0 0 0 1px rgba(15, 118, 110, 0.46);
+    --workflow-accent: #0f766e;
+    --workflow-accent-soft: rgba(15, 118, 110, 0.10);
+    --workflow-warn-soft: rgba(180, 83, 9, 0.10);
+    --workflow-risk: #b45309;
+    --workflow-risk-soft: rgba(180, 83, 9, 0.12);
+    --workflow-danger: #dc2626;
+    --workflow-danger-soft: rgba(220, 38, 38, 0.10);
+    --workflow-neutral-soft: rgba(15, 23, 42, 0.06);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus:not(:focus-visible) {
+    outline: none;
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: var(--focus-ring);
+}
+
+:where(.hero-action-card, .hero-flow-step, .playbook-card, .tool-card, .featured-card):focus-visible {
+    border-color: rgba(15,118,110,0.42);
+    transform: translateY(-1px);
+}
+
+.modal-overlay.show:focus-within .modal {
+    box-shadow: var(--shadow-lg), var(--focus-ring);
+}
+
+.modal-close:focus-visible,
+.fav-btn:focus-visible,
+.btn-like-modal:focus-visible,
+.btn-fav-modal:focus-visible,
+.btn-add-compare:focus-visible,
+.btn-doc:focus-visible,
+.btn-visit:focus-visible,
+.btn-copy:focus-visible,
+.station-search-action:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: var(--focus-ring);
+}
+
+.modal {
+    max-height: min(88vh, 760px);
+    overflow: hidden;
+}
+
+.modal-body,
+.tool-modal-body,
+.compare-modal-body,
+.suggest-body {
+    max-height: calc(min(88vh, 760px) - 72px);
+    overflow: auto;
+    scrollbar-color: rgba(15,118,110,0.38) transparent;
+}
+
+/* Stage selector and workflow cards */
+
+.hero-stage-selector {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 14px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 22px;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.72), rgba(240,253,250,0.58));
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.045);
+}
+
+.hero-stage-title {
+    color: #37505b;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-stage-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hero-stage-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255,255,255,0.78);
+    color: #42545e;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.hero-stage-chip:hover,
+.hero-stage-chip.active,
+.hero-stage-chip.is-active,
+.hero-stage-chip[aria-pressed="true"],
+.hero-stage-chip[aria-selected="true"] {
+    border-color: rgba(15,118,110,0.30);
+    background: var(--workflow-accent-soft);
+    color: #0f3f3b;
+    transform: translateY(-1px);
+}
+
+.hero-stage-chip:focus-visible {
+    border-color: rgba(15,118,110,0.42);
+}
+
+.stats-stage-tabs {
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.035);
+}
+
+.stats-stage-tab:focus-visible,
+.models-filter-btn:focus-visible,
+.frontier-topic:focus-visible,
+.news-section-tab:focus-visible,
+.news-section-filter:focus-visible,
+.news-section-jump:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: var(--focus-ring);
+}
+
+.playbook-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.playbook-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 16px 0;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background: linear-gradient(90deg, rgba(15,118,110,0.75), rgba(180,83,9,0.48));
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.playbook-card:hover::after,
+.playbook-card:focus-visible::after,
+.playbook-card.is-recommended::after,
+.playbook-card.is-enhanced::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.playbook-card.is-recommended,
+.playbook-card.is-enhanced,
+.hero-flow-step.is-recommended,
+.hero-flow-step.is-enhanced {
+    border-color: rgba(15,118,110,0.24);
+    background:
+        radial-gradient(circle at 12% 12%, rgba(15,118,110,0.12), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f4fbf8 100%);
+}
+
+.playbook-card.is-recommended .hero-flow-index,
+.playbook-card.is-enhanced .hero-flow-index {
+    color: #b45309;
+}
+
+.workflow-skeleton,
+.submission-workflow,
+.suggest-workflow {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px dashed rgba(15, 23, 42, 0.14);
+    background:
+        linear-gradient(180deg, rgba(248,250,249,0.92), rgba(255,255,255,0.72));
+}
+
+.workflow-step,
+.submission-step,
+.suggest-step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(15,118,110,0.06);
+    color: #37505b;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.workflow-step::before,
+.submission-step::before,
+.suggest-step::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: var(--workflow-accent);
+    box-shadow: 0 0 0 4px var(--workflow-accent-soft);
+}
+
+.suggest-modal {
+    overflow: hidden;
+}
+
+.suggest-body {
+    background:
+        radial-gradient(circle at 88% 0%, var(--workflow-warn-soft), transparent 11rem),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,249,0.94));
+}
+
+.suggest-body .form-group {
+    width: 100%;
+}
+
+.suggest-body .form-input:focus-visible,
+.suggest-body select.form-input:focus-visible,
+.suggest-body .suggest-textarea:focus-visible {
+    border-color: rgba(15,118,110,0.42);
+}
+
+.suggest-body .btn-submit {
+    min-height: 44px;
+    border-radius: 14px;
+    background: #0f766e;
+    box-shadow: 0 12px 24px rgba(15,118,110,0.20);
+}
+
+.suggest-body .btn-submit:hover {
+    background: #115e59;
+}
+
+/* Semantic card states */
+
+.tool-card.is-selected,
+.featured-card.is-selected,
+.playbook-card.is-selected,
+.method-quick-card.is-selected,
+.quality-card.is-selected,
+.tool-card[aria-selected="true"],
+.featured-card[aria-selected="true"],
+.playbook-card[aria-selected="true"],
+.method-quick-card[aria-selected="true"] {
+    border-color: rgba(15,118,110,0.34);
+    box-shadow: 0 16px 34px rgba(15,118,110,0.12);
+}
+
+.tool-card.is-muted,
+.featured-card.is-muted,
+.playbook-card.is-muted,
+.method-quick-card.is-muted,
+.tool-card[aria-disabled="true"],
+.featured-card[aria-disabled="true"],
+.playbook-card[aria-disabled="true"],
+.method-quick-card[aria-disabled="true"] {
+    opacity: 0.62;
+    filter: grayscale(0.18);
+}
+
+.tool-card.is-warning,
+.featured-card.is-warning,
+.playbook-card.is-warning,
+.quality-card.is-warning,
+.tool-card[data-status="review"],
+.featured-card[data-status="review"],
+.playbook-card[data-status="review"],
+.quality-card[data-status-slot="fallback"] {
+    border-color: rgba(180,83,9,0.22);
+    background:
+        radial-gradient(circle at 100% 0%, var(--workflow-risk-soft), transparent 13rem),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,251,235,0.72));
+}
+
+.tool-card.is-risk,
+.featured-card.is-risk,
+.playbook-card.is-risk,
+.quality-card.is-risk,
+.tool-card[data-status="risk"],
+.featured-card[data-status="risk"],
+.playbook-card[data-status="risk"] {
+    border-color: rgba(220,38,38,0.24);
+    background:
+        radial-gradient(circle at 100% 0%, var(--workflow-danger-soft), transparent 13rem),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(254,242,242,0.72));
+}
+
+.semantic-status,
+.card-status,
+.review-status,
+.source-status,
+.diff-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    min-height: 24px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: var(--workflow-neutral-soft);
+    color: #475569;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+}
+
+.semantic-status::before,
+.card-status::before,
+.review-status::before,
+.source-status::before,
+.diff-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.75;
+}
+
+.semantic-status.ok,
+.card-status.ok,
+.review-status.reviewed,
+.source-status.live,
+.source-status.snapshot,
+.diff-status.added,
+.semantic-status[data-status="ok"],
+.card-status[data-status="ok"] {
+    border-color: rgba(15,118,110,0.16);
+    background: var(--workflow-accent-soft);
+    color: #0f766e;
+}
+
+.semantic-status.review,
+.card-status.review,
+.review-status.pending,
+.source-status.seed,
+.source-status.static,
+.diff-status.changed,
+.semantic-status[data-status="review"],
+.card-status[data-status="review"] {
+    border-color: rgba(180,83,9,0.18);
+    background: var(--workflow-risk-soft);
+    color: var(--workflow-risk);
+}
+
+.semantic-status.risk,
+.card-status.risk,
+.review-status.rejected,
+.source-status.unavailable,
+.diff-status.removed,
+.semantic-status[data-status="risk"],
+.card-status[data-status="risk"] {
+    border-color: rgba(220,38,38,0.18);
+    background: var(--workflow-danger-soft);
+    color: var(--workflow-danger);
+}
+
+/* Empty search and no-results states */
+
+.empty-state,
+.search-empty,
+.models-empty,
+.stats-empty,
+.deck-empty,
+.rec-empty {
+    border-radius: 24px;
+    border: 1px dashed rgba(15, 23, 42, 0.14);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(15,118,110,0.08), transparent 14rem),
+        rgba(255,255,255,0.62);
+}
+
+.empty-state[aria-live],
+.search-empty[aria-live],
+.models-empty[aria-live],
+.stats-empty[aria-live] {
+    scroll-margin-top: 96px;
+}
+
+.empty-state i,
+.search-empty i,
+.models-empty i,
+.stats-empty i,
+.deck-empty i {
+    color: #0f766e;
+}
+
+.empty-state .empty-state-action,
+.search-empty .empty-state-action,
+.models-empty .empty-state-action,
+.stats-empty .empty-state-action {
+    margin-top: 14px;
+}
+
+/* Trust, source provenance, diff, and review records */
+
+.trust-status-row {
+    align-items: center;
+}
+
+.trust-status-chip,
+.source-chip,
+.provenance-chip,
+.review-chip,
+.diff-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 24px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(15,118,110,0.12);
+    background: rgba(15,118,110,0.08);
+    color: #0f766e;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.source-chip::before,
+.provenance-chip::before,
+.review-chip::before,
+.diff-chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.72;
+}
+
+.source-chip.is-fallback,
+.provenance-chip.is-fallback,
+.review-chip.is-pending,
+.diff-chip.is-changed {
+    border-color: rgba(180,83,9,0.18);
+    background: var(--workflow-risk-soft);
+    color: var(--workflow-risk);
+}
+
+.source-chip.is-missing,
+.provenance-chip.is-missing,
+.review-chip.is-risk,
+.diff-chip.is-removed {
+    border-color: rgba(220,38,38,0.18);
+    background: var(--workflow-danger-soft);
+    color: var(--workflow-danger);
+}
+
+.trust-status-note,
+.review-record,
+.source-provenance,
+.diff-record {
+    color: #64727c;
+}
+
+.review-record,
+.source-provenance,
+.diff-record,
+.source-diff-list,
+.review-record-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255,255,255,0.58);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.diff-record[data-diff="added"],
+.diff-chip.is-added {
+    border-color: rgba(15,118,110,0.16);
+    background: var(--workflow-accent-soft);
+    color: var(--workflow-accent);
+}
+
+.diff-record[data-diff="removed"] {
+    border-color: rgba(220,38,38,0.18);
+    background: rgba(254,242,242,0.68);
+}
+
+.diff-record[data-diff="changed"] {
+    border-color: rgba(180,83,9,0.18);
+    background: rgba(255,251,235,0.72);
+}
+
+.review-record time,
+.source-provenance time,
+.diff-record time {
+    color: #0f766e;
+    font-weight: 800;
+}
+
+.quality-card[data-status-slot="provenance"],
+.hero-status-card[data-status-slot="provenance"] {
+    position: relative;
+}
+
+.quality-card[data-status-slot="provenance"]::after,
+.hero-status-card[data-status-slot="provenance"]::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0f766e;
+    box-shadow: 0 0 0 5px rgba(15,118,110,0.10);
+}
+
+@media (max-width: 768px) {
+    .hero-stage-selector {
+        border-radius: 18px;
+        padding: 12px;
+    }
+
+    .hero-stage-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-stage-chip {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .workflow-step,
+    .submission-step,
+    .suggest-step,
+    .review-record,
+    .source-provenance,
+    .diff-record,
+    .source-diff-list,
+    .review-record-list {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+    }
+
+    .tool-modal-footer {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-stage-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.001ms;
+    }
+
+    :where(.hero-action-card, .hero-flow-step, .playbook-card, .tool-card, .featured-card):hover,
+    :where(.hero-action-card, .hero-flow-step, .playbook-card, .tool-card, .featured-card):focus-visible,
+    .hero-stage-chip:hover,
+    .hero-stage-chip.active,
+    .hero-stage-chip.is-active {
+        transform: none;
     }
 }
 

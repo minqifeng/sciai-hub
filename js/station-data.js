@@ -100,26 +100,294 @@ window.SciAIStationData = (() => {
                 kicker: tool.stationSectionLabel || tool.editorialStatus || '精选',
                 reason: tool.reviewNote || tool.bestFor || tool.desc || '',
                 usage: tool.usageGuide || '',
-                status: tool.editorialStatus || 'Manifest'
+                status: tool.editorialStatus || 'Manifest',
+                reviewedAt: tool.reviewedAt || '',
+                reviewNote: tool.reviewNote || '',
+                provenance: tool.provenance || null
             }));
         }
         return Array.isArray(deps.featuredTools) ? deps.featuredTools : [];
     }
 
+    function firstText(...values) {
+        for (const value of values) {
+            if (Array.isArray(value)) {
+                const joined = value.map(item => typeof item === 'string' ? item : (item?.title || item?.name || item?.text || item?.summary || item?.desc || item?.value || '')).filter(Boolean).join(' / ');
+                if (joined) return joined;
+            } else if (value !== undefined && value !== null && String(value).trim()) {
+                return String(value).trim();
+            }
+        }
+        return '';
+    }
+
+    function dateOnly(value) {
+        if (!value) return '';
+        return String(value).slice(0, 10);
+    }
+
+    function manifestFreshnessDate(manifest) {
+        const freshness = manifest?.freshness || {};
+        return freshness.snapshotDate || dateOnly(freshness.refreshedAt) || dateOnly(freshness.snapshotTakenAt) || dateOnly(manifest?.validatedAt) || dateOnly(manifest?.sourceFetchedAt);
+    }
+
+    function formatRecordCount(value) {
+        return Number.isFinite(Number(value)) ? `${Number(value)} records` : '';
+    }
+
+    function formatSourceLayer(layer) {
+        if (!layer || typeof layer !== 'object') return '';
+        return [
+            layer.layer,
+            layer.role,
+            layer.sourceName || layer.key,
+            layer.verification
+        ].filter(Boolean).join(' / ');
+    }
+
+    function buildSourceLayerSummaries(deps, ...sources) {
+        return sources
+            .flatMap(source => deps.toArray(source?.sourceLayers))
+            .map(formatSourceLayer)
+            .filter(Boolean);
+    }
+
+    function buildSourceProfileSummary(profile) {
+        if (!profile || typeof profile !== 'object') return '';
+        return [
+            profile.trustTier,
+            profile.verificationMode,
+            profile.liveFetchRequired === false ? 'no-live-fetch' : ''
+        ].filter(Boolean).join(' / ');
+    }
+
+    function buildVerificationSummary(verified) {
+        if (!verified || typeof verified !== 'object') return '';
+        return [
+            verified.key,
+            verified.manifestPresent === true ? 'manifest present' : '',
+            verified.mode,
+            verified.validatedAt ? `validated ${dateOnly(verified.validatedAt)}` : '',
+            verified.checkedAt ? `checked ${dateOnly(verified.checkedAt)}` : ''
+        ].filter(Boolean).join(' / ');
+    }
+
+    function buildDiffSummary(deps, diff) {
+        if (!diff || typeof diff !== 'object') return '';
+        const changed = deps.toArray(diff.changed).map(item => {
+            if (typeof item === 'string') return item;
+            const fields = deps.toArray(item?.changed).join(', ');
+            return [item?.key, fields].filter(Boolean).join(': ');
+        }).filter(Boolean);
+        const created = deps.toArray(diff.new).map(item => typeof item === 'string' ? item : item?.key).filter(Boolean);
+        const verified = deps.toArray(diff.verified).map(item => item?.key || item?.mode).filter(Boolean);
+        return [
+            changed.length ? `changed ${changed.slice(0, 4).join(' / ')}` : '',
+            created.length ? `new ${created.slice(0, 3).join(' / ')}` : '',
+            verified.length ? `verified ${verified.slice(0, 4).join(' / ')}` : ''
+        ].filter(Boolean).join(' | ');
+    }
+
+    function getLatestUpdateRecord(deps) {
+        return deps.getManifestPrimaryRecords('updates')[0] || null;
+    }
+
+    function findUpdateSource(deps, key) {
+        const update = getLatestUpdateRecord(deps);
+        return deps.toArray(update?.sources).find(source => String(source?.key || '').toLowerCase() === String(key).toLowerCase()) || null;
+    }
+
+    function findUpdateDiffEntry(deps, key) {
+        const update = getLatestUpdateRecord(deps);
+        const changed = deps.toArray(update?.diff?.changed || update?.changed);
+        return changed.find(item => String(item?.key || '').toLowerCase() === String(key).toLowerCase()) || null;
+    }
+
+    function buildRepoEvidenceSummary(deps, repo) {
+        const evidence = repo?.evidence || {};
+        return [
+            evidence.sourceTier,
+            evidence.confidence ? `confidence ${evidence.confidence}` : '',
+            evidence.activity,
+            evidence.release,
+            evidence.starDelta
+        ].filter(Boolean).join(' / ');
+    }
+
+    function getGithubGenerationStatusCard(deps) {
+        const bundle = deps.getManifestBundle('github');
+        const manifest = bundle.primary;
+        if (!manifest) return null;
+        const updateSource = findUpdateSource(deps, 'github');
+        const diffEntry = findUpdateDiffEntry(deps, 'github');
+        const repos = Array.isArray(manifest.records) ? manifest.records : [];
+        const evidence = buildRepoEvidenceSummary(deps, repos.find(repo => repo?.evidence) || {});
+        const freshness = updateSource?.freshnessLabel || deps.formatManifestFreshness(manifest);
+        return {
+            id: 'github-generation-status',
+            title: 'GitHub daily generation status',
+            desc: [
+                `${manifest.sourceName || 'GitHub manifest'}: ${manifest.status || 'manifest'}`,
+                freshness,
+                formatRecordCount(updateSource?.recordCount ?? manifest.recordCount ?? repos.length),
+                updateSource?.sourceProfile?.uiUse || manifest.sourceProfile?.uiUse
+            ].filter(Boolean).join(' | '),
+            cover: 'linear-gradient(135deg, #111827 0%, #374151 100%)',
+            icon: 'fab fa-github',
+            views: updateSource?.datasetId || manifest.datasetId || 'github',
+            date: manifestFreshnessDate(updateSource || manifest),
+            status: updateSource?.status || manifest.status || 'manifest',
+            note: [
+                buildDiffSummary(deps, { changed: [diffEntry].filter(Boolean), verified: [diffEntry?.verified].filter(Boolean) }),
+                evidence ? `Evidence: ${evidence}` : '',
+                buildSourceProfileSummary(updateSource?.sourceProfile || manifest.sourceProfile)
+            ].filter(Boolean).join(' | '),
+            sourceLayers: buildSourceLayerSummaries(deps, updateSource, manifest),
+            evidence: repos.slice(0, 3).map(repo => ({
+                label: `${repo.owner || ''}/${repo.name || repo.id || ''}`.replace(/^\//, ''),
+                detail: buildRepoEvidenceSummary(deps, repo)
+            })).filter(item => item.label && item.detail),
+            verified: diffEntry?.verified || updateSource?.verified || null,
+            url: manifest.sourceUrl || 'https://github.com/trending',
+            provenance: buildManifestProvenance(deps, 'github', manifest, 'github')
+        };
+    }
+
+    function getModelManifestStatusCard(deps) {
+        const bundle = deps.getManifestBundle('models');
+        const snapshot = bundle.manifests?.find(item => item?.status === 'snapshot') || bundle.primary;
+        const live = bundle.manifests?.find(item => item?.status === 'live') || bundle.secondary?.find(item => item?.status === 'live');
+        if (!snapshot && !live) return null;
+        const updateSource = findUpdateSource(deps, 'models');
+        const diffEntry = findUpdateDiffEntry(deps, 'models');
+        return {
+            id: 'model-manifest-status',
+            title: 'Model manifest: live catalog + snapshot',
+            desc: [
+                snapshot ? `snapshot ${manifestFreshnessDate(snapshot) || 'available'}` : '',
+                live ? `live ${manifestFreshnessDate(live) || 'available'}` : '',
+                live?.recordCount ? `live catalog ${live.recordCount} models` : '',
+                updateSource?.freshnessLabel
+            ].filter(Boolean).join(' | '),
+            cover: 'linear-gradient(135deg, #0f766e 0%, #2563eb 100%)',
+            icon: 'fas fa-brain',
+            views: live?.datasetId || snapshot?.datasetId || 'models',
+            date: manifestFreshnessDate(live || snapshot || updateSource),
+            status: [snapshot?.status, live?.status].filter(Boolean).join(' + ') || 'manifest',
+            note: [
+                buildDiffSummary(deps, { changed: [diffEntry].filter(Boolean), verified: [diffEntry?.verified].filter(Boolean) }),
+                `Primary UI source: ${snapshot?.filePath || 'snapshot manifest'}`,
+                live ? `Secondary live source: ${live.filePath || 'live manifest'}` : ''
+            ].filter(Boolean).join(' | '),
+            sourceLayers: buildSourceLayerSummaries(deps, updateSource, snapshot, live),
+            evidence: [
+                snapshot ? { label: snapshot.sourceName || 'snapshot', detail: `${snapshot.status || 'snapshot'} / ${deps.formatManifestFreshness(snapshot)}` } : null,
+                live ? { label: live.sourceName || 'live catalog', detail: `${live.status || 'live'} / ${formatRecordCount(live.recordCount)}` } : null
+            ].filter(Boolean),
+            verified: diffEntry?.verified || null,
+            url: live?.sourceUrl || snapshot?.sourceUrl || '',
+            provenance: buildManifestProvenance(deps, 'models', live || snapshot, 'models')
+        };
+    }
+
+    function getUpdatesDiffEvidenceCard(deps) {
+        const record = getLatestUpdateRecord(deps);
+        if (!record?.diff && !record?.changed && !record?.verified) return null;
+        const verified = deps.toArray(record.diff?.verified || record.verified);
+        return {
+            id: 'updates-diff-evidence',
+            title: 'Updates diff and evidence trail',
+            desc: record.summary || 'Manifest-backed update diff with verification records.',
+            cover: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 100%)',
+            icon: 'fas fa-code-compare',
+            views: record.kind || 'updates diff',
+            date: record.date || dateOnly(record.generatedAt),
+            status: record.status || 'verified diff',
+            note: buildDiffSummary(deps, record.diff || record),
+            sourceLayers: buildSourceLayerSummaries(deps, record),
+            evidence: verified.slice(0, 4).map(item => ({
+                label: item.key || item.mode || 'verified',
+                detail: buildVerificationSummary(item)
+            })).filter(item => item.detail),
+            verified: verified[0] || null,
+            url: '',
+            provenance: buildManifestProvenance(deps, 'updates', record, 'updates')
+        };
+    }
+
+    function getEditorialReviewCard(deps) {
+        const manifest = deps.getManifestBundle('curated-tools').primary;
+        const records = Array.isArray(manifest?.records) ? manifest.records : [];
+        const reviewed = records.filter(record => record.reviewStatus || record.reviewedAt || record.whySelected);
+        if (!reviewed.length) return null;
+        const latestDate = reviewed.map(record => record.reviewedAt || dateOnly(record.updatedAt)).filter(Boolean).sort().pop();
+        return {
+            id: 'editorial-review-log',
+            title: 'Editorial review records',
+            desc: `${reviewed.length}/${records.length || reviewed.length} curated tools carry review status, review date, and why-selected notes.`,
+            cover: 'linear-gradient(135deg, #581c87 0%, #be185d 100%)',
+            icon: 'fas fa-clipboard-check',
+            views: manifest.datasetId || 'curated-tools',
+            date: latestDate || manifestFreshnessDate(manifest),
+            status: 'editorial-reviewed',
+            note: reviewed.slice(0, 3).map(record => `${record.reviewStatus || 'reviewed'} ${record.reviewedAt || ''}: ${record.whySelected || record.positioning || record.id}`).join(' | '),
+            sourceLayers: buildSourceLayerSummaries(deps, manifest),
+            evidence: reviewed.slice(0, 4).map(record => ({
+                label: record.id || String(record.toolId || ''),
+                detail: [record.reviewStatus, record.reviewedAt, record.source?.label].filter(Boolean).join(' / ')
+            })).filter(item => item.label && item.detail),
+            verified: null,
+            url: manifest.sourceUrl || '',
+            provenance: buildManifestProvenance(deps, 'curated-tools', manifest, 'curated-tools')
+        };
+    }
+
+    function normalizeTextList(deps, ...values) {
+        return values.flatMap(value => deps.toArray(value))
+            .map(item => typeof item === 'string' ? item : (item?.title || item?.name || item?.text || item?.desc || item?.summary || ''))
+            .map(item => String(item || '').trim())
+            .filter(Boolean);
+    }
+
+    function inferPlaybookContent(playbook) {
+        if (playbook.content) return playbook.content;
+        return [
+            `Title: ${playbook.title}`,
+            playbook.input ? `Input: ${playbook.input}` : '',
+            playbook.usage ? `Use case: ${playbook.usage}` : '',
+            playbook.steps?.length ? `Steps:\n${playbook.steps.map((step, index) => `${index + 1}. ${step}`).join('\n')}` : '',
+            playbook.output ? `Expected output: ${playbook.output}` : '',
+            playbook.risk ? `Risk check: ${playbook.risk}` : '',
+            playbook.nextStep ? `Next step: ${playbook.nextStep}` : ''
+        ].filter(Boolean).join('\n\n');
+    }
+
     function normalizeManifestPlaybook(deps, record, index) {
         if (!record || typeof record !== 'object') return null;
         const kind = String(record.entryKind || record.kind || record.type || '').toLowerCase();
-        const looksLikePlaybook = /playbook|script|prompt/.test(kind) || record.content || record.prompt || record.template;
+        const groupKey = String(record.__manifestGroupKey || '').toLowerCase();
+        const looksLikePlaybook = /playbook|script|prompt/.test(kind) || /playbook|script|prompt/.test(groupKey) || record.content || record.prompt || record.template;
         if (!looksLikePlaybook) return null;
         const content = record.content || record.prompt || record.template || record.summary || '';
-        return {
+        const input = firstText(record.input, record.inputs, record.requiredInput, record.materials, record.context, record.inputGuide, record.brief);
+        const steps = normalizeTextList(deps, record.steps, record.workflow, record.process, record.tasks, record.instructions, record.checklist);
+        const output = firstText(record.output, record.outputs, record.deliverable, record.deliverables, record.result, record.outcome);
+        const risk = firstText(record.risk, record.risks, record.caution, record.limitations, record.failureMode, record.guardrail);
+        const nextStep = firstText(record.nextStep, record.nextSteps, record.followUp, record.followup, record.afterUse);
+        const usage = firstText(record.usage, record.taskLine, record.summary, record.desc, record.description);
+        const playbook = {
+            ...(record || {}),
             id: record.id || record.refId || `manifest-playbook-${index}`,
             entryKind: 'script',
             title: record.title || record.name || `研究剧本 ${index + 1}`,
             category: record.category || 'review',
             status: record.status || record.phase || 'Manifest',
-            usage: record.usage || record.summary || record.desc || record.description || '',
-            output: record.output || record.deliverable || record.result || '',
+            usage,
+            input,
+            steps,
+            output,
+            risk,
+            nextStep,
             tools: deps.toArray(record.tools).map(item => typeof item === 'string' ? item : (item?.name || item?.title || '')).filter(Boolean),
             keywords: [...new Set([
                 ...deps.toArray(record.keywords).map(String),
@@ -130,14 +398,58 @@ window.SciAIStationData = (() => {
             content: String(content || ''),
             provenance: buildManifestProvenance(deps, 'academic-entrypoints', record, 'academic-entrypoints')
         };
+        playbook.content = inferPlaybookContent(playbook);
+        return playbook;
+    }
+
+    function normalizeStaticPlaybook(deps, record, index) {
+        if (!record || typeof record !== 'object') return null;
+        const input = firstText(record.input, record.inputs, record.requiredInput, record.materials, record.context, record.inputGuide, record.brief);
+        const steps = normalizeTextList(deps, record.steps, record.workflow, record.process, record.tasks, record.instructions, record.checklist);
+        const output = firstText(record.output, record.outputs, record.deliverable, record.deliverables, record.result, record.outcome);
+        const risk = firstText(record.risk, record.risks, record.caution, record.limitations, record.failureMode, record.guardrail);
+        const nextStep = firstText(record.nextStep, record.nextSteps, record.followUp, record.followup, record.afterUse);
+        const usage = firstText(record.usage, record.taskLine, record.summary, record.desc, record.description);
+        const playbook = {
+            ...(record || {}),
+            id: record.id || record.refId || `static-playbook-${index}`,
+            entryKind: 'script',
+            title: record.title || record.name || `Research playbook ${index + 1}`,
+            category: record.category || 'review',
+            status: record.status || 'Local',
+            usage,
+            input,
+            steps,
+            output,
+            risk,
+            nextStep,
+            tools: deps.toArray(record.tools).map(item => typeof item === 'string' ? item : (item?.name || item?.title || '')).filter(Boolean),
+            keywords: [...new Set([
+                ...deps.toArray(record.keywords).map(String),
+                ...deps.toArray(record.aliases).map(String),
+                record.category,
+                record.status
+            ].filter(Boolean))],
+            content: String(record.content || record.prompt || record.template || ''),
+            provenance: {
+                sourceName: 'local playbooks',
+                status: record.status || 'local',
+                freshness: 'static fallback',
+                note: record.usage || record.summary || 'Local fallback playbook'
+            }
+        };
+        playbook.content = inferPlaybookContent(playbook);
+        return playbook;
     }
 
     function getPlaybookCatalog(deps) {
         const manifestPlaybooks = deps.flattenDatasetEntries('academic-entrypoints')
             .map((record, index) => normalizeManifestPlaybook(deps, record, index))
             .filter(Boolean);
-        if (manifestPlaybooks.length) return manifestPlaybooks;
-        return Array.isArray(deps.promptsData) ? deps.promptsData : [];
+        const staticPlaybooks = (Array.isArray(deps.promptsData) ? deps.promptsData : [])
+            .map((record, index) => normalizeStaticPlaybook(deps, record, index))
+            .filter(Boolean);
+        return deps.uniqueBy([...manifestPlaybooks, ...staticPlaybooks], item => `script:${item.id}`);
     }
 
     function normalizeManifestUpdate(deps, record, index, datasetKey) {
@@ -173,6 +485,9 @@ window.SciAIStationData = (() => {
         const records = deps.getManifestPrimaryRecords('ai-daily');
         const issue = records.find(record => Array.isArray(record?.highlights) && record.highlights.length);
         if (issue) {
+            const manifest = deps.getManifestBundle('ai-daily').primary;
+            const sourceLayers = buildSourceLayerSummaries(deps, issue, manifest);
+            const sourceProfile = buildSourceProfileSummary(issue.sourceProfile || manifest?.sourceProfile);
             return issue.highlights.slice(0, 4).map((item, index) => ({
                 id: item.id || `${issue.id || 'digest'}-${index + 1}`,
                 label: item.category || issue.title || '今日精选',
@@ -185,6 +500,11 @@ window.SciAIStationData = (() => {
                 editorialTheme: issue.editorialTheme || '',
                 takeaways: deps.toArray(issue.takeaways).slice(0, 3),
                 sourceRefs: Array.isArray(item.sourceRefs) ? item.sourceRefs : [],
+                sourceLayers,
+                sourceProfile,
+                reviewStatus: issue.reviewStatus || '',
+                coverageWindow: issue.coverageWindow || '',
+                provenance: buildManifestProvenance(deps, 'ai-daily', { ...item, __manifestParent: issue }, 'ai-daily'),
                 url: item.url || ''
             }));
         }
@@ -196,6 +516,8 @@ window.SciAIStationData = (() => {
             summary: item.desc || item.note || '',
             status: item.views || '',
             date: item.date || '',
+            sourceLayers: [],
+            sourceProfile: '',
             url: item.url || ''
         }));
     }
@@ -314,6 +636,11 @@ window.SciAIStationData = (() => {
                 title: playbook.title,
                 desc: playbook.usage || '',
                 supporting: playbook.output || '',
+                input: playbook.input || playbook.usage || 'Use the placeholders in the copied script as the required input.',
+                steps: playbook.steps && playbook.steps.length ? playbook.steps : normalizeTextList(deps, playbook.workflow, playbook.process, playbook.tasks).slice(0, 3),
+                output: playbook.output || playbook.supporting || 'A structured research artifact you can review, edit, and reuse.',
+                risk: playbook.risk || playbook.caution || 'Check sources, assumptions, and any generated evidence before using it in a manuscript.',
+                nextStep: playbook.nextStep || 'Copy the script, replace placeholders, then run one verification pass on the result.',
                 status: playbook.status || 'Manifest',
                 meta: toolLabel || '研究剧本',
                 icon: 'fas fa-scroll',
@@ -331,6 +658,11 @@ window.SciAIStationData = (() => {
             title: entrypoint.title,
             desc: entrypoint.desc || '',
             supporting: entrypoint.usageGuide || '',
+            input: entrypoint.usageGuide || entrypoint.desc || 'Open this module with your current research task and constraints.',
+            steps: normalizeTextList(deps, entrypoint.steps, entrypoint.workflow, entrypoint.process).slice(0, 3),
+            output: entrypoint.outcome || entrypoint.supporting || entrypoint.usageGuide || 'A narrowed method route or module-specific action plan.',
+            risk: entrypoint.caution || entrypoint.risk || 'Confirm the recommendation against your field norms before acting on it.',
+            nextStep: entrypoint.nextStep || 'Open the module and fill in the task details.',
             status: entrypoint.status || 'Manifest',
             meta: entrypoint.entryKind === 'method' ? '研究模块' : '研究入口',
             icon: entrypoint.icon || 'fas fa-compass',
@@ -340,32 +672,33 @@ window.SciAIStationData = (() => {
     }
 
     function getHomepagePlaybookCatalog(deps) {
-        const manifestEntries = deps.flattenDatasetEntries('academic-entrypoints')
-            .map((record, index) => normalizeHomePlaybookCard(deps, record, index))
+        const playbookCards = getPlaybookCatalog(deps)
+            .map((entry, index) => normalizeHomePlaybookCard(deps, entry, `playbook-${index}`))
             .filter(Boolean);
-        if (manifestEntries.length) {
-            return deps.uniqueBy(manifestEntries, item => `${item.entryKind}:${item.refId}`).slice(0, 6);
-        }
-
-        const fallbackEntrypoints = getAcademicEntrypoints(deps)
+        const entrypointCards = getAcademicEntrypoints(deps)
             .map((entry, index) => normalizeHomePlaybookCard(deps, entry, index))
             .filter(Boolean);
-        const fallbackPlaybooks = getPlaybookCatalog(deps)
-            .map((entry, index) => normalizeHomePlaybookCard(deps, entry, `fallback-${index}`))
-            .filter(Boolean);
-        return deps.uniqueBy([...fallbackEntrypoints, ...fallbackPlaybooks], item => `${item.entryKind}:${item.refId}`).slice(0, 6);
+        return deps.uniqueBy([...playbookCards, ...entrypointCards], item => `${item.entryKind}:${item.refId}`).slice(0, 6);
     }
 
     function buildHomeUpdateStreamCard(deps, stream, parentRecord, index) {
         if (!stream || typeof stream !== 'object') return null;
         const highlights = deps.toArray(stream.highlights).map(String).filter(Boolean);
         const context = deps.toArray(stream.contextSources).map(String).filter(Boolean);
+        const changedFields = deps.toArray(stream.changed).map(String).filter(Boolean);
+        const evidence = [
+            ...deps.toArray(stream.evidence).map(item => typeof item === 'string' ? { label: 'evidence', detail: item } : item),
+            stream.verified ? { label: stream.key || stream.title || 'verified', detail: buildVerificationSummary(stream.verified) } : null
+        ].filter(Boolean);
         const sourceLabel = stream.badge || stream.label || stream.datasetId || stream.sourceName || stream.key || parentRecord.kind || '站点更新';
         const detailParts = [
             stream.contextNote,
             stream.modelContext,
             stream.freshnessLabel,
             ...highlights.slice(0, 2),
+            changedFields.length ? `Changed: ${changedFields.join(', ')}` : '',
+            stream.verified ? `Verified: ${buildVerificationSummary(stream.verified)}` : '',
+            buildSourceProfileSummary(stream.sourceProfile),
             context.length ? `Context: ${context.join(' / ')}` : ''
         ].filter(Boolean);
 
@@ -379,6 +712,10 @@ window.SciAIStationData = (() => {
             date: parentRecord.date || parentRecord.generatedAt?.slice(0, 10) || '',
             status: stream.status || parentRecord.kind || 'Manifest',
             note: detailParts.join(' 路 '),
+            sourceLayers: buildSourceLayerSummaries(deps, stream),
+            evidence,
+            changedFields,
+            verified: stream.verified || null,
             url: stream.sourceUrl || stream.url || parentRecord.url || '',
             provenance: buildManifestProvenance(deps, 'updates', { ...stream, __manifestParent: parentRecord }, 'updates')
         };
@@ -393,7 +730,15 @@ window.SciAIStationData = (() => {
             const fallbackCard = normalizeManifestUpdate(deps, record, index, 'updates');
             return fallbackCard ? [fallbackCard] : [];
         });
-        if (manifestUpdates.length) return manifestUpdates.slice(0, 6);
+        const operationalCards = [
+            getGithubGenerationStatusCard(deps),
+            getModelManifestStatusCard(deps),
+            getUpdatesDiffEvidenceCard(deps),
+            getEditorialReviewCard(deps)
+        ].filter(Boolean);
+        if (manifestUpdates.length || operationalCards.length) {
+            return deps.uniqueBy([...manifestUpdates, ...operationalCards], item => item.id).slice(0, 8);
+        }
         return getAiDailyCatalog(deps).slice(0, 6);
     }
 

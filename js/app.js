@@ -68,6 +68,9 @@
     const sidebarToggle   = $('#sidebarToggle');
     const shortcutsModal  = $('#shortcutsModal');
     const suggestModal    = $('#suggestModal');
+    const shortcutsModalClose = $('#shortcutsModalClose');
+    const suggestModalClose = $('#suggestModalClose');
+    const suggestToolBtn = $('#suggestToolBtn');
     const exportFavsBtn   = $('#exportFavsBtn');
     const shortcutHelpBtn = $('#shortcutHelpBtn');
 
@@ -116,6 +119,11 @@
     let sidebarDrawerOpen = loadLS('sciai-sidebar-drawer-open', false);
     let sidebarPinned     = loadLS('sciai-sidebar-pinned', window.innerWidth >= 1200);
     let sidebarCollapsed  = loadLS('sciai-sidebar-collapsed', false);
+    let sidebarReturnFocus = null;
+    let graphInitPromise = null;
+    let d3LoadPromise = null;
+    let graphFeatureReady = false;
+    const dialogState = new WeakMap();
 
     // ---- LS 工具 ----
     function loadLS(key, def) {
@@ -136,6 +144,160 @@
         toast.classList.add('show');
         clearTimeout(showToast._timer);
         showToast._timer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+    const FOCUSABLE_SELECTOR = [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+    ].join(',');
+    function getFocusable(container) {
+        return Array.from(container?.querySelectorAll(FOCUSABLE_SELECTOR) || [])
+            .filter(el => el.offsetParent !== null || el === document.activeElement);
+    }
+    function focusFirst(container, fallback) {
+        const target = getFocusable(container)[0] || fallback || container;
+        if (target && typeof target.focus === 'function') {
+            try { target.focus({ preventScroll: true }); }
+            catch { target.focus(); }
+        }
+    }
+    function getDialogConfig(modal) {
+        if (!modal) return {};
+        const configs = new Map([
+            [loginModal, { close: modalClose, labelledBy: 'loginModalTitle' }],
+            [toolModal, { close: toolModalClose, labelledBy: 'toolModalName' }],
+            [compareModal, { close: compareModalClose, labelledBy: 'compareModalTitle' }],
+            [resourcesModal, { close: resourcesModalClose, labelledBy: 'resourcesModalTitle' }],
+            [shortcutsModal, { close: shortcutsModalClose, labelledBy: 'shortcutsModalTitle' }],
+            [suggestModal, { close: suggestModalClose, labelledBy: 'suggestModalTitle' }]
+        ]);
+        return configs.get(modal) || {};
+    }
+    function prepareDialogA11y(modal) {
+        if (!modal) return;
+        const config = getDialogConfig(modal);
+        const dialogPanel = modal.querySelector('[role="dialog"]') || modal.querySelector('.modal') || modal;
+        dialogPanel.setAttribute('role', 'dialog');
+        dialogPanel.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-hidden', modal.classList.contains('show') ? 'false' : 'true');
+        if (!modal.hasAttribute('tabindex')) modal.setAttribute('tabindex', '-1');
+        if (config.labelledBy && document.getElementById(config.labelledBy)) {
+            dialogPanel.setAttribute('aria-labelledby', config.labelledBy);
+        }
+        config.close?.setAttribute('aria-label', config.close.getAttribute('aria-label') || 'Close dialog');
+    }
+    function openDialog(modal, opener = document.activeElement) {
+        if (!modal) return;
+        prepareDialogA11y(modal);
+        const state = dialogState.get(modal) || {};
+        if (opener && modal !== opener && !modal.contains(opener)) state.opener = opener;
+        dialogState.set(modal, state);
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => focusFirst(modal, getDialogConfig(modal).close));
+    }
+    function closeDialog(modal, options = {}) {
+        if (!modal) return;
+        const state = dialogState.get(modal) || {};
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        if (options.restoreFocus !== false && state.opener && typeof state.opener.focus === 'function' && document.contains(state.opener)) {
+            try { state.opener.focus({ preventScroll: true }); }
+            catch { state.opener.focus(); }
+        }
+    }
+    function getOpenDialogs() {
+        return [suggestModal, shortcutsModal, resourcesModal, compareModal, toolModal, loginModal]
+            .filter(modal => modal?.classList.contains('show'));
+    }
+    function trapFocus(event, container) {
+        if (event.key !== 'Tab' || !container) return;
+        const focusable = getFocusable(container);
+        if (!focusable.length) {
+            event.preventDefault();
+            container.focus?.();
+            return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+    function normalizeCategoryTarget(category, sectionId = '') {
+        const cat = String(category || '').trim();
+        const target = String(sectionId || '').trim();
+        const aliases = {
+            graphSection: 'graph',
+            searchPapersSection: 'search-papers',
+            journalSection: 'journal',
+            citeCheckSection: 'cite-check',
+            paperdeckSection: 'paperdeck',
+            statMethodsSection: 'stats',
+            toolsSection: '',
+            homePlaybooksSection: ''
+        };
+        return cat || aliases[target] || '';
+    }
+    function setActiveResearchStage(stage) {
+        const value = String(stage || '').trim();
+        if (!value) return;
+        $$('[data-stage]').forEach(item => {
+            if (item.closest('.stats-stage-tab')) return;
+            const active = item.dataset.stage === value;
+            item.classList.toggle('active', active);
+            if (item.matches('button, [role="button"]')) item.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+    }
+    function markCategoryEntrypoints(category) {
+        const cat = String(category || '').trim();
+        if (!cat) return;
+        $$('.hero-action-card, .hero-flow-step, .method-quick-card, .playbook-card').forEach(item => {
+            const active = item.dataset.category === cat || normalizeCategoryTarget(item.dataset.category, item.dataset.targetSection) === cat;
+            item.classList.toggle('active', active);
+            if (item.matches('button, [role="button"]')) item.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+    }
+    function loadD3IfNeeded() {
+        if (typeof d3 !== 'undefined') return Promise.resolve();
+        if (d3LoadPromise) return d3LoadPromise;
+        d3LoadPromise = new Promise((resolve, reject) => {
+            const existing = document.querySelector('script[src*="d3"]');
+            if (existing) {
+                existing.addEventListener('load', () => resolve(), { once: true });
+                existing.addEventListener('error', reject, { once: true });
+                setTimeout(() => (typeof d3 !== 'undefined' ? resolve() : reject(new Error('D3 load timeout'))), 4000);
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js';
+            script.async = true;
+            script.onload = () => resolve();
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+        return d3LoadPromise;
+    }
+    function ensureGraphFeatureLoaded() {
+        if (graphInitPromise) return graphInitPromise;
+        graphInitPromise = loadD3IfNeeded().then(() => {
+            if (typeof GraphFeature !== 'undefined' && typeof GraphFeature.init === 'function') {
+                GraphFeature.init();
+                graphFeatureReady = true;
+            }
+        }).catch(err => {
+            graphInitPromise = null;
+            console.warn('Graph feature lazy load failed:', err);
+            showToast('研究图谱加载失败，请稍后重试');
+        });
+        return graphInitPromise;
     }
     function getCategoryLabel(category) {
         const labels = {
@@ -178,14 +340,21 @@
         sidebar?.classList.remove('drawer-open', 'open');
         sidebarBackdrop?.classList.remove('show');
         document.body?.classList.remove('sidebar-drawer-open');
+        sidebar?.setAttribute('aria-hidden', isMobileSidebar() ? 'true' : 'false');
+        if (sidebarReturnFocus && typeof sidebarReturnFocus.focus === 'function' && document.contains(sidebarReturnFocus)) {
+            try { sidebarReturnFocus.focus({ preventScroll: true }); }
+            catch { sidebarReturnFocus.focus(); }
+        }
     }
     function isMobileSidebar() {
         return window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : window.innerWidth <= 768;
     }
     function openSidebarDrawer() {
+        sidebarReturnFocus = document.activeElement;
         sidebarDrawerOpen = true;
         saveLS('sciai-sidebar-drawer-open', sidebarDrawerOpen);
         applySidebarCollapse();
+        requestAnimationFrame(() => focusFirst(sidebar, sidebarToggle || mobileMenuBtn));
     }
     function toggleSidebar() {
         if (isMobileSidebar()) {
@@ -276,6 +445,118 @@
             </article>
         `).join('');
     }
+
+    function getStageRecommendation(stage) {
+        const map = {
+            proposal: { category: 'graph', sectionId: 'homePlaybooksSection' },
+            literature: { category: 'search-papers', sectionId: 'homePlaybooksSection' },
+            reading: { category: 'reading', sectionId: 'toolsSection' },
+            analysis: { category: 'stats', sectionId: 'statMethodsSection' },
+            drafting: { category: 'cite-check', sectionId: 'toolsSection' },
+            submission: { category: 'journal', sectionId: 'journalSection' }
+        };
+        return map[String(stage || '').trim()] || null;
+    }
+
+    function scrollToHomeFallback() {
+        const target = $('.hero-stage-selector') || $('#homePlaybooksSection');
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showEmptySearchFallback() {
+        currentCategory = 'all';
+        currentHomeFocus = 'playbooks';
+        showSection('all');
+        filterTools();
+        applyNavigationProminence();
+        scrollToHomeFallback();
+        showToast('请先选择研究阶段，或在研究剧本里打开一个入口');
+    }
+
+    function openHomeCategoryTarget(category, sectionId) {
+        const cat = normalizeCategoryTarget(category, sectionId);
+        const targetId = String(sectionId || '').trim();
+
+        if (cat) {
+            openMethodTool(cat);
+            return;
+        }
+
+        if (targetId) {
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+        }
+
+        scrollToHomeFallback();
+    }
+
+    function handleHeroActionCard(card) {
+        if (!card) return;
+        setActiveResearchStage(card.dataset.stage);
+        openHomeCategoryTarget(card.dataset.category, card.dataset.targetSection);
+    }
+
+    function handleResearchStageTarget(target) {
+        if (!target || target.closest('.stats-stage-tab')) return;
+        const stage = target.dataset.stage;
+        setActiveResearchStage(stage);
+        const recommended = target.dataset.recommendedTarget || getStageRecommendation(stage)?.category || target.dataset.category;
+        const sectionId = target.dataset.targetSection || getStageRecommendation(stage)?.sectionId;
+        openHomeCategoryTarget(recommended, sectionId);
+    }
+
+    function initDialogA11y() {
+        [loginModal, toolModal, compareModal, resourcesModal, shortcutsModal, suggestModal].forEach(modal => {
+            if (!modal) return;
+            prepareDialogA11y(modal);
+            getDialogConfig(modal).close?.addEventListener('click', () => closeDialog(modal));
+            modal.addEventListener('mousedown', event => {
+                if (event.target === modal) closeDialog(modal);
+            });
+            if (typeof MutationObserver === 'function') {
+                const observer = new MutationObserver(() => {
+                    const state = dialogState.get(modal) || {};
+                    const isOpen = modal.classList.contains('show');
+                    if (isOpen && !state.wasOpen) openDialog(modal);
+                    if (!isOpen && state.wasOpen) modal.setAttribute('aria-hidden', 'true');
+                    dialogState.set(modal, { ...state, wasOpen: isOpen });
+                });
+                observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+            }
+        });
+        loginBtn?.addEventListener('click', () => {
+            refreshLoginModal();
+            openDialog(loginModal, loginBtn);
+        });
+        shortcutHelpBtn?.addEventListener('click', () => openDialog(shortcutsModal, shortcutHelpBtn));
+        suggestToolBtn?.addEventListener('click', event => {
+            event.preventDefault();
+            openDialog(suggestModal, suggestToolBtn);
+        });
+        document.addEventListener('keydown', event => {
+            const openDialogs = getOpenDialogs();
+            if (openDialogs.length) {
+                const topDialog = openDialogs[0];
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    closeDialog(topDialog);
+                    return;
+                }
+                trapFocus(event, topDialog);
+                return;
+            }
+            if (event.key === 'Escape' && sidebarDrawerOpen && isMobileSidebar()) {
+                event.preventDefault();
+                closeSidebarDrawer();
+                return;
+            }
+            if (sidebarDrawerOpen && isMobileSidebar()) trapFocus(event, sidebar);
+        });
+    }
+
     function bindEvents() {
         mobileMenuBtn?.addEventListener('click', openSidebarDrawer);
         sidebarToggle?.addEventListener('click', toggleSidebar);
@@ -317,6 +598,36 @@
                 if (isMobileSidebar()) closeSidebarDrawer();
             });
         });
+        document.addEventListener('click', event => {
+            const graphGenerate = event.target.closest('#graphGenBtn');
+            if (graphGenerate && !graphFeatureReady) {
+                event.preventDefault();
+                ensureGraphFeatureLoaded().then(() => {
+                    if (graphFeatureReady) graphGenerate.click();
+                });
+                return;
+            }
+
+            const heroCard = event.target.closest('.hero-action-card');
+            if (heroCard) {
+                event.preventDefault();
+                handleHeroActionCard(heroCard);
+                return;
+            }
+
+            const homeEntry = event.target.closest('.hero-flow-step, .method-quick-card, .playbook-card');
+            if (homeEntry && homeEntry.dataset.category && !homeEntry.closest('.workbench-sidebar-nav')) {
+                event.preventDefault();
+                openHomeCategoryTarget(homeEntry.dataset.category, homeEntry.dataset.targetSection);
+                return;
+            }
+
+            const stageTarget = event.target.closest('.research-stage-card, [data-stage]');
+            if (stageTarget && !stageTarget.closest('.stats-stage-tab') && !stageTarget.closest('.hero-action-card')) {
+                event.preventDefault();
+                handleResearchStageTarget(stageTarget);
+            }
+        });
         window.addEventListener('resize', applySidebarCollapse);
         heroSearchBtn?.addEventListener('click', () => doSearch(heroSearch?.value || globalSearch?.value || ''));
         heroSearch?.addEventListener('keydown', event => {
@@ -325,9 +636,7 @@
         globalSearch?.addEventListener('keydown', event => {
             if (event.key === 'Enter') doSearch(globalSearch.value);
         });
-        toolModalClose?.addEventListener('click', () => toolModal?.classList.remove('show'));
-        compareModalClose?.addEventListener('click', () => compareModal?.classList.remove('show'));
-        resourcesModalClose?.addEventListener('click', () => resourcesModal?.classList.remove('show'));
+        initDialogA11y();
     }
     function animateStats() {}
     function loadTheme() {
@@ -349,6 +658,8 @@
         document.body?.classList.toggle('sidebar-drawer-open', drawerVisible);
         document.body?.classList.toggle('sidebar-pinned', !mobile && !!sidebarPinned);
         document.body?.classList.toggle('sidebar-collapsed', desktopCollapsed);
+        sidebar.setAttribute('aria-hidden', mobile && !drawerVisible ? 'true' : 'false');
+        sidebar.setAttribute('aria-label', sidebar.getAttribute('aria-label') || 'Primary navigation');
 
         if (mainContent) mainContent.style.marginLeft = mobile ? '0' : (desktopCollapsed ? collapsedWidth : '');
         if (compareBar) compareBar.style.left = mobile ? '0' : (desktopCollapsed ? collapsedWidth : '');
@@ -800,7 +1111,7 @@
     }
 
     function getHomeAnchorSelector(focus) {
-        if (focus === 'route') return '#researchRouteSection';
+        if (focus === 'route') return '#homePlaybooksSection';
         if (focus === 'playbooks') return '#homePlaybooksSection';
         if (focus === 'tools') return '#toolsSection';
         if (focus === 'featured') return '#featuredSection';
@@ -1563,6 +1874,8 @@
         const result = window.SciAIStationInteractions.openMethodTool(getStationInteractionDeps(), cat);
         const item = document.querySelector(`.workbench-sidebar-nav .workbench-nav-item.nav-item[data-category="${String(cat).replace(/"/g, '\\"')}"]`);
         if (item) setWorkbenchActive(item);
+        markCategoryEntrypoints(cat);
+        if (cat === 'graph') ensureGraphFeatureLoaded();
         return result;
     }
 
@@ -1670,7 +1983,7 @@
         updateModalCompareUI(tool.id);
         updateModalLikeUI(tool.id);
         renderRelatedTools(tool);
-        toolModal.classList.add('show');
+        openDialog(toolModal);
     }
 
     function getFilteredToolsLegacy2() {
@@ -1707,11 +2020,20 @@ function getFilteredTools() {
     }
 
     function doSearch(query) {
+        if (!String(query || '').trim()) {
+            if (globalSearch) globalSearch.value = '';
+            if (heroSearch) heroSearch.value = '';
+            showEmptySearchFallback();
+            return;
+        }
         return window.SciAIStationInteractions.doSearch(getStationInteractionDeps(), query);
     }
 
     function showSection(cat) {
-        return window.SciAIStationInteractions.showSection(getStationInteractionDeps(), cat);
+        const result = window.SciAIStationInteractions.showSection(getStationInteractionDeps(), cat);
+        markCategoryEntrypoints(cat);
+        if (cat === 'graph') ensureGraphFeatureLoaded();
+        return result;
     }
 
     function renderRelatedTools(tool) {
@@ -2045,7 +2367,7 @@ function getFilteredTools() {
     function doLogout() {
         localStorage.removeItem('sciai-user');
         updateLoginBtn(null);
-        loginModal.classList.remove('show');
+        closeDialog(loginModal);
         showToast('退出登录');
     }
 
@@ -2169,7 +2491,7 @@ function getFilteredTools() {
                     </div>
                 `;
             }).join('');
-        resourcesModal.classList.add('show');
+        openDialog(resourcesModal);
     }
 
     // ---- 初始化 ----
@@ -2208,7 +2530,6 @@ function getFilteredTools() {
         updateFavBadge();
         updateCompareBar();
         applySidebarCollapse();
-        if (typeof GraphFeature !== 'undefined' && typeof GraphFeature.init === 'function') GraphFeature.init();
         if (typeof SearchFeature !== 'undefined' && typeof SearchFeature.init === 'function') SearchFeature.init();
         if (typeof JournalFeature !== 'undefined' && typeof JournalFeature.init === 'function') JournalFeature.init();
         if (typeof CiteCheckFeature !== 'undefined' && typeof CiteCheckFeature.init === 'function') CiteCheckFeature.init();

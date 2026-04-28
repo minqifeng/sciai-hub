@@ -13,13 +13,15 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="css/style.css?v=20260423-visual1">
     <link rel="stylesheet" href="css/drawer-override.css?v=20260423-sidebar2">
+    <link rel="stylesheet" href="css/workflow.css?v=20260423-phase2">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231d4ed8'/%3E%3Cpath d='M32 12l9 18 20 2-15 13 5 19-19-10-19 10 5-19-15-13 20-2z' fill='%2300d4aa'/%3E%3Ccircle cx='32' cy='32' r='6' fill='white'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <meta name="d3-lazy-src" content="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js">
 </head>
 <body>
     <!-- 侧边栏 -->
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" role="complementary" aria-label="研究工作台侧边栏">
         <div class="sidebar-header">
             <div class="logo">
                 <i class="fas fa-atom"></i>
@@ -30,9 +32,9 @@
             </button>
         </div>
 
-        <div class="sidebar-search">
+        <div class="sidebar-search" role="search" aria-label="全站搜索">
             <i class="fas fa-search"></i>
-            <input type="text" id="globalSearch" placeholder="搜索情报、剧本或模块... (按 / 聚焦)">
+            <input type="search" id="globalSearch" placeholder="搜索情报、剧本或模块... (按 / 聚焦)" aria-label="搜索情报、研究剧本或学术模块">
             <kbd class="search-kbd">/</kbd>
         </div>
 
@@ -95,18 +97,11 @@
     <!-- 主内容区 -->
     <main class="main-content" id="mainContent">
         <!-- 顶部栏 -->
-        <header class="top-bar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn" title="打开导航">
+        <header class="top-bar" role="banner">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" title="打开导航" aria-label="打开研究工作台导航" aria-controls="sidebar" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="top-bar-left">
-                <nav class="top-bar-nav" aria-label="Primary">
-                    <a href="#heroSection" class="top-nav-link">Today Intel</a>
-                    <a href="#featuredSection" class="top-nav-link">Weekly Picks</a>
-                    <a href="#homePlaybooksSection" class="top-nav-link">Playbooks</a>
-                    <a href="#toolsSection" class="top-nav-link">Academic Modules</a>
-                    <a href="#homeUpdatesSection" class="top-nav-link">Usage & Updates</a>
-                </nav>
                 <h2 class="page-title" id="pageTitle">Today Intel</h2>
             </div>
             <div class="top-bar-right">
@@ -128,143 +123,89 @@
         </header>
 
         <!-- Hero 横幅 -->
-        <section class="hero-section" id="heroSection">
+        <section class="hero-section" id="heroSection" aria-labelledby="heroTitle">
             <div class="hero-content hero-layout">
-                <div class="editorial-hero-grid">
-                    <div class="editorial-hero-copy today-intel-lead">
-                        <div class="hero-badge"><i class="fas fa-bolt"></i> 今日精选情报</div>
-                        <h1 class="hero-title">从 <span class="hero-highlight">今日精选情报</span> 开始</h1>
-                        <p class="hero-desc">首页现在只保留一条策展叙事：先用今日情报完成定向，再进入本周精选、研究剧本与高频学术模块，而不是回到“大而全目录”的浏览方式。</p>
-                        <div class="hero-search editorial-hero-search">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="搜索今日情报、研究剧本或高频模块：综述铺底、选刊匹配、统计核查">
-                            <button class="hero-search-btn" type="button">进入本站</button>
-                        </div>
-                        <div class="today-intel-points">
-                            <span>今日情报优先</span>
-                            <span>剧本先于搜工具</span>
-                            <span>模块先于目录感</span>
-                        </div>
-                        <div class="hero-actions editorial-hero-actions">
-                            <button class="hero-action-card" type="button" data-category="graph">
-                                <span class="hero-action-kicker">今日起点</span>
-                                <strong>界定研究问题</strong>
-                                <small>先划清问题边界、变量范围与可回答的核心任务。</small>
-                            </button>
-                            <button class="hero-action-card" type="button" data-category="search-papers">
-                                <span class="hero-action-kicker">今日起点</span>
-                                <strong>收束文献底盘</strong>
-                                <small>从综述和 overview paper 收束到真正值得精读的一小组文献。</small>
-                            </button>
-                            <button class="hero-action-card" type="button" data-category="stats">
-                                <span class="hero-action-kicker">今日起点</span>
-                                <strong>检查分析路径</strong>
-                                <small>把方法选择、前提假设与结果解释放在同一条分析线上。</small>
-                            </button>
-                            <button class="hero-action-card" type="button" data-category="journal">
-                                <span class="hero-action-kicker">今日起点</span>
-                                <strong>前置投稿准备</strong>
-                                <small>把选刊、引文核查与投稿节奏提到前面，而不是最后补救。</small>
-                            </button>
-                        </div>
+                <div class="editorial-hero-copy today-intel-lead">
+                    <div class="hero-badge"><i class="fas fa-bolt"></i> 今日精选情报</div>
+                    <h1 class="hero-title" id="heroTitle">给研究生和博士的 <span class="hero-highlight">AI 科研站</span></h1>
+                    <p class="hero-desc">每日情报、本周精选、研究剧本与高频学术模块，一起收在一页。</p>
+                    <div class="hero-search editorial-hero-search" role="search" aria-label="首屏研究任务搜索">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="heroSearch" placeholder="搜索：选刊、引文核查、综述铺底、统计方法…" aria-label="搜索今日情报、研究剧本或高频模块">
+                        <button class="hero-search-btn" id="heroSearchBtn" type="button" data-empty-target="homePlaybooksSection">进入研究剧本</button>
                     </div>
-                    <aside class="editorial-hero-panel today-intel-stream">
-                        <article class="editorial-brief-card hero-trust-card">
-                            <span class="hero-panel-label">本站摘要</span>
-                            <h3>首页只保留一个入口逻辑：策展站，而不是工具目录站。</h3>
-                            <p>第一屏负责判断今天先看什么，后面的区块只继续这条叙事，不再和“全量浏览”争抢注意力。</p>
-                        </article>
-                        <div class="editorial-status-grid today-intel-grid">
-                            <article class="editorial-status-card hero-status-card today-intel-card" data-status-slot="freshness">
-                                <span>优先级</span>
-                                <strong>先通过本站定向</strong>
-                                <small>如果你还在判断今天先做什么，先看情报与本周精选，而不是先铺开全部资源。</small>
-                            </article>
-                            <article class="editorial-status-card hero-status-card today-intel-card" data-status-slot="provenance">
-                                <span>节奏</span>
-                                <strong>让研究剧本带路</strong>
-                                <small>研究剧本用来降低“下一步先做什么”的决策成本。</small>
-                            </article>
-                            <article class="editorial-status-card hero-status-card today-intel-card" data-status-slot="coverage">
-                                <span>原则</span>
-                                <strong>扩展入口退居次级</strong>
-                                <small>高频模块保留直达，资讯、模型、GitHub 与案例则退居为扩展入口。</small>
-                            </article>
+                    <section class="hero-stage-selector" aria-labelledby="heroStageTitle">
+                        <span class="hero-stage-title" id="heroStageTitle">你现在在哪一步？</span>
+                        <div class="hero-stage-options" role="group" aria-label="研究阶段快捷入口">
+                            <button class="hero-stage-chip" type="button" data-stage="proposal" data-target-section="homePlaybooksSection" data-recommended-target="graph">刚开题</button>
+                            <button class="hero-stage-chip" type="button" data-stage="literature" data-target-section="homePlaybooksSection" data-recommended-target="search-papers">找文献</button>
+                            <button class="hero-stage-chip" type="button" data-stage="reading" data-target-section="homePlaybooksSection" data-recommended-target="reading">读论文</button>
+                            <button class="hero-stage-chip" type="button" data-stage="analysis" data-target-section="statMethodsSection" data-recommended-target="stats">做分析</button>
+                            <button class="hero-stage-chip" type="button" data-stage="drafting" data-target-section="toolsSection" data-recommended-target="cite-check">写初稿</button>
+                            <button class="hero-stage-chip" type="button" data-stage="submission" data-target-section="journalSection" data-recommended-target="journal">准备投稿</button>
                         </div>
-                        <div class="hero-trust-grid">
-                            <div class="hero-trust-line">
-                                <span>首页定位</span>
-                                <strong>Curated station first</strong>
-                            </div>
-                            <div class="hero-trust-line">
-                                <span>数据来源</span>
-                                <strong>Manifest-backed curation</strong>
-                            </div>
-                            <div class="hero-trust-line">
-                                <span>回退机制</span>
-                                <strong>manifest -> static fallback</strong>
-                            </div>
-                        </div>
-                    </aside>
+                    </section>
                 </div>
             </div>
         </section>
-        <section class="daily-digest-section" id="dailyDigestSection">
+        <section class="daily-digest-section" id="dailyDigestSection" aria-labelledby="dailyDigestTitle">
             <div class="editorial-section-head">
                 <div>
-                    <span class="section-kicker">Daily AI + Research Brief</span>
-                    <h3>每日 AI+科研日报总结</h3>
+                    <h3 id="dailyDigestTitle">AI + 科研日报</h3>
                 </div>
-                <span class="section-sub">每天把 AI 模型、科研工作流、开源项目和学术风险压缩成一块可执行摘要。</span>
+                <span class="section-sub">AI 模型、工作流、开源项目与学术风险，每天一块摘要。</span>
             </div>
             <div class="daily-digest-brief" id="dailyDigestBrief"></div>
             <div class="daily-digest-grid"></div>
         </section>
-        <section class="featured-section" id="featuredSection">
+        <section class="featured-section" id="featuredSection" aria-labelledby="featuredTitle">
             <div class="editorial-section-head">
                 <div>
-                    <span class="section-kicker">Weekly picks</span>
-                    <h3>本周精选站</h3>
+                    <h3 id="featuredTitle">本周精选站</h3>
                 </div>
-                <span class="section-sub">只保留这周最值得点开的少数条目，用编辑判断替代热门榜单、阅读量和站内导流。</span>
+                <span class="section-sub">只保留这周最值得点开的少数条目。</span>
             </div>
             <div class="featured-grid" id="featuredGrid"></div>
         </section>
 
         <!-- 质量 / 状态带 -->
-        <section class="playbooks-section" id="homePlaybooksSection">
+        <section class="playbooks-section" id="homePlaybooksSection" aria-labelledby="playbooksTitle">
             <div class="editorial-section-head">
                 <div>
-                    <span class="section-kicker">Research playbooks</span>
-                    <h3>研究剧本</h3>
+                    <h3 id="playbooksTitle">研究剧本</h3>
                 </div>
-                <span class="section-sub">把研究推进拆成几张可扫视的剧本卡，降低“下一步先看哪儿”的决策成本。</span>
+                <span class="section-sub">从定题到投稿，六步把"下一步先做什么"说清楚。</span>
             </div>
-            <div class="playbooks-grid">
-                <button class="hero-flow-step playbook-card" type="button" data-category="graph">
+            <div class="playbooks-grid" role="group" aria-label="研究剧本阶段">
+                <button class="hero-flow-step playbook-card" type="button" data-category="graph" aria-label="第一步：问题定标">
                     <span class="hero-flow-index">01</span>
                     <strong>问题定标</strong>
                     <small>先界定研究问题、变量边界和可回答的范围。</small>
                 </button>
-                <button class="hero-flow-step playbook-card" type="button" data-category="search-papers">
+                <button class="hero-flow-step playbook-card" type="button" data-category="search-papers" aria-label="第二步：文献铺底">
                     <span class="hero-flow-index">02</span>
                     <strong>文献铺底</strong>
                     <small>找核心综述、代表论文和关键引用链。</small>
                 </button>
-                <button class="hero-flow-step playbook-card" type="button" data-category="reading">
+                <button class="hero-flow-step playbook-card" type="button" data-category="reading" aria-label="第三步：精读拆解">
                     <span class="hero-flow-index">03</span>
                     <strong>精读拆解</strong>
                     <small>拆方法、看实验、判断哪些结论值得复用。</small>
                 </button>
-                <button class="hero-flow-step playbook-card" type="button" data-category="stats">
+                <button class="hero-flow-step playbook-card" type="button" data-category="stats" aria-label="第四步：分析与统计">
                     <span class="hero-flow-index">04</span>
                     <strong>分析与统计</strong>
                     <small>把分析方法、检验路径和误差解释连成一条线。</small>
                 </button>
-                <button class="hero-flow-step playbook-card" type="button" data-category="cite-check">
+                <button class="hero-flow-step playbook-card" type="button" data-category="cite-check" aria-label="第五步：成稿核查">
                     <span class="hero-flow-index">05</span>
                     <strong>成稿核查</strong>
                     <small>在交稿前集中处理引用、证据一致性与遗漏风险。</small>
+                </button>
+                <button class="hero-flow-step playbook-card" type="button" data-category="journal" aria-label="第六步：投稿向导">
+                    <span class="hero-flow-index">06</span>
+                    <strong>投稿向导</strong>
+                    <small>用 shortlist、引文证据核查和导出清单把投稿准备前置。</small>
                 </button>
             </div>
         </section>
@@ -302,123 +243,104 @@
         </section>
 
         <!-- 工具卡片网格 -->
-        <section class="tools-section" id="toolsSection">
+        <section class="tools-section" id="toolsSection" aria-labelledby="toolsTitle">
             <div class="editorial-section-head tools-editorial-head">
                 <div>
-                    <span class="section-kicker">High-frequency academic modules</span>
-                    <h3>高频学术模块</h3>
+                    <h3 id="toolsTitle">高频学术模块</h3>
                 </div>
-                <span class="section-sub">这里保留研究流程里回访频率最高的模块，工具卡片仅作为补充工作台，不再扮演首页主叙事。</span>
+                <span class="section-sub">回访最多的四个模块，直接进入。</span>
             </div>
-            <div class="section-panel-note">
-                <div>
-                    <span class="section-chip">Modules first</span>
-                    <h4>先给高频模块，再给补充工作台。</h4>
-                </div>
-                <p>首页不再让 tabs、筛选器和排序控制主导视线。可见层只保留高频模块，下面附一层精选工作台入口。</p>
-            </div>
-            <div class="method-quick-grid">
-                <button class="hero-flow-step method-quick-card" type="button" data-category="journal">
+            <div class="method-quick-grid" role="group" aria-label="高频学术模块快捷入口">
+                <button class="hero-flow-step method-quick-card" type="button" data-category="journal" aria-describedby="moduleJournalHint">
                     <span class="hero-flow-index">模块</span>
                     <strong>选刊匹配</strong>
-                    <small>先缩小期刊范围、判断投稿口径，再安排后续准备节奏。</small>
+                    <small id="moduleJournalHint">先缩小期刊范围、判断投稿口径，再安排后续准备节奏。</small>
                 </button>
-                <button class="hero-flow-step method-quick-card" type="button" data-category="cite-check">
+                <button class="hero-flow-step method-quick-card" type="button" data-category="cite-check" aria-describedby="moduleCiteHint">
                     <span class="hero-flow-index">模块</span>
                     <strong>引文核查</strong>
-                    <small>集中处理缺失来源、引用断链和引文前后一致性问题。</small>
+                    <small id="moduleCiteHint">集中处理缺失来源、引用断链和引文前后一致性问题。</small>
                 </button>
-                <button class="hero-flow-step method-quick-card" type="button" data-category="paperdeck">
+                <button class="hero-flow-step method-quick-card" type="button" data-category="paperdeck" aria-describedby="modulePaperdeckHint">
                     <span class="hero-flow-index">模块</span>
                     <strong>PaperDeck</strong>
-                    <small>把论文阅读整理成可反复回看的卡片流，方便复盘与再利用。</small>
+                    <small id="modulePaperdeckHint">把论文阅读整理成可反复回看的卡片流，方便复盘与再利用。</small>
                 </button>
-                <button class="hero-flow-step method-quick-card" type="button" data-category="stats">
+                <button class="hero-flow-step method-quick-card" type="button" data-category="stats" aria-describedby="moduleStatsHint">
                     <span class="hero-flow-index">模块</span>
                     <strong>统计方法</strong>
-                    <small>直接进入前提假设、方法选择与结果解释，减少分析阶段反复跳转。</small>
+                    <small id="moduleStatsHint">直接进入前提假设、方法选择与结果解释，减少分析阶段反复跳转。</small>
                 </button>
             </div>
+            <section class="module-workflow-section" aria-labelledby="moduleWorkflowTitle">
+                <div class="updates-block-head">
+                    <span class="section-chip">Workflow containers</span>
+                    <h4 id="moduleWorkflowTitle">投稿前工作流容器</h4>
+                    <p>以下容器为投稿向导、统计选择、文献矩阵、证据核查、选刊 shortlist 和导出入口预留语义结构。</p>
+                </div>
+                <div class="usage-grid" role="list" aria-label="投稿前工作流">
+                    <article class="usage-card" role="listitem" aria-labelledby="submissionGuideCardTitle">
+                        <span class="update-date">Submission</span>
+                        <h4 id="submissionGuideCardTitle">投稿向导</h4>
+                        <p>从目标期刊、格式要求、cover letter、图表清单到提交节奏逐项推进。</p>
+                    </article>
+                    <article class="usage-card" role="listitem" aria-labelledby="statsSelectorCardTitle">
+                        <span class="update-date">Statistics</span>
+                        <h4 id="statsSelectorCardTitle">统计选择器</h4>
+                        <p>按变量类型、研究设计、样本结构和假设条件缩小统计方法范围。</p>
+                    </article>
+                    <article class="usage-card" role="listitem" aria-labelledby="exportEntryCardTitle">
+                        <span class="update-date">Export</span>
+                        <h4 id="exportEntryCardTitle">导出入口</h4>
+                        <p>为 shortlist、引文核查报告、PaperDeck 矩阵和统计方案预留统一导出语义。</p>
+                    </article>
+                </div>
+            </section>
             <div class="curated-tools-shell">
                 <div class="curated-tools-head">
                     <div>
-                        <span class="section-chip">Curated shelf</span>
-                        <h4 id="toolsSectionTitle">精选工作台补充入口</h4>
+                        <h4 id="toolsSectionTitle">精选工作台</h4>
                     </div>
-                    <p>这里展示精选卡片，作为主站叙事后的补充工作台入口，不承担首页导览职责。</p>
                 </div>
                 <div class="tools-grid" id="toolsGrid"></div>
             </div>
-            <div class="empty-state" id="emptyState" style="display:none;">
+            <div class="empty-state" id="emptyState" style="display:none;" role="status" aria-live="polite" aria-labelledby="emptyStateTitle">
                 <i class="fas fa-search"></i>
-                <p>暂时没有匹配到补充入口</p>
+                <p id="emptyStateTitle">暂时没有匹配到补充入口</p>
                 <span>试试更具体的研究任务、方法或模块关键词。</span>
+                <a href="#homePlaybooksSection" class="section-sub" data-empty-fallback="homePlaybooksSection">回到研究剧本选择下一步</a>
             </div>
         </section>
         <section class="home-updates-section" id="homeUpdatesSection">
             <div class="editorial-section-head">
                 <div>
-                    <span class="section-kicker">Usage & updates</span>
-                    <h3>本站使用与更新说明</h3>
+                    <h3>更新日志</h3>
                 </div>
-                <span class="section-sub">这一块说明本站如何使用、首页为什么被收束，以及这次结构改动具体更新了什么。</span>
-            </div>
-            <div class="usage-grid">
-                <article class="usage-card">
-                    <span class="update-date">How to use</span>
-                    <h4>先定向，再展开</h4>
-                    <p>第一屏帮助你决定今天该从哪里开始，而不是把你丢回一个泛化目录里自己漫游。</p>
-                </article>
-                <article class="usage-card">
-                    <span class="update-date">How to use</span>
-                    <h4>先看研究剧本，再开工具</h4>
-                    <p>无论你在写作、查文献、做分析还是准备投稿，先沿剧本走，再进入具体模块和工作台。</p>
-                </article>
-                <article class="usage-card">
-                    <span class="update-date">How to use</span>
-                    <h4>高频模块保持直达</h4>
-                    <p>选刊、引文核查、PaperDeck 与统计方法继续一跳直达，但不再把首页重新拉回目录站模式。</p>
-                </article>
-            </div>
-            <div class="updates-block-head">
-                <span class="section-chip">Latest updates</span>
-                <p>这一轮同时推进了首页文案、运行时逻辑、manifest 数据流与 smoke check，确保重构不是只停留在静态外观层。</p>
+                <span class="section-sub">最近的改动与修复。</span>
             </div>
             <div class="updates-grid">
                 <article class="update-card">
+                    <span class="update-date">2026.04.23</span>
+                    <h4>首屏收束</h4>
+                    <p>移除 hero 中重复的"起点卡"与站点自述，让搜索与阶段选择器成为首屏主角。</p>
+                </article>
+                <article class="update-card">
                     <span class="update-date">2026.04.22</span>
                     <h4>首页主叙事收束为五块</h4>
-                    <p>现在首页可见主块固定为：今日精选情报、本周精选站、研究剧本、高频学术模块、本站使用与更新说明。</p>
+                    <p>首页可见主块固定为：今日情报、本周精选、研究剧本、高频模块、更新说明。</p>
                 </article>
                 <article class="update-card">
                     <span class="update-date">2026.04.22</span>
-                    <h4>目录站表达被进一步降噪</h4>
-                    <p>首页主叙事已经完全收束到情报、精选、剧本、模块和站内说明，只保留必要的工作台承接。</p>
-                </article>
-                <article class="update-card">
-                    <span class="update-date">2026.04.22</span>
-                    <h4>扩展区明确退居扩展入口</h4>
-                    <p>news、models、github、usecases 仍保留原有 DOM 与数据挂载位，但标题与样式都改成次级扩展入口。</p>
+                    <h4>扩展入口退居次级</h4>
+                    <p>news、models、github、usecases 保留原有挂载位，但退居次级扩展入口。</p>
                 </article>
             </div>
         </section>
-        <section class="prompts-section" id="promptsSection" style="display:none;">
-            <div class="section-header">
-                <h3>科研提示词库</h3>
-                <div class="filter-tags">
-                    <span class="tag active" data-prompt-filter="all">全部</span>
-                    <span class="tag" data-prompt-filter="writing">论文写作</span>
-                    <span class="tag" data-prompt-filter="review">文献综述</span>
-                    <span class="tag" data-prompt-filter="analysis">数据分析</span>
-                    <span class="tag" data-prompt-filter="translate">翻译润色</span>
-                </div>
-            </div>
+        <section class="prompts-section" id="promptsSection" style="display:none;" hidden aria-hidden="true" data-legacy-mount="prompts">
             <div class="prompts-grid" id="promptsGrid"></div>
         </section>
 
-        <!-- 教程 -->
-        <section class="tutorials-section" id="tutorialsSection" style="display:none;">
-            <div class="section-header"><h3>学习教程</h3></div>
+        <section class="tutorials-section" id="tutorialsSection" style="display:none;" hidden aria-hidden="true" data-legacy-mount="tutorials">
             <div class="tutorials-grid" id="tutorialsGrid"></div>
         </section>
 
@@ -523,10 +445,10 @@
         <!-- ══════════════════ 工具箱 ══════════════════ -->
 
         <!-- 研究图谱 -->
-        <section class="toolbox-section" id="graphSection" style="display:none;">
+        <section class="toolbox-section" id="graphSection" style="display:none;" aria-labelledby="graphSectionTitle" data-lazy-script="d3" data-lazy-src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js">
             <div class="toolbox-header">
                 <div>
-                    <h3><i class="fas fa-circle-nodes"></i> 研究图谱</h3>
+                    <h3 id="graphSectionTitle"><i class="fas fa-circle-nodes"></i> 研究图谱</h3>
                     <p class="toolbox-sub">输入论文标题或 DOI，可视化文献引用网络，快速理清研究脉络</p>
                 </div>
             </div>
@@ -541,20 +463,20 @@
                 <span class="graph-stats-badge" id="graphStats"></span>
             </div>
             <div id="graphStatus" class="graph-status"></div>
-            <div class="graph-layout">
+            <div class="graph-layout" aria-label="研究图谱结果区域">
                 <div class="graph-canvas-wrap">
-                    <div id="graphCanvas" class="graph-canvas"></div>
+                    <div id="graphCanvas" class="graph-canvas" role="img" aria-label="文献引用网络图，进入研究图谱时再懒加载 D3"></div>
                     <div id="graphLegend" class="graph-legend"></div>
                 </div>
-                <div id="graphDetailPanel" class="graph-detail-panel" style="display:none;"></div>
+                <aside id="graphDetailPanel" class="graph-detail-panel" style="display:none;" aria-label="图谱节点详情"></aside>
             </div>
         </section>
 
         <!-- 论文检索 -->
-        <section class="toolbox-section" id="searchPapersSection" style="display:none;">
+        <section class="toolbox-section" id="searchPapersSection" style="display:none;" aria-labelledby="searchPapersTitle">
             <div class="toolbox-header">
                 <div>
-                    <h3><i class="fas fa-magnifying-glass-chart"></i> 论文检索</h3>
+                    <h3 id="searchPapersTitle"><i class="fas fa-magnifying-glass-chart"></i> 论文检索</h3>
                     <p class="toolbox-sub">基于 OpenAlex 学术数据库，搜索 2.5 亿+ 文献，无需魔法</p>
                 </div>
             </div>
@@ -586,10 +508,10 @@
         </section>
 
         <!-- 选刊助手 -->
-        <section class="toolbox-section" id="journalSection" style="display:none;">
+        <section class="toolbox-section" id="journalSection" style="display:none;" aria-labelledby="journalSectionTitle">
             <div class="toolbox-header">
                 <div>
-                    <h3><i class="fas fa-journal-whills"></i> 选刊助手</h3>
+                    <h3 id="journalSectionTitle"><i class="fas fa-journal-whills"></i> 选刊助手</h3>
                     <p class="toolbox-sub">查询期刊 IF、JCR 分区、中科院分区，内置中文期刊数据库</p>
                 </div>
             </div>
@@ -598,15 +520,16 @@
                 <input type="text" id="journalInput" placeholder="输入期刊名称（中/英文）或 ISSN，如：Nature，中国科学">
                 <button class="btn-toolbox-primary" id="journalSearchBtn"><i class="fas fa-search"></i> 查询</button>
             </div>
-            <div id="journalResultsGrid" class="journal-results-grid"></div>
-            <div id="journalComparePanel" class="journal-compare-panel" style="display:none;"></div>
+            <div id="journalResultsGrid" class="journal-results-grid" role="list" aria-label="期刊检索结果"></div>
+            <div id="journalShortlist" class="journal-shortlist" role="list" aria-label="候选期刊 shortlist"></div>
+            <div id="journalComparePanel" class="journal-compare-panel" style="display:none;" role="region" aria-label="期刊对比面板"></div>
         </section>
 
         <!-- 引文核查 -->
-        <section class="toolbox-section" id="citeCheckSection" style="display:none;">
+        <section class="toolbox-section" id="citeCheckSection" style="display:none;" aria-labelledby="citeCheckTitle">
             <div class="toolbox-header">
                 <div>
-                    <h3><i class="fas fa-list-check"></i> 引文核查</h3>
+                    <h3 id="citeCheckTitle"><i class="fas fa-list-check"></i> 引文核查</h3>
                     <p class="toolbox-sub">交叉比对 Crossref + Semantic Scholar，识别 AI 编造文献</p>
                 </div>
             </div>
@@ -614,21 +537,21 @@
                 <textarea id="citeInput" class="cite-textarea" placeholder="粘贴参考文献列表（每行一条，支持 APA / MLA / GB/T 格式）&#10;&#10;示例：&#10;[1] Vaswani, A. et al. (2017). Attention is all you need. NeurIPS.&#10;[2] LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. Nature, 521, 436–444."></textarea>
                 <div class="cite-actions">
                     <button class="btn-toolbox-primary" id="citeCheckBtn"><i class="fas fa-shield-check"></i> 开始核查</button>
-                    <button class="btn-toolbox-secondary" id="citeExportBtn"><i class="fas fa-file-csv"></i> 导出报告</button>
+                    <button class="btn-toolbox-secondary" id="citeExportBtn" data-export-kind="citation-evidence"><i class="fas fa-file-csv"></i> 导出报告</button>
                 </div>
             </div>
             <div id="citeProgress" class="cite-progress" style="display:none;">
                 <div class="cite-progress-bar-wrap"><div id="citeProgressBar" class="cite-progress-bar" style="width:0%"></div></div>
                 <span class="cite-progress-text">核查中 0/0</span>
             </div>
-            <div id="citeResults" class="cite-results"></div>
+            <div id="citeResults" class="cite-results" role="region" aria-live="polite" aria-label="引文核查结果"></div>
         </section>
 
         <!-- PaperDeck -->
-        <section class="toolbox-section" id="paperdeckSection" style="display:none;">
+        <section class="toolbox-section" id="paperdeckSection" style="display:none;" aria-labelledby="paperdeckTitle">
             <div class="toolbox-header">
                 <div>
-                    <h3><i class="fas fa-layer-group"></i> PaperDeck 论文学习卡片</h3>
+                    <h3 id="paperdeckTitle"><i class="fas fa-layer-group"></i> PaperDeck 论文学习卡片</h3>
                     <p class="toolbox-sub">基于偏好画像推荐论文，卡片式阅读，← 跳过 · → / Enter 收藏</p>
                 </div>
                 <span id="deckProgress" class="deck-progress-badge"></span>
@@ -642,30 +565,18 @@
                     <button class="btn-toolbox-primary" id="deckSavePrefsBtn"><i class="fas fa-play"></i> 开始刷卡</button>
                 </div>
             </div>
-            <!-- 卡片区 -->
-            <div class="deck-wrap">
-                <div id="deckCard" class="deck-card"></div>
+            <div class="deck-wrap" role="region" aria-label="PaperDeck 卡片阅读区">
+                <div id="deckCard" class="deck-card" role="article" aria-live="polite"></div>
                 <div id="deckCounter" class="deck-counter"></div>
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="https://github.com/minqifeng/sciai-hub" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://github.com/minqifeng/sciai-hub/issues" target="_blank" rel="noopener"><i class="fas fa-comment-alt"></i> 反馈建议</a>
-                <a href="mailto:minqifeng@users.noreply.github.com"><i class="fas fa-envelope"></i> 联系我们</a>
-                <a href="https://arxiv.org/search/?searchtype=all&query=artificial+intelligence" target="_blank" rel="noopener"><i class="fas fa-rss"></i> arXiv AI</a>
-                <a href="#" id="suggestToolBtn"><i class="fas fa-plus-circle"></i> 建议工具</a>
-            </div>
-            <p>© 2026 SciAI Hub - Curated AI research station · 首页主叙事持续维护中</p>
-        </footer>
-
-<section class="toolbox-section stats-methods-section" id="statMethodsSection" style="display:none">
+<section class="toolbox-section stats-methods-section" id="statMethodsSection" style="display:none" aria-labelledby="statMethodsTitle">
       <div class="stats-section-header">
-        <h2 class="section-title"><i class="fas fa-chart-bar"></i> 统计与可视化方法库</h2>
+        <h2 class="section-title" id="statMethodsTitle"><i class="fas fa-chart-bar"></i> 统计与可视化方法库</h2>
         <p class="section-subtitle">覆盖生态学 · 环境科学 · 社会学 · 经济学 — 从描述性统计到深度学习</p>
       </div>
-      <div class="stats-stage-tabs" id="stageFilterTabs">
+      <div class="stats-stage-tabs" id="stageFilterTabs" role="group" aria-label="统计方法阶段筛选">
         <button class="stats-stage-tab active" data-stage="all">全部</button>
         <button class="stats-stage-tab" data-stage="descriptive">描述性统计</button>
         <button class="stats-stage-tab" data-stage="visualization">数据可视化</button>
@@ -679,7 +590,7 @@
         <button class="stats-stage-tab" data-stage="dl">深度学习</button>
       </div>
       <div class="stats-filter-row">
-        <div class="stats-discipline-tags" id="disciplineFilterTags">
+        <div class="stats-discipline-tags" id="disciplineFilterTags" role="group" aria-label="学科筛选">
           <button class="stats-disc-tag active" data-disc="all" type="button">全部学科</button>
           <button class="stats-disc-tag" data-disc="general" type="button">通用</button>
           <button class="stats-disc-tag" data-disc="ecology" type="button">生态学</button>
@@ -687,18 +598,28 @@
           <button class="stats-disc-tag" data-disc="sociology" type="button">社会学</button>
           <button class="stats-disc-tag" data-disc="economics" type="button">经济学</button>
         </div>
-        <div class="stats-search-wrap">
+        <div class="stats-search-wrap" role="search" aria-label="统计方法搜索">
           <i class="fas fa-search"></i>
-          <input type="text" id="statsSearch" placeholder="搜索方法或工具...">
+          <input type="search" id="statsSearch" placeholder="搜索方法或工具..." aria-label="搜索统计方法或工具">
         </div>
       </div>
-      <div class="stats-result-info" id="statsResultInfo"></div>
-      <div class="stats-grid" id="statsGrid"></div>
+      <div class="stats-result-info" id="statsResultInfo" role="status" aria-live="polite"></div>
+      <div class="stats-grid" id="statsGrid" role="list" aria-label="统计方法结果"></div>
     </section>
+        <footer class="footer" role="contentinfo">
+            <div class="footer-links">
+                <a href="https://github.com/minqifeng/sciai-hub" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://github.com/minqifeng/sciai-hub/issues" target="_blank" rel="noopener"><i class="fas fa-comment-alt"></i> 反馈建议</a>
+                <a href="mailto:minqifeng@users.noreply.github.com"><i class="fas fa-envelope"></i> 联系我们</a>
+                <a href="https://arxiv.org/search/?searchtype=all&query=artificial+intelligence" target="_blank" rel="noopener"><i class="fas fa-rss"></i> arXiv AI</a>
+                <a href="#" id="suggestToolBtn"><i class="fas fa-plus-circle"></i> 建议工具</a>
+            </div>
+            <p>© 2026 SciAI Hub · 给研究生和博士的 AI 科研站</p>
+        </footer>
     </main>
 
     <!-- 对比浮条 -->
-    <div class="compare-bar" id="compareBar">
+    <div class="compare-bar" id="compareBar" role="region" aria-label="工具对比浮条">
         <div class="compare-bar-inner">
             <span class="compare-bar-title"><i class="fas fa-code-compare"></i> 工具对比</span>
             <div class="compare-slots" id="compareSlots"></div>
@@ -708,27 +629,27 @@
     </div>
 
     <!-- 对比弹窗 -->
-    <div class="modal-overlay" id="compareModal">
-        <div class="modal compare-modal">
+    <div class="modal-overlay" id="compareModal" role="presentation">
+        <div class="modal compare-modal" role="dialog" aria-modal="true" aria-labelledby="compareModalTitle">
             <div class="modal-header">
-                <h3><i class="fas fa-code-compare"></i> 工具对比</h3>
-                <button class="modal-close" id="compareModalClose"><i class="fas fa-times"></i></button>
+                <h3 id="compareModalTitle"><i class="fas fa-code-compare"></i> 工具对比</h3>
+                <button class="modal-close" id="compareModalClose" aria-label="关闭工具对比弹窗"><i class="fas fa-times"></i></button>
             </div>
             <div class="compare-modal-body" id="compareModalBody"></div>
         </div>
     </div>
 
     <!-- 工具详情弹窗 -->
-    <div class="modal-overlay" id="toolModal">
-        <div class="modal tool-modal">
+    <div class="modal-overlay" id="toolModal" role="presentation">
+        <div class="modal tool-modal" role="dialog" aria-modal="true" aria-labelledby="toolModalName" aria-describedby="toolModalDesc">
             <div class="tool-modal-header" id="toolModalHeader">
                 <div class="tool-modal-icon" id="toolModalIcon"></div>
                 <div class="tool-modal-title">
                     <h3 id="toolModalName"></h3>
                     <div class="tool-modal-tags" id="toolModalTags"></div>
                 </div>
-                <button class="fav-btn" id="toolModalFav" title="收藏"><i class="fas fa-heart"></i></button>
-                <button class="modal-close" id="toolModalClose"><i class="fas fa-times"></i></button>
+                <button class="fav-btn" id="toolModalFav" title="收藏" aria-label="收藏当前工具"><i class="fas fa-heart"></i></button>
+                <button class="modal-close" id="toolModalClose" aria-label="关闭工具详情弹窗"><i class="fas fa-times"></i></button>
             </div>
             <div class="tool-modal-body">
                 <p class="tool-modal-desc" id="toolModalDesc"></p>
@@ -781,11 +702,11 @@
     <!-- 统计与可视化方法库 -->
     
     <!-- 学习资源浏览弹窗 -->
-    <div class="modal-overlay" id="resourcesModal">
-        <div class="modal modal-lg">
+    <div class="modal-overlay" id="resourcesModal" role="presentation">
+        <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="resourcesModalTitle">
             <div class="modal-header">
                 <h3 id="resourcesModalTitle"><i class="fas fa-graduation-cap"></i> 学习资源</h3>
-                <button class="modal-close" id="resourcesModalClose"><i class="fas fa-times"></i></button>
+                <button class="modal-close" id="resourcesModalClose" aria-label="关闭学习资源弹窗"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body" id="resourcesContainer">
                 <!-- 动态生成资源列表 -->
@@ -794,11 +715,11 @@
     </div>
 
     <!-- 登录弹窗（改造版：localStorage 本地账户） -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal login-modal">
+    <div class="modal-overlay" id="loginModal" role="presentation">
+        <div class="modal login-modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
             <div class="modal-header">
                 <h3 id="loginModalTitle"><i class="fas fa-user-circle"></i> 登录 / 注册</h3>
-                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+                <button class="modal-close" id="modalClose" aria-label="关闭登录弹窗"><i class="fas fa-times"></i></button>
             </div>
             <!-- 未登录状态 -->
             <div class="modal-body" id="loginForm">
@@ -832,11 +753,11 @@
     </div>
 
     <!-- 快捷键帮助弹窗 -->
-    <div class="modal-overlay" id="shortcutsModal">
-        <div class="modal shortcuts-modal">
+    <div class="modal-overlay" id="shortcutsModal" role="presentation">
+        <div class="modal shortcuts-modal" role="dialog" aria-modal="true" aria-labelledby="shortcutsModalTitle">
             <div class="modal-header">
-                <h3><i class="fas fa-keyboard"></i> 键盘快捷键</h3>
-                <button class="modal-close" id="shortcutsModalClose"><i class="fas fa-times"></i></button>
+                <h3 id="shortcutsModalTitle"><i class="fas fa-keyboard"></i> 键盘快捷键</h3>
+                <button class="modal-close" id="shortcutsModalClose" aria-label="关闭快捷键弹窗"><i class="fas fa-times"></i></button>
             </div>
             <div class="shortcuts-body">
                 <div class="shortcut-row"><span class="shortcut-desc">聚焦搜索框</span><kbd class="shortcut-key">/</kbd></div>
@@ -854,11 +775,11 @@
     </div>
 
     <!-- 建议收录工具弹窗 -->
-    <div class="modal-overlay" id="suggestModal">
-        <div class="modal suggest-modal">
+    <div class="modal-overlay" id="suggestModal" role="presentation">
+        <div class="modal suggest-modal" role="dialog" aria-modal="true" aria-labelledby="suggestModalTitle">
             <div class="modal-header">
-                <h3><i class="fas fa-plus-circle"></i> 建议收录工具</h3>
-                <button class="modal-close" id="suggestModalClose"><i class="fas fa-times"></i></button>
+                <h3 id="suggestModalTitle"><i class="fas fa-plus-circle"></i> 建议收录工具</h3>
+                <button class="modal-close" id="suggestModalClose" aria-label="关闭建议收录弹窗"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body suggest-body">
                 <div class="form-group"><input type="text" id="suggestName" placeholder="工具名称 *" class="form-input"></div>

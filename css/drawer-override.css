@@ -469,3 +469,95 @@ body.sidebar-drawer-open {
         padding-bottom: 28px;
     }
 }
+
+/* ============================================
+   Mobile drawer usability and accessibility
+   ============================================ */
+.sidebar-toggle:focus-visible,
+.mobile-menu-btn:focus-visible,
+.workbench-nav-item:focus-visible,
+.sidebar-search input:focus-visible,
+.sidebar-backdrop.show:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.18), 0 0 0 1px rgba(15,118,110,0.46);
+}
+
+.sidebar-backdrop.show {
+    backdrop-filter: blur(2px);
+}
+
+.sidebar.open:focus-within {
+    box-shadow: 24px 0 60px rgba(5, 10, 20, 0.18), 0 0 0 1px rgba(15,118,110,0.24);
+}
+
+.sidebar-toggle[aria-expanded="true"],
+.mobile-menu-btn[aria-expanded="true"] {
+    color: #0f766e !important;
+    border-color: rgba(15,118,110,0.24) !important;
+    background: rgba(15,118,110,0.10) !important;
+}
+
+@media (max-width: 768px) {
+    body.sidebar-drawer-open .mobile-menu-btn {
+        color: #0f766e;
+        background: rgba(15,118,110,0.10);
+        border-radius: 12px;
+    }
+
+    .sidebar {
+        border-right: 1px solid rgba(15, 23, 42, 0.12);
+        will-change: transform;
+    }
+
+    .sidebar.open {
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
+    }
+
+    .sidebar.open .sidebar-header {
+        background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0));
+    }
+
+    .sidebar.open .workbench-nav-item {
+        min-height: 46px;
+    }
+
+    .sidebar.open .workbench-nav-item:active,
+    .sidebar.open .sidebar-toggle:active,
+    body.sidebar-drawer-open .mobile-menu-btn:active {
+        transform: scale(0.98);
+    }
+
+    .sidebar.open .workbench-nav-item.active {
+        border-color: rgba(15,118,110,0.22);
+    }
+
+    .sidebar.open .workbench-nav-item:focus-visible {
+        background: #fff;
+        border-color: rgba(15,118,110,0.28);
+    }
+
+    .sidebar-backdrop {
+        background:
+            radial-gradient(circle at 0% 0%, rgba(15,118,110,0.18), transparent 18rem),
+            rgba(15, 23, 42, 0.48);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .sidebar-backdrop,
+    .sidebar-pin,
+    .sidebar-toggle,
+    .mobile-menu-btn,
+    .workbench-nav-item {
+        transition-duration: 0.001ms;
+    }
+
+    .workbench-nav-item:hover,
+    .sidebar.open .workbench-nav-item:active,
+    .sidebar.open .sidebar-toggle:active,
+    body.sidebar-drawer-open .mobile-menu-btn:active {
+        transform: none;
+    }
+}

@@ -3,13 +3,13 @@
   "schemaVersion": "1.0.0",
   "sourceName": "SciAI Hub curated station updates",
   "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-  "sourceFetchedAt": "2026-04-28T06:14:01.226Z",
-  "validatedAt": "2026-04-28T06:14:01.226Z",
+  "sourceFetchedAt": "2026-04-28T15:17:08.675Z",
+  "validatedAt": "2026-04-28T15:17:08.675Z",
   "status": "snapshot",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "curated-update-log",
-    "snapshotTakenAt": "2026-04-28T06:14:01.226Z",
+    "snapshotTakenAt": "2026-04-28T15:17:08.675Z",
     "sourceDatasetId": "daily-digest.curated-picks.academic-portal.plus-context.manifests",
     "snapshotDate": "2026-04-28"
   },
@@ -26,6 +26,18 @@
       "modelsLive": "data/models.manifest.json"
     }
   },
+  "editorialReview": {
+    "status": "generated",
+    "reviewedAt": "2026-04-28T15:17:08.675Z",
+    "reviewer": "generate-station-updates.js",
+    "scope": "updates.manifest",
+    "checks": [
+      "json-write",
+      "record-history-bounded",
+      "source-diff-built",
+      "manifest-refs-preserved"
+    ]
+  },
   "recordCount": 6,
   "records": [
     {
@@ -33,8 +45,29 @@
       "kind": "curated-daily-rollup",
       "title": "Curated station streams update",
       "summary": "Manifest-backed daily rollup for daily-digest, curated-picks, and academic-portal, with news, GitHub, and model context attached.",
-      "generatedAt": "2026-04-28T06:14:01.225Z",
+      "generatedAt": "2026-04-28T15:17:08.673Z",
       "date": "2026-04-28",
+      "generation": {
+        "generator": ".github/scripts/generate-station-updates.js",
+        "sourceManifestCount": 7,
+        "modelManifestRefs": {
+          "snapshot": "data/models.snapshot.manifest.json",
+          "live": "data/models.manifest.json"
+        },
+        "schemaCompatibility": "append-only-fields"
+      },
+      "editorialReview": {
+        "status": "reviewed",
+        "reviewedAt": "2026-04-28T15:17:08.673Z",
+        "reviewer": "station-update-generator",
+        "scope": "daily-rollup-record",
+        "checks": [
+          "json-parse",
+          "manifest-ref-present",
+          "source-diff-built",
+          "schema-compatible-output"
+        ]
+      },
       "contentStreams": [
         {
           "key": "daily-digest",
@@ -49,6 +82,47 @@
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
           "recordCount": 4,
           "manifest": "data/ai-daily.manifest.json",
+          "sourceLayers": [
+            {
+              "layer": "canonical",
+              "role": "repository-of-record",
+              "sourceName": "SciAI Hub repository",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "local-seed-manifest"
+            },
+            {
+              "layer": "editorial",
+              "role": "daily-digest-curation",
+              "sourceName": "SciAI Hub AI Daily seed",
+              "sourceUrl": "data/ai-daily.manifest.json",
+              "verification": "manual-review"
+            },
+            {
+              "layer": "context",
+              "role": "frontier-signal-cross-reference",
+              "sourceName": "Referenced highlight sources",
+              "sourceUrl": "records[].highlights[].sourceRefs[]",
+              "verification": "seeded-source-refs-no-live-fetch"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "curated-seed",
+            "verificationMode": "manual-editorial-seed-with-source-refs",
+            "liveFetchRequired": false,
+            "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+          },
+          "editorialReview": {
+            "status": "reviewed",
+            "reviewedAt": "2026-04-23T00:00:00.000Z",
+            "reviewer": "SciAI Hub review desk",
+            "scope": "ai-daily manifest and source references",
+            "checks": [
+              "source-layering",
+              "source-ref-presence",
+              "homepage-safe-summary",
+              "no-live-freshness-claim"
+            ]
+          },
           "highlights": [
             "SciAI Hub AI Daily seed: static",
             "snapshot 2026-04-23",
@@ -60,7 +134,82 @@
             "SciAI Hub GitHub curated seed (static; snapshot 2026-04-23)"
           ],
           "contextNote": "Context: news=static / models=snapshot / github=static",
-          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27"
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27",
+          "modelManifestRefs": {
+            "snapshot": "data/models.snapshot.manifest.json",
+            "live": "data/models.manifest.json"
+          },
+          "changed": [
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "diff": [
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "canonical",
+                  "role": "repository-of-record",
+                  "sourceName": "SciAI Hub repository",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "local-seed-manifest"
+                },
+                {
+                  "layer": "editorial",
+                  "role": "daily-digest-curation",
+                  "sourceName": "SciAI Hub AI Daily seed",
+                  "sourceUrl": "data/ai-daily.manifest.json",
+                  "verification": "manual-review"
+                },
+                {
+                  "layer": "context",
+                  "role": "frontier-signal-cross-reference",
+                  "sourceName": "Referenced highlight sources",
+                  "sourceUrl": "records[].highlights[].sourceRefs[]",
+                  "verification": "seeded-source-refs-no-live-fetch"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "curated-seed",
+                "verificationMode": "manual-editorial-seed-with-source-refs",
+                "liveFetchRequired": false,
+                "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "reviewed",
+                "reviewedAt": "2026-04-23T00:00:00.000Z",
+                "reviewer": "SciAI Hub review desk",
+                "scope": "ai-daily manifest and source references",
+                "checks": [
+                  "source-layering",
+                  "source-ref-presence",
+                  "homepage-safe-summary",
+                  "no-live-freshness-claim"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+            "validatedAt": "2026-04-23T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
         },
         {
           "key": "curated-picks",
@@ -75,6 +224,32 @@
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
           "recordCount": 6,
           "manifest": "data/curated-tools.manifest.json",
+          "sourceLayers": [
+            {
+              "layer": "seed",
+              "role": "manifest-of-record",
+              "key": "curated-tools",
+              "sourceName": "SciAI Hub curated tools seed",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "loaded-from-local-manifest"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "local-seed",
+            "verificationMode": "schema-validated-local-json",
+            "liveFetchRequired": false
+          },
+          "editorialReview": {
+            "status": "schema-compatible",
+            "reviewedAt": "2026-04-22T00:00:00.000Z",
+            "reviewer": "generate-station-updates.js",
+            "scope": "curated-tools",
+            "checks": [
+              "json-parse",
+              "manifest-summary",
+              "schema-compatible-output"
+            ]
+          },
           "highlights": [
             "SciAI Hub curated tools seed: static",
             "snapshot 2026-04-22",
@@ -85,7 +260,67 @@
             "SciAI Hub GitHub curated seed (static; snapshot 2026-04-23)"
           ],
           "contextNote": "Context: models=snapshot / github=static",
-          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27"
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27",
+          "modelManifestRefs": {
+            "snapshot": "data/models.snapshot.manifest.json",
+            "live": "data/models.manifest.json"
+          },
+          "changed": [
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "diff": [
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "seed",
+                  "role": "manifest-of-record",
+                  "key": "curated-tools",
+                  "sourceName": "SciAI Hub curated tools seed",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "loaded-from-local-manifest"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "local-seed",
+                "verificationMode": "schema-validated-local-json",
+                "liveFetchRequired": false
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "schema-compatible",
+                "reviewedAt": "2026-04-22T00:00:00.000Z",
+                "reviewer": "generate-station-updates.js",
+                "scope": "curated-tools",
+                "checks": [
+                  "json-parse",
+                  "manifest-summary",
+                  "schema-compatible-output"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
         },
         {
           "key": "academic-portal",
@@ -100,6 +335,32 @@
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
           "recordCount": 4,
           "manifest": "data/academic-entrypoints.manifest.json",
+          "sourceLayers": [
+            {
+              "layer": "seed",
+              "role": "manifest-of-record",
+              "key": "academic-entrypoints",
+              "sourceName": "SciAI Hub academic entrypoints seed",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "loaded-from-local-manifest"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "local-seed",
+            "verificationMode": "schema-validated-local-json",
+            "liveFetchRequired": false
+          },
+          "editorialReview": {
+            "status": "schema-compatible",
+            "reviewedAt": "2026-04-22T00:00:00.000Z",
+            "reviewer": "generate-station-updates.js",
+            "scope": "academic-entrypoints",
+            "checks": [
+              "json-parse",
+              "manifest-summary",
+              "schema-compatible-output"
+            ]
+          },
           "highlights": [
             "SciAI Hub academic entrypoints seed: static",
             "snapshot 2026-04-22",
@@ -110,7 +371,67 @@
             "SciAI Hub curated news seed (static; snapshot 2026-04-21)"
           ],
           "contextNote": "Context: models=snapshot / news=static",
-          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27"
+          "modelContext": "OpenRouter Weekly Model Snapshot snapshot 2026-04-27",
+          "modelManifestRefs": {
+            "snapshot": "data/models.snapshot.manifest.json",
+            "live": "data/models.manifest.json"
+          },
+          "changed": [
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "diff": [
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "seed",
+                  "role": "manifest-of-record",
+                  "key": "academic-entrypoints",
+                  "sourceName": "SciAI Hub academic entrypoints seed",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "loaded-from-local-manifest"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "local-seed",
+                "verificationMode": "schema-validated-local-json",
+                "liveFetchRequired": false
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "schema-compatible",
+                "reviewedAt": "2026-04-22T00:00:00.000Z",
+                "reviewer": "generate-station-updates.js",
+                "scope": "academic-entrypoints",
+                "checks": [
+                  "json-parse",
+                  "manifest-summary",
+                  "schema-compatible-output"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
         }
       ],
       "sources": [
@@ -119,6 +440,8 @@
           "datasetId": "news.seed",
           "sourceName": "SciAI Hub curated news seed",
           "status": "static",
+          "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+          "validatedAt": "2026-04-21T00:00:00.000Z",
           "freshness": {
             "cadence": "daily",
             "freshnessPolicy": "editorial-seed",
@@ -131,13 +454,42 @@
           "freshnessLabel": "snapshot 2026-04-21",
           "recordCount": 0,
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-          "manifest": "data/news.manifest.json"
+          "manifest": "data/news.manifest.json",
+          "manifestRefs": {},
+          "sourceLayers": [
+            {
+              "layer": "seed",
+              "role": "manifest-of-record",
+              "key": "news",
+              "sourceName": "SciAI Hub curated news seed",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "loaded-from-local-manifest"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "local-seed",
+            "verificationMode": "schema-validated-local-json",
+            "liveFetchRequired": false
+          },
+          "editorialReview": {
+            "status": "schema-compatible",
+            "reviewedAt": "2026-04-21T00:00:00.000Z",
+            "reviewer": "generate-station-updates.js",
+            "scope": "news",
+            "checks": [
+              "json-parse",
+              "manifest-summary",
+              "schema-compatible-output"
+            ]
+          }
         },
         {
           "key": "github",
           "datasetId": "github.seed",
           "sourceName": "SciAI Hub GitHub curated seed",
           "status": "static",
+          "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+          "validatedAt": "2026-04-23T00:00:00.000Z",
           "freshness": {
             "cadence": "manual",
             "freshnessPolicy": "curated-github-seed",
@@ -150,13 +502,57 @@
           "freshnessLabel": "snapshot 2026-04-23",
           "recordCount": 10,
           "sourceUrl": "https://github.com/trending",
-          "manifest": "data/github.manifest.json"
+          "manifest": "data/github.manifest.json",
+          "manifestRefs": {},
+          "sourceLayers": [
+            {
+              "layer": "canonical",
+              "role": "repository-pages",
+              "sourceName": "GitHub repositories",
+              "sourceUrl": "records[].url",
+              "verification": "seeded-repository-url"
+            },
+            {
+              "layer": "discovery",
+              "role": "trend-and-topic-watch",
+              "sourceName": "GitHub Trending",
+              "sourceUrl": "https://github.com/trending",
+              "verification": "manual-seed-no-live-fetch"
+            },
+            {
+              "layer": "editorial",
+              "role": "research-workflow-fit",
+              "sourceName": "SciAI Hub GitHub curated seed",
+              "sourceUrl": "data/github.manifest.json",
+              "verification": "curated-static-snapshot"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "curated-seed",
+            "verificationMode": "static-github-recommendation-seed",
+            "liveFetchRequired": false,
+            "uiUse": "Use evidence as display metadata and sorting hints; do not present seed/fallback values as live GitHub metrics."
+          },
+          "editorialReview": {
+            "status": "reviewed",
+            "reviewedAt": "2026-04-23T00:00:00.000Z",
+            "reviewer": "SciAI Hub review desk",
+            "scope": "github daily station snapshot",
+            "checks": [
+              "repository-url-present",
+              "evidence-field-present",
+              "no-live-metric-claim",
+              "research-workflow-fit"
+            ]
+          }
         },
         {
           "key": "aiDaily",
           "datasetId": "ai-daily.seed",
           "sourceName": "SciAI Hub AI Daily seed",
           "status": "static",
+          "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+          "validatedAt": "2026-04-23T00:00:00.000Z",
           "freshness": {
             "cadence": "daily",
             "freshnessPolicy": "editorial-seed",
@@ -169,13 +565,57 @@
           "freshnessLabel": "snapshot 2026-04-23",
           "recordCount": 4,
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-          "manifest": "data/ai-daily.manifest.json"
+          "manifest": "data/ai-daily.manifest.json",
+          "manifestRefs": {},
+          "sourceLayers": [
+            {
+              "layer": "canonical",
+              "role": "repository-of-record",
+              "sourceName": "SciAI Hub repository",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "local-seed-manifest"
+            },
+            {
+              "layer": "editorial",
+              "role": "daily-digest-curation",
+              "sourceName": "SciAI Hub AI Daily seed",
+              "sourceUrl": "data/ai-daily.manifest.json",
+              "verification": "manual-review"
+            },
+            {
+              "layer": "context",
+              "role": "frontier-signal-cross-reference",
+              "sourceName": "Referenced highlight sources",
+              "sourceUrl": "records[].highlights[].sourceRefs[]",
+              "verification": "seeded-source-refs-no-live-fetch"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "curated-seed",
+            "verificationMode": "manual-editorial-seed-with-source-refs",
+            "liveFetchRequired": false,
+            "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+          },
+          "editorialReview": {
+            "status": "reviewed",
+            "reviewedAt": "2026-04-23T00:00:00.000Z",
+            "reviewer": "SciAI Hub review desk",
+            "scope": "ai-daily manifest and source references",
+            "checks": [
+              "source-layering",
+              "source-ref-presence",
+              "homepage-safe-summary",
+              "no-live-freshness-claim"
+            ]
+          }
         },
         {
           "key": "curatedTools",
           "datasetId": "curated-tools.seed",
           "sourceName": "SciAI Hub curated tools seed",
           "status": "static",
+          "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+          "validatedAt": "2026-04-22T00:00:00.000Z",
           "freshness": {
             "cadence": "weekly",
             "freshnessPolicy": "editorial-seed",
@@ -188,13 +628,42 @@
           "freshnessLabel": "snapshot 2026-04-22",
           "recordCount": 6,
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-          "manifest": "data/curated-tools.manifest.json"
+          "manifest": "data/curated-tools.manifest.json",
+          "manifestRefs": {},
+          "sourceLayers": [
+            {
+              "layer": "seed",
+              "role": "manifest-of-record",
+              "key": "curated-tools",
+              "sourceName": "SciAI Hub curated tools seed",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "loaded-from-local-manifest"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "local-seed",
+            "verificationMode": "schema-validated-local-json",
+            "liveFetchRequired": false
+          },
+          "editorialReview": {
+            "status": "schema-compatible",
+            "reviewedAt": "2026-04-22T00:00:00.000Z",
+            "reviewer": "generate-station-updates.js",
+            "scope": "curated-tools",
+            "checks": [
+              "json-parse",
+              "manifest-summary",
+              "schema-compatible-output"
+            ]
+          }
         },
         {
           "key": "academicEntrypoints",
           "datasetId": "academic-entrypoints.seed",
           "sourceName": "SciAI Hub academic entrypoints seed",
           "status": "static",
+          "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+          "validatedAt": "2026-04-22T00:00:00.000Z",
           "freshness": {
             "cadence": "weekly",
             "freshnessPolicy": "editorial-seed",
@@ -207,13 +676,42 @@
           "freshnessLabel": "snapshot 2026-04-22",
           "recordCount": 4,
           "sourceUrl": "https://github.com/minqifeng/sciai-hub",
-          "manifest": "data/academic-entrypoints.manifest.json"
+          "manifest": "data/academic-entrypoints.manifest.json",
+          "manifestRefs": {},
+          "sourceLayers": [
+            {
+              "layer": "seed",
+              "role": "manifest-of-record",
+              "key": "academic-entrypoints",
+              "sourceName": "SciAI Hub academic entrypoints seed",
+              "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+              "verification": "loaded-from-local-manifest"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "local-seed",
+            "verificationMode": "schema-validated-local-json",
+            "liveFetchRequired": false
+          },
+          "editorialReview": {
+            "status": "schema-compatible",
+            "reviewedAt": "2026-04-22T00:00:00.000Z",
+            "reviewer": "generate-station-updates.js",
+            "scope": "academic-entrypoints",
+            "checks": [
+              "json-parse",
+              "manifest-summary",
+              "schema-compatible-output"
+            ]
+          }
         },
         {
           "key": "models",
           "datasetId": "models.snapshot",
           "sourceName": "OpenRouter Weekly Model Snapshot",
           "status": "snapshot",
+          "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
+          "validatedAt": "2026-04-27T05:17:12.230Z",
           "freshness": {
             "cadence": "weekly",
             "freshnessPolicy": "frozen-snapshot",
@@ -229,7 +727,1045 @@
           "manifest": [
             "data/models.snapshot.manifest.json",
             "data/models.manifest.json"
-          ]
+          ],
+          "manifestRefs": {
+            "snapshot": "data/models.snapshot.manifest.json",
+            "live": "data/models.manifest.json"
+          },
+          "liveManifest": "data/models.manifest.json",
+          "snapshotManifest": "data/models.snapshot.manifest.json",
+          "liveCatalog": {
+            "datasetId": "models.catalog",
+            "sourceName": "OpenRouter Model Catalog",
+            "status": "live",
+            "freshness": {
+              "cadence": "daily",
+              "freshnessPolicy": "live-catalog",
+              "snapshotDate": "2026-04-28",
+              "refreshedAt": "2026-04-28T05:24:02.082Z",
+              "snapshotTakenAt": null,
+              "sourceDatasetId": null,
+              "refreshHint": null
+            },
+            "freshnessLabel": "snapshot 2026-04-28",
+            "recordCount": 367,
+            "sourceUrl": "https://openrouter.ai/api/v1/models",
+            "manifest": "data/models.manifest.json"
+          },
+          "sourceLayers": [
+            {
+              "layer": "snapshot",
+              "role": "frozen-homepage-reference",
+              "sourceName": "OpenRouter Weekly Model Snapshot",
+              "sourceUrl": "data/models.snapshot.manifest.json",
+              "verification": "frozen-json-manifest"
+            },
+            {
+              "layer": "live",
+              "role": "current-model-catalog-reference",
+              "sourceName": "OpenRouter Model Catalog",
+              "sourceUrl": "data/models.manifest.json",
+              "verification": "live-manifest-reference"
+            }
+          ],
+          "sourceProfile": {
+            "trustTier": "frozen-snapshot",
+            "verificationMode": "weekly-snapshot-with-live-reference",
+            "liveFetchRequired": false,
+            "uiUse": "Use as stable homepage context while preserving a pointer to the live model catalog."
+          },
+          "editorialReview": {
+            "status": "reviewed",
+            "reviewedAt": "2026-04-27T05:17:12.230Z",
+            "reviewer": "SciAI Hub review desk",
+            "scope": "models weekly snapshot",
+            "checks": [
+              "snapshot-date",
+              "source-dataset-id",
+              "live-manifest-reference"
+            ]
+          }
+        }
+      ],
+      "diff": {
+        "baseRecordId": "update-2026-04-28-static-static-static-snapshot",
+        "changed": [
+          {
+            "key": "news",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {},
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "seed",
+                    "role": "manifest-of-record",
+                    "key": "news",
+                    "sourceName": "SciAI Hub curated news seed",
+                    "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                    "verification": "loaded-from-local-manifest"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "local-seed",
+                  "verificationMode": "schema-validated-local-json",
+                  "liveFetchRequired": false
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "schema-compatible",
+                  "reviewedAt": "2026-04-21T00:00:00.000Z",
+                  "reviewer": "generate-station-updates.js",
+                  "scope": "news",
+                  "checks": [
+                    "json-parse",
+                    "manifest-summary",
+                    "schema-compatible-output"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+              "validatedAt": "2026-04-21T00:00:00.000Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          },
+          {
+            "key": "github",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {},
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "canonical",
+                    "role": "repository-pages",
+                    "sourceName": "GitHub repositories",
+                    "sourceUrl": "records[].url",
+                    "verification": "seeded-repository-url"
+                  },
+                  {
+                    "layer": "discovery",
+                    "role": "trend-and-topic-watch",
+                    "sourceName": "GitHub Trending",
+                    "sourceUrl": "https://github.com/trending",
+                    "verification": "manual-seed-no-live-fetch"
+                  },
+                  {
+                    "layer": "editorial",
+                    "role": "research-workflow-fit",
+                    "sourceName": "SciAI Hub GitHub curated seed",
+                    "sourceUrl": "data/github.manifest.json",
+                    "verification": "curated-static-snapshot"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "curated-seed",
+                  "verificationMode": "static-github-recommendation-seed",
+                  "liveFetchRequired": false,
+                  "uiUse": "Use evidence as display metadata and sorting hints; do not present seed/fallback values as live GitHub metrics."
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "reviewed",
+                  "reviewedAt": "2026-04-23T00:00:00.000Z",
+                  "reviewer": "SciAI Hub review desk",
+                  "scope": "github daily station snapshot",
+                  "checks": [
+                    "repository-url-present",
+                    "evidence-field-present",
+                    "no-live-metric-claim",
+                    "research-workflow-fit"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+              "validatedAt": "2026-04-23T00:00:00.000Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          },
+          {
+            "key": "aiDaily",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {},
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "canonical",
+                    "role": "repository-of-record",
+                    "sourceName": "SciAI Hub repository",
+                    "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                    "verification": "local-seed-manifest"
+                  },
+                  {
+                    "layer": "editorial",
+                    "role": "daily-digest-curation",
+                    "sourceName": "SciAI Hub AI Daily seed",
+                    "sourceUrl": "data/ai-daily.manifest.json",
+                    "verification": "manual-review"
+                  },
+                  {
+                    "layer": "context",
+                    "role": "frontier-signal-cross-reference",
+                    "sourceName": "Referenced highlight sources",
+                    "sourceUrl": "records[].highlights[].sourceRefs[]",
+                    "verification": "seeded-source-refs-no-live-fetch"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "curated-seed",
+                  "verificationMode": "manual-editorial-seed-with-source-refs",
+                  "liveFetchRequired": false,
+                  "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "reviewed",
+                  "reviewedAt": "2026-04-23T00:00:00.000Z",
+                  "reviewer": "SciAI Hub review desk",
+                  "scope": "ai-daily manifest and source references",
+                  "checks": [
+                    "source-layering",
+                    "source-ref-presence",
+                    "homepage-safe-summary",
+                    "no-live-freshness-claim"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+              "validatedAt": "2026-04-23T00:00:00.000Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          },
+          {
+            "key": "curatedTools",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {},
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "seed",
+                    "role": "manifest-of-record",
+                    "key": "curated-tools",
+                    "sourceName": "SciAI Hub curated tools seed",
+                    "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                    "verification": "loaded-from-local-manifest"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "local-seed",
+                  "verificationMode": "schema-validated-local-json",
+                  "liveFetchRequired": false
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "schema-compatible",
+                  "reviewedAt": "2026-04-22T00:00:00.000Z",
+                  "reviewer": "generate-station-updates.js",
+                  "scope": "curated-tools",
+                  "checks": [
+                    "json-parse",
+                    "manifest-summary",
+                    "schema-compatible-output"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+              "validatedAt": "2026-04-22T00:00:00.000Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          },
+          {
+            "key": "academicEntrypoints",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {},
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "seed",
+                    "role": "manifest-of-record",
+                    "key": "academic-entrypoints",
+                    "sourceName": "SciAI Hub academic entrypoints seed",
+                    "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                    "verification": "loaded-from-local-manifest"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "local-seed",
+                  "verificationMode": "schema-validated-local-json",
+                  "liveFetchRequired": false
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "schema-compatible",
+                  "reviewedAt": "2026-04-22T00:00:00.000Z",
+                  "reviewer": "generate-station-updates.js",
+                  "scope": "academic-entrypoints",
+                  "checks": [
+                    "json-parse",
+                    "manifest-summary",
+                    "schema-compatible-output"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+              "validatedAt": "2026-04-22T00:00:00.000Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          },
+          {
+            "key": "models",
+            "changed": [
+              "manifestRefs",
+              "sourceLayers",
+              "sourceProfile",
+              "editorialReview"
+            ],
+            "fields": [
+              {
+                "field": "manifestRefs",
+                "previous": null,
+                "current": {
+                  "snapshot": "data/models.snapshot.manifest.json",
+                  "live": "data/models.manifest.json"
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "sourceLayers",
+                "previous": null,
+                "current": [
+                  {
+                    "layer": "snapshot",
+                    "role": "frozen-homepage-reference",
+                    "sourceName": "OpenRouter Weekly Model Snapshot",
+                    "sourceUrl": "data/models.snapshot.manifest.json",
+                    "verification": "frozen-json-manifest"
+                  },
+                  {
+                    "layer": "live",
+                    "role": "current-model-catalog-reference",
+                    "sourceName": "OpenRouter Model Catalog",
+                    "sourceUrl": "data/models.manifest.json",
+                    "verification": "live-manifest-reference"
+                  }
+                ],
+                "changeType": "added"
+              },
+              {
+                "field": "sourceProfile",
+                "previous": null,
+                "current": {
+                  "trustTier": "frozen-snapshot",
+                  "verificationMode": "weekly-snapshot-with-live-reference",
+                  "liveFetchRequired": false,
+                  "uiUse": "Use as stable homepage context while preserving a pointer to the live model catalog."
+                },
+                "changeType": "added"
+              },
+              {
+                "field": "editorialReview",
+                "previous": null,
+                "current": {
+                  "status": "reviewed",
+                  "reviewedAt": "2026-04-27T05:17:12.230Z",
+                  "reviewer": "SciAI Hub review desk",
+                  "scope": "models weekly snapshot",
+                  "checks": [
+                    "snapshot-date",
+                    "source-dataset-id",
+                    "live-manifest-reference"
+                  ]
+                },
+                "changeType": "added"
+              }
+            ],
+            "new": false,
+            "verified": {
+              "checkedAt": "2026-04-28T15:17:08.673Z",
+              "manifestPresent": true,
+              "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
+              "validatedAt": "2026-04-27T05:17:12.230Z",
+              "mode": "local-manifest-schema-compatible"
+            }
+          }
+        ],
+        "new": [],
+        "verified": [
+          {
+            "key": "news",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+            "validatedAt": "2026-04-21T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          },
+          {
+            "key": "github",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+            "validatedAt": "2026-04-23T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          },
+          {
+            "key": "aiDaily",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+            "validatedAt": "2026-04-23T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          },
+          {
+            "key": "curatedTools",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          },
+          {
+            "key": "academicEntrypoints",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          },
+          {
+            "key": "models",
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
+            "validatedAt": "2026-04-27T05:17:12.230Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        ]
+      },
+      "changed": [
+        {
+          "key": "news",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {},
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "seed",
+                  "role": "manifest-of-record",
+                  "key": "news",
+                  "sourceName": "SciAI Hub curated news seed",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "loaded-from-local-manifest"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "local-seed",
+                "verificationMode": "schema-validated-local-json",
+                "liveFetchRequired": false
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "schema-compatible",
+                "reviewedAt": "2026-04-21T00:00:00.000Z",
+                "reviewer": "generate-station-updates.js",
+                "scope": "news",
+                "checks": [
+                  "json-parse",
+                  "manifest-summary",
+                  "schema-compatible-output"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+            "validatedAt": "2026-04-21T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        },
+        {
+          "key": "github",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {},
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "canonical",
+                  "role": "repository-pages",
+                  "sourceName": "GitHub repositories",
+                  "sourceUrl": "records[].url",
+                  "verification": "seeded-repository-url"
+                },
+                {
+                  "layer": "discovery",
+                  "role": "trend-and-topic-watch",
+                  "sourceName": "GitHub Trending",
+                  "sourceUrl": "https://github.com/trending",
+                  "verification": "manual-seed-no-live-fetch"
+                },
+                {
+                  "layer": "editorial",
+                  "role": "research-workflow-fit",
+                  "sourceName": "SciAI Hub GitHub curated seed",
+                  "sourceUrl": "data/github.manifest.json",
+                  "verification": "curated-static-snapshot"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "curated-seed",
+                "verificationMode": "static-github-recommendation-seed",
+                "liveFetchRequired": false,
+                "uiUse": "Use evidence as display metadata and sorting hints; do not present seed/fallback values as live GitHub metrics."
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "reviewed",
+                "reviewedAt": "2026-04-23T00:00:00.000Z",
+                "reviewer": "SciAI Hub review desk",
+                "scope": "github daily station snapshot",
+                "checks": [
+                  "repository-url-present",
+                  "evidence-field-present",
+                  "no-live-metric-claim",
+                  "research-workflow-fit"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+            "validatedAt": "2026-04-23T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        },
+        {
+          "key": "aiDaily",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {},
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "canonical",
+                  "role": "repository-of-record",
+                  "sourceName": "SciAI Hub repository",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "local-seed-manifest"
+                },
+                {
+                  "layer": "editorial",
+                  "role": "daily-digest-curation",
+                  "sourceName": "SciAI Hub AI Daily seed",
+                  "sourceUrl": "data/ai-daily.manifest.json",
+                  "verification": "manual-review"
+                },
+                {
+                  "layer": "context",
+                  "role": "frontier-signal-cross-reference",
+                  "sourceName": "Referenced highlight sources",
+                  "sourceUrl": "records[].highlights[].sourceRefs[]",
+                  "verification": "seeded-source-refs-no-live-fetch"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "curated-seed",
+                "verificationMode": "manual-editorial-seed-with-source-refs",
+                "liveFetchRequired": false,
+                "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "reviewed",
+                "reviewedAt": "2026-04-23T00:00:00.000Z",
+                "reviewer": "SciAI Hub review desk",
+                "scope": "ai-daily manifest and source references",
+                "checks": [
+                  "source-layering",
+                  "source-ref-presence",
+                  "homepage-safe-summary",
+                  "no-live-freshness-claim"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+            "validatedAt": "2026-04-23T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        },
+        {
+          "key": "curatedTools",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {},
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "seed",
+                  "role": "manifest-of-record",
+                  "key": "curated-tools",
+                  "sourceName": "SciAI Hub curated tools seed",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "loaded-from-local-manifest"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "local-seed",
+                "verificationMode": "schema-validated-local-json",
+                "liveFetchRequired": false
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "schema-compatible",
+                "reviewedAt": "2026-04-22T00:00:00.000Z",
+                "reviewer": "generate-station-updates.js",
+                "scope": "curated-tools",
+                "checks": [
+                  "json-parse",
+                  "manifest-summary",
+                  "schema-compatible-output"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        },
+        {
+          "key": "academicEntrypoints",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {},
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "seed",
+                  "role": "manifest-of-record",
+                  "key": "academic-entrypoints",
+                  "sourceName": "SciAI Hub academic entrypoints seed",
+                  "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+                  "verification": "loaded-from-local-manifest"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "local-seed",
+                "verificationMode": "schema-validated-local-json",
+                "liveFetchRequired": false
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "schema-compatible",
+                "reviewedAt": "2026-04-22T00:00:00.000Z",
+                "reviewer": "generate-station-updates.js",
+                "scope": "academic-entrypoints",
+                "checks": [
+                  "json-parse",
+                  "manifest-summary",
+                  "schema-compatible-output"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+            "validatedAt": "2026-04-22T00:00:00.000Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        },
+        {
+          "key": "models",
+          "changed": [
+            "manifestRefs",
+            "sourceLayers",
+            "sourceProfile",
+            "editorialReview"
+          ],
+          "fields": [
+            {
+              "field": "manifestRefs",
+              "previous": null,
+              "current": {
+                "snapshot": "data/models.snapshot.manifest.json",
+                "live": "data/models.manifest.json"
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "sourceLayers",
+              "previous": null,
+              "current": [
+                {
+                  "layer": "snapshot",
+                  "role": "frozen-homepage-reference",
+                  "sourceName": "OpenRouter Weekly Model Snapshot",
+                  "sourceUrl": "data/models.snapshot.manifest.json",
+                  "verification": "frozen-json-manifest"
+                },
+                {
+                  "layer": "live",
+                  "role": "current-model-catalog-reference",
+                  "sourceName": "OpenRouter Model Catalog",
+                  "sourceUrl": "data/models.manifest.json",
+                  "verification": "live-manifest-reference"
+                }
+              ],
+              "changeType": "added"
+            },
+            {
+              "field": "sourceProfile",
+              "previous": null,
+              "current": {
+                "trustTier": "frozen-snapshot",
+                "verificationMode": "weekly-snapshot-with-live-reference",
+                "liveFetchRequired": false,
+                "uiUse": "Use as stable homepage context while preserving a pointer to the live model catalog."
+              },
+              "changeType": "added"
+            },
+            {
+              "field": "editorialReview",
+              "previous": null,
+              "current": {
+                "status": "reviewed",
+                "reviewedAt": "2026-04-27T05:17:12.230Z",
+                "reviewer": "SciAI Hub review desk",
+                "scope": "models weekly snapshot",
+                "checks": [
+                  "snapshot-date",
+                  "source-dataset-id",
+                  "live-manifest-reference"
+                ]
+              },
+              "changeType": "added"
+            }
+          ],
+          "new": false,
+          "verified": {
+            "checkedAt": "2026-04-28T15:17:08.673Z",
+            "manifestPresent": true,
+            "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
+            "validatedAt": "2026-04-27T05:17:12.230Z",
+            "mode": "local-manifest-schema-compatible"
+          }
+        }
+      ],
+      "new": [],
+      "verified": [
+        {
+          "key": "news",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+          "validatedAt": "2026-04-21T00:00:00.000Z",
+          "mode": "local-manifest-schema-compatible"
+        },
+        {
+          "key": "github",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
+          "validatedAt": "2026-04-23T00:00:00.000Z",
+          "mode": "local-manifest-schema-compatible"
+        },
+        {
+          "key": "aiDaily",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
+          "validatedAt": "2026-04-23T00:00:00.000Z",
+          "mode": "local-manifest-schema-compatible"
+        },
+        {
+          "key": "curatedTools",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+          "validatedAt": "2026-04-22T00:00:00.000Z",
+          "mode": "local-manifest-schema-compatible"
+        },
+        {
+          "key": "academicEntrypoints",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-22T00:00:00.000Z",
+          "validatedAt": "2026-04-22T00:00:00.000Z",
+          "mode": "local-manifest-schema-compatible"
+        },
+        {
+          "key": "models",
+          "checkedAt": "2026-04-28T15:17:08.673Z",
+          "manifestPresent": true,
+          "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
+          "validatedAt": "2026-04-27T05:17:12.230Z",
+          "mode": "local-manifest-schema-compatible"
         }
       ],
       "highlights": [

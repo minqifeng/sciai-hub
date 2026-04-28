@@ -1,6 +1,25 @@
 window.SciAIStationHome = (() => {
     'use strict';
 
+    function renderTagList(deps, items, limit = 3) {
+        const list = Array.isArray(items) ? items.filter(Boolean).slice(0, limit) : [];
+        return list.map(item => `<span class="tool-tag">${deps.escapeHtml(String(item))}</span>`).join('');
+    }
+
+    function renderEvidenceList(deps, evidence, limit = 3) {
+        const list = Array.isArray(evidence) ? evidence.filter(Boolean).slice(0, limit) : [];
+        if (!list.length) return '';
+        return `
+            <div class="tool-card-desc">
+                ${list.map(item => {
+                    const label = typeof item === 'string' ? 'Evidence' : (item.label || item.key || 'Evidence');
+                    const detail = typeof item === 'string' ? item : (item.detail || item.summary || item.mode || '');
+                    return `<div><strong>${deps.escapeHtml(label)}: </strong>${deps.escapeHtml(detail)}</div>`;
+                }).join('')}
+            </div>
+        `;
+    }
+
     function renderDailyDigest(deps, entries) {
         const grid = deps.dailyDigestGrid;
         if (!grid) return;
@@ -8,11 +27,14 @@ window.SciAIStationHome = (() => {
         const lead = Array.isArray(entries) ? entries[0] : null;
         if (brief && lead) {
             const takeaways = Array.isArray(lead.takeaways) ? lead.takeaways : [];
+            const layerTags = renderTagList(deps, lead.sourceLayers, 3);
             brief.innerHTML = `
                 <div class="daily-brief-main">
                     <span class="section-chip">${deps.escapeHtml(lead.date || 'Daily brief')}</span>
                     <h4>${deps.escapeHtml(lead.issueTitle || '每日 AI+科研日报')}</h4>
                     <p>${deps.escapeHtml(lead.issueSummary || '把今天值得研究者关注的模型、工具、论文工作流和开源变化压缩成可执行摘要。')}</p>
+                    ${lead.sourceProfile ? `<p class="section-sub">Source profile: ${deps.escapeHtml(lead.sourceProfile)}</p>` : ''}
+                    ${layerTags ? `<div class="tool-tags">${layerTags}</div>` : ''}
                 </div>
                 <div class="daily-brief-actions">
                     ${takeaways.map(item => `<span>${deps.escapeHtml(item)}</span>`).join('')}
@@ -22,6 +44,7 @@ window.SciAIStationHome = (() => {
         grid.innerHTML = entries.map(entry => {
             const source = Array.isArray(entry.sourceRefs) ? entry.sourceRefs[0] : null;
             const sourceLink = entry.url || source?.url || '';
+            const extraSources = Array.isArray(entry.sourceRefs) ? entry.sourceRefs.slice(0, 2) : [];
             const sourceLabel = source?.label || (sourceLink ? '查看来源' : '');
             return `
                 <article class="digest-card">
@@ -31,7 +54,10 @@ window.SciAIStationHome = (() => {
                     <div class="digest-card-meta">
                         ${entry.date ? `<span class="tool-tag">${deps.escapeHtml(entry.date)}</span>` : ''}
                         ${entry.status ? `<span class="tool-tag">${deps.escapeHtml(entry.status)}</span>` : ''}
+                        ${entry.reviewStatus ? `<span class="tool-tag">${deps.escapeHtml(entry.reviewStatus)}</span>` : ''}
                     </div>
+                    ${entry.sourceLayers?.length ? `<div class="tool-tags">${renderTagList(deps, entry.sourceLayers, 2)}</div>` : ''}
+                    ${extraSources.length ? `<div class="tool-card-desc">${extraSources.map(ref => `<div><strong>${deps.escapeHtml(ref.label || 'Source')}: </strong>${ref.url ? `<a href="${deps.escapeHtml(ref.url)}" target="_blank" rel="noopener">${deps.escapeHtml(ref.url)}</a>` : ''}</div>`).join('')}</div>` : ''}
                     ${sourceLink ? `<a class="digest-card-source" href="${deps.escapeHtml(sourceLink)}" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i>${deps.escapeHtml(sourceLabel || '原始来源')}</a>` : ''}
                 </article>
             `;
@@ -42,7 +68,22 @@ window.SciAIStationHome = (() => {
         const grid = deps.homePlaybooksGrid;
         if (!grid) return;
         const entries = Array.isArray(prompts) ? prompts : [];
-        grid.innerHTML = entries.map((prompt, index) => `
+        const renderField = (label, value) => `
+            <div class="tool-card-desc"><strong>${deps.escapeHtml(label)}：</strong>${deps.escapeHtml(value || '')}</div>
+        `;
+        const buildStepsOutput = prompt => {
+            const steps = Array.isArray(prompt.steps) ? prompt.steps.filter(Boolean).slice(0, 3) : [];
+            const stepText = steps.length ? steps.map((step, idx) => `${idx + 1}. ${step}`).join(' / ') : '';
+            return [stepText, prompt.output || prompt.supporting || '生成一份可复核、可继续修改的研究产出。'].filter(Boolean).join('；');
+        };
+        grid.innerHTML = entries.map((prompt, index) => {
+            const input = prompt.input || prompt.desc || prompt.usage || '替换复制剧本里的占位符，补充研究主题、材料和限制条件。';
+            const stepsOutput = buildStepsOutput(prompt);
+            const riskNext = [
+                prompt.risk || '核查引用、事实和方法假设，不把模型输出直接当作证据。',
+                prompt.nextStep || (prompt.entryKind === 'script' ? '复制剧本后先跑小样本，再整理成正式版本。' : '打开模块后按当前任务填写约束。')
+            ].filter(Boolean).join(' 下一步：');
+            return `
             <article class="playbook-card" data-station-kind="${deps.escapeHtml(prompt.entryKind || 'script')}" data-station-ref="${deps.escapeHtml(prompt.refId || prompt.id || '')}">
                 <div class="tool-card-header">
                     <div class="tool-icon" style="background:${prompt.color || '#0f766e'}">
@@ -57,13 +98,16 @@ window.SciAIStationHome = (() => {
                     </div>
                 </div>
                 <div class="tool-card-desc">${deps.escapeHtml(prompt.desc || prompt.usage || '')}</div>
-                ${prompt.supporting || prompt.output ? `<div class="tool-card-desc">${deps.escapeHtml(prompt.supporting || prompt.output || '')}</div>` : ''}
+                ${renderField('输入', input)}
+                ${renderField('步骤/产出', stepsOutput)}
+                ${renderField('风险/下一步', riskNext)}
                 <div class="tool-card-footer">
                     <div class="tool-users"><i class="fas fa-toolbox"></i>${deps.escapeHtml(prompt.meta || (prompt.tools || []).slice(0, 2).join(' 路 ') || '研究剧本')}</div>
                     <button class="btn-copy station-search-action" data-kind="${deps.escapeHtml(prompt.entryKind || 'script')}" data-ref="${deps.escapeHtml(prompt.refId || prompt.id || '')}">${deps.escapeHtml(prompt.actionLabel || '复制剧本')}</button>
                 </div>
             </article>
-        `).join('');
+        `;
+        }).join('');
 
         grid.querySelectorAll('.station-search-action').forEach(btn => {
             btn.addEventListener('click', event => {
@@ -81,16 +125,12 @@ window.SciAIStationHome = (() => {
         const grid = deps.homeUpdatesGrid;
         if (!grid) return;
         const entries = Array.isArray(updates) ? updates : [];
-        grid.innerHTML = entries.map(update => `
+        grid.innerHTML = entries.slice(0, 3).map(update => `
             <article class="update-card">
                 <span class="update-date">${deps.escapeHtml(update.date || '')}</span>
                 <h4>${deps.escapeHtml(update.title)}</h4>
                 <p>${deps.escapeHtml(update.desc || '')}</p>
-                <div class="tool-tags">
-                    ${update.status ? `<span class="tool-tag">${deps.escapeHtml(update.status)}</span>` : ''}
-                    ${update.views ? `<span class="tool-tag">${deps.escapeHtml(update.views)}</span>` : ''}
-                </div>
-                ${update.note ? `<div class="tool-card-desc">${deps.escapeHtml(update.note)}</div>` : ''}
+                ${update.url ? `<a class="digest-card-source" href="${deps.escapeHtml(update.url)}" target="_blank" rel="noopener"><i class="fas fa-arrow-up-right-from-square"></i>Source</a>` : ''}
             </article>
         `).join('');
     }
@@ -142,6 +182,8 @@ window.SciAIStationHome = (() => {
                         <h4>${deps.escapeHtml(tool.name)}</h4>
                         <div class="featured-reason">${deps.escapeHtml(item.kicker || item.status || '本周精选')}</div>
                         <div class="featured-reason">${deps.escapeHtml(item.reason || tool.reviewNote || '')}</div>
+                        ${(item.reviewedAt || tool.reviewedAt) ? `<div class="tool-card-desc"><strong>Review: </strong>${deps.escapeHtml(item.status || tool.editorialStatus || 'reviewed')} / ${deps.escapeHtml(item.reviewedAt || tool.reviewedAt || '')}</div>` : ''}
+                        ${(item.reviewNote && item.reviewNote !== item.reason) ? `<div class="tool-card-desc">${deps.escapeHtml(item.reviewNote)}</div>` : ''}
                         ${item.usage ? `<div class="section-sub">${deps.escapeHtml(item.usage)}</div>` : ''}
                         ${deps.renderTrustStatusRow(deps.getToolTrustMeta(tool, 'featured'), true)}
                         <div class="featured-rating">${'★'.repeat(Math.floor(tool.rating || 0))} ${tool.rating}</div>
@@ -156,7 +198,11 @@ window.SciAIStationHome = (() => {
         const curatedMeta = deps.describeManifestBundle('curated-tools');
         const entryMeta = deps.describeManifestBundle('academic-entrypoints');
         const dailyMeta = deps.describeManifestBundle('ai-daily');
-        const loadedCount = [curatedMeta, entryMeta, dailyMeta].filter(meta => meta.available).length;
+        const githubMeta = deps.describeManifestBundle('github');
+        const modelMeta = deps.describeManifestBundle('models');
+        const updatesMeta = deps.describeManifestBundle('updates');
+        const trustedMetas = [curatedMeta, entryMeta, dailyMeta, githubMeta, modelMeta, updatesMeta];
+        const loadedCount = trustedMetas.filter(meta => meta.available).length;
 
         if (panel) {
             panel.innerHTML = `
@@ -164,6 +210,15 @@ window.SciAIStationHome = (() => {
                 <h3>${loadedCount}/${deps.curatedManifestKeys.length} 份精选站 manifest 可用，首页优先吃 curated 数据，静态数组只做 fallback。</h3>
                 <p>优先渲染 curated-tools、academic-entrypoints、ai-daily；旧的 news/models/github 继续保留为模块级能力。</p>
                 <div class="section-sub">${curatedMeta.detail} 路 ${entryMeta.detail} 路 ${dailyMeta.detail}</div>
+            `;
+        }
+
+        if (panel) {
+            panel.innerHTML = `
+                <span class="hero-panel-label">Trusted Frontier Station</span>
+                <h3>${loadedCount}/${trustedMetas.length} manifests available: daily digest, GitHub, models, updates, tools, and entrypoints.</h3>
+                <p>Homepage rendering now prefers manifest-backed evidence: AI daily source layers, GitHub generation status, model live+snapshot state, update diffs, and editorial review records.</p>
+                <div class="section-sub">${dailyMeta.detail} / ${githubMeta.detail} / ${modelMeta.detail} / ${updatesMeta.detail}</div>
             `;
         }
 
@@ -180,6 +235,19 @@ window.SciAIStationHome = (() => {
                 title: '入口 路 工具 路 每日',
                 detail: '先看 academic-entrypoints，再看 curated-tools，最后同步 ai-daily 更新。'
             }
+        };
+
+        slotContent.freshness = {
+            title: `Trusted manifests ${loadedCount}/${trustedMetas.length}`,
+            detail: `Daily ${dailyMeta.freshness} / GitHub ${githubMeta.freshness} / Models ${modelMeta.freshness} / Updates ${updatesMeta.freshness}`
+        };
+        slotContent.provenance = {
+            title: `${dailyMeta.source} / ${githubMeta.source} / ${modelMeta.source}`,
+            detail: `Updates diff: ${updatesMeta.source} / curated review: ${curatedMeta.source}`
+        };
+        slotContent.coverage = {
+            title: 'Daily / GitHub / Models / Reviews',
+            detail: 'Homepage renders source layers, generated status, live+snapshot model manifests, update diffs, and editorial review notes.'
         };
 
         Object.entries(slotContent).forEach(([slot, content]) => {
@@ -243,13 +311,16 @@ window.SciAIStationHome = (() => {
         const curatedMeta = deps.describeManifestBundle('curated-tools');
         const entryMeta = deps.describeManifestBundle('academic-entrypoints');
         const updatesMeta = deps.describeManifestBundle('updates');
+        const githubMeta = deps.describeManifestBundle('github');
+        const modelMeta = deps.describeManifestBundle('models');
         if (updatesMeta.available) {
+            el.textContent = `Updates ${updatesMeta.freshness} / AI Daily ${aiDailyMeta.freshness} / GitHub ${githubMeta.freshness} / Models ${modelMeta.freshness} / editorial review ${curatedMeta.freshness}`;
+            return;
             el.textContent = `站内说明优先来自 updates，串联 daily-digest / curated-picks / academic-portal：${updatesMeta.freshness} 路 日报 ${aiDailyMeta.freshness} 路 工具 ${curatedMeta.freshness} 路 入口 ${entryMeta.freshness}`;
             return;
         }
         el.textContent = `updates 缺失时回退到 ai-daily 与站内静态说明卡片；日报 ${aiDailyMeta.freshness} 路 工具 ${curatedMeta.freshness} 路 入口 ${entryMeta.freshness}`;
     }
-
     function applyNavigationProminence(deps) {
         const downgradeCategories = new Set(['news', 'models', 'github', 'usecases', 'prompts', 'tutorials']);
         deps.queryAll('.nav-item').forEach(item => {

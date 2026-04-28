@@ -5,6 +5,43 @@
   "sourceUrl": "https://openrouter.ai/api/v1/models",
   "sourceFetchedAt": "2026-04-26T04:53:45.431Z",
   "validatedAt": "2026-04-27T05:17:12.230Z",
+  "manifestRefs": {
+    "snapshot": "data/models.snapshot.manifest.json",
+    "live": "data/models.manifest.json"
+  },
+  "sourceLayers": [
+    {
+      "layer": "snapshot",
+      "role": "frozen-homepage-reference",
+      "sourceName": "OpenRouter Weekly Model Snapshot",
+      "sourceUrl": "data/models.snapshot.manifest.json",
+      "verification": "frozen-json-manifest"
+    },
+    {
+      "layer": "live",
+      "role": "current-model-catalog-reference",
+      "sourceName": "OpenRouter Model Catalog",
+      "sourceUrl": "data/models.manifest.json",
+      "verification": "live-manifest-reference"
+    }
+  ],
+  "sourceProfile": {
+    "trustTier": "frozen-snapshot",
+    "verificationMode": "weekly-snapshot-with-live-reference",
+    "liveFetchRequired": false,
+    "uiUse": "Use as stable homepage context while preserving a pointer to the live model catalog."
+  },
+  "editorialReview": {
+    "status": "reviewed",
+    "reviewedAt": "2026-04-27T05:17:12.230Z",
+    "reviewer": "SciAI Hub review desk",
+    "scope": "models weekly snapshot",
+    "checks": [
+      "snapshot-date",
+      "source-dataset-id",
+      "live-manifest-reference"
+    ]
+  },
   "status": "snapshot",
   "freshness": {
     "cadence": "weekly",

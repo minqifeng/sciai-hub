@@ -3,6 +3,47 @@
   "schemaVersion": "1.0.0",
   "sourceName": "SciAI Hub AI Daily seed",
   "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+  "sourceLayers": [
+    {
+      "layer": "canonical",
+      "role": "repository-of-record",
+      "sourceName": "SciAI Hub repository",
+      "sourceUrl": "https://github.com/minqifeng/sciai-hub",
+      "verification": "local-seed-manifest"
+    },
+    {
+      "layer": "editorial",
+      "role": "daily-digest-curation",
+      "sourceName": "SciAI Hub AI Daily seed",
+      "sourceUrl": "data/ai-daily.manifest.json",
+      "verification": "manual-review"
+    },
+    {
+      "layer": "context",
+      "role": "frontier-signal-cross-reference",
+      "sourceName": "Referenced highlight sources",
+      "sourceUrl": "records[].highlights[].sourceRefs[]",
+      "verification": "seeded-source-refs-no-live-fetch"
+    }
+  ],
+  "sourceProfile": {
+    "trustTier": "curated-seed",
+    "verificationMode": "manual-editorial-seed-with-source-refs",
+    "liveFetchRequired": false,
+    "uiUse": "Show as reviewed digest; treat sourceRefs as supporting context, not live freshness."
+  },
+  "editorialReview": {
+    "status": "reviewed",
+    "reviewedAt": "2026-04-23T00:00:00.000Z",
+    "reviewer": "SciAI Hub review desk",
+    "scope": "ai-daily manifest and source references",
+    "checks": [
+      "source-layering",
+      "source-ref-presence",
+      "homepage-safe-summary",
+      "no-live-freshness-claim"
+    ]
+  },
   "sourceFetchedAt": "2026-04-23T00:00:00.000Z",
   "validatedAt": "2026-04-23T00:00:00.000Z",
   "status": "static",
@@ -27,6 +68,18 @@
       "date": "2026-04-23",
       "generatedAt": "2026-04-23T00:00:00.000Z",
       "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-23T00:00:00.000Z",
+      "editorialReview": {
+        "status": "reviewed",
+        "reviewedAt": "2026-04-23T00:00:00.000Z",
+        "reviewer": "SciAI Hub review desk",
+        "checks": [
+          "source-refs-present",
+          "risk-note-present",
+          "daily-context-current",
+          "homepage-safe-summary"
+        ]
+      },
       "editorialTheme": "frontier signal to research action",
       "coverageWindow": "24h editorial scan",
       "audience": [
@@ -124,6 +177,17 @@
       "date": "2026-04-22",
       "generatedAt": "2026-04-22T00:00:00.000Z",
       "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-22T00:00:00.000Z",
+      "editorialReview": {
+        "status": "reviewed",
+        "reviewedAt": "2026-04-22T00:00:00.000Z",
+        "reviewer": "SciAI Hub review desk",
+        "checks": [
+          "source-refs-present",
+          "workflow-fit",
+          "homepage-safe-summary"
+        ]
+      },
       "editorialTheme": "practical signal over feed noise",
       "coverageWindow": "24h editorial scan",
       "audience": [
@@ -205,6 +269,17 @@
       "date": "2026-04-21",
       "generatedAt": "2026-04-21T00:00:00.000Z",
       "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-21T00:00:00.000Z",
+      "editorialReview": {
+        "status": "reviewed",
+        "reviewedAt": "2026-04-21T00:00:00.000Z",
+        "reviewer": "SciAI Hub review desk",
+        "checks": [
+          "topic-scope",
+          "station-fit",
+          "homepage-safe-summary"
+        ]
+      },
       "editorialTheme": "narrow the stack",
       "highlights": [
         {
@@ -231,6 +306,17 @@
       "date": "2026-04-20",
       "generatedAt": "2026-04-20T00:00:00.000Z",
       "reviewStatus": "reviewed",
+      "reviewedAt": "2026-04-20T00:00:00.000Z",
+      "editorialReview": {
+        "status": "reviewed",
+        "reviewedAt": "2026-04-20T00:00:00.000Z",
+        "reviewer": "SciAI Hub review desk",
+        "checks": [
+          "positioning",
+          "section-balance",
+          "homepage-safe-summary"
+        ]
+      },
       "editorialTheme": "briefing-first",
       "highlights": [
         {

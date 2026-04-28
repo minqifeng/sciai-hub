@@ -5,6 +5,174 @@
 'use strict';
 
 /* ============================================================
+   Phase 2. 学术模块工作流增强（仅数据/渲染补丁，不改主 UI）
+   ============================================================ */
+const AcademicWorkflowEnhancer = (() => {
+    const categoryLabels = {
+        descriptive: '描述性统计',
+        visualization: '数据可视化',
+        inferential: '推断统计',
+        multivariate: '多变量分析',
+        spatial: '空间分析',
+        timeseries: '时间序列',
+        causal: '因果推断',
+        bayesian: '贝叶斯分析',
+        ml: '机器学习',
+        dl: '深度学习'
+    };
+    const disciplineLabels = {
+        general: '通用',
+        ecology: '生态学',
+        environmental: '环境科学',
+        sociology: '社会学',
+        economics: '经济学'
+    };
+    const conditionFallbacks = {
+        descriptive: {
+            applicable: ['用于理解变量分布、缺失值、异常值与样本构成。', '适合作为建模、检验和可视化前的基线检查。'],
+            notApplicable: ['不能单独证明组间差异、因果关系或预测能力。'],
+            report: ['样本量与缺失处理', '核心统计量', '分布与异常值说明']
+        },
+        visualization: {
+            applicable: ['用于呈现趋势、结构、空间分布或变量关系。', '适合在正式建模前沟通数据模式。'],
+            notApplicable: ['不能用视觉印象替代统计检验或模型诊断。'],
+            report: ['图形类型与映射变量', '坐标/尺度/分组说明', '关键模式与限制']
+        },
+        inferential: {
+            applicable: ['研究问题是组间差异、相关或总体参数推断。', '样本独立性、分布或方差假设已被检查。'],
+            notApplicable: ['样本设计不支持独立性假设或多重比较未校正时需谨慎。'],
+            report: ['检验名称与假设', '样本量与效应量', 'p 值、置信区间与校正方法']
+        },
+        multivariate: {
+            applicable: ['存在多个相关变量，需要降维、分组或解释整体结构。', '变量经过标准化或量纲处理。'],
+            notApplicable: ['变量含义不清、缺失严重或样本量明显不足时不宜直接解释。'],
+            report: ['变量预处理', '主轴/簇/载荷解释', '稳定性或敏感性检查']
+        },
+        spatial: {
+            applicable: ['数据包含明确空间位置、区域或邻接关系。', '已统一投影、尺度和空间权重定义。'],
+            notApplicable: ['坐标精度不足或空间尺度不一致时不宜过度解释。'],
+            report: ['坐标系统与空间尺度', '空间权重/邻接定义', '空间自相关或热点结果']
+        },
+        timeseries: {
+            applicable: ['观测有明确时间顺序、频率和潜在趋势/季节性。', '适合预测、分解或动态关系分析。'],
+            notApplicable: ['时间间隔混乱、结构突变未处理或序列过短时风险较高。'],
+            report: ['时间频率与缺口处理', '平稳性/自相关诊断', '预测区间或残差诊断']
+        },
+        causal: {
+            applicable: ['已有清晰处理变量、结果变量和混杂因素框架。', '研究设计支持识别假设或准实验策略。'],
+            notApplicable: ['只有横截面相关关系且无法说明识别假设时不能声称因果。'],
+            report: ['识别策略与 DAG/假设', '平衡性或稳健性检查', '主效应与敏感性分析']
+        },
+        bayesian: {
+            applicable: ['需要整合先验知识、不确定性传播或层级结构。', '可解释先验选择并检查采样收敛。'],
+            notApplicable: ['先验不可辩护或 MCMC 未收敛时不应报告稳定结论。'],
+            report: ['先验与似然', '收敛诊断', '后验区间与预测检查']
+        },
+        ml: {
+            applicable: ['目标是预测、分类、排序或发现非线性模式。', '有独立验证集或交叉验证设计。'],
+            notApplicable: ['样本量小、标签泄漏或只追求解释性因果结论时不宜作为主证据。'],
+            report: ['数据划分与特征处理', '模型与调参策略', '验证指标与解释性结果']
+        },
+        dl: {
+            applicable: ['数据规模较大，任务包含图像、文本、序列或复杂非线性表示。', '训练、验证和测试流程可复现。'],
+            notApplicable: ['数据量不足、算力受限或无法解释错误模式时需降级方案。'],
+            report: ['模型结构与训练配置', '验证曲线与过拟合检查', '测试指标与错误案例']
+        }
+    };
+
+    function valuesToText(value) {
+        if (!value) return '';
+        if (Array.isArray(value)) return value.map(valuesToText).join(' ');
+        if (typeof value === 'object') return Object.values(value).map(valuesToText).join(' ');
+        return String(value);
+    }
+
+    function searchBlob(method) {
+        const disciplines = (method.discipline || []).flatMap(d => [d, disciplineLabels[d]]);
+        const resources = (method.resources || []).map(valuesToText);
+        return [
+            method.desc,
+            method.useCase,
+            method.category,
+            categoryLabels[method.category],
+            disciplines.join(' '),
+            resources.join(' ')
+        ].filter(Boolean).join(' ').toLowerCase();
+    }
+
+    function extendToolSearch(method) {
+        if (!Array.isArray(method.tools) || method.tools.__statsSearchExtended) return;
+        const blob = searchBlob(method);
+        if (!blob) return;
+        const originalSome = method.tools.some.bind(method.tools);
+        Object.defineProperties(method.tools, {
+            __statsSearchExtended: { value: true },
+            __statsSearchBlob: { value: blob },
+            some: {
+                value(callback, thisArg) {
+                    return originalSome(callback, thisArg) || callback.call(thisArg, blob, this.length, this);
+                }
+            }
+        });
+    }
+
+    function ensureFallbackGuide(method) {
+        const fallback = conditionFallbacks[method.category] || conditionFallbacks.descriptive;
+        method.applicableWhen = method.applicableWhen || method.applicability || fallback.applicable;
+        method.notApplicableWhen = method.notApplicableWhen || method.limitations || fallback.notApplicable;
+        method.reportChecklist = method.reportChecklist || fallback.report;
+    }
+
+    function enhanceStatsMethods() {
+        if (typeof STATS_METHODS === 'undefined' || !Array.isArray(STATS_METHODS)) return;
+        STATS_METHODS.forEach(method => {
+            extendToolSearch(method);
+            ensureFallbackGuide(method);
+        });
+    }
+
+    function renderPills(items) {
+        return (items || []).slice(0, 3).map(item => `<span class="stats-visual-chip">${item}</span>`).join('');
+    }
+
+    function augmentStatsCards() {
+        if (typeof STATS_METHODS === 'undefined' || !Array.isArray(STATS_METHODS)) return;
+        document.querySelectorAll('#statsGrid .stats-card[data-method-id]').forEach(card => {
+            if (card.querySelector('.stats-workflow-fallback')) return;
+            const method = STATS_METHODS.find(m => String(m.id) === String(card.dataset.methodId));
+            if (!method) return;
+            const body = card.querySelector('.stats-card-body');
+            if (!body) return;
+            const block = document.createElement('div');
+            block.className = 'stats-workflow-fallback';
+            block.innerHTML = `
+                <div class="stats-card-body-grid">
+                    <div class="stats-visual-block"><div class="stats-block-title">适用条件</div><div class="stats-visual-chips">${renderPills(method.applicableWhen)}</div></div>
+                    <div class="stats-visual-block"><div class="stats-block-title">不适用条件</div><div class="stats-visual-chips">${renderPills(method.notApplicableWhen)}</div></div>
+                </div>
+                <div class="stats-impl-block"><div class="stats-block-title">报告清单</div>${(method.reportChecklist || []).slice(0, 4).map(item => `<div class="stats-impl-line">${item}</div>`).join('')}</div>`;
+            const caution = body.querySelector('.stats-caution');
+            if (caution) body.insertBefore(block, caution);
+            else body.appendChild(block);
+        });
+    }
+
+    function init() {
+        enhanceStatsMethods();
+        document.addEventListener('DOMContentLoaded', () => {
+            augmentStatsCards();
+            const grid = document.getElementById('statsGrid');
+            if (!grid || typeof MutationObserver === 'undefined') return;
+            const observer = new MutationObserver(() => augmentStatsCards());
+            observer.observe(grid, { childList: true, subtree: true });
+        });
+    }
+
+    init();
+    return { enhanceStatsMethods, augmentStatsCards };
+})();
+
+/* ============================================================
    1. 研究图谱  GraphFeature
    ============================================================ */
 const GraphFeature = (() => {
@@ -398,6 +566,52 @@ const CiteCheckFeature = (() => {
         URL.revokeObjectURL(a.href);
     }
 
+    function statusAction(status) {
+        const map = {
+            ok: '可保留；最终提交前再抽样复核 DOI 与页码。',
+            review: '需要人工核对标题、作者、年份或期刊信息。',
+            risk: '建议替换、补 DOI，或回到原文确认该引用是否真实存在。'
+        };
+        return map[status] || map.risk;
+    }
+
+    function exportEvidenceMarkdown() {
+        if (!lastResults.length) return;
+        const date = new Date().toISOString().slice(0, 10);
+        const rows = lastResults.map((r, i) => [
+            i + 1,
+            (r.status || 'risk').toUpperCase(),
+            (r.original || '').replace(/\s+/g, ' ').slice(0, 160),
+            r.crossref?.title || '',
+            r.semanticScholar?.title || '',
+            r.crossref?.doi || '',
+            statusAction(r.status)
+        ]);
+        const lines = [
+            '# 引文证据核查矩阵',
+            '',
+            `> 导出日期：${date} · 条目数：${lastResults.length}`,
+            '',
+            '| # | 状态 | 原始引用 | Crossref 匹配 | Semantic Scholar 匹配 | DOI | 建议动作 |',
+            '|---|---|---|---|---|---|---|',
+            ...rows.map(row => `| ${row.map(cell => String(cell || '—').replace(/\|/g, '\\|')).join(' | ')} |`),
+            '',
+            '## 结构化复核提示',
+            '',
+            '请基于上表逐条复核参考文献，输出：',
+            '1. 可直接保留的引用清单。',
+            '2. 需要人工确认的字段：作者、年份、题名、期刊、卷期页码、DOI。',
+            '3. 高风险或疑似不存在引用的替换建议。',
+            '4. 最终参考文献表的统一格式修订建议。'
+        ];
+        const blob = new Blob([lines.join('\n')], { type: 'text/markdown;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `cite-evidence-matrix-${date}.md`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
     async function runCheck() {
         const text = document.getElementById('citeInput')?.value.trim();
         if (!text) return;
@@ -438,6 +652,7 @@ const CiteCheckFeature = (() => {
                 <span class="cite-sum review"><i class="fas fa-exclamation-triangle"></i> 需复核 ${review}</span>
                 <span class="cite-sum risk"><i class="fas fa-times-circle"></i> 有风险 ${risk}</span>
                 <button class="btn-export-csv" onclick="CiteCheckFeature._exportCSV()"><i class="fas fa-file-csv"></i> 导出报告</button>
+                <button class="btn-export-csv" onclick="CiteCheckFeature._exportEvidenceMarkdown()"><i class="fas fa-table-list"></i> 证据矩阵</button>
             </div>
             <table class="cite-table">
                 <thead><tr><th>#</th><th>引文原文</th><th>状态</th><th>匹配标题</th><th>DOI</th></tr></thead>
@@ -454,7 +669,7 @@ const CiteCheckFeature = (() => {
             </table>`;
     }
 
-    window.CiteCheckFeature = { _exportCSV: exportCSV };
+    window.CiteCheckFeature = { _exportCSV: exportCSV, _exportEvidenceMarkdown: exportEvidenceMarkdown };
 
     function init() {
         document.getElementById('citeCheckBtn')?.addEventListener('click', runCheck);
@@ -586,5 +801,774 @@ const PaperDeckFeature = (() => {
         loadDeck();
     }
 
+    return { init };
+})();
+
+/* ============================================================
+   6. Phase 2 research workflow cockpit
+   Static/local-state front-end interactions only.
+   ============================================================ */
+const Phase2ResearchWorkflow = (() => {
+    const STORAGE_KEY = 'sciai-phase2-workflow-v1';
+    const today = () => new Date().toISOString().slice(0, 10);
+    const uid = prefix => `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+    const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[ch]));
+
+    const defaults = {
+        wizard: {
+            title: '',
+            field: 'AI / HCI',
+            articleType: 'empirical',
+            stage: 'drafting',
+            targetTier: 'balanced',
+            wordCount: '7000',
+            notes: ''
+        },
+        stats: {
+            goal: 'compare',
+            outcome: 'continuous',
+            predictors: 'groups',
+            design: 'independent',
+            sampleSize: 'medium',
+            assumptions: ['normality']
+        },
+        matrix: [],
+        citationEvidence: [],
+        shortlist: [],
+        exports: []
+    };
+
+    let state = loadState();
+
+    const statRules = [
+        {
+            id: 'ttest',
+            title: 't test / Mann-Whitney U',
+            when: s => s.goal === 'compare' && s.outcome === 'continuous' && s.predictors === 'groups' && s.design !== 'repeated',
+            why: 'Two independent groups with a continuous outcome. Use Mann-Whitney U if distribution assumptions fail.',
+            report: 'Report group means/medians, effect size, confidence interval, p value, and assumption checks.'
+        },
+        {
+            id: 'anova',
+            title: 'ANOVA / Kruskal-Wallis',
+            when: s => s.goal === 'compare' && s.outcome === 'continuous' && s.predictors === 'multiple-groups',
+            why: 'Three or more groups with a continuous outcome.',
+            report: 'Report omnibus test, post-hoc correction, effect size, and residual diagnostics.'
+        },
+        {
+            id: 'mixed',
+            title: 'Linear mixed-effects model',
+            when: s => s.design === 'repeated' || s.design === 'nested',
+            why: 'Repeated, clustered, or nested observations need random effects rather than plain tests.',
+            report: 'Report fixed effects, random structure, variance components, model diagnostics, and sensitivity checks.'
+        },
+        {
+            id: 'logistic',
+            title: 'Logistic regression',
+            when: s => s.outcome === 'binary',
+            why: 'Binary outcome with one or more predictors.',
+            report: 'Report odds ratios, confidence intervals, calibration, discrimination, and class balance.'
+        },
+        {
+            id: 'survival',
+            title: 'Cox model / Kaplan-Meier',
+            when: s => s.outcome === 'time-to-event',
+            why: 'Time-to-event outcome with censoring.',
+            report: 'Report censoring rules, hazard ratios, proportional hazards checks, and survival curves.'
+        },
+        {
+            id: 'correlation',
+            title: 'Correlation / regression',
+            when: s => s.goal === 'relationship' && s.outcome === 'continuous',
+            why: 'Quantifies association between continuous variables or predictor-outcome relationships.',
+            report: 'Report correlation/regression coefficient, interval estimate, scatterplot, and influential points.'
+        },
+        {
+            id: 'classification',
+            title: 'Classification model',
+            when: s => s.goal === 'predict' && (s.outcome === 'binary' || s.outcome === 'categorical'),
+            why: 'Prediction task with categorical labels.',
+            report: 'Report train/validation split, leakage controls, AUROC/F1, calibration, and error analysis.'
+        },
+        {
+            id: 'bayesian',
+            title: 'Bayesian hierarchical model',
+            when: s => s.goal === 'uncertainty' || s.assumptions.includes('prior'),
+            why: 'Useful when prior knowledge, small samples, or hierarchical uncertainty are central.',
+            report: 'Report priors, posterior intervals, convergence diagnostics, and posterior predictive checks.'
+        }
+    ];
+
+    const wizardChecklists = {
+        empirical: [
+            'Confirm research question, contribution claim, and falsifiable hypotheses.',
+            'Lock inclusion/exclusion criteria and data provenance.',
+            'Prepare methods transparency: preprocessing, model/test choice, robustness checks.',
+            'Align abstract, introduction, and conclusion around the same central claim.'
+        ],
+        review: [
+            'Define search strings, databases, time window, and screening rules.',
+            'Create evidence extraction schema before reading full texts.',
+            'Separate descriptive mapping from argumentative synthesis.',
+            'Document limitations and missing literature explicitly.'
+        ],
+        methods: [
+            'State target failure mode of existing methods.',
+            'Add baseline comparison, ablation plan, and sensitivity analysis.',
+            'Prepare reproducibility package: data, code, seeds, configuration.',
+            'Use figures to show mechanism, not only performance.'
+        ],
+        perspective: [
+            'Clarify stance and audience.',
+            'Separate evidence-backed claims from speculation.',
+            'Add counterarguments and boundary conditions.',
+            'End with operational implications or a research agenda.'
+        ]
+    };
+
+    const journalProfiles = [
+        { name: 'Nature Human Behaviour', scope: 'behavior, society, computation', tier: 'ambitious', speed: 'slow', oa: 'hybrid' },
+        { name: 'PLOS ONE', scope: 'methodologically sound multidisciplinary work', tier: 'safe', speed: 'medium', oa: 'full' },
+        { name: 'Patterns', scope: 'data science, AI systems, scientific workflows', tier: 'balanced', speed: 'medium', oa: 'full' },
+        { name: 'Scientific Reports', scope: 'broad empirical science', tier: 'safe', speed: 'medium', oa: 'full' },
+        { name: 'ACM CHI', scope: 'human-computer interaction and user studies', tier: 'ambitious', speed: 'deadline', oa: 'conference' }
+    ];
+
+    function loadState() {
+        try {
+            return { ...defaults, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') };
+        } catch {
+            return structuredClone(defaults);
+        }
+    }
+
+    function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function download(filename, content, type = 'text/plain;charset=utf-8') {
+        const blob = new Blob([content], { type });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
+    function mount() {
+        if (document.getElementById('phase2Workflow')) return;
+        const anchor = document.getElementById('toolsSection') || document.querySelector('main') || document.body;
+        const panel = document.createElement('section');
+        panel.className = 'phase2-workflow';
+        panel.id = 'phase2Workflow';
+        panel.innerHTML = renderShell();
+        if (anchor.id === 'toolsSection') anchor.insertAdjacentElement('afterend', panel);
+        else anchor.appendChild(panel);
+        bindEvents(panel);
+        renderAll();
+    }
+
+    function renderShell() {
+        return `
+            <div class="phase2-head">
+                <div>
+                    <div class="phase2-kicker">Phase 2 Research Workflow</div>
+                    <h3>像研究工作流一样推进论文</h3>
+                    <p>把投稿准备、统计路线、文献证据、引文核查、选刊 shortlist 和导出收在一个本地工作台里。所有内容保存在浏览器本地，不需要后端。</p>
+                </div>
+                <button class="phase2-save" data-phase2-action="save">保存当前工作流</button>
+            </div>
+            <div class="phase2-tabs" role="tablist">
+                ${[
+                    ['wizard', '投稿向导'],
+                    ['stats', '统计选择器'],
+                    ['matrix', 'PaperDeck 文献矩阵'],
+                    ['citations', '引文证据核查'],
+                    ['journals', '选刊 shortlist'],
+                    ['export', '导出']
+                ].map(([id, label], i) => `<button class="phase2-tab ${i === 0 ? 'active' : ''}" data-phase2-tab="${id}" type="button">${label}</button>`).join('')}
+            </div>
+            <div class="phase2-panel active" data-phase2-panel="wizard"></div>
+            <div class="phase2-panel" data-phase2-panel="stats"></div>
+            <div class="phase2-panel" data-phase2-panel="matrix"></div>
+            <div class="phase2-panel" data-phase2-panel="citations"></div>
+            <div class="phase2-panel" data-phase2-panel="journals"></div>
+            <div class="phase2-panel" data-phase2-panel="export"></div>
+        `;
+    }
+
+    function renderAll() {
+        renderWizard();
+        renderStats();
+        renderMatrix();
+        renderCitations();
+        renderJournals();
+        renderExport();
+    }
+
+    function panel(name) {
+        return document.querySelector(`[data-phase2-panel="${name}"]`);
+    }
+
+    function renderWizard() {
+        const w = state.wizard;
+        const checklist = wizardChecklists[w.articleType] || wizardChecklists.empirical;
+        const readiness = calculateReadiness();
+        panel('wizard').innerHTML = `
+            <div class="phase2-grid">
+                <div class="phase2-card">
+                    <h4>稿件画像</h4>
+                    ${field('题目/暂定题', 'wizard.title', w.title, 'input')}
+                    ${field('学科/方向', 'wizard.field', w.field, 'input')}
+                    <label class="phase2-field">文章类型
+                        <select data-phase2-model="wizard.articleType">
+                            ${option('empirical', '实证研究', w.articleType)}
+                            ${option('review', '综述/系统综述', w.articleType)}
+                            ${option('methods', '方法/系统论文', w.articleType)}
+                            ${option('perspective', '观点/评论', w.articleType)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">当前阶段
+                        <select data-phase2-model="wizard.stage">
+                            ${option('planning', '选题/设计', w.stage)}
+                            ${option('analysis', '分析中', w.stage)}
+                            ${option('drafting', '写作中', w.stage)}
+                            ${option('pre-submission', '投稿前', w.stage)}
+                            ${option('revision', '返修', w.stage)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">目标策略
+                        <select data-phase2-model="wizard.targetTier">
+                            ${option('ambitious', '冲刺高影响', w.targetTier)}
+                            ${option('balanced', '命中率/影响力平衡', w.targetTier)}
+                            ${option('safe', '稳妥发表', w.targetTier)}
+                        </select>
+                    </label>
+                    ${field('预计字数', 'wizard.wordCount', w.wordCount, 'input')}
+                    ${field('关键风险/备注', 'wizard.notes', w.notes, 'textarea')}
+                </div>
+                <div class="phase2-card">
+                    <h4>投稿准备度 <span class="phase2-score">${readiness}%</span></h4>
+                    <ul class="phase2-list">
+                        ${checklist.map(item => `<li>${esc(item)}</li>`).join('')}
+                    </ul>
+                    <div class="phase2-actions">
+                        <button class="phase2-btn" data-phase2-action="seed-journals" type="button">按策略生成 shortlist</button>
+                        <button class="phase2-btn secondary" data-phase2-action="seed-matrix" type="button">从收藏卡片生成矩阵</button>
+                    </div>
+                    <div class="phase2-result" style="margin-top:12px">
+                        下一步建议：${esc(nextWizardAction())}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderStats() {
+        const s = state.stats;
+        const recs = recommendStats();
+        panel('stats').innerHTML = `
+            <div class="phase2-grid">
+                <div class="phase2-card">
+                    <h4>研究设计输入</h4>
+                    <label class="phase2-field">目标
+                        <select data-phase2-model="stats.goal">
+                            ${option('compare', '比较组间差异', s.goal)}
+                            ${option('relationship', '解释变量关系', s.goal)}
+                            ${option('predict', '预测/分类', s.goal)}
+                            ${option('uncertainty', '不确定性建模', s.goal)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">结果变量
+                        <select data-phase2-model="stats.outcome">
+                            ${option('continuous', '连续变量', s.outcome)}
+                            ${option('binary', '二分类', s.outcome)}
+                            ${option('categorical', '多分类', s.outcome)}
+                            ${option('count', '计数', s.outcome)}
+                            ${option('time-to-event', '生存/时间到事件', s.outcome)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">预测/分组结构
+                        <select data-phase2-model="stats.predictors">
+                            ${option('groups', '两个组', s.predictors)}
+                            ${option('multiple-groups', '三个及以上组', s.predictors)}
+                            ${option('continuous', '连续预测变量', s.predictors)}
+                            ${option('mixed', '混合变量', s.predictors)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">设计结构
+                        <select data-phase2-model="stats.design">
+                            ${option('independent', '独立样本', s.design)}
+                            ${option('repeated', '重复测量/配对', s.design)}
+                            ${option('nested', '嵌套/聚类', s.design)}
+                            ${option('observational', '观察性研究', s.design)}
+                        </select>
+                    </label>
+                    <label class="phase2-field">样本量
+                        <select data-phase2-model="stats.sampleSize">
+                            ${option('small', '< 50', s.sampleSize)}
+                            ${option('medium', '50-500', s.sampleSize)}
+                            ${option('large', '> 500', s.sampleSize)}
+                        </select>
+                    </label>
+                </div>
+                <div class="phase2-card">
+                    <h4>推荐路线</h4>
+                    <div class="phase2-list">
+                        ${recs.map(r => `<div class="phase2-result"><strong>${esc(r.title)}</strong><br>${esc(r.why)}<br><span class="phase2-badge">${esc(r.report)}</span></div>`).join('')}
+                    </div>
+                    <div class="phase2-actions">
+                        <button class="phase2-btn" data-phase2-action="add-stat-to-matrix" type="button">写入文献矩阵行动项</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderMatrix() {
+        const rows = state.matrix;
+        panel('matrix').innerHTML = `
+            <div class="phase2-card">
+                <h4>PaperDeck 文献矩阵</h4>
+                <div class="phase2-actions">
+                    <button class="phase2-btn" data-phase2-action="add-matrix-row" type="button">新增文献</button>
+                    <button class="phase2-btn secondary" data-phase2-action="seed-matrix" type="button">导入已收藏 PaperDeck</button>
+                    <button class="phase2-btn secondary" data-phase2-action="export-matrix-md" type="button">导出矩阵 Markdown</button>
+                </div>
+                <div class="phase2-table-wrap" style="margin-top:14px">
+                    ${rows.length ? `
+                    <table class="phase2-table">
+                        <thead><tr><th>文献</th><th>角色</th><th>方法</th><th>关键证据</th><th>限制</th><th>下一步</th><th></th></tr></thead>
+                        <tbody>${rows.map(row => renderMatrixRow(row)).join('')}</tbody>
+                    </table>` : '<div class="phase2-empty">还没有文献。可以手动新增，或从 PaperDeck 收藏卡片导入。</div>'}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderCitations() {
+        panel('citations').innerHTML = `
+            <div class="phase2-grid">
+                <div class="phase2-card">
+                    <h4>引文证据核查</h4>
+                    <label class="phase2-field">粘贴参考文献，每行一条
+                        <textarea id="phase2CitationInput" placeholder="Smith, J. (2024). Title. Journal. DOI..."></textarea>
+                    </label>
+                    <div class="phase2-actions">
+                        <button class="phase2-btn" data-phase2-action="run-citation-evidence" type="button">本地核查</button>
+                        <button class="phase2-btn secondary" data-phase2-action="export-citation-md" type="button">导出证据表</button>
+                        <button class="phase2-btn danger" data-phase2-action="clear-citations" type="button">清空</button>
+                    </div>
+                </div>
+                <div class="phase2-card">
+                    <h4>核查结果</h4>
+                    ${renderCitationResults()}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderJournals() {
+        panel('journals').innerHTML = `
+            <div class="phase2-card">
+                <h4>选刊 shortlist</h4>
+                <div class="phase2-grid three">
+                    ${field('期刊/会议名称', 'journal.name', '', 'input', 'phase2JournalName')}
+                    ${field('Scope / fit', 'journal.scope', '', 'input', 'phase2JournalScope')}
+                    <label class="phase2-field">策略
+                        <select id="phase2JournalTier">
+                            ${option('ambitious', '冲刺', '')}
+                            ${option('balanced', '平衡', '')}
+                            ${option('safe', '稳妥', '')}
+                        </select>
+                    </label>
+                </div>
+                <div class="phase2-actions">
+                    <button class="phase2-btn" data-phase2-action="add-journal" type="button">加入 shortlist</button>
+                    <button class="phase2-btn secondary" data-phase2-action="seed-journals" type="button">按投稿策略生成</button>
+                    <button class="phase2-btn secondary" data-phase2-action="export-journals-md" type="button">导出 shortlist</button>
+                </div>
+                <div class="phase2-table-wrap" style="margin-top:14px">
+                    ${state.shortlist.length ? `
+                    <table class="phase2-table">
+                        <thead><tr><th>名称</th><th>Scope</th><th>策略</th><th>匹配分</th><th>备注</th><th></th></tr></thead>
+                        <tbody>${state.shortlist.map(j => renderJournalRow(j)).join('')}</tbody>
+                    </table>` : '<div class="phase2-empty">还没有 shortlist。可手动添加或自动生成一组候选。</div>'}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderExport() {
+        const md = buildMarkdown();
+        panel('export').innerHTML = `
+            <div class="phase2-grid">
+                <div class="phase2-card">
+                    <h4>一键导出</h4>
+                    <div class="phase2-badges">
+                        <span class="phase2-badge">矩阵 ${state.matrix.length}</span>
+                        <span class="phase2-badge">引文 ${state.citationEvidence.length}</span>
+                        <span class="phase2-badge">期刊 ${state.shortlist.length}</span>
+                    </div>
+                    <div class="phase2-actions">
+                        <button class="phase2-btn" data-phase2-action="export-workflow-md" type="button">下载 Markdown</button>
+                        <button class="phase2-btn secondary" data-phase2-action="export-workflow-json" type="button">下载 JSON</button>
+                        <button class="phase2-btn secondary" data-phase2-action="copy-workflow-md" type="button">复制 Markdown</button>
+                    </div>
+                    <div class="phase2-result" id="phase2ExportStatus" style="margin-top:12px">导出内容会汇总投稿向导、统计选择、文献矩阵、引文证据和 shortlist。</div>
+                </div>
+                <div class="phase2-card">
+                    <h4>预览</h4>
+                    <textarea readonly style="width:100%;min-height:320px;border:1px solid rgba(15,23,42,.12);border-radius:14px;padding:12px;box-sizing:border-box">${esc(md)}</textarea>
+                </div>
+            </div>
+        `;
+    }
+
+    function field(label, model, value, type, id = '') {
+        const attr = id ? ` id="${id}"` : ` data-phase2-model="${model}"`;
+        if (type === 'textarea') {
+            return `<label class="phase2-field">${label}<textarea${attr}>${esc(value)}</textarea></label>`;
+        }
+        return `<label class="phase2-field">${label}<input${attr} value="${esc(value)}"></label>`;
+    }
+
+    function option(value, label, selected) {
+        return `<option value="${esc(value)}" ${value === selected ? 'selected' : ''}>${esc(label)}</option>`;
+    }
+
+    function renderMatrixRow(row) {
+        return `
+            <tr data-phase2-row="${esc(row.id)}">
+                <td><textarea data-phase2-matrix="title">${esc(row.title)}</textarea></td>
+                <td><select data-phase2-matrix="role">
+                    ${['背景', '核心证据', '方法参考', '反例/限制', '待读'].map(v => option(v, v, row.role)).join('')}
+                </select></td>
+                <td><textarea data-phase2-matrix="method">${esc(row.method)}</textarea></td>
+                <td><textarea data-phase2-matrix="evidence">${esc(row.evidence)}</textarea></td>
+                <td><textarea data-phase2-matrix="limitation">${esc(row.limitation)}</textarea></td>
+                <td><textarea data-phase2-matrix="action">${esc(row.action)}</textarea></td>
+                <td><button class="phase2-btn danger" data-phase2-action="delete-matrix-row" type="button">删除</button></td>
+            </tr>`;
+    }
+
+    function renderCitationResults() {
+        const rows = state.citationEvidence;
+        if (!rows.length) return '<div class="phase2-empty">暂无核查结果。这里会用 DOI、年份、页码、题名长度和疑似占位符做本地启发式检查。</div>';
+        return `
+            <div class="phase2-table-wrap">
+                <table class="phase2-table">
+                    <thead><tr><th>#</th><th>状态</th><th>证据</th><th>建议</th></tr></thead>
+                    <tbody>
+                        ${rows.map((r, i) => `<tr>
+                            <td>${i + 1}</td>
+                            <td><span class="phase2-score">${esc(r.status)}</span></td>
+                            <td>${esc(r.reference)}</td>
+                            <td>${esc(r.action)}</td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>`;
+    }
+
+    function renderJournalRow(j) {
+        return `
+            <tr data-phase2-journal="${esc(j.id)}">
+                <td><input data-phase2-journal-field="name" value="${esc(j.name)}"></td>
+                <td><textarea data-phase2-journal-field="scope">${esc(j.scope)}</textarea></td>
+                <td><select data-phase2-journal-field="tier">
+                    ${['ambitious', 'balanced', 'safe'].map(v => option(v, tierLabel(v), j.tier)).join('')}
+                </select></td>
+                <td><span class="phase2-score">${journalScore(j)}</span></td>
+                <td><textarea data-phase2-journal-field="notes">${esc(j.notes || '')}</textarea></td>
+                <td><button class="phase2-btn danger" data-phase2-action="delete-journal" type="button">删除</button></td>
+            </tr>`;
+    }
+
+    function bindEvents(root) {
+        root.addEventListener('click', event => {
+            const tab = event.target.closest('[data-phase2-tab]');
+            if (tab) {
+                root.querySelectorAll('[data-phase2-tab]').forEach(btn => btn.classList.toggle('active', btn === tab));
+                root.querySelectorAll('[data-phase2-panel]').forEach(p => p.classList.toggle('active', p.dataset.phase2Panel === tab.dataset.phase2Tab));
+                return;
+            }
+            const actionEl = event.target.closest('[data-phase2-action]');
+            if (!actionEl) return;
+            handleAction(actionEl.dataset.phase2Action, actionEl);
+        });
+
+        root.addEventListener('input', event => {
+            const model = event.target.dataset.phase2Model;
+            if (model) {
+                setModel(model, event.target.value);
+                saveState();
+                return;
+            }
+            updateEditableRow(event.target);
+        });
+
+        root.addEventListener('change', event => {
+            const model = event.target.dataset.phase2Model;
+            if (model) {
+                setModel(model, event.target.value);
+                saveState();
+                renderAll();
+                return;
+            }
+            updateEditableRow(event.target);
+        });
+    }
+
+    function handleAction(action, el) {
+        if (action === 'save') saveState();
+        if (action === 'seed-journals') seedJournals();
+        if (action === 'seed-matrix') seedMatrixFromDeck();
+        if (action === 'add-stat-to-matrix') addStatsActionToMatrix();
+        if (action === 'add-matrix-row') state.matrix.unshift(blankMatrixRow());
+        if (action === 'delete-matrix-row') state.matrix = state.matrix.filter(row => row.id !== el.closest('[data-phase2-row]')?.dataset.phase2Row);
+        if (action === 'run-citation-evidence') runCitationEvidence();
+        if (action === 'clear-citations') state.citationEvidence = [];
+        if (action === 'add-journal') addJournalFromForm();
+        if (action === 'delete-journal') state.shortlist = state.shortlist.filter(j => j.id !== el.closest('[data-phase2-journal]')?.dataset.phase2Journal);
+        if (action === 'export-matrix-md') download(`paperdeck-matrix-${today()}.md`, buildMatrixMarkdown(), 'text/markdown;charset=utf-8');
+        if (action === 'export-citation-md') download(`citation-evidence-${today()}.md`, buildCitationMarkdown(), 'text/markdown;charset=utf-8');
+        if (action === 'export-journals-md') download(`journal-shortlist-${today()}.md`, buildJournalMarkdown(), 'text/markdown;charset=utf-8');
+        if (action === 'export-workflow-md') download(`research-workflow-${today()}.md`, buildMarkdown(), 'text/markdown;charset=utf-8');
+        if (action === 'export-workflow-json') download(`research-workflow-${today()}.json`, JSON.stringify(state, null, 2), 'application/json;charset=utf-8');
+        if (action === 'copy-workflow-md') copyMarkdown();
+        saveState();
+        renderAll();
+    }
+
+    function setModel(path, value) {
+        const [group, key] = path.split('.');
+        if (!state[group]) state[group] = {};
+        state[group][key] = value;
+    }
+
+    function updateEditableRow(target) {
+        const matrixField = target.dataset.phase2Matrix;
+        const matrixRow = target.closest?.('[data-phase2-row]');
+        if (matrixField && matrixRow) {
+            const row = state.matrix.find(item => item.id === matrixRow.dataset.phase2Row);
+            if (row) row[matrixField] = target.value;
+            saveState();
+        }
+
+        const journalField = target.dataset.phase2JournalField;
+        const journalRow = target.closest?.('[data-phase2-journal]');
+        if (journalField && journalRow) {
+            const row = state.shortlist.find(item => item.id === journalRow.dataset.phase2Journal);
+            if (row) row[journalField] = target.value;
+            saveState();
+            if (journalField === 'tier' || journalField === 'scope') renderJournals();
+        }
+    }
+
+    function calculateReadiness() {
+        const w = state.wizard;
+        let score = 20;
+        if (w.title.length > 12) score += 15;
+        if (state.matrix.length >= 5) score += 20;
+        if (state.citationEvidence.length >= 3) score += 15;
+        if (state.shortlist.length >= 3) score += 15;
+        if (w.notes.length > 20) score += 10;
+        if (w.stage === 'pre-submission' || w.stage === 'revision') score += 5;
+        return Math.min(score, 100);
+    }
+
+    function nextWizardAction() {
+        if (!state.matrix.length) return '先建立 5-8 篇核心文献矩阵，明确每篇文献在论证中的角色。';
+        if (!state.citationEvidence.length) return '把参考文献粘贴到引文证据核查，先排除明显缺 DOI、年份或页码的问题。';
+        if (state.shortlist.length < 3) return '至少准备 3 个候选期刊/会议，并写明 fit、风险和备选策略。';
+        return '进入投稿前检查：统一摘要、cover letter、图表标题、数据/代码可用性声明。';
+    }
+
+    function recommendStats() {
+        const recs = statRules.filter(rule => rule.when(state.stats));
+        return recs.length ? recs : [{
+            title: 'Descriptive analysis + design review',
+            why: 'Current combination is broad. Start with distribution, missingness, and design diagnostics before choosing a confirmatory test.',
+            report: 'Report sample flow, missingness, descriptive table, visualization, and explicit model decision.'
+        }];
+    }
+
+    function blankMatrixRow(seed = {}) {
+        return {
+            id: uid('paper'),
+            title: seed.title || '',
+            role: seed.role || '待读',
+            method: seed.method || '',
+            evidence: seed.evidence || '',
+            limitation: seed.limitation || '',
+            action: seed.action || '阅读全文并补证据'
+        };
+    }
+
+    function seedMatrixFromDeck() {
+        let saved = [];
+        try {
+            saved = JSON.parse(localStorage.getItem('sciai-deck-saved') || '[]');
+        } catch {
+            saved = [];
+        }
+        const additions = saved.slice(0, 12).filter(p => !state.matrix.some(row => row.title === p.title)).map(p => blankMatrixRow({
+            title: `${p.title || 'Untitled'}${p.year ? ` (${p.year})` : ''}`,
+            role: '待读',
+            method: p.venue || '',
+            evidence: (p.abstract || '').slice(0, 180),
+            action: '判断是否进入核心证据链'
+        }));
+        if (!additions.length) additions.push(blankMatrixRow({ title: '手动补充核心文献', action: '从检索结果或 Zotero 中补齐' }));
+        state.matrix = [...additions, ...state.matrix].slice(0, 60);
+    }
+
+    function addStatsActionToMatrix() {
+        const recs = recommendStats();
+        state.matrix.unshift(blankMatrixRow({
+            title: `统计路线备忘：${recs.map(r => r.title).join(' / ')}`,
+            role: '方法参考',
+            method: recs[0]?.title || '',
+            evidence: recs[0]?.why || '',
+            limitation: '需要根据真实数据分布和研究设计复核。',
+            action: recs[0]?.report || '补充报告清单。'
+        }));
+    }
+
+    function runCitationEvidence() {
+        const input = document.getElementById('phase2CitationInput');
+        const refs = (input?.value || '').split(/\n+/).map(s => s.trim()).filter(s => s.length > 8);
+        state.citationEvidence = refs.map(reference => {
+            const hasDoi = /\b10\.\d{4,9}\/[-._;()/:A-Z0-9]+\b/i.test(reference);
+            const hasYear = /\b(19|20)\d{2}\b/.test(reference);
+            const suspicious = /\b(lorem|placeholder|unknown|ai generated|journal of advanced research studies)\b/i.test(reference);
+            const hasPages = /\b\d{1,4}\s*[-–]\s*\d{1,4}\b/.test(reference);
+            let status = 'ok';
+            let action = '可保留，投稿前抽样核对原文页面和 DOI。';
+            if (suspicious || (!hasDoi && !hasYear)) {
+                status = 'risk';
+                action = '高风险：回到原文或数据库确认是否真实存在，必要时替换。';
+            } else if (!hasDoi || !hasPages) {
+                status = 'review';
+                action = '需人工复核 DOI、卷期页码或出版社页面。';
+            }
+            return { id: uid('cite'), reference, status, hasDoi, hasYear, hasPages, action };
+        });
+    }
+
+    function seedJournals() {
+        const wanted = state.wizard.targetTier;
+        const profiles = journalProfiles
+            .filter(j => wanted === 'balanced' ? true : j.tier === wanted)
+            .map(j => ({ ...j, id: uid('journal'), notes: 'Auto-generated candidate. Verify fit, fees, indexing, and recent aims/scope before submission.' }));
+        const merged = [...state.shortlist];
+        profiles.forEach(j => {
+            if (!merged.some(item => item.name === j.name)) merged.push(j);
+        });
+        state.shortlist = merged.slice(0, 12);
+    }
+
+    function addJournalFromForm() {
+        const name = document.getElementById('phase2JournalName')?.value.trim();
+        if (!name) return;
+        state.shortlist.unshift({
+            id: uid('journal'),
+            name,
+            scope: document.getElementById('phase2JournalScope')?.value.trim() || state.wizard.field,
+            tier: document.getElementById('phase2JournalTier')?.value || 'balanced',
+            speed: '',
+            oa: '',
+            notes: ''
+        });
+    }
+
+    function tierLabel(value) {
+        return ({ ambitious: '冲刺', balanced: '平衡', safe: '稳妥' })[value] || value;
+    }
+
+    function journalScore(journal) {
+        const text = `${journal.name} ${journal.scope} ${state.wizard.field}`.toLowerCase();
+        let score = 55;
+        if (journal.tier === state.wizard.targetTier) score += 15;
+        state.wizard.field.toLowerCase().split(/[,\s/]+/).filter(Boolean).forEach(token => {
+            if (text.includes(token)) score += 5;
+        });
+        if (journal.oa === 'full') score += 5;
+        return Math.min(score, 95);
+    }
+
+    function buildMatrixMarkdown() {
+        const rows = state.matrix.map(r => `| ${[r.title, r.role, r.method, r.evidence, r.limitation, r.action].map(mdCell).join(' | ')} |`);
+        return ['# PaperDeck literature matrix', '', '| Paper | Role | Method | Evidence | Limitation | Action |', '|---|---|---|---|---|---|', ...rows].join('\n');
+    }
+
+    function buildCitationMarkdown() {
+        const rows = state.citationEvidence.map(r => `| ${[r.status, r.reference, r.action].map(mdCell).join(' | ')} |`);
+        return ['# Citation evidence check', '', '| Status | Reference | Action |', '|---|---|---|', ...rows].join('\n');
+    }
+
+    function buildJournalMarkdown() {
+        const rows = state.shortlist.map(j => `| ${[j.name, j.scope, tierLabel(j.tier), journalScore(j), j.notes || ''].map(mdCell).join(' | ')} |`);
+        return ['# Journal shortlist', '', '| Journal | Scope | Strategy | Fit score | Notes |', '|---|---|---|---|---|', ...rows].join('\n');
+    }
+
+    function buildMarkdown() {
+        const w = state.wizard;
+        return [
+            '# Research workflow export',
+            '',
+            `Generated: ${today()}`,
+            '',
+            '## Submission wizard',
+            '',
+            `- Title: ${w.title || 'Untitled'}`,
+            `- Field: ${w.field}`,
+            `- Article type: ${w.articleType}`,
+            `- Stage: ${w.stage}`,
+            `- Target strategy: ${w.targetTier}`,
+            `- Readiness: ${calculateReadiness()}%`,
+            `- Next action: ${nextWizardAction()}`,
+            '',
+            '## Statistical route',
+            '',
+            ...recommendStats().map(r => `- ${r.title}: ${r.why} Report: ${r.report}`),
+            '',
+            buildMatrixMarkdown(),
+            '',
+            buildCitationMarkdown(),
+            '',
+            buildJournalMarkdown()
+        ].join('\n');
+    }
+
+    function mdCell(value) {
+        return String(value || '-').replace(/\|/g, '\\|').replace(/\n+/g, ' ');
+    }
+
+    async function copyMarkdown() {
+        const status = document.getElementById('phase2ExportStatus');
+        try {
+            await navigator.clipboard.writeText(buildMarkdown());
+            if (status) status.textContent = '已复制到剪贴板。';
+        } catch {
+            if (status) status.textContent = '复制失败，请使用下载 Markdown。';
+        }
+    }
+
+    function init() {
+        mount();
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+
+    window.Phase2ResearchWorkflow = { init, getState: () => state };
     return { init };
 })();

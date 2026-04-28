@@ -1,0 +1,269 @@
+/* Phase 2 research workflow cockpit.
+   Kept outside JS so workflow UI styles can be audited and split further. */
+.phase2-workflow {
+    margin: 28px 0;
+    padding: 24px;
+    border: 1px solid rgba(15, 23, 42, .12);
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(248, 250, 252, .98), rgba(239, 246, 255, .92));
+    box-shadow: 0 24px 80px rgba(15, 23, 42, .10);
+}
+
+.phase2-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.phase2-kicker {
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.phase2-head h3 {
+    margin: 6px 0 8px;
+    font-size: 28px;
+    color: #0f172a;
+}
+
+.phase2-head p {
+    margin: 0;
+    color: #475569;
+    max-width: 760px;
+    line-height: 1.6;
+}
+
+.phase2-save,
+.phase2-btn {
+    border: 0;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.phase2-save {
+    border-radius: 999px;
+    padding: 10px 14px;
+    background: #0f172a;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.phase2-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 20px;
+}
+
+.phase2-tab {
+    border: 1px solid rgba(37, 99, 235, .18);
+    background: #fff;
+    color: #1e293b;
+    border-radius: 999px;
+    padding: 9px 13px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.phase2-tab.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+.phase2-panel {
+    display: none;
+}
+
+.phase2-panel.active {
+    display: block;
+}
+
+.phase2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.phase2-grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.phase2-card {
+    background: rgba(255, 255, 255, .88);
+    border: 1px solid rgba(15, 23, 42, .10);
+    border-radius: 20px;
+    padding: 16px;
+}
+
+.phase2-card h4 {
+    margin: 0 0 12px;
+    color: #0f172a;
+}
+
+.phase2-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 12px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.phase2-field input,
+.phase2-field select,
+.phase2-field textarea {
+    border: 1px solid rgba(15, 23, 42, .14);
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: #fff;
+    color: #0f172a;
+    font: inherit;
+}
+
+.phase2-field textarea {
+    min-height: 88px;
+    resize: vertical;
+}
+
+.phase2-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.phase2-btn {
+    border-radius: 12px;
+    padding: 10px 13px;
+    background: #2563eb;
+    color: #fff;
+}
+
+.phase2-btn.secondary {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.phase2-btn.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.phase2-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.phase2-list li,
+.phase2-result {
+    padding: 12px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid rgba(15, 23, 42, .08);
+    line-height: 1.5;
+    color: #334155;
+}
+
+.phase2-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    padding: 4px 9px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.phase2-table-wrap {
+    overflow: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    background: #fff;
+}
+
+.phase2-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+.phase2-table th,
+.phase2-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(15, 23, 42, .08);
+    text-align: left;
+    vertical-align: top;
+    color: #334155;
+}
+
+.phase2-table th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.phase2-table input,
+.phase2-table select,
+.phase2-table textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(15, 23, 42, .12);
+    border-radius: 10px;
+    padding: 8px;
+    font: inherit;
+}
+
+.phase2-table textarea {
+    min-height: 58px;
+}
+
+.phase2-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.phase2-badge {
+    border-radius: 999px;
+    padding: 5px 9px;
+    background: #e0f2fe;
+    color: #075985;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.phase2-empty {
+    padding: 18px;
+    text-align: center;
+    color: #64748b;
+}
+
+@media (max-width: 860px) {
+    .phase2-head {
+        flex-direction: column;
+    }
+
+    .phase2-grid,
+    .phase2-grid.three {
+        grid-template-columns: 1fr;
+    }
+
+    .phase2-workflow {
+        padding: 18px;
+        border-radius: 22px;
+    }
+}

@@ -3,6 +3,62 @@
   "schemaVersion": "1.0.0",
   "sourceName": "SciAI Hub GitHub curated seed",
   "sourceUrl": "https://github.com/trending",
+  "sourceLayers": [
+    {
+      "layer": "canonical",
+      "role": "repository-pages",
+      "sourceName": "GitHub repositories",
+      "sourceUrl": "records[].url",
+      "verification": "seeded-repository-url"
+    },
+    {
+      "layer": "discovery",
+      "role": "trend-and-topic-watch",
+      "sourceName": "GitHub Trending",
+      "sourceUrl": "https://github.com/trending",
+      "verification": "manual-seed-no-live-fetch"
+    },
+    {
+      "layer": "editorial",
+      "role": "research-workflow-fit",
+      "sourceName": "SciAI Hub GitHub curated seed",
+      "sourceUrl": "data/github.manifest.json",
+      "verification": "curated-static-snapshot"
+    }
+  ],
+  "sourceProfile": {
+    "trustTier": "curated-seed",
+    "verificationMode": "static-github-recommendation-seed",
+    "liveFetchRequired": false,
+    "uiUse": "Use evidence as display metadata and sorting hints; do not present seed/fallback values as live GitHub metrics."
+  },
+  "dailyGeneration": {
+    "date": "2026-04-23",
+    "generatedAt": "2026-04-23T00:00:00.000Z",
+    "generator": "manual-foundation",
+    "cadence": "daily-display-snapshot",
+    "sourcePolicy": "curated-static-seed-no-live-api",
+    "recordEvidenceFields": [
+      "evidence.starDelta",
+      "evidence.release",
+      "evidence.activity",
+      "evidence.sourceQuery",
+      "evidence.confidence"
+    ],
+    "stalenessNote": "Repository cards are generated as a daily station snapshot; stars and release fields are not live GitHub metrics unless evidence says otherwise."
+  },
+  "editorialReview": {
+    "status": "reviewed",
+    "reviewedAt": "2026-04-23T00:00:00.000Z",
+    "reviewer": "SciAI Hub review desk",
+    "scope": "github daily station snapshot",
+    "checks": [
+      "repository-url-present",
+      "evidence-field-present",
+      "no-live-metric-claim",
+      "research-workflow-fit"
+    ]
+  },
   "sourceFetchedAt": "2026-04-21T00:00:00.000Z",
   "validatedAt": "2026-04-23T00:00:00.000Z",
   "status": "static",
@@ -28,7 +84,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/binary-husky/gpt_academic",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "binary-husky gpt_academic academic GPT GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "chatpaper",
@@ -40,7 +104,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/kaixindelele/ChatPaper",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "kaixindelele ChatPaper arXiv summary GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "whisper",
@@ -52,7 +124,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/openai/whisper",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "openai whisper speech recognition GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "segment-anything",
@@ -64,7 +144,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/facebookresearch/segment-anything",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "facebookresearch segment-anything image segmentation GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "transformers",
@@ -76,7 +164,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/huggingface/transformers",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "huggingface transformers model library GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "gpt-researcher",
@@ -88,7 +184,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/assafelovic/gpt-researcher",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "assafelovic gpt-researcher autonomous research GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "deepchem",
@@ -100,7 +204,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/deepchem/deepchem",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "deepchem deepchem chemistry machine learning GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "autogen",
@@ -112,7 +224,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/microsoft/autogen",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "microsoft autogen multi-agent framework GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "llama-cpp",
@@ -124,7 +244,15 @@
       "lang": "C++",
       "langColor": "#f34b7d",
       "url": "https://github.com/ggerganov/llama.cpp",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "ggerganov llama.cpp local inference GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     },
     {
       "id": "lm-evaluation-harness",
@@ -136,7 +264,15 @@
       "lang": "Python",
       "langColor": "#3572A5",
       "url": "https://github.com/EleutherAI/lm-evaluation-harness",
-      "updatedAt": "2026-04-23"
+      "updatedAt": "2026-04-23",
+      "evidence": {
+        "starDelta": "seed-baseline",
+        "release": "fallback:not-checked",
+        "activity": "seed-updatedAt:2026-04-23",
+        "sourceQuery": "EleutherAI lm-evaluation-harness LLM benchmark GitHub",
+        "sourceTier": "curated-seed",
+        "confidence": "medium"
+      }
     }
   ]
 }
