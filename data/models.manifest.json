@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-04-29T05:20:21.304Z",
-  "validatedAt": "2026-04-29T05:20:21.305Z",
+  "sourceFetchedAt": "2026-04-30T05:23:57.779Z",
+  "validatedAt": "2026-04-30T05:23:57.779Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-04-29T05:20:21.304Z",
-    "snapshotDate": "2026-04-29"
+    "refreshedAt": "2026-04-30T05:23:57.779Z",
+    "snapshotDate": "2026-04-30"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 369,
+  "recordCount": 368,
   "records": [
     {
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -263,10 +263,10 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI Kimi Latest",
       "provider": "~moonshotai",
-      "contextLength": 256000,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000007448",
-        "completion": "0.000004655",
+        "prompt": "0.00000075",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -283,8 +283,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 65536,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1218,10 +1218,10 @@
       "id": "moonshotai/kimi-k2.6",
       "name": "MoonshotAI: Kimi K2.6",
       "provider": "moonshotai",
-      "contextLength": 256000,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000007448",
-        "completion": "0.000004655",
+        "prompt": "0.00000075",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -1238,8 +1238,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 65536,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4360,38 +4360,6 @@
         "tool_choice",
         "tools",
         "top_p"
-      ]
-    },
-    {
-      "id": "mistralai/mistral-small-creative",
-      "name": "Mistral: Mistral Small Creative",
-      "provider": "mistralai",
-      "contextLength": 32768,
-      "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "tool_choice",
-        "tools"
       ]
     },
     {
