@@ -3,21 +3,153 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-04-30T05:23:57.779Z",
-  "validatedAt": "2026-04-30T05:23:57.779Z",
+  "sourceFetchedAt": "2026-05-01T05:35:59.374Z",
+  "validatedAt": "2026-05-01T05:35:59.375Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-04-30T05:23:57.779Z",
-    "snapshotDate": "2026-04-30"
+    "refreshedAt": "2026-05-01T05:35:59.374Z",
+    "snapshotDate": "2026-05-01"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 368,
+  "recordCount": 371,
   "records": [
+    {
+      "id": "x-ai/grok-4.3",
+      "name": "xAI: Grok 4.3",
+      "provider": "x-ai",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.00000125",
+        "completion": "0.0000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Grok",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "ibm-granite/granite-4.1-8b",
+      "name": "IBM: Granite 4.1 8B",
+      "provider": "ibm-granite",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.00000005",
+        "completion": "0.0000001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openrouter/owl-alpha",
+      "name": "Owl Alpha",
+      "provider": "openrouter",
+      "contextLength": 1048756,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048756,
+        "max_completion_tokens": 262144,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "presence_penalty",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
     {
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
       "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
@@ -263,10 +395,10 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI Kimi Latest",
       "provider": "~moonshotai",
-      "contextLength": 262144,
+      "contextLength": 262142,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000035",
+        "prompt": "0.00000074",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -283,8 +415,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1218,10 +1350,10 @@
       "id": "moonshotai/kimi-k2.6",
       "name": "MoonshotAI: Kimi K2.6",
       "provider": "moonshotai",
-      "contextLength": 262144,
+      "contextLength": 262142,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000035",
+        "prompt": "0.00000074",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -1238,8 +1370,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1760,8 +1892,8 @@
       "provider": "x-ai",
       "contextLength": 2000000,
       "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.000006",
+        "prompt": "0.00000125",
+        "completion": "0.0000025",
         "request": null,
         "image": null
       },
@@ -3503,7 +3635,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000014",
+        "prompt": "0.00000012",
         "completion": "0.0000008",
         "request": null,
         "image": null
@@ -8311,7 +8443,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.000000039",
-        "completion": "0.00000019",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -8328,7 +8460,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8427,7 +8559,6 @@
         "min_p",
         "presence_penalty",
         "reasoning",
-        "reasoning_effort",
         "repetition_penalty",
         "response_format",
         "seed",
@@ -12000,7 +12131,7 @@
       "id": "google/gemini-2.0-flash-001",
       "name": "Google: Gemini 2.0 Flash",
       "provider": "google",
-      "contextLength": 1048576,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "0.0000001",
         "completion": "0.0000004",
@@ -12023,7 +12154,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
+        "context_length": 1000000,
         "max_completion_tokens": 8192,
         "is_moderated": false
       },
