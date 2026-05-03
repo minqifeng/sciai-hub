@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-02T04:53:53.356Z",
-  "validatedAt": "2026-05-02T04:53:53.357Z",
+  "sourceFetchedAt": "2026-05-03T05:24:04.367Z",
+  "validatedAt": "2026-05-03T05:24:04.367Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-02T04:53:53.356Z",
-    "snapshotDate": "2026-05-02"
+    "refreshedAt": "2026-05-03T05:24:04.367Z",
+    "snapshotDate": "2026-05-03"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -12131,7 +12131,7 @@
       "id": "google/gemini-2.0-flash-001",
       "name": "Google: Gemini 2.0 Flash",
       "provider": "google",
-      "contextLength": 1048576,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "0.0000001",
         "completion": "0.0000004",
@@ -12154,7 +12154,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
+        "context_length": 1000000,
         "max_completion_tokens": 8192,
         "is_moderated": false
       },
