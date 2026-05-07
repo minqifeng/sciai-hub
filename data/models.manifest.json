@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-06T05:22:32.482Z",
-  "validatedAt": "2026-05-06T05:22:32.482Z",
+  "sourceFetchedAt": "2026-05-07T05:24:42.787Z",
+  "validatedAt": "2026-05-07T05:24:42.787Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-06T05:22:32.482Z",
-    "snapshotDate": "2026-05-06"
+    "refreshedAt": "2026-05-07T05:24:42.787Z",
+    "snapshotDate": "2026-05-07"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 370,
+  "recordCount": 368,
   "records": [
     {
       "id": "baidu/cobuddy:free",
@@ -518,10 +518,10 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI Kimi Latest",
       "provider": "~moonshotai",
-      "contextLength": 262142,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000074",
-        "completion": "0.00000349",
+        "prompt": "0.00000075",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -538,8 +538,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262142,
-        "max_completion_tokens": 262142,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1475,10 +1475,10 @@
       "id": "moonshotai/kimi-k2.6",
       "name": "MoonshotAI: Kimi K2.6",
       "provider": "moonshotai",
-      "contextLength": 262142,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000074",
-        "completion": "0.00000349",
+        "prompt": "0.00000075",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -1495,8 +1495,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262142,
-        "max_completion_tokens": 262142,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2340,6 +2340,7 @@
         "reasoning",
         "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
         "temperature",
@@ -3762,7 +3763,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000012",
+        "prompt": "0.00000011",
         "completion": "0.0000008",
         "request": null,
         "image": null
@@ -4347,51 +4348,6 @@
         "structured_outputs",
         "tool_choice",
         "tools"
-      ]
-    },
-    {
-      "id": "allenai/olmo-3.1-32b-instruct",
-      "name": "AllenAI: Olmo 3.1 32B Instruct",
-      "provider": "allenai",
-      "contextLength": 65536,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 65536,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
       ]
     },
     {
@@ -5411,8 +5367,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000012",
+        "prompt": "0.000000287",
+        "completion": "0.000000431",
         "request": null,
         "image": null
       },
@@ -6160,52 +6116,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nvidia/nemotron-nano-12b-v2-vl",
-      "name": "NVIDIA: Nemotron Nano 12B 2 VL",
-      "provider": "nvidia",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+video->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "video"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
         "top_p"
       ]
     },
@@ -14770,7 +14680,7 @@
       "provider": "meta-llama",
       "contextLength": 8192,
       "pricing": {
-        "prompt": "0.00000003",
+        "prompt": "0.00000004",
         "completion": "0.00000004",
         "request": null,
         "image": null
@@ -14788,7 +14698,7 @@
       },
       "topProvider": {
         "context_length": 8192,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 8192,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14798,12 +14708,9 @@
         "min_p",
         "presence_penalty",
         "repetition_penalty",
-        "response_format",
         "seed",
         "stop",
         "temperature",
-        "tool_choice",
-        "tools",
         "top_k",
         "top_p"
       ]
