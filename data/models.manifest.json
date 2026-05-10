@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-09T05:15:50.214Z",
-  "validatedAt": "2026-05-09T05:15:50.214Z",
+  "sourceFetchedAt": "2026-05-10T05:31:20.781Z",
+  "validatedAt": "2026-05-10T05:31:20.781Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-09T05:15:50.214Z",
-    "snapshotDate": "2026-05-09"
+    "refreshedAt": "2026-05-10T05:31:20.781Z",
+    "snapshotDate": "2026-05-10"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1499,7 +1499,7 @@
       "id": "openrouter/pareto-code",
       "name": "Pareto Code Router",
       "provider": "openrouter",
-      "contextLength": 200000,
+      "contextLength": 2000000,
       "pricing": {
         "prompt": "-1",
         "completion": "-1",
@@ -3691,7 +3691,7 @@
       },
       "topProvider": {
         "context_length": 196608,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 196608,
         "is_moderated": false
       },
       "supportedParameters": [
