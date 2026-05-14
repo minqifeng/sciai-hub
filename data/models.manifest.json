@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-13T05:42:04.881Z",
-  "validatedAt": "2026-05-13T05:42:04.881Z",
+  "sourceFetchedAt": "2026-05-14T05:41:26.919Z",
+  "validatedAt": "2026-05-14T05:41:26.919Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-13T05:42:04.881Z",
-    "snapshotDate": "2026-05-13"
+    "refreshedAt": "2026-05-14T05:41:26.919Z",
+    "snapshotDate": "2026-05-14"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 363,
+  "recordCount": 364,
   "records": [
     {
       "id": "anthropic/claude-opus-4.7-fast",
@@ -1228,13 +1228,47 @@
       ]
     },
     {
+      "id": "deepseek/deepseek-v4-flash:free",
+      "name": "DeepSeek: DeepSeek V4 Flash (free)",
+      "provider": "deepseek",
+      "contextLength": 256000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "DeepSeek",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 256000,
+        "max_completion_tokens": 256000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "reasoning",
+        "tool_choice",
+        "tools"
+      ]
+    },
+    {
       "id": "deepseek/deepseek-v4-flash",
       "name": "DeepSeek: DeepSeek V4 Flash",
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000028",
+        "prompt": "0.000000126",
+        "completion": "0.000000252",
         "request": null,
         "image": null
       },
@@ -1251,7 +1285,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 384000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2527,7 +2561,7 @@
       "provider": "minimax",
       "contextLength": 196608,
       "pricing": {
-        "prompt": "0.00000028",
+        "prompt": "0.000000279",
         "completion": "0.0000012",
         "request": null,
         "image": null
@@ -2545,7 +2579,7 @@
       },
       "topProvider": {
         "context_length": 196608,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3073,7 +3107,7 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 16384,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "max_completion_tokens",
@@ -7087,10 +7121,10 @@
       "id": "z-ai/glm-4.6",
       "name": "Z.ai: GLM 4.6",
       "provider": "z-ai",
-      "contextLength": 204800,
+      "contextLength": 202752,
       "pricing": {
-        "prompt": "0.00000039",
-        "completion": "0.0000019",
+        "prompt": "0.00000043",
+        "completion": "0.00000174",
         "request": null,
         "image": null
       },
@@ -7106,8 +7140,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 204800,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8026,8 +8060,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
+        "prompt": "0.0000006",
+        "completion": "0.0000025",
         "request": null,
         "image": null
       },
