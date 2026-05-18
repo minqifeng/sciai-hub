@@ -3,30 +3,112 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Weekly Model Snapshot",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-10T05:31:20.781Z",
-  "validatedAt": "2026-05-11T05:52:20.998Z",
+  "sourceFetchedAt": "2026-05-17T05:41:51.563Z",
+  "validatedAt": "2026-05-18T06:05:42.261Z",
   "status": "snapshot",
   "freshness": {
     "cadence": "weekly",
     "freshnessPolicy": "frozen-snapshot",
-    "snapshotTakenAt": "2026-05-11T05:52:20.998Z",
+    "snapshotTakenAt": "2026-05-18T06:05:42.261Z",
     "sourceDatasetId": "models.catalog",
-    "snapshotDate": "2026-05-11"
+    "snapshotDate": "2026-05-18"
   },
   "lineage": {
     "mode": "weekly-snapshot",
     "sourceManifest": "data/models.manifest.json"
   },
-  "recordCount": 367,
+  "recordCount": 356,
   "records": [
     {
-      "id": "inclusionai/ring-2.6-1t:free",
-      "name": "inclusionAI: Ring-2.6-1T (free)",
+      "id": "anthropic/claude-opus-4.7-fast",
+      "name": "Anthropic: Claude Opus 4.7 (Fast)",
+      "provider": "anthropic",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.00003",
+        "completion": "0.00015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Claude",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "perceptron/perceptron-mk1",
+      "name": "Perceptron: Perceptron Mk1",
+      "provider": "perceptron",
+      "contextLength": 32768,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 32768,
+        "max_completion_tokens": 8192,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "structured_outputs",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "inclusionai/ring-2.6-1t",
+      "name": "inclusionAI: Ring-2.6-1T",
       "provider": "inclusionai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.000000075",
+        "completion": "0.000000625",
         "request": null,
         "image": null
       },
@@ -53,6 +135,7 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -287,10 +370,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -487,10 +571,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
+          "text",
           "image",
-          "text"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -609,8 +694,8 @@
       "provider": "~moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000035",
+        "prompt": "0.00000073",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -627,8 +712,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -712,10 +797,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -791,8 +877,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000024",
+        "prompt": "0.0000003",
+        "completion": "0.0000018",
         "request": null,
         "image": null
       },
@@ -834,8 +920,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.0000015",
+        "prompt": "0.0000001875",
+        "completion": "0.000001125",
         "request": null,
         "image": null
       },
@@ -1145,13 +1231,13 @@
       ]
     },
     {
-      "id": "deepseek/deepseek-v4-flash",
-      "name": "DeepSeek: DeepSeek V4 Flash",
+      "id": "deepseek/deepseek-v4-flash:free",
+      "name": "DeepSeek: DeepSeek V4 Flash (free)",
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000028",
+        "prompt": "0",
+        "completion": "0",
         "request": null,
         "image": null
       },
@@ -1169,6 +1255,40 @@
       "topProvider": {
         "context_length": 1048576,
         "max_completion_tokens": 384000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "reasoning",
+        "tool_choice",
+        "tools"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash",
+      "name": "DeepSeek: DeepSeek V4 Flash",
+      "provider": "deepseek",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.000000112",
+        "completion": "0.000000224",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "DeepSeek",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048575,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1419,8 +1539,8 @@
       "provider": "inclusionai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.00000024",
+        "prompt": "0.00000001",
+        "completion": "0.00000003",
         "request": null,
         "image": null
       },
@@ -1468,10 +1588,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -1526,13 +1647,13 @@
       "supportedParameters": []
     },
     {
-      "id": "baidu/qianfan-ocr-fast:free",
-      "name": "Baidu: Qianfan-OCR-Fast (free)",
+      "id": "baidu/qianfan-ocr-fast",
+      "name": "Baidu: Qianfan-OCR-Fast",
       "provider": "baidu",
       "contextLength": 65536,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.00000068",
+        "completion": "0.00000281",
         "request": null,
         "image": null
       },
@@ -1572,8 +1693,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000035",
+        "prompt": "0.00000073",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -1590,8 +1711,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1630,10 +1751,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -1670,10 +1792,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -1706,8 +1829,8 @@
       "provider": "z-ai",
       "contextLength": 202752,
       "pricing": {
-        "prompt": "0.00000105",
-        "completion": "0.0000035",
+        "prompt": "0.00000098",
+        "completion": "0.00000308",
         "request": null,
         "image": null
       },
@@ -1724,7 +1847,7 @@
       },
       "topProvider": {
         "context_length": 202752,
-        "max_completion_tokens": 65535,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1798,8 +1921,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000033",
+        "prompt": "0.00000007",
+        "completion": "0.00000034",
         "request": null,
         "image": null
       },
@@ -1818,7 +1941,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1890,8 +2013,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000038",
+        "prompt": "0.00000012",
+        "completion": "0.00000037",
         "request": null,
         "image": null
       },
@@ -2015,6 +2138,44 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_p"
+      ]
+    },
+    {
+      "id": "arcee-ai/trinity-large-thinking:free",
+      "name": "Arcee AI: Trinity Large Thinking (free)",
+      "provider": "arcee-ai",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 80000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -2401,9 +2562,9 @@
       "id": "minimax/minimax-m2.7",
       "name": "MiniMax: MiniMax M2.7",
       "provider": "minimax",
-      "contextLength": 196608,
+      "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000299",
+        "prompt": "0.000000279",
         "completion": "0.0000012",
         "request": null,
         "image": null
@@ -2623,7 +2784,7 @@
       "id": "nvidia/nemotron-3-super-120b-a12b:free",
       "name": "NVIDIA: Nemotron 3 Super (free)",
       "provider": "nvidia",
-      "contextLength": 262144,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -2663,10 +2824,10 @@
       "id": "nvidia/nemotron-3-super-120b-a12b",
       "name": "NVIDIA: Nemotron 3 Super",
       "provider": "nvidia",
-      "contextLength": 262144,
+      "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000045",
+        "prompt": "0.0000001",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2683,14 +2844,13 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -2703,7 +2863,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -2949,7 +3108,7 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 16384,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "max_completion_tokens",
@@ -3053,7 +3212,7 @@
       "id": "google/gemini-3.1-flash-image-preview",
       "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image Preview)",
       "provider": "google",
-      "contextLength": 65536,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.0000005",
         "completion": "0.000003",
@@ -3290,7 +3449,7 @@
       "id": "liquid/lfm-2-24b-a2b",
       "name": "LiquidAI: LFM2-24B-A2B",
       "provider": "liquid",
-      "contextLength": 32768,
+      "contextLength": 128000,
       "pricing": {
         "prompt": "0.00000003",
         "completion": "0.00000012",
@@ -3330,7 +3489,7 @@
       "id": "google/gemini-3.1-pro-preview-customtools",
       "name": "Google: Gemini 3.1 Pro Preview Custom Tools",
       "provider": "google",
-      "contextLength": 1048576,
+      "contextLength": 1048756,
       "pricing": {
         "prompt": "0.000002",
         "completion": "0.000012",
@@ -3504,10 +3663,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -3634,7 +3794,7 @@
       "id": "minimax/minimax-m2.5:free",
       "name": "MiniMax: MiniMax M2.5 (free)",
       "provider": "minimax",
-      "contextLength": 196608,
+      "contextLength": 204800,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -3672,7 +3832,7 @@
       "id": "minimax/minimax-m2.5",
       "name": "MiniMax: MiniMax M2.5",
       "provider": "minimax",
-      "contextLength": 196608,
+      "contextLength": 204800,
       "pricing": {
         "prompt": "0.00000015",
         "completion": "0.00000115",
@@ -3750,7 +3910,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -3764,7 +3923,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -3821,10 +3979,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -4034,8 +4193,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000044",
-        "completion": "0.000002",
+        "prompt": "0.0000004",
+        "completion": "0.0000019",
         "request": null,
         "image": null
       },
@@ -4053,7 +4212,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65535,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4535,7 +4694,7 @@
       "id": "minimax/minimax-m2.1",
       "name": "MiniMax: MiniMax M2.1",
       "provider": "minimax",
-      "contextLength": 196608,
+      "contextLength": 204800,
       "pricing": {
         "prompt": "0.00000029",
         "completion": "0.00000095",
@@ -4932,9 +5091,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -5384,10 +5544,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -5715,50 +5876,6 @@
         "stop",
         "structured_outputs",
         "temperature",
-        "top_p"
-      ]
-    },
-    {
-      "id": "x-ai/grok-4.1-fast",
-      "name": "xAI: Grok 4.1 Fast",
-      "provider": "x-ai",
-      "contextLength": 2000000,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000005",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 2000000,
-        "max_completion_tokens": 30000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -6103,10 +6220,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+audio->text",
+        "modality": "text+file+audio->text",
         "input_modalities": [
           "text",
-          "audio"
+          "audio",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -6217,7 +6335,7 @@
       "id": "minimax/minimax-m2",
       "name": "MiniMax: MiniMax M2",
       "provider": "minimax",
-      "contextLength": 196608,
+      "contextLength": 204800,
       "pricing": {
         "prompt": "0.000000255",
         "completion": "0.000001",
@@ -6264,7 +6382,7 @@
       "id": "qwen/qwen3-vl-32b-instruct",
       "name": "Qwen: Qwen3 VL 32B Instruct",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0.000000104",
         "completion": "0.000000416",
@@ -6306,7 +6424,7 @@
       "contextLength": 131000,
       "pricing": {
         "prompt": "0.000000017",
-        "completion": "0.00000011",
+        "completion": "0.000000112",
         "request": null,
         "image": null
       },
@@ -6341,7 +6459,7 @@
       "id": "microsoft/phi-4-mini-instruct",
       "name": "Microsoft: Phi 4 Mini Instruct",
       "provider": "microsoft",
-      "contextLength": 128000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000008",
         "completion": "0.00000035",
@@ -6437,10 +6555,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
+          "text",
           "image",
-          "text"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -6471,7 +6590,7 @@
       "id": "qwen/qwen3-vl-8b-thinking",
       "name": "Qwen: Qwen3 VL 8B Thinking",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 256000,
       "pricing": {
         "prompt": "0.000000117",
         "completion": "0.000001365",
@@ -6513,7 +6632,7 @@
       "id": "qwen/qwen3-vl-8b-instruct",
       "name": "Qwen: Qwen3 VL 8B Instruct",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 256000,
       "pricing": {
         "prompt": "0.00000008",
         "completion": "0.0000005",
@@ -6874,7 +6993,7 @@
       "id": "qwen/qwen3-vl-30b-a3b-instruct",
       "name": "Qwen: Qwen3 VL 30B A3B Instruct",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000013",
         "completion": "0.00000052",
@@ -6960,10 +7079,10 @@
       "id": "z-ai/glm-4.6",
       "name": "Z.ai: GLM 4.6",
       "provider": "z-ai",
-      "contextLength": 204800,
+      "contextLength": 202752,
       "pricing": {
-        "prompt": "0.00000039",
-        "completion": "0.0000019",
+        "prompt": "0.00000043",
+        "completion": "0.00000174",
         "request": null,
         "image": null
       },
@@ -6979,8 +7098,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 204800,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7466,50 +7585,6 @@
       ]
     },
     {
-      "id": "x-ai/grok-4-fast",
-      "name": "xAI: Grok 4 Fast",
-      "provider": "x-ai",
-      "contextLength": 2000000,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000005",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 2000000,
-        "max_completion_tokens": 30000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "alibaba/tongyi-deepresearch-30b-a3b",
       "name": "Tongyi DeepResearch 30B A3B",
       "provider": "alibaba",
@@ -7598,7 +7673,7 @@
       "id": "qwen/qwen3-next-80b-a3b-thinking",
       "name": "Qwen: Qwen3 Next 80B A3B Thinking",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0.0000000975",
         "completion": "0.00000078",
@@ -7899,8 +7974,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
+        "prompt": "0.0000006",
+        "completion": "0.0000025",
         "request": null,
         "image": null
       },
@@ -7982,49 +8057,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "x-ai/grok-code-fast-1",
-      "name": "xAI: Grok Code Fast 1",
-      "provider": "x-ai",
-      "contextLength": 256000,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 10000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -8112,10 +8144,10 @@
       "id": "deepseek/deepseek-chat-v3.1",
       "name": "DeepSeek: DeepSeek V3.1",
       "provider": "deepseek",
-      "contextLength": 32768,
+      "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.00000075",
+        "prompt": "0.00000021",
+        "completion": "0.00000079",
         "request": null,
         "image": null
       },
@@ -8131,15 +8163,14 @@
         "instruct_type": "deepseek-v3.1"
       },
       "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 7168,
+        "context_length": 163840,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -8153,7 +8184,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -8215,10 +8245,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -8249,7 +8280,7 @@
       "id": "baidu/ernie-4.5-21b-a3b",
       "name": "Baidu: ERNIE 4.5 21B A3B",
       "provider": "baidu",
-      "contextLength": 120000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000007",
         "completion": "0.00000028",
@@ -8290,7 +8321,7 @@
       "id": "baidu/ernie-4.5-vl-28b-a3b",
       "name": "Baidu: ERNIE 4.5 VL 28B A3B",
       "provider": "baidu",
-      "contextLength": 30000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000014",
         "completion": "0.00000056",
@@ -8365,6 +8396,7 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -8615,7 +8647,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.000000039",
-        "completion": "0.00000018",
+        "completion": "0.00000019",
         "request": null,
         "image": null
       },
@@ -8632,7 +8664,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8799,9 +8831,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -9044,7 +9077,7 @@
       "id": "qwen/qwen3-235b-a22b-thinking-2507",
       "name": "Qwen: Qwen3 235B A22B Thinking 2507",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0.0000001495",
         "completion": "0.000001495",
@@ -9126,7 +9159,7 @@
       "id": "qwen/qwen3-coder:free",
       "name": "Qwen: Qwen3 Coder 480B A35B (free)",
       "provider": "qwen",
-      "contextLength": 262000,
+      "contextLength": 1048576,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -9165,7 +9198,7 @@
       "id": "qwen/qwen3-coder",
       "name": "Qwen: Qwen3 Coder 480B A35B",
       "provider": "qwen",
-      "contextLength": 262144,
+      "contextLength": 1048576,
       "pricing": {
         "prompt": "0.00000022",
         "completion": "0.0000018",
@@ -9430,9 +9463,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -9471,9 +9505,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -9536,50 +9571,6 @@
         "structured_outputs",
         "temperature",
         "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "x-ai/grok-4",
-      "name": "xAI: Grok 4",
-      "provider": "x-ai",
-      "contextLength": 256000,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -9692,7 +9683,7 @@
       "id": "baidu/ernie-4.5-vl-424b-a47b",
       "name": "Baidu: ERNIE 4.5 VL 424B A47B ",
       "provider": "baidu",
-      "contextLength": 123000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000042",
         "completion": "0.00000125",
@@ -9734,7 +9725,7 @@
       "id": "baidu/ernie-4.5-300b-a47b",
       "name": "Baidu: ERNIE 4.5 300B A47B ",
       "provider": "baidu",
-      "contextLength": 123000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000028",
         "completion": "0.0000011",
@@ -9762,6 +9753,7 @@
         "max_tokens",
         "presence_penalty",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -9989,92 +9981,6 @@
       ]
     },
     {
-      "id": "x-ai/grok-3-mini",
-      "name": "xAI: Grok 3 Mini",
-      "provider": "x-ai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000005",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "x-ai/grok-3",
-      "name": "xAI: Grok 3",
-      "provider": "x-ai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "google/gemini-2.5-pro-preview",
       "name": "Google: Gemini 2.5 Pro Preview 06-05",
       "provider": "google",
@@ -10299,10 +10205,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -10584,7 +10491,7 @@
       "id": "qwen/qwen3-30b-a3b",
       "name": "Qwen: Qwen3 30B A3B",
       "provider": "qwen",
-      "contextLength": 40960,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000009",
         "completion": "0.00000045",
@@ -10633,7 +10540,7 @@
       "id": "qwen/qwen3-8b",
       "name": "Qwen: Qwen3 8B",
       "provider": "qwen",
-      "contextLength": 40960,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000005",
         "completion": "0.0000004",
@@ -10680,9 +10587,9 @@
       "id": "qwen/qwen3-14b",
       "name": "Qwen: Qwen3 14B",
       "provider": "qwen",
-      "contextLength": 40960,
+      "contextLength": 131702,
       "pricing": {
-        "prompt": "0.00000006",
+        "prompt": "0.0000001",
         "completion": "0.00000024",
         "request": null,
         "image": null
@@ -10729,7 +10636,7 @@
       "id": "qwen/qwen3-32b",
       "name": "Qwen: Qwen3 32B",
       "provider": "qwen",
-      "contextLength": 40960,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000008",
         "completion": "0.00000028",
@@ -11096,90 +11003,6 @@
       ]
     },
     {
-      "id": "x-ai/grok-3-mini-beta",
-      "name": "xAI: Grok 3 Mini Beta",
-      "provider": "x-ai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000005",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "x-ai/grok-3-beta",
-      "name": "xAI: Grok 3 Beta",
-      "provider": "x-ai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Grok",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-4-maverick",
       "name": "Meta: Llama 4 Maverick",
       "provider": "meta-llama",
@@ -11227,7 +11050,7 @@
       "id": "meta-llama/llama-4-scout",
       "name": "Meta: Llama 4 Scout",
       "provider": "meta-llama",
-      "contextLength": 327680,
+      "contextLength": 10000000,
       "pricing": {
         "prompt": "0.00000008",
         "completion": "0.0000003",
@@ -11358,8 +11181,8 @@
       "provider": "mistralai",
       "contextLength": 128000,
       "pricing": {
-        "prompt": "0.00000035",
-        "completion": "0.00000056",
+        "prompt": "0.000000351",
+        "completion": "0.000000555",
         "request": null,
         "image": null
       },
@@ -11876,86 +11699,6 @@
       ]
     },
     {
-      "id": "anthropic/claude-3.7-sonnet",
-      "name": "Anthropic: Claude 3.7 Sonnet",
-      "provider": "anthropic",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Claude",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 64000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "anthropic/claude-3.7-sonnet:thinking",
-      "name": "Anthropic: Claude 3.7 Sonnet (thinking)",
-      "provider": "anthropic",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Claude",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 64000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "mistralai/mistral-saba",
       "name": "Mistral: Saba",
       "provider": "mistralai",
@@ -11967,9 +11710,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -12002,7 +11746,7 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000048",
+        "prompt": "0.000000484",
         "completion": "0.00000003",
         "request": null,
         "image": null
@@ -12077,7 +11821,7 @@
       "id": "google/gemini-2.0-flash-001",
       "name": "Google: Gemini 2.0 Flash",
       "provider": "google",
-      "contextLength": 1000000,
+      "contextLength": 1048576,
       "pricing": {
         "prompt": "0.0000001",
         "completion": "0.0000004",
@@ -12100,7 +11844,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
+        "context_length": 1048576,
         "max_completion_tokens": 8192,
         "is_moderated": false
       },
@@ -12113,43 +11857,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen-vl-plus",
-      "name": "Qwen: Qwen VL Plus",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000001365",
-        "completion": "0.0000004095",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "temperature",
         "top_p"
       ]
     },
@@ -12257,87 +11964,10 @@
       ]
     },
     {
-      "id": "qwen/qwen-vl-max",
-      "name": "Qwen: Qwen VL Max",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000052",
-        "completion": "0.00000208",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen-turbo",
-      "name": "Qwen: Qwen-Turbo",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000000325",
-        "completion": "0.00000013",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen2.5-vl-72b-instruct",
       "name": "Qwen: Qwen2.5 VL 72B Instruct",
       "provider": "qwen",
-      "contextLength": 32000,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000025",
         "completion": "0.00000075",
@@ -12401,44 +12031,6 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen-max",
-      "name": "Qwen: Qwen-Max ",
-      "provider": "qwen",
-      "contextLength": 32768,
-      "pricing": {
-        "prompt": "0.00000104",
-        "completion": "0.00000416",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 8192,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12538,7 +12130,7 @@
       "id": "deepseek/deepseek-r1-distill-qwen-32b",
       "name": "DeepSeek: R1 Distill Qwen 32B",
       "provider": "deepseek",
-      "contextLength": 32768,
+      "contextLength": 128000,
       "pricing": {
         "prompt": "0.00000029",
         "completion": "0.00000029",
@@ -12664,7 +12256,7 @@
       "id": "deepseek/deepseek-r1",
       "name": "DeepSeek: R1",
       "provider": "deepseek",
-      "contextLength": 64000,
+      "contextLength": 163840,
       "pricing": {
         "prompt": "0.0000007",
         "completion": "0.0000025",
@@ -12695,8 +12287,10 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -12995,7 +12589,7 @@
       "id": "meta-llama/llama-3.3-70b-instruct:free",
       "name": "Meta: Llama 3.3 70B Instruct (free)",
       "provider": "meta-llama",
-      "contextLength": 65536,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -13244,9 +12838,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -13285,9 +12880,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -13326,10 +12922,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -13360,7 +12957,7 @@
       "id": "qwen/qwen-2.5-coder-32b-instruct",
       "name": "Qwen2.5 Coder 32B Instruct",
       "provider": "qwen",
-      "contextLength": 32768,
+      "contextLength": 128000,
       "pricing": {
         "prompt": "0.00000066",
         "completion": "0.000001",
@@ -13480,7 +13077,7 @@
       "id": "anthracite-org/magnum-v4-72b",
       "name": "Magnum v4 72B",
       "provider": "anthracite-org",
-      "contextLength": 16384,
+      "contextLength": 32768,
       "pricing": {
         "prompt": "0.000003",
         "completion": "0.000005",
@@ -13525,7 +13122,7 @@
       "id": "qwen/qwen-2.5-7b-instruct",
       "name": "Qwen: Qwen2.5 7B Instruct",
       "provider": "qwen",
-      "contextLength": 32768,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000004",
         "completion": "0.0000001",
@@ -13681,119 +13278,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.2-3b-instruct:free",
-      "name": "Meta: Llama 3.2 3B Instruct (free)",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "meta-llama/llama-3.2-3b-instruct",
-      "name": "Meta: Llama 3.2 3B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 80000,
-      "pricing": {
-        "prompt": "0.000000051",
-        "completion": "0.00000034",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 80000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "meta-llama/llama-3.2-1b-instruct",
-      "name": "Meta: Llama 3.2 1B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 60000,
-      "pricing": {
-        "prompt": "0.000000027",
-        "completion": "0.0000002",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 60000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.2-11b-vision-instruct",
       "name": "Meta: Llama 3.2 11B Vision Instruct",
       "provider": "meta-llama",
@@ -13837,10 +13321,123 @@
       ]
     },
     {
+      "id": "meta-llama/llama-3.2-1b-instruct",
+      "name": "Meta: Llama 3.2 1B Instruct",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.000000027",
+        "completion": "0.000000201",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 60000,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "repetition_penalty",
+        "seed",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3.2-3b-instruct:free",
+      "name": "Meta: Llama 3.2 3B Instruct (free)",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "stop",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3.2-3b-instruct",
+      "name": "Meta: Llama 3.2 3B Instruct",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.0000000509",
+        "completion": "0.000000335",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 80000,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "repetition_penalty",
+        "seed",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
       "id": "qwen/qwen-2.5-72b-instruct",
       "name": "Qwen2.5 72B Instruct",
       "provider": "qwen",
-      "contextLength": 32768,
+      "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000036",
         "completion": "0.0000004",
@@ -14225,53 +13822,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.1-8b-instruct",
-      "name": "Meta: Llama 3.1 8B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 16384,
-      "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.00000005",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 16384,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.1-70b-instruct",
       "name": "Meta: Llama 3.1 70B Instruct",
       "provider": "meta-llama",
@@ -14317,13 +13867,13 @@
       ]
     },
     {
-      "id": "mistralai/mistral-nemo",
-      "name": "Mistral: Mistral Nemo",
-      "provider": "mistralai",
+      "id": "meta-llama/llama-3.1-8b-instruct",
+      "name": "Meta: Llama 3.1 8B Instruct",
+      "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000002",
-        "completion": "0.00000003",
+        "completion": "0.00000005",
         "request": null,
         "image": null
       },
@@ -14335,12 +13885,12 @@
         "output_modalities": [
           "text"
         ],
-        "tokenizer": "Mistral",
-        "instruct_type": "mistral"
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
+        "context_length": 16384,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14360,6 +13910,51 @@
         "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "mistralai/mistral-nemo",
+      "name": "Mistral: Mistral Nemo",
+      "provider": "mistralai",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.00000002",
+        "completion": "0.00000004",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Mistral",
+        "instruct_type": "mistral"
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": 16384,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -14581,54 +14176,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4o-2024-05-13",
-      "name": "OpenAI: GPT-4o (2024-05-13)",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.000005",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 4096,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "openai/gpt-4o",
       "name": "OpenAI: GPT-4o",
       "provider": "openai",
@@ -14677,44 +14224,51 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3-8b-instruct",
-      "name": "Meta: Llama 3 8B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 8192,
+      "id": "openai/gpt-4o-2024-05-13",
+      "name": "OpenAI: GPT-4o (2024-05-13)",
+      "provider": "openai",
+      "contextLength": 128000,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.00000004",
+        "prompt": "0.000005",
+        "completion": "0.000015",
         "request": null,
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
         ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
+        "tokenizer": "GPT",
+        "instruct_type": null
       },
       "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 8192,
+        "context_length": 128000,
+        "max_completion_tokens": 4096,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
         "max_tokens",
-        "min_p",
         "presence_penalty",
-        "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
-        "top_k",
-        "top_p"
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
       ]
     },
     {
@@ -14751,6 +14305,49 @@
         "repetition_penalty",
         "seed",
         "stop",
+        "structured_outputs",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3-8b-instruct",
+      "name": "Meta: Llama 3 8B Instruct",
+      "provider": "meta-llama",
+      "contextLength": 8192,
+      "pricing": {
+        "prompt": "0.00000004",
+        "completion": "0.00000004",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 8192,
+        "max_completion_tokens": 8192,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
         "temperature",
         "top_k",
         "top_p"
@@ -14768,9 +14365,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -14801,7 +14399,7 @@
       "id": "microsoft/wizardlm-2-8x22b",
       "name": "WizardLM-2 8x22B",
       "provider": "microsoft",
-      "contextLength": 65535,
+      "contextLength": 65536,
       "pricing": {
         "prompt": "0.00000062",
         "completion": "0.00000062",
@@ -14829,6 +14427,7 @@
         "max_tokens",
         "presence_penalty",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -14931,9 +14530,10 @@
         "image": null
       },
       "architecture": {
-        "modality": "text->text",
+        "modality": "text+file->text",
         "input_modalities": [
-          "text"
+          "text",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -15049,51 +14649,6 @@
       ]
     },
     {
-      "id": "alpindale/goliath-120b",
-      "name": "Goliath 120B",
-      "provider": "alpindale",
-      "contextLength": 6144,
-      "pricing": {
-        "prompt": "0.00000375",
-        "completion": "0.0000075",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama2",
-        "instruct_type": "airoboros"
-      },
-      "topProvider": {
-        "context_length": 6144,
-        "max_completion_tokens": 1024,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "openrouter/auto",
       "name": "Auto Router",
       "provider": "openrouter",
@@ -15194,6 +14749,44 @@
       ]
     },
     {
+      "id": "mistralai/mistral-7b-instruct-v0.1",
+      "name": "Mistral: Mistral 7B Instruct v0.1",
+      "provider": "mistralai",
+      "contextLength": 4096,
+      "pricing": {
+        "prompt": "0.00000011",
+        "completion": "0.00000019",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Mistral",
+        "instruct_type": "mistral"
+      },
+      "topProvider": {
+        "context_length": 2824,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "repetition_penalty",
+        "seed",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
       "id": "openai/gpt-3.5-turbo-instruct",
       "name": "OpenAI: GPT-3.5 Turbo Instruct",
       "provider": "openai",
@@ -15232,44 +14825,6 @@
         "structured_outputs",
         "temperature",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "mistralai/mistral-7b-instruct-v0.1",
-      "name": "Mistral: Mistral 7B Instruct v0.1",
-      "provider": "mistralai",
-      "contextLength": 2824,
-      "pricing": {
-        "prompt": "0.00000011",
-        "completion": "0.00000019",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": "mistral"
-      },
-      "topProvider": {
-        "context_length": 2824,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "temperature",
-        "top_k",
         "top_p"
       ]
     },
@@ -15500,6 +15055,50 @@
       ]
     },
     {
+      "id": "openai/gpt-3.5-turbo",
+      "name": "OpenAI: GPT-3.5 Turbo",
+      "provider": "openai",
+      "contextLength": 16385,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 16385,
+        "max_completion_tokens": 4096,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
       "id": "openai/gpt-4",
       "name": "OpenAI: GPT-4",
       "provider": "openai",
@@ -15531,50 +15130,6 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-3.5-turbo",
-      "name": "OpenAI: GPT-3.5 Turbo",
-      "provider": "openai",
-      "contextLength": 16385,
-      "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.0000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 16385,
-        "max_completion_tokens": 4096,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
