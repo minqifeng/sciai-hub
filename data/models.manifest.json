@@ -3,21 +3,66 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-19T05:59:39.720Z",
-  "validatedAt": "2026-05-19T05:59:39.721Z",
+  "sourceFetchedAt": "2026-05-20T05:59:20.078Z",
+  "validatedAt": "2026-05-20T05:59:20.079Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-19T05:59:39.720Z",
-    "snapshotDate": "2026-05-19"
+    "refreshedAt": "2026-05-20T05:59:20.078Z",
+    "snapshotDate": "2026-05-20"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 356,
+  "recordCount": 357,
   "records": [
+    {
+      "id": "google/gemini-3.5-flash",
+      "name": "Google: Gemini 3.5 Flash",
+      "provider": "google",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.0000015",
+        "completion": "0.000009",
+        "request": null,
+        "image": "0.0000015"
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video",
+          "file",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Gemini",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
     {
       "id": "anthropic/claude-opus-4.7-fast",
       "name": "Anthropic: Claude Opus 4.7 (Fast)",
@@ -745,19 +790,19 @@
       "provider": "~google",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.000003",
+        "prompt": "0.0000015",
+        "completion": "0.000009",
         "request": null,
-        "image": "0.0000005"
+        "image": "0.0000015"
       },
       "architecture": {
         "modality": "text+image+file+audio+video->text",
         "input_modalities": [
           "text",
           "image",
+          "video",
           "file",
-          "audio",
-          "video"
+          "audio"
         ],
         "output_modalities": [
           "text"
@@ -1826,10 +1871,10 @@
       "id": "z-ai/glm-5.1",
       "name": "Z.ai: GLM 5.1",
       "provider": "z-ai",
-      "contextLength": 202752,
+      "contextLength": 202800,
       "pricing": {
-        "prompt": "0.00000098",
-        "completion": "0.00000308",
+        "prompt": "0",
+        "completion": "0",
         "request": null,
         "image": null
       },
@@ -1845,8 +1890,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
-        "max_completion_tokens": null,
+        "context_length": 202800,
+        "max_completion_tokens": 202800,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3256,7 +3301,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000014",
+        "prompt": "0.000000139",
         "completion": "0.000001",
         "request": null,
         "image": null
@@ -3276,7 +3321,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5195,6 +5240,7 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -13176,8 +13222,8 @@
       ]
     },
     {
-      "id": "inflection/inflection-3-pi",
-      "name": "Inflection: Inflection 3 Pi",
+      "id": "inflection/inflection-3-productivity",
+      "name": "Inflection: Inflection 3 Productivity",
       "provider": "inflection",
       "contextLength": 8000,
       "pricing": {
@@ -13210,8 +13256,8 @@
       ]
     },
     {
-      "id": "inflection/inflection-3-productivity",
-      "name": "Inflection: Inflection 3 Productivity",
+      "id": "inflection/inflection-3-pi",
+      "name": "Inflection: Inflection 3 Pi",
       "provider": "inflection",
       "contextLength": 8000,
       "pricing": {
@@ -13291,47 +13337,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.2-1b-instruct",
-      "name": "Meta: Llama 3.2 1B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000027",
-        "completion": "0.000000201",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 60000,
-        "max_completion_tokens": 60000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.2-11b-vision-instruct",
       "name": "Meta: Llama 3.2 11B Vision Instruct",
       "provider": "meta-llama",
@@ -13367,6 +13372,47 @@
         "presence_penalty",
         "repetition_penalty",
         "response_format",
+        "seed",
+        "stop",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3.2-1b-instruct",
+      "name": "Meta: Llama 3.2 1B Instruct",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.000000027",
+        "completion": "0.000000201",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 60000,
+        "max_completion_tokens": 60000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "repetition_penalty",
         "seed",
         "stop",
         "temperature",
@@ -13841,6 +13887,51 @@
       ]
     },
     {
+      "id": "meta-llama/llama-3.1-70b-instruct",
+      "name": "Meta: Llama 3.1 70B Instruct",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0.0000004",
+        "completion": "0.0000004",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": 16384,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
       "id": "meta-llama/llama-3.1-8b-instruct",
       "name": "Meta: Llama 3.1 8B Instruct",
       "provider": "meta-llama",
@@ -13884,51 +13975,6 @@
         "tools",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "meta-llama/llama-3.1-70b-instruct",
-      "name": "Meta: Llama 3.1 70B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -13978,6 +14024,53 @@
       ]
     },
     {
+      "id": "openai/gpt-4o-mini-2024-07-18",
+      "name": "OpenAI: GPT-4o-mini (2024-07-18)",
+      "provider": "openai",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 16384,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
+      ]
+    },
+    {
       "id": "openai/gpt-4o-mini",
       "name": "OpenAI: GPT-4o-mini",
       "provider": "openai",
@@ -14011,53 +14104,6 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
-      "id": "openai/gpt-4o-mini-2024-07-18",
-      "name": "OpenAI: GPT-4o-mini (2024-07-18)",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
@@ -14195,54 +14241,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4o-2024-05-13",
-      "name": "OpenAI: GPT-4o (2024-05-13)",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.000005",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 4096,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "openai/gpt-4o",
       "name": "OpenAI: GPT-4o",
       "provider": "openai",
@@ -14269,6 +14267,54 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 16384,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
+      ]
+    },
+    {
+      "id": "openai/gpt-4o-2024-05-13",
+      "name": "OpenAI: GPT-4o (2024-05-13)",
+      "provider": "openai",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.000005",
+        "completion": "0.000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 4096,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14580,50 +14626,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4-turbo-preview",
-      "name": "OpenAI: GPT-4 Turbo Preview",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00001",
-        "completion": "0.00003",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 4096,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "openai/gpt-3.5-turbo-0613",
       "name": "OpenAI: GPT-3.5 Turbo (older v0613)",
       "provider": "openai",
@@ -14655,6 +14657,50 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openai/gpt-4-turbo-preview",
+      "name": "OpenAI: GPT-4 Turbo Preview",
+      "provider": "openai",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.00001",
+        "completion": "0.00003",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 4096,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
@@ -14768,6 +14814,47 @@
       ]
     },
     {
+      "id": "mistralai/mistral-7b-instruct-v0.1",
+      "name": "Mistral: Mistral 7B Instruct v0.1",
+      "provider": "mistralai",
+      "contextLength": 4096,
+      "pricing": {
+        "prompt": "0.00000011",
+        "completion": "0.00000019",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Mistral",
+        "instruct_type": "mistral"
+      },
+      "topProvider": {
+        "context_length": 2824,
+        "max_completion_tokens": 2824,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
       "id": "openai/gpt-3.5-turbo-instruct",
       "name": "OpenAI: GPT-3.5 Turbo Instruct",
       "provider": "openai",
@@ -14806,47 +14893,6 @@
         "structured_outputs",
         "temperature",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "mistralai/mistral-7b-instruct-v0.1",
-      "name": "Mistral: Mistral 7B Instruct v0.1",
-      "provider": "mistralai",
-      "contextLength": 4096,
-      "pricing": {
-        "prompt": "0.00000011",
-        "completion": "0.00000019",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": "mistral"
-      },
-      "topProvider": {
-        "context_length": 2824,
-        "max_completion_tokens": 2824,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
         "top_p"
       ]
     },
