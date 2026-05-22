@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-21T06:02:55.625Z",
-  "validatedAt": "2026-05-21T06:02:55.625Z",
+  "sourceFetchedAt": "2026-05-22T05:59:12.064Z",
+  "validatedAt": "2026-05-22T05:59:12.065Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-21T06:02:55.625Z",
-    "snapshotDate": "2026-05-21"
+    "refreshedAt": "2026-05-22T05:59:12.064Z",
+    "snapshotDate": "2026-05-22"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -18,6 +18,49 @@
   },
   "recordCount": 358,
   "records": [
+    {
+      "id": "qwen/qwen3.7-max",
+      "name": "Qwen: Qwen3.7 Max",
+      "provider": "qwen",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.0000025",
+        "completion": "0.0000075",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
     {
       "id": "x-ai/grok-build-0.1",
       "name": "xAI: Grok Build 0.1",
@@ -1010,8 +1053,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000001875",
-        "completion": "0.000001125",
+        "prompt": "0.00000012375",
+        "completion": "0.0000007425",
         "request": null,
         "image": null
       },
@@ -1053,7 +1096,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000149",
+        "prompt": "0.00000015",
         "completion": "0.000001",
         "request": null,
         "image": null
@@ -1073,7 +1116,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1147,7 +1190,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000032",
+        "prompt": "0.0000003",
         "completion": "0.0000032",
         "request": null,
         "image": null
@@ -1167,7 +1210,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1919,10 +1962,10 @@
       "id": "z-ai/glm-5.1",
       "name": "Z.ai: GLM 5.1",
       "provider": "z-ai",
-      "contextLength": 202800,
+      "contextLength": 202752,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.00000098",
+        "completion": "0.00000308",
         "request": null,
         "image": null
       },
@@ -1938,8 +1981,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202800,
-        "max_completion_tokens": 202800,
+        "context_length": 202752,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2156,8 +2199,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.000000325",
-        "completion": "0.00000195",
+        "prompt": "0.0000001794",
+        "completion": "0.00000107315",
         "request": null,
         "image": null
       },
@@ -3471,7 +3514,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4239,43 +4282,6 @@
         "stop",
         "temperature",
         "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "arcee-ai/trinity-large-preview",
-      "name": "Arcee AI: Trinity Large Preview",
-      "provider": "arcee-ai",
-      "contextLength": 131000,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.00000045",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "response_format",
-        "structured_outputs",
-        "temperature",
         "tools",
         "top_k",
         "top_p"
