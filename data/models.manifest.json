@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-22T05:59:12.064Z",
-  "validatedAt": "2026-05-22T05:59:12.065Z",
+  "sourceFetchedAt": "2026-05-23T05:33:45.270Z",
+  "validatedAt": "2026-05-23T05:33:45.270Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-22T05:59:12.064Z",
-    "snapshotDate": "2026-05-22"
+    "refreshedAt": "2026-05-23T05:33:45.270Z",
+    "snapshotDate": "2026-05-23"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1053,8 +1053,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000012375",
-        "completion": "0.0000007425",
+        "prompt": "0.0000001875",
+        "completion": "0.000001125",
         "request": null,
         "image": null
       },
@@ -1115,8 +1115,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "context_length": 262140,
+        "max_completion_tokens": 262140,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1405,8 +1405,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000112",
-        "completion": "0.000000224",
+        "prompt": "0.0000001",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -1422,8 +1422,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": null,
+        "context_length": 1048576,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2199,8 +2199,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000001794",
-        "completion": "0.00000107315",
+        "prompt": "0.000000325",
+        "completion": "0.00000195",
         "request": null,
         "image": null
       },
