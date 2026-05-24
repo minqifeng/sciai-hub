@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-23T05:33:45.270Z",
-  "validatedAt": "2026-05-23T05:33:45.270Z",
+  "sourceFetchedAt": "2026-05-24T05:54:47.147Z",
+  "validatedAt": "2026-05-24T05:54:47.147Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-23T05:33:45.270Z",
-    "snapshotDate": "2026-05-23"
+    "refreshedAt": "2026-05-24T05:54:47.147Z",
+    "snapshotDate": "2026-05-24"
   },
   "lineage": {
     "mode": "catalog-sync",
