@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-24T05:54:47.147Z",
-  "validatedAt": "2026-05-24T05:54:47.147Z",
+  "sourceFetchedAt": "2026-05-26T05:59:31.204Z",
+  "validatedAt": "2026-05-26T05:59:31.204Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-24T05:54:47.147Z",
-    "snapshotDate": "2026-05-24"
+    "refreshedAt": "2026-05-26T05:59:31.204Z",
+    "snapshotDate": "2026-05-26"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 358,
+  "recordCount": 357,
   "records": [
     {
       "id": "qwen/qwen3.7-max",
@@ -7689,53 +7689,6 @@
       ]
     },
     {
-      "id": "alibaba/tongyi-deepresearch-30b-a3b",
-      "name": "Tongyi DeepResearch 30B A3B",
-      "provider": "alibaba",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000045",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 131072,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-coder-flash",
       "name": "Qwen: Qwen3 Coder Flash",
       "provider": "qwen",
@@ -9168,6 +9121,7 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -12532,10 +12486,10 @@
       "id": "deepseek/deepseek-chat",
       "name": "DeepSeek: DeepSeek V3",
       "provider": "deepseek",
-      "contextLength": 163840,
+      "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.00000089",
+        "prompt": "0.0000002288",
+        "completion": "0.0000009144",
         "request": null,
         "image": null
       },
@@ -12551,8 +12505,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
-        "max_completion_tokens": 16384,
+        "context_length": 128000,
+        "max_completion_tokens": 16000,
         "is_moderated": false
       },
       "supportedParameters": [
