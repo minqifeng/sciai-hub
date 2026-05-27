@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-05-26T05:59:31.204Z",
-  "validatedAt": "2026-05-26T05:59:31.204Z",
+  "sourceFetchedAt": "2026-05-27T06:11:06.130Z",
+  "validatedAt": "2026-05-27T06:11:06.130Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-05-26T05:59:31.204Z",
-    "snapshotDate": "2026-05-26"
+    "refreshedAt": "2026-05-27T06:11:06.130Z",
+    "snapshotDate": "2026-05-27"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 357,
+  "recordCount": 356,
   "records": [
     {
       "id": "qwen/qwen3.7-max",
@@ -24,8 +24,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.0000075",
+        "prompt": "0.00000125",
+        "completion": "0.00000375",
         "request": null,
         "image": null
       },
@@ -624,7 +624,7 @@
       "id": "poolside/laguna-xs.2:free",
       "name": "Poolside: Laguna XS.2 (free)",
       "provider": "poolside",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -643,8 +643,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
+        "context_length": 262144,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -660,7 +660,7 @@
       "id": "poolside/laguna-m.1:free",
       "name": "Poolside: Laguna M.1 (free)",
       "provider": "poolside",
-      "contextLength": 131072,
+      "contextLength": 262144,
       "pricing": {
         "prompt": "0",
         "completion": "0",
@@ -679,8 +679,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
+        "context_length": 262144,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1096,7 +1096,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000015",
+        "prompt": "0.00000014",
         "completion": "0.000001",
         "request": null,
         "image": null
@@ -1190,7 +1190,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000003",
+        "prompt": "0.00000029",
         "completion": "0.0000032",
         "request": null,
         "image": null
@@ -1209,8 +1209,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "context_length": 262140,
+        "max_completion_tokens": 262140,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1538,8 +1538,8 @@
       "provider": "xiaomi",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000003",
+        "prompt": "0.000000435",
+        "completion": "0.00000087",
         "request": null,
         "image": null
       },
@@ -1556,7 +1556,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1585,8 +1585,8 @@
       "provider": "xiaomi",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
+        "prompt": "0.00000014",
+        "completion": "0.00000028",
         "request": null,
         "image": null
       },
@@ -2273,44 +2273,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "arcee-ai/trinity-large-thinking:free",
-      "name": "Arcee AI: Trinity Large Thinking (free)",
-      "provider": "arcee-ai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 80000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -9093,8 +9055,8 @@
       "provider": "z-ai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000085",
+        "prompt": "0.000000125",
+        "completion": "0.00000084",
         "request": null,
         "image": null
       },
@@ -9110,8 +9072,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 98304,
+        "context_length": 131070,
+        "max_completion_tokens": 131070,
         "is_moderated": false
       },
       "supportedParameters": [
