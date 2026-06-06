@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-05T06:14:11.609Z",
-  "validatedAt": "2026-06-05T06:14:11.609Z",
+  "sourceFetchedAt": "2026-06-06T05:47:31.093Z",
+  "validatedAt": "2026-06-06T05:47:31.093Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-05T06:14:11.609Z",
-    "snapshotDate": "2026-06-05"
+    "refreshedAt": "2026-06-06T05:47:31.093Z",
+    "snapshotDate": "2026-06-06"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 346,
+  "recordCount": 344,
   "records": [
     {
       "id": "nvidia/nemotron-3.5-content-safety:free",
@@ -2437,7 +2437,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000012",
-        "completion": "0.00000037",
+        "completion": "0.00000036",
         "request": null,
         "image": null
       },
@@ -2455,8 +2455,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 256000,
+        "max_completion_tokens": 8192,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2882,7 +2882,7 @@
       },
       "topProvider": {
         "context_length": 196608,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 196608,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5091,14 +5091,11 @@
         "max_tokens",
         "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
-        "seed",
         "stop",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -10396,7 +10393,7 @@
       },
       "topProvider": {
         "context_length": 40960,
-        "max_completion_tokens": 20000,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13776,88 +13773,6 @@
         "stop",
         "structured_outputs",
         "temperature",
-        "top_p"
-      ]
-    },
-    {
-      "id": "sao10k/l3-euryale-70b",
-      "name": "Sao10k: Llama 3 Euryale 70B v2.1",
-      "provider": "sao10k",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.00000148",
-        "completion": "0.00000148",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nousresearch/hermes-2-pro-llama-3-8b",
-      "name": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-      "provider": "nousresearch",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000014",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "chatml"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
         "top_p"
       ]
     },
