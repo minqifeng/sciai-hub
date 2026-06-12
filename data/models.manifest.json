@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-11T06:41:21.584Z",
-  "validatedAt": "2026-06-11T06:41:21.584Z",
+  "sourceFetchedAt": "2026-06-12T06:26:15.430Z",
+  "validatedAt": "2026-06-12T06:26:15.430Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-11T06:41:21.584Z",
-    "snapshotDate": "2026-06-11"
+    "refreshedAt": "2026-06-12T06:26:15.430Z",
+    "snapshotDate": "2026-06-12"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 338,
+  "recordCount": 337,
   "records": [
     {
       "id": "~anthropic/claude-fable-latest",
@@ -273,8 +273,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000016",
+        "prompt": "0.00000032",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -1280,8 +1280,8 @@
       "provider": "~moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000068",
-        "completion": "0.00000341",
+        "prompt": "0.00000067",
+        "completion": "0.00000339",
         "request": null,
         "image": null
       },
@@ -1298,8 +1298,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262142,
-        "max_completion_tokens": 262142,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1824,8 +1824,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000983",
-        "completion": "0.0000001966",
+        "prompt": "0.000000098",
+        "completion": "0.000000196",
         "request": null,
         "image": null
       },
@@ -1841,8 +1841,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1048575,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2207,8 +2207,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000068",
-        "completion": "0.00000341",
+        "prompt": "0.00000067",
+        "completion": "0.00000339",
         "request": null,
         "image": null
       },
@@ -2225,8 +2225,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262142,
-        "max_completion_tokens": 262142,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2529,7 +2529,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000012",
-        "completion": "0.00000036",
+        "completion": "0.00000035",
         "request": null,
         "image": null
       },
@@ -2547,8 +2547,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 8192,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2916,8 +2916,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000027",
-        "completion": "0.00000108",
+        "prompt": "0.00000025",
+        "completion": "0.000001",
         "request": null,
         "image": null
       },
@@ -2933,7 +2933,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
+        "context_length": 196608,
         "max_completion_tokens": 131072,
         "is_moderated": false
       },
@@ -8033,52 +8033,6 @@
       ]
     },
     {
-      "id": "nvidia/nemotron-nano-9b-v2",
-      "name": "NVIDIA: Nemotron Nano 9B V2",
-      "provider": "nvidia",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.00000016",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "moonshotai/kimi-k2-0905",
       "name": "MoonshotAI: Kimi K2 0905",
       "provider": "moonshotai",
@@ -9010,6 +8964,7 @@
         "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -10760,7 +10715,7 @@
       "id": "deepseek/deepseek-chat-v3-0324",
       "name": "DeepSeek: DeepSeek V3 0324",
       "provider": "deepseek",
-      "contextLength": 131072,
+      "contextLength": 163840,
       "pricing": {
         "prompt": "0.0000002",
         "completion": "0.00000077",
@@ -10779,7 +10734,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 32768,
+        "context_length": 163840,
         "max_completion_tokens": 16384,
         "is_moderated": false
       },
@@ -11553,8 +11508,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.00000075",
+        "prompt": "0.0000008",
+        "completion": "0.000001",
         "request": null,
         "image": null
       },
@@ -11571,8 +11526,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 32000,
-        "max_completion_tokens": null,
+        "context_length": 128000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11796,9 +11751,9 @@
       "id": "deepseek/deepseek-r1-distill-llama-70b",
       "name": "DeepSeek: R1 Distill Llama 70B",
       "provider": "deepseek",
-      "contextLength": 131072,
+      "contextLength": 128000,
       "pricing": {
-        "prompt": "0.0000007",
+        "prompt": "0.0000008",
         "completion": "0.0000008",
         "request": null,
         "image": null
@@ -11815,20 +11770,17 @@
         "instruct_type": "deepseek-r1"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "context_length": 8192,
+        "max_completion_tokens": 8192,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
-        "response_format",
         "seed",
         "stop",
         "temperature",
