@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-14T06:26:17.417Z",
-  "validatedAt": "2026-06-14T06:26:17.417Z",
+  "sourceFetchedAt": "2026-06-16T07:15:14.464Z",
+  "validatedAt": "2026-06-16T07:15:14.464Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-14T06:26:17.417Z",
-    "snapshotDate": "2026-06-14"
+    "refreshedAt": "2026-06-16T07:15:14.464Z",
+    "snapshotDate": "2026-06-16"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -22,7 +22,7 @@
       "id": "openrouter/fusion",
       "name": "OpenRouter: Fusion",
       "provider": "openrouter",
-      "contextLength": 128000,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "-1",
         "completion": "-1",
@@ -423,7 +423,9 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
@@ -435,6 +437,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -1634,7 +1637,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -1648,7 +1650,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -1882,8 +1883,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000018",
+        "prompt": "0.000000098",
+        "completion": "0.000000196",
         "request": null,
         "image": null
       },
@@ -1899,8 +1900,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 65536,
+        "context_length": 1048575,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1974,8 +1975,8 @@
       "provider": "tencent",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000063",
-        "completion": "0.00000021",
+        "prompt": "0.000000066",
+        "completion": "0.00000026",
         "request": null,
         "image": null
       },
@@ -1992,7 +1993,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2095,6 +2096,7 @@
         "reasoning",
         "response_format",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -2429,8 +2431,10 @@
         "logprobs",
         "max_tokens",
         "min_p",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
+        "reasoning_effort",
         "repetition_penalty",
         "response_format",
         "seed",
@@ -2474,14 +2478,19 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
+        "presence_penalty",
         "reasoning",
+        "repetition_penalty",
         "response_format",
         "seed",
+        "stop",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -2724,8 +2733,8 @@
       "provider": "x-ai",
       "contextLength": 2000000,
       "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.000006",
+        "prompt": "0.00000125",
+        "completion": "0.0000025",
         "request": null,
         "image": null
       },
@@ -3686,7 +3695,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4154,10 +4163,10 @@
       "id": "qwen/qwen3.5-397b-a17b",
       "name": "Qwen: Qwen3.5 397B A17B",
       "provider": "qwen",
-      "contextLength": 262144,
+      "contextLength": 256000,
       "pricing": {
-        "prompt": "0.00000039",
-        "completion": "0.00000234",
+        "prompt": "0.000000385",
+        "completion": "0.00000245",
         "request": null,
         "image": null
       },
@@ -4175,8 +4184,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "context_length": 131072,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8709,14 +8718,21 @@
         "is_moderated": true
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
+        "presence_penalty",
         "reasoning",
+        "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_k",
+        "top_p"
       ]
     },
     {
@@ -9015,7 +9031,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -9023,12 +9038,10 @@
         "response_format",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
