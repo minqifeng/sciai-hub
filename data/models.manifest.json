@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-16T07:15:14.464Z",
-  "validatedAt": "2026-06-16T07:15:14.464Z",
+  "sourceFetchedAt": "2026-06-17T07:00:22.335Z",
+  "validatedAt": "2026-06-17T07:00:22.335Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-16T07:15:14.464Z",
-    "snapshotDate": "2026-06-16"
+    "refreshedAt": "2026-06-17T07:00:22.335Z",
+    "snapshotDate": "2026-06-17"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -18,6 +18,53 @@
   },
   "recordCount": 337,
   "records": [
+    {
+      "id": "z-ai/glm-5.2",
+      "name": "Z.ai: GLM 5.2",
+      "provider": "z-ai",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
     {
       "id": "openrouter/fusion",
       "name": "OpenRouter: Fusion",
@@ -53,7 +100,7 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000075",
+        "prompt": "0.00000074",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -72,7 +119,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -306,7 +353,7 @@
       "contextLength": 1000000,
       "pricing": {
         "prompt": "0.0000005",
-        "completion": "0.0000025",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -473,14 +520,21 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "logprobs",
         "max_tokens",
+        "min_p",
+        "presence_penalty",
         "reasoning",
+        "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
         "temperature",
+        "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -1883,8 +1937,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000098",
-        "completion": "0.000000196",
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -1900,8 +1954,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": null,
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7963,7 +8017,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -7976,7 +8029,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -9007,7 +9059,7 @@
       "provider": "z-ai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000125",
+        "prompt": "0.00000013",
         "completion": "0.00000085",
         "request": null,
         "image": null
@@ -9024,8 +9076,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131070,
-        "max_completion_tokens": 131070,
+        "context_length": 131072,
+        "max_completion_tokens": 98304,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9035,7 +9087,6 @@
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
-        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -11693,50 +11744,6 @@
         "structured_outputs",
         "temperature",
         "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "deepseek/deepseek-r1-distill-qwen-32b",
-      "name": "DeepSeek: R1 Distill Qwen 32B",
-      "provider": "deepseek",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000029",
-        "completion": "0.00000029",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": "deepseek-r1"
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_logprobs",
         "top_p"
       ]
     },
