@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-19T06:57:19.526Z",
-  "validatedAt": "2026-06-19T06:57:19.526Z",
+  "sourceFetchedAt": "2026-06-20T06:12:19.540Z",
+  "validatedAt": "2026-06-20T06:12:19.541Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-19T06:57:19.526Z",
-    "snapshotDate": "2026-06-19"
+    "refreshedAt": "2026-06-20T06:12:19.540Z",
+    "snapshotDate": "2026-06-20"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 341,
+  "recordCount": 340,
   "records": [
     {
       "id": "google/gemini-3.1-flash-image",
@@ -227,8 +227,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000074",
-        "completion": "0.0000035",
+        "prompt": "0.000000612",
+        "completion": "0.000003069",
         "request": null,
         "image": null
       },
@@ -246,7 +246,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1384,8 +1384,6 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
-        "response_format",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
@@ -1458,7 +1456,6 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
@@ -6175,6 +6172,7 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -6258,11 +6256,14 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
         "response_format",
+        "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -6801,16 +6802,17 @@
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "response_format",
+        "seed",
+        "stop",
         "structured_outputs",
+        "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_p"
       ]
     },
     {
@@ -9300,15 +9302,10 @@
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
-        "seed",
-        "stop",
         "temperature",
         "tool_choice",
         "tools",
@@ -11483,6 +11480,7 @@
         "reasoning",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "top_k",
         "top_p"
@@ -14041,48 +14039,6 @@
         "structured_outputs",
         "temperature",
         "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "meta-llama/llama-3-70b-instruct",
-      "name": "Meta: Llama 3 70B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.00000051",
-        "completion": "0.00000074",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 8000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
