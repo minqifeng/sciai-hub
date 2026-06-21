@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-20T06:12:19.540Z",
-  "validatedAt": "2026-06-20T06:12:19.541Z",
+  "sourceFetchedAt": "2026-06-21T06:43:46.433Z",
+  "validatedAt": "2026-06-21T06:43:46.433Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-20T06:12:19.540Z",
-    "snapshotDate": "2026-06-20"
+    "refreshedAt": "2026-06-21T06:43:46.433Z",
+    "snapshotDate": "2026-06-21"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1596,7 +1596,7 @@
       "provider": "~moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000067",
+        "prompt": "0.00000066",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -1614,8 +1614,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2237,8 +2237,8 @@
       "provider": "tencent",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000066",
-        "completion": "0.00000026",
+        "prompt": "0.000000063",
+        "completion": "0.00000021",
         "request": null,
         "image": null
       },
@@ -2255,7 +2255,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2535,7 +2535,7 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000067",
+        "prompt": "0.00000066",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -2553,8 +2553,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "context_length": 262142,
+        "max_completion_tokens": 262142,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2688,7 +2688,7 @@
       },
       "topProvider": {
         "context_length": 202752,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 65535,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2959,8 +2959,8 @@
       "provider": "arcee-ai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000022",
-        "completion": "0.00000085",
+        "prompt": "0.00000025",
+        "completion": "0.0000008",
         "request": null,
         "image": null
       },
@@ -2977,27 +2977,22 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 80000,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
-        "seed",
         "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -3931,8 +3926,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 65536,
-        "max_completion_tokens": 65536,
+        "context_length": 131072,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5538,6 +5533,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -5551,6 +5547,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -9124,7 +9121,7 @@
       "topProvider": {
         "context_length": 200000,
         "max_completion_tokens": 32000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
