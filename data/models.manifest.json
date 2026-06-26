@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-25T05:58:20.488Z",
-  "validatedAt": "2026-06-25T05:58:20.488Z",
+  "sourceFetchedAt": "2026-06-26T06:02:27.638Z",
+  "validatedAt": "2026-06-26T06:02:27.639Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-25T05:58:20.488Z",
-    "snapshotDate": "2026-06-25"
+    "refreshedAt": "2026-06-26T06:02:27.638Z",
+    "snapshotDate": "2026-06-26"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1145,10 +1145,11 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image->text",
+        "modality": "text+image+file->text",
         "input_modalities": [
           "text",
-          "image"
+          "image",
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2179,8 +2180,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000089",
-        "completion": "0.000000224",
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -2196,8 +2197,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": null,
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2391,11 +2392,14 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
+        "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
         "temperature",
@@ -2791,6 +2795,7 @@
         "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -3327,8 +3332,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000024",
-        "completion": "0.00000096",
+        "prompt": "0.00000018",
+        "completion": "0.00000072",
         "request": null,
         "image": null
       },
@@ -3589,8 +3594,8 @@
       "provider": "nvidia",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000045",
+        "prompt": "0.000000085",
+        "completion": "0.0000004",
         "request": null,
         "image": null
       },
@@ -3607,7 +3612,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4563,8 +4568,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000009",
+        "prompt": "0.00000012",
+        "completion": "0.00000048",
         "request": null,
         "image": null
       },
@@ -8937,8 +8942,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000039",
-        "completion": "0.00000018",
+        "prompt": "0.00000003",
+        "completion": "0.00000015",
         "request": null,
         "image": null
       },
@@ -8955,7 +8960,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
