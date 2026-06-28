@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-27T05:46:43.014Z",
-  "validatedAt": "2026-06-27T05:46:43.014Z",
+  "sourceFetchedAt": "2026-06-28T06:09:06.215Z",
+  "validatedAt": "2026-06-28T06:09:06.215Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-27T05:46:43.014Z",
-    "snapshotDate": "2026-06-27"
+    "refreshedAt": "2026-06-28T06:09:06.215Z",
+    "snapshotDate": "2026-06-28"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -2001,8 +2001,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000002885",
-        "completion": "0.00000265",
+        "prompt": "0.0000002596",
+        "completion": "0.000002385",
         "request": null,
         "image": null
       },
