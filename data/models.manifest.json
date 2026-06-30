@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-06-28T06:09:06.215Z",
-  "validatedAt": "2026-06-28T06:09:06.215Z",
+  "sourceFetchedAt": "2026-06-30T06:02:42.537Z",
+  "validatedAt": "2026-06-30T06:02:42.537Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-06-28T06:09:06.215Z",
-    "snapshotDate": "2026-06-28"
+    "refreshedAt": "2026-06-30T06:02:42.537Z",
+    "snapshotDate": "2026-06-30"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 339,
+  "recordCount": 338,
   "records": [
     {
       "id": "sakana/fugu-ultra",
@@ -186,7 +186,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000095",
+        "prompt": "0.00000094",
         "completion": "0.000003",
         "request": null,
         "image": null
@@ -204,7 +204,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1635,8 +1635,8 @@
       "provider": "~moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000066",
-        "completion": "0.00000341",
+        "prompt": "0.00000055",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -2578,8 +2578,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000066",
-        "completion": "0.00000341",
+        "prompt": "0.00000055",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -2665,56 +2665,13 @@
       ]
     },
     {
-      "id": "anthropic/claude-opus-4.6-fast",
-      "name": "Anthropic: Claude Opus 4.6 (Fast)",
-      "provider": "anthropic",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "0.00003",
-        "completion": "0.00015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Claude",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 128000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p",
-        "verbosity"
-      ]
-    },
-    {
       "id": "z-ai/glm-5.1",
       "name": "Z.ai: GLM 5.1",
       "provider": "z-ai",
       "contextLength": 202752,
       "pricing": {
-        "prompt": "0.00000098",
-        "completion": "0.00000308",
+        "prompt": "0.000000975",
+        "completion": "0.0000043",
         "request": null,
         "image": null
       },
@@ -2730,7 +2687,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
+        "context_length": 65536,
         "max_completion_tokens": null,
         "is_moderated": false
       },
@@ -4853,7 +4810,7 @@
       "provider": "stepfun",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
+        "prompt": "0.0000001",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -4871,21 +4828,14 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "max_tokens",
-        "min_p",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
         "temperature",
         "tool_choice",
         "tools",
@@ -8413,7 +8363,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 100352,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9677,7 +9627,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 100352,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11460,6 +11410,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -11468,6 +11419,7 @@
         "structured_outputs",
         "temperature",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
