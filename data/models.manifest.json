@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-03T05:44:46.287Z",
-  "validatedAt": "2026-07-03T05:44:46.287Z",
+  "sourceFetchedAt": "2026-07-04T05:38:09.476Z",
+  "validatedAt": "2026-07-04T05:38:09.476Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-03T05:44:46.287Z",
-    "snapshotDate": "2026-07-03"
+    "refreshedAt": "2026-07-04T05:38:09.476Z",
+    "snapshotDate": "2026-07-04"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -339,8 +339,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000093",
-        "completion": "0.000003",
+        "prompt": "0.00000091",
+        "completion": "0.00000286",
         "request": null,
         "image": null
       },
@@ -356,8 +356,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 32768,
+        "context_length": 1024000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2853,6 +2853,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -2865,6 +2866,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -3659,8 +3661,8 @@
       "provider": "nvidia",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.000000085",
-        "completion": "0.0000004",
+        "prompt": "0.00000008",
+        "completion": "0.00000045",
         "request": null,
         "image": null
       },
@@ -3677,7 +3679,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4892,6 +4894,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -4906,6 +4909,7 @@
         "tools",
         "top_a",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -9007,6 +9011,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -9021,6 +9026,7 @@
         "tools",
         "top_a",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
