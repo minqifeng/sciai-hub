@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-04T05:38:09.476Z",
-  "validatedAt": "2026-07-04T05:38:09.476Z",
+  "sourceFetchedAt": "2026-07-05T05:56:19.401Z",
+  "validatedAt": "2026-07-05T05:56:19.401Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-04T05:38:09.476Z",
-    "snapshotDate": "2026-07-04"
+    "refreshedAt": "2026-07-05T05:56:19.401Z",
+    "snapshotDate": "2026-07-05"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -339,8 +339,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000091",
-        "completion": "0.00000286",
+        "prompt": "0.000000728",
+        "completion": "0.000002288",
         "request": null,
         "image": null
       },
@@ -356,8 +356,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 128000,
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
