@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-10T05:55:44.566Z",
-  "validatedAt": "2026-07-10T05:55:44.566Z",
+  "sourceFetchedAt": "2026-07-11T04:56:01.058Z",
+  "validatedAt": "2026-07-11T04:56:01.059Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-10T05:55:44.566Z",
-    "snapshotDate": "2026-07-10"
+    "refreshedAt": "2026-07-11T04:56:01.058Z",
+    "snapshotDate": "2026-07-11"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 347,
+  "recordCount": 345,
   "records": [
     {
       "id": "openai/gpt-5.6-luna-pro",
@@ -903,8 +903,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000054",
-        "completion": "0.00000176",
+        "prompt": "0.000000406",
+        "completion": "0.000001276",
         "request": null,
         "image": null
       },
@@ -920,8 +920,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 101376,
-        "max_completion_tokens": 101376,
+        "context_length": 1024000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1853,18 +1853,12 @@
         "is_moderated": true
       },
       "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
         "tool_choice",
-        "tools",
-        "top_logprobs"
+        "tools"
       ]
     },
     {
@@ -2807,8 +2801,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000018",
+        "prompt": "0.000000077",
+        "completion": "0.000000154",
         "request": null,
         "image": null
       },
@@ -2824,8 +2818,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 65536,
+        "context_length": 1024000,
+        "max_completion_tokens": 384000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6729,50 +6723,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "arcee-ai/trinity-mini",
-      "name": "Arcee AI: Trinity Mini",
-      "provider": "arcee-ai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 131072,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -14343,48 +14293,6 @@
         "top_logprobs",
         "top_p",
         "web_search_options"
-      ]
-    },
-    {
-      "id": "meta-llama/llama-3-8b-instruct",
-      "name": "Meta: Llama 3 8B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000014",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_p"
       ]
     },
     {
