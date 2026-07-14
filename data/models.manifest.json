@@ -3,21 +3,105 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-12T05:19:07.892Z",
-  "validatedAt": "2026-07-12T05:19:07.892Z",
+  "sourceFetchedAt": "2026-07-14T04:42:23.185Z",
+  "validatedAt": "2026-07-14T04:42:23.185Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-12T05:19:07.892Z",
-    "snapshotDate": "2026-07-12"
+    "refreshedAt": "2026-07-14T04:42:23.185Z",
+    "snapshotDate": "2026-07-14"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 345,
+  "recordCount": 344,
   "records": [
+    {
+      "id": "kwaipilot/kat-coder-air-v2.5",
+      "name": "Kwaipilot: KAT-Coder-Air V2.5",
+      "provider": "kwaipilot",
+      "contextLength": 256000,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 256000,
+        "max_completion_tokens": 80000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "kwaipilot/kat-coder-pro-v2.5",
+      "name": "Kwaipilot: KAT-Coder-Pro V2.5",
+      "provider": "kwaipilot",
+      "contextLength": 256000,
+      "pricing": {
+        "prompt": "0.00000074",
+        "completion": "0.00000296",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 256000,
+        "max_completion_tokens": 80000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
     {
       "id": "openai/gpt-5.6-luna-pro",
       "name": "OpenAI: GPT-5.6 Luna Pro",
@@ -443,51 +527,6 @@
       ]
     },
     {
-      "id": "tencent/hy3:free",
-      "name": "Tencent: Hy3 (free)",
-      "provider": "tencent",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "tencent/hy3",
       "name": "Tencent: Hy3",
       "provider": "tencent",
@@ -536,13 +575,58 @@
       ]
     },
     {
-      "id": "poolside/laguna-xs-2.1:free",
-      "name": "Poolside: Laguna XS 2.1 (free)",
-      "provider": "poolside",
+      "id": "tencent/hy3:free",
+      "name": "Tencent: Hy3 (free)",
+      "provider": "tencent",
       "contextLength": 262144,
       "pricing": {
         "prompt": "0",
         "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "poolside/laguna-xs-2.1",
+      "name": "Poolside: Laguna XS 2.1",
+      "provider": "poolside",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.00000006",
+        "completion": "0.00000012",
         "request": null,
         "image": null
       },
@@ -572,13 +656,13 @@
       ]
     },
     {
-      "id": "poolside/laguna-xs-2.1",
-      "name": "Poolside: Laguna XS 2.1",
+      "id": "poolside/laguna-xs-2.1:free",
+      "name": "Poolside: Laguna XS 2.1 (free)",
       "provider": "poolside",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000012",
+        "prompt": "0",
+        "completion": "0",
         "request": null,
         "image": null
       },
@@ -903,8 +987,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000042",
-        "completion": "0.00000132",
+        "prompt": "0.0000009296",
+        "completion": "0.0000029216",
         "request": null,
         "image": null
       },
@@ -920,8 +1004,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1024000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -983,8 +1067,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000072",
-        "completion": "0.0000035",
+        "prompt": "0.000000719",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -1194,45 +1278,6 @@
       ]
     },
     {
-      "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
-      "name": "NVIDIA: Nemotron 3 Ultra (free)",
-      "provider": "nvidia",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "seed",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "nvidia/nemotron-3-ultra-550b-a55b",
       "name": "NVIDIA: Nemotron 3 Ultra",
       "provider": "nvidia",
@@ -1277,6 +1322,45 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "name": "NVIDIA: Nemotron 3 Ultra (free)",
+      "provider": "nvidia",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "seed",
+        "temperature",
+        "tool_choice",
+        "tools",
         "top_p"
       ]
     },
@@ -2042,13 +2126,13 @@
       ]
     },
     {
-      "id": "poolside/laguna-m.1:free",
-      "name": "Poolside: Laguna M.1 (free)",
+      "id": "poolside/laguna-m.1",
+      "name": "Poolside: Laguna M.1",
       "provider": "poolside",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.0000002",
+        "completion": "0.0000004",
         "request": null,
         "image": null
       },
@@ -2078,13 +2162,13 @@
       ]
     },
     {
-      "id": "poolside/laguna-m.1",
-      "name": "Poolside: Laguna M.1",
+      "id": "poolside/laguna-m.1:free",
+      "name": "Poolside: Laguna M.1 (free)",
       "provider": "poolside",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000004",
+        "prompt": "0",
+        "completion": "0",
         "request": null,
         "image": null
       },
@@ -2140,7 +2224,7 @@
       "topProvider": {
         "context_length": 200000,
         "max_completion_tokens": 64000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -2617,7 +2701,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000285",
+        "prompt": "0.000000289",
         "completion": "0.0000024",
         "request": null,
         "image": null
@@ -2636,8 +2720,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262140,
-        "max_completion_tokens": 262140,
+        "context_length": 131072,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2801,8 +2885,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000077",
-        "completion": "0.000000154",
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -2818,8 +2902,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3008,7 +3092,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 32000,
+        "context_length": 262144,
         "max_completion_tokens": null,
         "is_moderated": false
       },
@@ -3276,7 +3360,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -3317,6 +3401,57 @@
       "topProvider": {
         "context_length": 200000,
         "max_completion_tokens": 128000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it",
+      "name": "Google: Gemma 4 26B A4B ",
+      "provider": "google",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.00000006",
+        "completion": "0.00000033",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "image",
+          "text",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Gemma",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3391,13 +3526,13 @@
       ]
     },
     {
-      "id": "google/gemma-4-26b-a4b-it",
-      "name": "Google: Gemma 4 26B A4B ",
+      "id": "google/gemma-4-31b-it",
+      "name": "Google: Gemma 4 31B",
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000033",
+        "prompt": "0.00000012",
+        "completion": "0.00000035",
         "request": null,
         "image": null
       },
@@ -3416,7 +3551,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3467,73 +3602,18 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 8192,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "min_p",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "google/gemma-4-31b-it",
-      "name": "Google: Gemma 4 31B",
-      "provider": "google",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000012",
-        "completion": "0.00000035",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+video->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "video"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Gemma",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
-        "min_p",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
         "seed",
-        "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -4140,47 +4220,6 @@
       ]
     },
     {
-      "id": "nvidia/nemotron-3-super-120b-a12b:free",
-      "name": "NVIDIA: Nemotron 3 Super (free)",
-      "provider": "nvidia",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 262144,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "nvidia/nemotron-3-super-120b-a12b",
       "name": "NVIDIA: Nemotron 3 Super",
       "provider": "nvidia",
@@ -4227,6 +4266,47 @@
         "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b:free",
+      "name": "NVIDIA: Nemotron 3 Super (free)",
+      "provider": "nvidia",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
         "top_p"
       ]
     },
@@ -4526,7 +4606,6 @@
         "reasoning_effort",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -5297,7 +5376,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5395,7 +5474,6 @@
         "include_reasoning",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -5407,7 +5485,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_a",
         "top_k",
         "top_logprobs",
         "top_p"
@@ -5476,7 +5553,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
+        "context_length": 262144,
         "max_completion_tokens": null,
         "is_moderated": false
       },
@@ -5603,92 +5680,6 @@
       "supportedParameters": [
         "max_tokens",
         "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "liquid/lfm-2.5-1.2b-thinking:free",
-      "name": "LiquidAI: LFM2.5-1.2B-Thinking (free)",
-      "provider": "liquid",
-      "contextLength": 32768,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "liquid/lfm-2.5-1.2b-instruct:free",
-      "name": "LiquidAI: LFM2.5-1.2B-Instruct (free)",
-      "provider": "liquid",
-      "contextLength": 32768,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
         "temperature",
         "top_k",
         "top_p"
@@ -6102,44 +6093,6 @@
       ]
     },
     {
-      "id": "nvidia/nemotron-3-nano-30b-a3b:free",
-      "name": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
-      "provider": "nvidia",
-      "contextLength": 256000,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "seed",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "nvidia/nemotron-3-nano-30b-a3b",
       "name": "NVIDIA: Nemotron 3 Nano 30B A3B",
       "provider": "nvidia",
@@ -6185,6 +6138,44 @@
         "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3-nano-30b-a3b:free",
+      "name": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
+      "provider": "nvidia",
+      "contextLength": 256000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 256000,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "seed",
+        "temperature",
+        "tool_choice",
+        "tools",
         "top_p"
       ]
     },
@@ -6975,7 +6966,7 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7567,7 +7558,7 @@
       "topProvider": {
         "context_length": 200000,
         "max_completion_tokens": 64000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -8042,10 +8033,10 @@
       "id": "z-ai/glm-4.6",
       "name": "Z.ai: GLM 4.6",
       "provider": "z-ai",
-      "contextLength": 202752,
+      "contextLength": 200000,
       "pricing": {
         "prompt": "0.00000043",
-        "completion": "0.00000174",
+        "completion": "0.00000175",
         "request": null,
         "image": null
       },
@@ -8061,8 +8052,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
-        "max_completion_tokens": 131072,
+        "context_length": 198000,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8607,47 +8598,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-next-80b-a3b-instruct:free",
-      "name": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
-      "provider": "qwen",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-next-80b-a3b-instruct",
       "name": "Qwen: Qwen3 Next 80B A3B Instruct",
       "provider": "qwen",
@@ -8695,13 +8645,13 @@
       ]
     },
     {
-      "id": "qwen/qwen-plus-2025-07-28:thinking",
-      "name": "Qwen: Qwen Plus 0728 (thinking)",
+      "id": "qwen/qwen3-next-80b-a3b-instruct:free",
+      "name": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
       "provider": "qwen",
-      "contextLength": 1000000,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.00000078",
+        "prompt": "0",
+        "completion": "0",
         "request": null,
         "image": null
       },
@@ -8717,21 +8667,21 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
-        "include_reasoning",
+        "frequency_penalty",
         "max_tokens",
         "presence_penalty",
-        "reasoning",
         "response_format",
-        "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -8773,6 +8723,47 @@
         "tool_choice",
         "tools",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "qwen/qwen-plus-2025-07-28:thinking",
+      "name": "Qwen: Qwen Plus 0728 (thinking)",
+      "provider": "qwen",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.00000026",
+        "completion": "0.00000078",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 32768,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
         "top_p"
       ]
     },
@@ -8985,8 +8976,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000021",
-        "completion": "0.00000079",
+        "prompt": "0.00000025",
+        "completion": "0.00000095",
         "request": null,
         "image": null
       },
@@ -9299,8 +9290,8 @@
       },
       "topProvider": {
         "context_length": 400000,
-        "max_completion_tokens": null,
-        "is_moderated": false
+        "max_completion_tokens": 128000,
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -9316,13 +9307,13 @@
       ]
     },
     {
-      "id": "openai/gpt-oss-120b:free",
-      "name": "OpenAI: gpt-oss-120b (free)",
+      "id": "openai/gpt-oss-120b",
+      "name": "OpenAI: gpt-oss-120b",
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.00000003",
+        "completion": "0.00000015",
         "request": null,
         "image": null
       },
@@ -9340,105 +9331,12 @@
       "topProvider": {
         "context_length": 131072,
         "max_completion_tokens": 131072,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "min_p",
-        "reasoning",
-        "reasoning_effort",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-oss-120b",
-      "name": "OpenAI: gpt-oss-120b",
-      "provider": "openai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000036",
-        "completion": "0.00000018",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-oss-20b:free",
-      "name": "OpenAI: gpt-oss-20b (free)",
-      "provider": "openai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
         "logprobs",
         "max_tokens",
         "min_p",
@@ -9493,6 +9391,54 @@
         "logprobs",
         "max_tokens",
         "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openai/gpt-oss-20b:free",
+      "name": "OpenAI: gpt-oss-20b (free)",
+      "provider": "openai",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": 32768,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -9818,45 +9764,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-coder:free",
-      "name": "Qwen: Qwen3 Coder 480B A35B (free)",
-      "provider": "qwen",
-      "contextLength": 1048576,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262000,
-        "max_completion_tokens": 262000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-coder",
       "name": "Qwen: Qwen3 Coder 480B A35B",
       "provider": "qwen",
@@ -9900,6 +9807,45 @@
         "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "qwen/qwen3-coder:free",
+      "name": "Qwen: Qwen3 Coder 480B A35B (free)",
+      "provider": "qwen",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262000,
+        "max_completion_tokens": 262000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -9999,7 +9945,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000009",
-        "completion": "0.0000001",
+        "completion": "0.00000055",
         "request": null,
         "image": null
       },
@@ -10081,6 +10027,44 @@
       ]
     },
     {
+      "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "name": "Venice: Uncensored",
+      "provider": "cognitivecomputations",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.0000002",
+        "completion": "0.0000009",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 8192,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "stop",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
       "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
       "name": "Venice: Uncensored (free)",
       "provider": "cognitivecomputations",
@@ -10114,44 +10098,6 @@
         "response_format",
         "stop",
         "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
-      "name": "Venice: Uncensored",
-      "provider": "cognitivecomputations",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000009",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "stop",
         "temperature",
         "top_k",
         "top_p"
@@ -11435,8 +11381,8 @@
       "provider": "meta-llama",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.0000002",
+        "completion": "0.0000008",
         "request": null,
         "image": null
       },
@@ -12795,45 +12741,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.3-70b-instruct:free",
-      "name": "Meta: Llama 3.3 70B Instruct (free)",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 65536,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.3-70b-instruct",
       "name": "Meta: Llama 3.3 70B Instruct",
       "provider": "meta-llama",
@@ -12877,6 +12784,45 @@
         "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3.3-70b-instruct:free",
+      "name": "Meta: Llama 3.3 70B Instruct (free)",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 65536,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -13258,8 +13204,8 @@
       ]
     },
     {
-      "id": "inflection/inflection-3-productivity",
-      "name": "Inflection: Inflection 3 Productivity",
+      "id": "inflection/inflection-3-pi",
+      "name": "Inflection: Inflection 3 Pi",
       "provider": "inflection",
       "contextLength": 8000,
       "pricing": {
@@ -13292,8 +13238,8 @@
       ]
     },
     {
-      "id": "inflection/inflection-3-pi",
-      "name": "Inflection: Inflection 3 Pi",
+      "id": "inflection/inflection-3-productivity",
+      "name": "Inflection: Inflection 3 Productivity",
       "provider": "inflection",
       "contextLength": 8000,
       "pricing": {
@@ -13371,47 +13317,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.2-1b-instruct",
-      "name": "Meta: Llama 3.2 1B Instruct",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000027",
-        "completion": "0.000000201",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 60000,
-        "max_completion_tokens": 60000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.2-11b-vision-instruct",
       "name": "Meta: Llama 3.2 11B Vision Instruct",
       "provider": "meta-llama",
@@ -13455,13 +13360,13 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.2-3b-instruct:free",
-      "name": "Meta: Llama 3.2 3B Instruct (free)",
+      "id": "meta-llama/llama-3.2-1b-instruct",
+      "name": "Meta: Llama 3.2 1B Instruct",
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.000000027",
+        "completion": "0.000000201",
         "request": null,
         "image": null
       },
@@ -13477,14 +13382,18 @@
         "instruct_type": "llama3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
+        "context_length": 60000,
+        "max_completion_tokens": 60000,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
+        "logit_bias",
         "max_tokens",
+        "min_p",
         "presence_penalty",
+        "repetition_penalty",
+        "seed",
         "stop",
         "temperature",
         "top_k",
@@ -13532,6 +13441,43 @@
         "temperature",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta-llama/llama-3.2-3b-instruct:free",
+      "name": "Meta: Llama 3.2 3B Instruct (free)",
+      "provider": "meta-llama",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "llama3"
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "stop",
+        "temperature",
+        "top_k",
         "top_p"
       ]
     },
@@ -13753,43 +13699,6 @@
       ]
     },
     {
-      "id": "nousresearch/hermes-3-llama-3.1-405b:free",
-      "name": "Nous: Hermes 3 405B Instruct (free)",
-      "provider": "nousresearch",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "chatml"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "nousresearch/hermes-3-llama-3.1-405b",
       "name": "Nous: Hermes 3 405B Instruct",
       "provider": "nousresearch",
@@ -13827,6 +13736,43 @@
         "seed",
         "stop",
         "structured_outputs",
+        "temperature",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nousresearch/hermes-3-llama-3.1-405b:free",
+      "name": "Nous: Hermes 3 405B Instruct (free)",
+      "provider": "nousresearch",
+      "contextLength": 131072,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Llama3",
+        "instruct_type": "chatml"
+      },
+      "topProvider": {
+        "context_length": 131072,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "stop",
         "temperature",
         "top_k",
         "top_p"
@@ -13924,13 +13870,13 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.1-8b-instruct",
-      "name": "Meta: Llama 3.1 8B Instruct",
+      "id": "meta-llama/llama-3.1-70b-instruct",
+      "name": "Meta: Llama 3.1 70B Instruct",
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.00000003",
+        "prompt": "0.0000004",
+        "completion": "0.0000004",
         "request": null,
         "image": null
       },
@@ -13971,13 +13917,13 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.1-70b-instruct",
-      "name": "Meta: Llama 3.1 70B Instruct",
+      "id": "meta-llama/llama-3.1-8b-instruct",
+      "name": "Meta: Llama 3.1 8B Instruct",
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000004",
+        "prompt": "0.00000002",
+        "completion": "0.00000003",
         "request": null,
         "image": null
       },
@@ -14065,53 +14011,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4o-mini-2024-07-18",
-      "name": "OpenAI: GPT-4o-mini (2024-07-18)",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "openai/gpt-4o-mini",
       "name": "OpenAI: GPT-4o-mini",
       "provider": "openai",
@@ -14145,6 +14044,53 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
+      ]
+    },
+    {
+      "id": "openai/gpt-4o-mini-2024-07-18",
+      "name": "OpenAI: GPT-4o-mini (2024-07-18)",
+      "provider": "openai",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 16384,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
@@ -14200,54 +14146,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4o-2024-05-13",
-      "name": "OpenAI: GPT-4o (2024-05-13)",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.000005",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 4096,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "openai/gpt-4o",
       "name": "OpenAI: GPT-4o",
       "provider": "openai",
@@ -14274,6 +14172,54 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 16384,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
+      ]
+    },
+    {
+      "id": "openai/gpt-4o-2024-05-13",
+      "name": "OpenAI: GPT-4o (2024-05-13)",
+      "provider": "openai",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "0.000005",
+        "completion": "0.000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 128000,
+        "max_completion_tokens": 4096,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14874,6 +14820,50 @@
       ]
     },
     {
+      "id": "openai/gpt-3.5-turbo",
+      "name": "OpenAI: GPT-3.5 Turbo",
+      "provider": "openai",
+      "contextLength": 16385,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 16385,
+        "max_completion_tokens": 4096,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
       "id": "openai/gpt-4",
       "name": "OpenAI: GPT-4",
       "provider": "openai",
@@ -14905,50 +14895,6 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-3.5-turbo",
-      "name": "OpenAI: GPT-3.5 Turbo",
-      "provider": "openai",
-      "contextLength": 16385,
-      "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.0000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 16385,
-        "max_completion_tokens": 4096,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
