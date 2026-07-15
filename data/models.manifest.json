@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-14T04:42:23.185Z",
-  "validatedAt": "2026-07-14T04:42:23.185Z",
+  "sourceFetchedAt": "2026-07-15T04:42:07.508Z",
+  "validatedAt": "2026-07-15T04:42:07.508Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-14T04:42:23.185Z",
-    "snapshotDate": "2026-07-14"
+    "refreshedAt": "2026-07-15T04:42:07.508Z",
+    "snapshotDate": "2026-07-15"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 344,
+  "recordCount": 343,
   "records": [
     {
       "id": "kwaipilot/kat-coder-air-v2.5",
@@ -987,8 +987,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000009296",
-        "completion": "0.0000029216",
+        "prompt": "0.000000896",
+        "completion": "0.000002816",
         "request": null,
         "image": null
       },
@@ -5280,8 +5280,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
-        "max_completion_tokens": null,
+        "context_length": 198000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12532,48 +12532,6 @@
       ]
     },
     {
-      "id": "sao10k/l3.1-70b-hanami-x1",
-      "name": "Sao10K: Llama 3.1 70B Hanami x1",
-      "provider": "sao10k",
-      "contextLength": 16000,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000003",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 16000,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "deepseek/deepseek-chat",
       "name": "DeepSeek: DeepSeek V3",
       "provider": "deepseek",
@@ -13303,7 +13261,6 @@
         "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "repetition_penalty",
         "response_format",
