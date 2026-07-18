@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-17T04:55:49.546Z",
-  "validatedAt": "2026-07-17T04:55:49.546Z",
+  "sourceFetchedAt": "2026-07-18T04:40:32.592Z",
+  "validatedAt": "2026-07-18T04:40:32.592Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-17T04:55:49.546Z",
-    "snapshotDate": "2026-07-17"
+    "refreshedAt": "2026-07-18T04:40:32.592Z",
+    "snapshotDate": "2026-07-18"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -18,6 +18,111 @@
   },
   "recordCount": 344,
   "records": [
+    {
+      "id": "thinkingmachines/inkling",
+      "name": "Thinking Machines: Inkling",
+      "provider": "thinkingmachines",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.00000405",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+audio->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 524288,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openrouter/auto-beta",
+      "name": "Auto Router (Beta)",
+      "provider": "openrouter",
+      "contextLength": 2000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text+image",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio",
+          "file",
+          "video"
+        ],
+        "output_modalities": [
+          "text",
+          "image"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "prediction",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
+      ]
+    },
     {
       "id": "moonshotai/kimi-k3",
       "name": "MoonshotAI: Kimi K3",
@@ -1075,8 +1180,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000009758",
-        "completion": "0.0000030668",
+        "prompt": "0.0000004116",
+        "completion": "0.0000012936",
         "request": null,
         "image": null
       },
@@ -1155,8 +1260,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000035",
+        "prompt": "0.000001",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -4828,8 +4933,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000195",
-        "completion": "0.00000156",
+        "prompt": "0.00000026",
+        "completion": "0.0000026",
         "request": null,
         "image": null
       },
@@ -4848,7 +4953,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5854,9 +5959,9 @@
       "id": "z-ai/glm-4.7-flash",
       "name": "Z.ai: GLM 4.7 Flash",
       "provider": "z-ai",
-      "contextLength": 202752,
+      "contextLength": 200000,
       "pricing": {
-        "prompt": "0.00000006",
+        "prompt": "0.0000000605",
         "completion": "0.0000004",
         "request": null,
         "image": null
@@ -5873,8 +5978,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
-        "max_completion_tokens": 16384,
+        "context_length": 131072,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7199,7 +7304,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 100352,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7879,52 +7984,6 @@
         "tool_choice",
         "tools",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
-      "name": "NVIDIA: Llama 3.3 Nemotron Super 49B V1.5",
-      "provider": "nvidia",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -10944,8 +11003,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000012",
-        "completion": "0.0000005",
+        "prompt": "0.00000013",
+        "completion": "0.00000052",
         "request": null,
         "image": null
       },
@@ -10961,8 +11020,8 @@
         "instruct_type": "qwen3"
       },
       "topProvider": {
-        "context_length": 40960,
-        "max_completion_tokens": 16384,
+        "context_length": 131072,
+        "max_completion_tokens": 8192,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11033,7 +11092,7 @@
       "provider": "qwen",
       "contextLength": 131702,
       "pricing": {
-        "prompt": "0.0000001",
+        "prompt": "0.00000012",
         "completion": "0.00000024",
         "request": null,
         "image": null
@@ -11051,7 +11110,7 @@
       },
       "topProvider": {
         "context_length": 40960,
-        "max_completion_tokens": 40960,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13309,49 +13368,6 @@
       ]
     },
     {
-      "id": "meta-llama/llama-3.2-11b-vision-instruct",
-      "name": "Meta: Llama 3.2 11B Vision Instruct",
-      "provider": "meta-llama",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000345",
-        "completion": "0.000000345",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "llama3"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "meta-llama/llama-3.2-1b-instruct",
       "name": "Meta: Llama 3.2 1B Instruct",
       "provider": "meta-llama",
@@ -14684,8 +14700,8 @@
       "provider": "mancer",
       "contextLength": 8000,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.000001",
+        "prompt": "0.0000005",
+        "completion": "0.00000075",
         "request": null,
         "image": null
       },
