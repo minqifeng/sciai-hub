@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-25T04:57:42.434Z",
-  "validatedAt": "2026-07-25T04:57:42.434Z",
+  "sourceFetchedAt": "2026-07-26T05:23:21.167Z",
+  "validatedAt": "2026-07-26T05:23:21.167Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-25T04:57:42.434Z",
-    "snapshotDate": "2026-07-25"
+    "refreshedAt": "2026-07-26T05:23:21.167Z",
+    "snapshotDate": "2026-07-26"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1478,8 +1478,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000007672",
-        "completion": "0.0000024112",
+        "prompt": "0.0000007112",
+        "completion": "0.0000022352",
         "request": null,
         "image": null
       },
@@ -1558,7 +1558,7 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000078",
+        "prompt": "0.00000075",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -1630,7 +1630,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -3183,8 +3183,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000289",
-        "completion": "0.0000024",
+        "prompt": "0.0000003",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -3202,8 +3202,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 131072,
+        "context_length": 262144,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3367,8 +3367,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000938",
-        "completion": "0.0000001876",
+        "prompt": "0.00000014",
+        "completion": "0.00000028",
         "request": null,
         "image": null
       },
@@ -3384,8 +3384,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": null,
+        "context_length": 1048576,
+        "max_completion_tokens": 393216,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4192,8 +4192,8 @@
       "provider": "arcee-ai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.0000008",
+        "prompt": "0.00000022",
+        "completion": "0.00000085",
         "request": null,
         "image": null
       },
@@ -4210,7 +4210,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 80000,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4605,7 +4605,7 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -9014,6 +9014,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "logprobs",
         "max_tokens",
         "presence_penalty",
@@ -9757,7 +9758,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000003",
-        "completion": "0.00000013",
+        "completion": "0.00000014",
         "request": null,
         "image": null
       },
@@ -9986,8 +9987,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.00000004815",
+        "completion": "0.00000019305",
         "request": null,
         "image": null
       },
@@ -10003,8 +10004,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": null,
+        "context_length": 128000,
+        "max_completion_tokens": 32000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11186,8 +11187,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000052",
+        "prompt": "0.00000012",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -11203,8 +11204,8 @@
         "instruct_type": "qwen3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
+        "context_length": 40960,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14744,7 +14745,7 @@
       "topProvider": {
         "context_length": 16385,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
