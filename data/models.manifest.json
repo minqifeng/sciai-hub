@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-30T04:49:25.834Z",
-  "validatedAt": "2026-07-30T04:49:25.834Z",
+  "sourceFetchedAt": "2026-07-31T05:27:19.063Z",
+  "validatedAt": "2026-07-31T05:27:19.064Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-07-30T04:49:25.834Z",
-    "snapshotDate": "2026-07-30"
+    "refreshedAt": "2026-07-31T05:27:19.063Z",
+    "snapshotDate": "2026-07-31"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 367,
+  "recordCount": 364,
   "records": [
     {
       "id": "qwen/qwen3.7-flash",
@@ -199,8 +199,8 @@
       "provider": "poolside",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000002",
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -530,6 +530,7 @@
         "reasoning",
         "reasoning_effort",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -784,8 +785,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.000003",
+        "prompt": "0.0000001",
+        "completion": "0.0000006000000000000001",
         "request": null,
         "image": null
       },
@@ -826,8 +827,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.000003",
+        "prompt": "0.0000001",
+        "completion": "0.0000006000000000000001",
         "request": null,
         "image": null
       },
@@ -868,8 +869,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.0000075",
+        "prompt": "0.00000100000000000000015",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -910,8 +911,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.0000075",
+        "prompt": "0.00000100000000000000015",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -1661,8 +1662,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000006769",
-        "completion": "0.0000021274",
+        "prompt": "0.00000119",
+        "completion": "0.00000374",
         "request": null,
         "image": null
       },
@@ -1999,8 +2000,8 @@
       "provider": "nvidia",
       "contextLength": 512288,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.0000022",
+        "prompt": "0.0000006",
+        "completion": "0.0000036",
         "request": null,
         "image": null
       },
@@ -2016,8 +2017,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 512288,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3167,8 +3168,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
+        "prompt": "0.0000029",
+        "completion": "0.000014",
         "request": null,
         "image": null
       },
@@ -3186,7 +3187,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 1048576,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4167,8 +4168,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000646",
-        "completion": "0.00000272",
+        "prompt": "0.00000095",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -7007,7 +7008,6 @@
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -7312,7 +7312,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 228000,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7724,7 +7724,6 @@
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -9071,102 +9070,6 @@
       ]
     },
     {
-      "id": "openai/o3-deep-research",
-      "name": "OpenAI: o3 Deep Research",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.00001",
-        "completion": "0.00004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/o4-mini-deep-research",
-      "name": "OpenAI: o4 Mini Deep Research",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.000008",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "file",
-          "image",
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "google/gemini-2.5-flash-image",
       "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
       "provider": "google",
@@ -9783,45 +9686,6 @@
         "top_k",
         "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-5-codex",
-      "name": "OpenAI: GPT-5 Codex",
-      "provider": "openai",
-      "contextLength": 400000,
-      "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 400000,
-        "max_completion_tokens": 128000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -11184,8 +11048,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.000003",
+        "prompt": "0.00000023",
+        "completion": "0.0000023",
         "request": null,
         "image": null
       },
@@ -11202,7 +11066,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13955,8 +13819,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.0000002002",
-        "completion": "0.0000008001",
+        "prompt": "0.0000002574",
+        "completion": "0.0000010287",
         "request": null,
         "image": null
       },
@@ -14408,7 +14272,7 @@
       "id": "thedrummer/unslopnemo-12b",
       "name": "TheDrummer: UnslopNemo 12B",
       "provider": "thedrummer",
-      "contextLength": 32768,
+      "contextLength": 1024000,
       "pricing": {
         "prompt": "0.0000004",
         "completion": "0.0000004",
@@ -14433,6 +14297,7 @@
       },
       "supportedParameters": [
         "frequency_penalty",
+        "logit_bias",
         "logprobs",
         "max_tokens",
         "presence_penalty",
@@ -14444,6 +14309,7 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
