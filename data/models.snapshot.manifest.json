@@ -3,22 +3,218 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Weekly Model Snapshot",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-07-26T05:23:21.167Z",
-  "validatedAt": "2026-07-27T05:41:07.504Z",
+  "sourceFetchedAt": "2026-08-02T05:19:04.726Z",
+  "validatedAt": "2026-08-03T05:33:28.441Z",
   "status": "snapshot",
   "freshness": {
     "cadence": "weekly",
     "freshnessPolicy": "frozen-snapshot",
-    "snapshotTakenAt": "2026-07-27T05:41:07.504Z",
+    "snapshotTakenAt": "2026-08-03T05:33:28.441Z",
     "sourceDatasetId": "models.catalog",
-    "snapshotDate": "2026-07-27"
+    "snapshotDate": "2026-08-03"
   },
   "lineage": {
     "mode": "weekly-snapshot",
     "sourceManifest": "data/models.manifest.json"
   },
-  "recordCount": 345,
+  "recordCount": 337,
   "records": [
+    {
+      "id": "~deepseek/deepseek-v4-flash-latest",
+      "name": "DeepSeek V4 Flash Latest",
+      "provider": "~deepseek",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-0731",
+      "name": "DeepSeek: DeepSeek V4 Flash 0731",
+      "provider": "deepseek",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "DeepSeek",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "thinkingmachines/inkling-small",
+      "name": "Thinking Machines: Inkling Small",
+      "provider": "thinkingmachines",
+      "contextLength": 524288,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000012",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+audio->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 524288,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "qwen/qwen3.7-flash",
+      "name": "Qwen: Qwen3.7 Flash",
+      "provider": "qwen",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.00000003",
+        "completion": "0.00000013",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "response_format",
+        "seed",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
     {
       "id": "anthropic/claude-opus-5-fast",
       "name": "Claude Opus 5 (Fast)",
@@ -156,8 +352,8 @@
       "provider": "poolside",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000002",
+        "prompt": "0.00000009",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -181,7 +377,6 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
-        "stop",
         "temperature",
         "tool_choice",
         "tools"
@@ -399,6 +594,7 @@
         "reasoning",
         "reasoning_effort",
         "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
         "temperature",
@@ -497,15 +693,24 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
+        "logprobs",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
+        "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
+        "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
       ]
     },
     {
@@ -644,8 +849,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000006",
+        "prompt": "0.0000001",
+        "completion": "0.0000006000000000000001",
         "request": null,
         "image": null
       },
@@ -686,8 +891,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000006",
+        "prompt": "0.0000001",
+        "completion": "0.0000006000000000000001",
         "request": null,
         "image": null
       },
@@ -728,8 +933,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.000015",
+        "prompt": "0.00000100000000000000015",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -770,8 +975,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.000015",
+        "prompt": "0.00000100000000000000015",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -1252,7 +1457,7 @@
       },
       "topProvider": {
         "context_length": 65536,
-        "max_completion_tokens": 66000,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1479,8 +1684,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000007112",
-        "completion": "0.0000022352",
+        "prompt": "0.0000003682",
+        "completion": "0.0000011572",
         "request": null,
         "image": null
       },
@@ -1559,7 +1764,7 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000075",
+        "prompt": "0.00000073",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -1881,10 +2086,11 @@
       },
       "topProvider": {
         "context_length": 1000000,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -1892,10 +2098,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -2113,10 +2321,11 @@
       },
       "topProvider": {
         "context_length": 1000000,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -2124,10 +2333,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -2618,78 +2829,6 @@
       ]
     },
     {
-      "id": "poolside/laguna-m.1",
-      "name": "Poolside: Laguna M.1",
-      "provider": "poolside",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
-      "id": "poolside/laguna-m.1:free",
-      "name": "Poolside: Laguna M.1 (free)",
-      "provider": "poolside",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
       "id": "~anthropic/claude-haiku-latest",
       "name": "Anthropic Claude Haiku Latest",
       "provider": "~anthropic",
@@ -2827,8 +2966,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
+        "prompt": "0.0000029",
+        "completion": "0.000014",
         "request": null,
         "image": null
       },
@@ -2846,21 +2985,30 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 1048576,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
+        "logprobs",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
+        "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
+        "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
       ]
     },
     {
@@ -3024,6 +3172,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -3031,10 +3180,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -3069,6 +3220,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -3076,10 +3228,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -3141,8 +3295,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000104",
-        "completion": "0.00000624",
+        "prompt": "0.000001027",
+        "completion": "0.000006162",
         "request": null,
         "image": null
       },
@@ -3163,6 +3317,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -3170,10 +3325,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -3407,6 +3564,7 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_a",
         "top_k",
         "top_logprobs",
         "top_p"
@@ -3485,18 +3643,14 @@
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "reasoning_effort",
         "seed",
-        "stop",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -3771,8 +3925,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000646",
-        "completion": "0.00000272",
+        "prompt": "0.0000006",
+        "completion": "0.00000341",
         "request": null,
         "image": null
       },
@@ -3914,8 +4068,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000012",
-        "completion": "0.00000035",
+        "prompt": "0.00000007",
+        "completion": "0.00000034",
         "request": null,
         "image": null
       },
@@ -3934,7 +4088,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4014,8 +4168,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.0000004",
+        "prompt": "0.0000001",
+        "completion": "0.00000034",
         "request": null,
         "image": null
       },
@@ -4131,6 +4285,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -4138,10 +4293,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -4606,7 +4763,7 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5148,7 +5305,7 @@
       "id": "google/gemini-3.1-flash-image-preview",
       "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image Preview)",
       "provider": "google",
-      "contextLength": 131072,
+      "contextLength": 65536,
       "pricing": {
         "prompt": "0.0000005",
         "completion": "0.000003",
@@ -5368,16 +5525,19 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -5628,6 +5788,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -5635,10 +5796,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -5817,10 +5980,11 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -5828,10 +5992,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -5888,7 +6054,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000011",
+        "prompt": "0.00000012",
         "completion": "0.0000008",
         "request": null,
         "image": null
@@ -6339,12 +6505,11 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -6603,7 +6768,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 228000,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6789,48 +6954,6 @@
       ]
     },
     {
-      "id": "mistralai/devstral-2512",
-      "name": "Mistral: Devstral 2 2512",
-      "provider": "mistralai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+file->text",
-        "input_modalities": [
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "relace/relace-search",
       "name": "Relace: Relace Search",
       "provider": "relace",
@@ -6969,12 +7092,11 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -7098,10 +7220,8 @@
       },
       "supportedParameters": [
         "frequency_penalty",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
-        "repetition_penalty",
         "response_format",
         "seed",
         "stop",
@@ -7109,7 +7229,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -7463,45 +7582,6 @@
       ]
     },
     {
-      "id": "openai/gpt-5.1-chat",
-      "name": "OpenAI: GPT-5.1 Chat",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "file",
-          "image",
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "max_completion_tokens",
-        "max_tokens",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
       "id": "openai/gpt-5.1-codex",
       "name": "OpenAI: GPT-5.1-Codex",
       "provider": "openai",
@@ -7527,12 +7607,11 @@
       "topProvider": {
         "context_length": 400000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -7567,13 +7646,12 @@
       },
       "topProvider": {
         "context_length": 400000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
+        "max_completion_tokens": 128000,
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
         "max_completion_tokens",
-        "max_tokens",
         "reasoning",
         "reasoning_effort",
         "response_format",
@@ -7908,15 +7986,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -8062,8 +8143,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000117",
-        "completion": "0.000001365",
+        "prompt": "0.00000018",
+        "completion": "0.0000021",
         "request": null,
         "image": null
       },
@@ -8085,6 +8166,7 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "logprobs",
         "max_tokens",
@@ -8092,10 +8174,12 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -8195,102 +8279,6 @@
       ]
     },
     {
-      "id": "openai/o3-deep-research",
-      "name": "OpenAI: o3 Deep Research",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.00001",
-        "completion": "0.00004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/o4-mini-deep-research",
-      "name": "OpenAI: o4 Mini Deep Research",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.000008",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "file",
-          "image",
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "google/gemini-2.5-flash-image",
       "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
       "provider": "google",
@@ -8335,8 +8323,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000156",
+        "prompt": "0.0000002",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -8366,6 +8354,7 @@
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -8381,8 +8370,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.00000013",
+        "completion": "0.00000052",
         "request": null,
         "image": null
       },
@@ -8399,8 +8388,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 131072,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8687,8 +8676,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.0000026",
+        "prompt": "0.0000004",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -8801,19 +8790,22 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -8846,56 +8838,20 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-5-codex",
-      "name": "OpenAI: GPT-5 Codex",
-      "provider": "openai",
-      "contextLength": 400000,
-      "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 400000,
-        "max_completion_tokens": 128000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -8973,14 +8929,17 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -8991,8 +8950,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000975",
-        "completion": "0.00000078",
+        "prompt": "0.00000015",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -9108,15 +9067,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -9127,8 +9089,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.00000078",
+        "prompt": "0.0000004",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -9149,16 +9111,21 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -9251,8 +9218,8 @@
       "provider": "qwen",
       "contextLength": 81920,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000156",
+        "prompt": "0.0000002",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -9273,15 +9240,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -9540,42 +9510,6 @@
       ]
     },
     {
-      "id": "openai/gpt-5-chat",
-      "name": "OpenAI: GPT-5 Chat",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000125",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "file",
-          "image",
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "response_format",
-        "seed",
-        "structured_outputs"
-      ]
-    },
-    {
       "id": "openai/gpt-5",
       "name": "OpenAI: GPT-5",
       "provider": "openai",
@@ -9759,7 +9693,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000003",
-        "completion": "0.00000014",
+        "completion": "0.00000013",
         "request": null,
         "image": null
       },
@@ -9944,7 +9878,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000007",
-        "completion": "0.00000027",
+        "completion": "0.00000028",
         "request": null,
         "image": null
       },
@@ -9960,8 +9894,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 160000,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10014,7 +9948,6 @@
         "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "repetition_penalty",
         "response_format",
@@ -10117,8 +10050,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.000003",
+        "prompt": "0.00000023",
+        "completion": "0.0000023",
         "request": null,
         "image": null
       },
@@ -10135,7 +10068,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10578,8 +10511,8 @@
       "provider": "mistralai",
       "contextLength": 256000,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.000000075",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -10596,8 +10529,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": null,
+        "context_length": 128000,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11213,7 +11146,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -11222,12 +11154,10 @@
         "response_format",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -11259,15 +11189,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -11397,15 +11330,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
+        "stop",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_p"
       ]
     },
@@ -12005,74 +11941,6 @@
       ]
     },
     {
-      "id": "openai/gpt-4o-mini-search-preview",
-      "name": "OpenAI: GPT-4o-mini Search Preview",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "response_format",
-        "structured_outputs",
-        "web_search_options"
-      ]
-    },
-    {
-      "id": "openai/gpt-4o-search-preview",
-      "name": "OpenAI: GPT-4o Search Preview",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 16384,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "response_format",
-        "structured_outputs",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "rekaai/reka-flash-3",
       "name": "Reka Flash 3",
       "provider": "rekaai",
@@ -12512,15 +12380,18 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "logprobs",
         "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -12815,8 +12686,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.0000002002",
-        "completion": "0.0000008001",
+        "prompt": "0.0000002574",
+        "completion": "0.0000010287",
         "request": null,
         "image": null
       },
@@ -13268,7 +13139,7 @@
       "id": "thedrummer/unslopnemo-12b",
       "name": "TheDrummer: UnslopNemo 12B",
       "provider": "thedrummer",
-      "contextLength": 32768,
+      "contextLength": 1024000,
       "pricing": {
         "prompt": "0.0000004",
         "completion": "0.0000004",
@@ -13293,6 +13164,7 @@
       },
       "supportedParameters": [
         "frequency_penalty",
+        "logit_bias",
         "logprobs",
         "max_tokens",
         "presence_penalty",
@@ -13304,6 +13176,7 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -13360,8 +13233,8 @@
       "provider": "qwen",
       "contextLength": 32768,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.0000001",
+        "prompt": "0.0000001",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -13384,7 +13257,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -13397,75 +13269,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "inflection/inflection-3-pi",
-      "name": "Inflection: Inflection 3 Pi",
-      "provider": "inflection",
-      "contextLength": 8000,
-      "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 8000,
-        "max_completion_tokens": 1024,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "stop",
-        "temperature",
-        "top_p"
-      ]
-    },
-    {
-      "id": "inflection/inflection-3-productivity",
-      "name": "Inflection: Inflection 3 Productivity",
-      "provider": "inflection",
-      "contextLength": 8000,
-      "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.00001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 8000,
-        "max_completion_tokens": 1024,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "stop",
-        "temperature",
         "top_p"
       ]
     },
@@ -13888,6 +13691,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -13898,6 +13702,7 @@
         "structured_outputs",
         "temperature",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -14304,7 +14109,7 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -14746,7 +14551,7 @@
       "topProvider": {
         "context_length": 16385,
         "max_completion_tokens": 4096,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -14973,7 +14778,7 @@
       "topProvider": {
         "context_length": 8191,
         "max_completion_tokens": 4096,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "frequency_penalty",
