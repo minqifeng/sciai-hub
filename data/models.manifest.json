@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-08-15T02:43:58.825Z",
-  "validatedAt": "2026-08-15T02:43:58.825Z",
+  "sourceFetchedAt": "2026-08-16T02:52:12.681Z",
+  "validatedAt": "2026-08-16T02:52:12.681Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-08-15T02:43:58.825Z",
-    "snapshotDate": "2026-08-15"
+    "refreshedAt": "2026-08-16T02:52:12.681Z",
+    "snapshotDate": "2026-08-16"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 412,
+  "recordCount": 413,
   "records": [
     {
       "id": "qwen/qwen3.8-27b",
@@ -61,8 +61,50 @@
         "stop",
         "structured_outputs",
         "temperature",
+        "tool_choice",
+        "tools",
         "top_k",
         "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "dots-studio/dots-3-note-preview:free",
+      "name": "Dots Studio: Dots3-Note Preview (free)",
+      "provider": "dots-studio",
+      "contextLength": 512000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 512000,
+        "max_completion_tokens": 512000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
         "top_p"
       ]
     },
@@ -759,8 +801,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000007966",
-        "completion": "0.00000015932",
+        "prompt": "0.0000000675",
+        "completion": "0.000000135",
         "request": null,
         "image": null
       },
@@ -776,8 +818,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 384000,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2887,8 +2929,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000049",
-        "completion": "0.00000154",
+        "prompt": "0.000000462",
+        "completion": "0.000001452",
         "request": null,
         "image": null
       },
@@ -4910,8 +4952,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.0000036",
+        "prompt": "0.0000003",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -4930,7 +4972,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5177,8 +5219,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000008106",
-        "completion": "0.00000016212",
+        "prompt": "0.00000006426",
+        "completion": "0.00000012852",
         "request": null,
         "image": null
       },
@@ -5274,8 +5316,8 @@
       "provider": "tencent",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000063",
-        "completion": "0.00000021",
+        "prompt": "0.00000018",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -5903,7 +5945,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_a",
         "top_k",
         "top_logprobs",
         "top_p"
@@ -11425,8 +11466,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000012",
+        "prompt": "0.00000026",
+        "completion": "0.00000078",
         "request": null,
         "image": null
       },
@@ -18032,7 +18073,7 @@
       "topProvider": {
         "context_length": 8191,
         "max_completion_tokens": 4096,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "frequency_penalty",
