@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-08-22T02:46:48.295Z",
-  "validatedAt": "2026-08-22T02:46:48.295Z",
+  "sourceFetchedAt": "2026-08-23T02:54:19.654Z",
+  "validatedAt": "2026-08-23T02:54:19.654Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-08-22T02:46:48.295Z",
-    "snapshotDate": "2026-08-22"
+    "refreshedAt": "2026-08-23T02:54:19.654Z",
+    "snapshotDate": "2026-08-23"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 421,
+  "recordCount": 422,
   "records": [
     {
       "id": "meta/muse-spark-1.2-contributor",
@@ -70,8 +70,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000044",
-        "completion": "0.00000132",
+        "prompt": "0.00000022",
+        "completion": "0.00000066",
         "request": null,
         "image": null
       },
@@ -262,6 +262,42 @@
       ]
     },
     {
+      "id": "tencent/hy-mt2-7b",
+      "name": "Tencent: Hy-MT2-7B",
+      "provider": "tencent",
+      "contextLength": 8192,
+      "pricing": {
+        "prompt": "0.000000074",
+        "completion": "0.000000295",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 8192,
+        "max_completion_tokens": 4096,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "max_completion_tokens",
+        "max_tokens",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "temperature"
+      ]
+    },
+    {
       "id": "z-ai/glm-5.3",
       "name": "Z.ai: GLM 5.3",
       "provider": "z-ai",
@@ -307,8 +343,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000045",
-        "completion": "0.0000032",
+        "prompt": "0.0000004",
+        "completion": "0.000003",
         "request": null,
         "image": null
       },
@@ -625,8 +661,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000001188",
-        "completion": "0.000003564",
+        "prompt": "0.000001122",
+        "completion": "0.000003366",
         "request": null,
         "image": null
       },
@@ -936,8 +972,8 @@
       "provider": "meta",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000011",
+        "prompt": "0.00000035",
+        "completion": "0.0000015",
         "request": null,
         "image": null
       },
@@ -955,7 +991,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1082,7 +1118,7 @@
       "provider": "~deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000065",
+        "prompt": "0.00000006",
         "completion": "0.00000018",
         "request": null,
         "image": null
@@ -1099,8 +1135,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 1048576,
+        "context_length": 262144,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1797,7 +1833,7 @@
       "provider": "thinkingmachines",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000095",
+        "prompt": "0.000001",
         "completion": "0.00000405",
         "request": null,
         "image": null
@@ -1817,7 +1853,7 @@
       },
       "topProvider": {
         "context_length": 524288,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5571,8 +5607,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000532092",
-        "completion": "0.000001064184",
+        "prompt": "0.000000413772",
+        "completion": "0.000000827544",
         "request": null,
         "image": null
       },
@@ -5622,8 +5658,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000007686",
-        "completion": "0.00000015372",
+        "prompt": "0.00000005446",
+        "completion": "0.00000010892",
         "request": null,
         "image": null
       },
@@ -6023,8 +6059,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000005605",
-        "completion": "0.00000236",
+        "prompt": "0.00000095",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -6042,7 +6078,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262144,
+        "max_completion_tokens": null,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7726,7 +7762,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12454,7 +12490,7 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000003",
+        "prompt": "0.000000037",
         "completion": "0.00000017",
         "request": null,
         "image": null
@@ -14099,8 +14135,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000052",
+        "prompt": "0.00000012",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -14116,8 +14152,8 @@
         "instruct_type": "qwen3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
+        "context_length": 40960,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
