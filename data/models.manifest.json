@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-05T06:31:25.462Z",
-  "validatedAt": "2026-09-05T06:31:25.462Z",
+  "sourceFetchedAt": "2026-09-06T06:40:57.333Z",
+  "validatedAt": "2026-09-06T06:40:57.333Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-05T06:31:25.462Z",
-    "snapshotDate": "2026-09-05"
+    "refreshedAt": "2026-09-06T06:40:57.333Z",
+    "snapshotDate": "2026-09-06"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -1143,8 +1143,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000115",
-        "completion": "0.0000035",
+        "prompt": "0.00000117",
+        "completion": "0.00000396",
         "request": null,
         "image": null
       },
@@ -5980,8 +5980,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.000014",
+        "prompt": "0.00000255",
+        "completion": "0.00001275",
         "request": null,
         "image": null
       },
@@ -6572,8 +6572,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000941166",
-        "completion": "0.000001882332",
+        "prompt": "0.000000738282",
+        "completion": "0.000001476564",
         "request": null,
         "image": null
       },
@@ -6623,8 +6623,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000861",
-        "completion": "0.0000001722",
+        "prompt": "0.00000008162",
+        "completion": "0.00000016324",
         "request": null,
         "image": null
       },
@@ -8636,8 +8636,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.00000075",
+        "prompt": "0.0000003125",
+        "completion": "0.00000125",
         "request": null,
         "image": null
       },
@@ -8655,7 +8655,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
+        "context_length": 256000,
         "max_completion_tokens": 16384,
         "is_moderated": false
       },
@@ -17165,8 +17165,8 @@
         "instruct_type": "mistral"
       },
       "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 26214,
+        "context_length": 1024000,
+        "max_completion_tokens": 819200,
         "is_moderated": false
       },
       "supportedParameters": [
