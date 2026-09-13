@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-12T06:42:29.037Z",
-  "validatedAt": "2026-09-12T06:42:29.037Z",
+  "sourceFetchedAt": "2026-09-13T06:59:52.130Z",
+  "validatedAt": "2026-09-13T06:59:52.130Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-12T06:42:29.037Z",
-    "snapshotDate": "2026-09-12"
+    "refreshedAt": "2026-09-13T06:59:52.130Z",
+    "snapshotDate": "2026-09-13"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -104,7 +104,7 @@
     },
     {
       "id": "~openai/gpt-astra-latest",
-      "name": "OpenAI GPT Astra Latest",
+      "name": "OpenAI: GPT Astra Latest",
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
@@ -146,7 +146,7 @@
     },
     {
       "id": "~openai/gpt-sol-latest",
-      "name": "OpenAI GPT Sol Latest",
+      "name": "OpenAI: GPT Sol Latest",
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
@@ -188,7 +188,7 @@
     },
     {
       "id": "~openai/gpt-terra-latest",
-      "name": "OpenAI GPT Terra Latest",
+      "name": "OpenAI: GPT Terra Latest",
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
@@ -230,7 +230,7 @@
     },
     {
       "id": "~openai/gpt-luna-latest",
-      "name": "OpenAI GPT Luna Latest",
+      "name": "OpenAI: GPT Luna Latest",
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
@@ -1760,8 +1760,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000008727",
-        "completion": "0.00000336",
+        "prompt": "0.000000936",
+        "completion": "0.000003168",
         "request": null,
         "image": null
       },
@@ -1777,8 +1777,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1847,8 +1847,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000014",
-        "completion": "0.0000044",
+        "prompt": "0.000001092",
+        "completion": "0.000003432",
         "request": null,
         "image": null
       },
@@ -1865,7 +1865,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2500,8 +2500,7 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
-        "top_p"
+        "top_logprobs"
       ]
     },
     {
@@ -2678,8 +2677,8 @@
       "provider": "meta",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000011",
+        "prompt": "0.00000035",
+        "completion": "0.0000015",
         "request": null,
         "image": null
       },
@@ -2821,12 +2820,12 @@
     },
     {
       "id": "~deepseek/deepseek-v4-flash-latest",
-      "name": "DeepSeek V4 Flash Latest",
+      "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "provider": "~deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.00000008",
+        "prompt": "0.0000000352",
+        "completion": "0.0000001056",
         "request": null,
         "image": null
       },
@@ -2843,7 +2842,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3614,8 +3613,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 32768,
+        "context_length": 524288,
+        "max_completion_tokens": 471859,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3792,8 +3791,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000230272875",
-        "completion": "0.000011550195",
+        "prompt": "0.000002648138063",
+        "completion": "0.00001328272425",
         "request": null,
         "image": null
       },
@@ -5754,7 +5753,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -6391,7 +6390,7 @@
     },
     {
       "id": "~anthropic/claude-haiku-latest",
-      "name": "Anthropic Claude Haiku Latest",
+      "name": "Anthropic: Claude Haiku Latest",
       "provider": "~anthropic",
       "contextLength": 200000,
       "pricing": {
@@ -6435,7 +6434,7 @@
     },
     {
       "id": "~openai/gpt-mini-latest",
-      "name": "OpenAI GPT Mini Latest",
+      "name": "OpenAI: GPT Mini Latest",
       "provider": "~openai",
       "contextLength": 400000,
       "pricing": {
@@ -6477,7 +6476,7 @@
     },
     {
       "id": "~google/gemini-pro-latest",
-      "name": "Google Gemini Pro Latest",
+      "name": "Google: Gemini Pro Latest",
       "provider": "~google",
       "contextLength": 1048576,
       "pricing": {
@@ -6523,12 +6522,12 @@
     },
     {
       "id": "~moonshotai/kimi-latest",
-      "name": "MoonshotAI Kimi Latest",
+      "name": "MoonshotAI: Kimi Latest",
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000230272875",
-        "completion": "0.000011550195",
+        "prompt": "0.0000021",
+        "completion": "0.00001095",
         "request": null,
         "image": null
       },
@@ -6575,7 +6574,7 @@
     },
     {
       "id": "~google/gemini-flash-latest",
-      "name": "Google Gemini Flash Latest",
+      "name": "Google: Gemini Flash Latest",
       "provider": "~google",
       "contextLength": 1048576,
       "pricing": {
@@ -6621,7 +6620,7 @@
     },
     {
       "id": "~anthropic/claude-sonnet-latest",
-      "name": "Anthropic Claude Sonnet Latest",
+      "name": "Anthropic: Claude Sonnet Latest",
       "provider": "~anthropic",
       "contextLength": 1000000,
       "pricing": {
@@ -7077,8 +7076,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000809274",
-        "completion": "0.000001618548",
+        "prompt": "0.0000016",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -7094,8 +7093,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 393216,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7128,8 +7127,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000006678",
-        "completion": "0.00000013356",
+        "prompt": "0.00000004956",
+        "completion": "0.00000009912",
         "request": null,
         "image": null
       },
@@ -7622,8 +7621,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000042",
-        "completion": "0.00000022",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -7641,8 +7640,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9752,8 +9751,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.00000027",
+        "completion": "0.00000108",
         "request": null,
         "image": null
       },
@@ -9769,8 +9768,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 131072,
+        "context_length": 200000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11831,7 +11830,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 100352,
+        "max_completion_tokens": 98304,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13339,7 +13338,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 100352,
+        "max_completion_tokens": 98304,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14090,7 +14089,7 @@
       "topProvider": {
         "context_length": 200000,
         "max_completion_tokens": 32000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -14282,8 +14281,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.0000003",
+        "prompt": "0.00000004815",
+        "completion": "0.00000019305",
         "request": null,
         "image": null
       },
@@ -14299,8 +14298,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 128000,
+        "max_completion_tokens": 32000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14702,7 +14701,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 100352,
+        "max_completion_tokens": 98304,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -17243,7 +17242,6 @@
         "response_format",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -18364,8 +18362,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000072",
-        "completion": "0.00000072",
+        "prompt": "0.0000004",
+        "completion": "0.0000004",
         "request": null,
         "image": null
       },
@@ -18382,8 +18380,8 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 8192,
-        "is_moderated": true
+        "max_completion_tokens": 16384,
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -19563,7 +19561,7 @@
       "topProvider": {
         "context_length": 8191,
         "max_completion_tokens": 4096,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "frequency_penalty",
