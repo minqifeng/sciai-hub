@@ -3,29 +3,66 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-16T07:00:34.733Z",
-  "validatedAt": "2026-09-16T07:00:34.733Z",
+  "sourceFetchedAt": "2026-09-17T06:55:54.858Z",
+  "validatedAt": "2026-09-17T06:55:54.858Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-16T07:00:34.733Z",
-    "snapshotDate": "2026-09-16"
+    "refreshedAt": "2026-09-17T06:55:54.858Z",
+    "snapshotDate": "2026-09-17"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 443,
+  "recordCount": 444,
   "records": [
+    {
+      "id": "stealth/union-alpha",
+      "name": "Union Alpha",
+      "provider": "stealth",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "max_tokens",
+        "response_format",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
     {
       "id": "~deepseek/deepseek-pro-latest",
       "name": "DeepSeek: DeepSeek Pro Latest",
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000096",
-        "completion": "0.00000288",
+        "prompt": "0.0000007",
+        "completion": "0.00000296",
         "request": null,
         "image": null
       },
@@ -42,7 +79,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 384000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1468,6 +1505,7 @@
         "logprobs",
         "max_tokens",
         "min_p",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -1538,8 +1576,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003333",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -1568,6 +1606,7 @@
         "logprobs",
         "max_tokens",
         "min_p",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -2412,8 +2451,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000009834",
-        "completion": "0.0000029502",
+        "prompt": "0.00000132",
+        "completion": "0.00000396",
         "request": null,
         "image": null
       },
@@ -2429,7 +2468,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
+        "context_length": 1048576,
         "max_completion_tokens": 384000,
         "is_moderated": false
       },
@@ -2921,8 +2960,8 @@
       "provider": "~deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.0000001",
+        "prompt": "0.00000003",
+        "completion": "0.00000013",
         "request": null,
         "image": null
       },
@@ -3838,8 +3877,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000002648138063",
-        "completion": "0.00001328272425",
+        "prompt": "0.000003",
+        "completion": "0.000015",
         "request": null,
         "image": null
       },
@@ -5124,7 +5163,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5842,7 +5881,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -10771,8 +10810,8 @@
       "provider": "nvidia",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000005",
-        "completion": "0.0000002",
+        "prompt": "0.00000006",
+        "completion": "0.00000024",
         "request": null,
         "image": null
       },
@@ -17765,13 +17804,10 @@
         "max_tokens",
         "presence_penalty",
         "repetition_penalty",
-        "response_format",
         "seed",
         "stop",
         "structured_outputs",
         "temperature",
-        "tool_choice",
-        "tools",
         "top_k",
         "top_logprobs",
         "top_p"
@@ -19195,7 +19231,7 @@
       "topProvider": {
         "context_length": 16385,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -19312,8 +19348,8 @@
       "provider": "gryphe",
       "contextLength": 8192,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000006",
+        "prompt": "0.00000008",
+        "completion": "0.00000011",
         "request": null,
         "image": null
       },
