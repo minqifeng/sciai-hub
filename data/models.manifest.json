@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-24T06:57:41.558Z",
-  "validatedAt": "2026-09-24T06:57:41.558Z",
+  "sourceFetchedAt": "2026-09-25T06:52:21.489Z",
+  "validatedAt": "2026-09-25T06:52:21.489Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-24T06:57:41.558Z",
-    "snapshotDate": "2026-09-24"
+    "refreshedAt": "2026-09-25T06:52:21.489Z",
+    "snapshotDate": "2026-09-25"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 458,
+  "recordCount": 460,
   "records": [
     {
       "id": "fireworks/ember-1",
@@ -1158,8 +1158,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000039",
-        "completion": "0.0000029",
+        "prompt": "0.00000026",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -1209,7 +1209,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.00000004",
-        "completion": "0.000001",
+        "completion": "0.00000049",
         "request": null,
         "image": null
       },
@@ -1640,8 +1640,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000042",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -1659,7 +1659,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 393216,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2684,8 +2684,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000005",
+        "prompt": "0.000000045",
+        "completion": "0.00000014",
         "request": null,
         "image": null
       },
@@ -2704,7 +2704,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2916,7 +2916,7 @@
       "id": "tencent/hy-mt2-30b-a3b",
       "name": "Tencent: Hy-MT2-30B-A3B",
       "provider": "tencent",
-      "contextLength": 32768,
+      "contextLength": 8192,
       "pricing": {
         "prompt": "0.000000074",
         "completion": "0.000000295",
@@ -2940,19 +2940,12 @@
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
         "max_completion_tokens",
         "max_tokens",
-        "presence_penalty",
         "response_format",
-        "seed",
         "stop",
         "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_logprobs",
-        "top_p"
+        "temperature"
       ]
     },
     {
@@ -2961,8 +2954,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000005625",
-        "completion": "0.0000025",
+        "prompt": "0.0000005614",
+        "completion": "0.0000017644",
         "request": null,
         "image": null
       },
@@ -3048,8 +3041,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000084",
-        "completion": "0.00000264",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -3065,8 +3058,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4743,8 +4736,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
+        "prompt": "0.0000008845",
+        "completion": "0.0000105346",
         "request": null,
         "image": null
       },
@@ -6133,7 +6126,7 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000007062",
+        "prompt": "0.0000006562",
         "completion": "0.0000033",
         "request": null,
         "image": null
@@ -6651,7 +6644,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7424,8 +7417,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000014",
-        "completion": "0.00001075",
+        "prompt": "0.0000008845",
+        "completion": "0.0000105346",
         "request": null,
         "image": null
       },
@@ -7974,8 +7967,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000009396",
-        "completion": "0.0000018792",
+        "prompt": "0.000000784044",
+        "completion": "0.000001568088",
         "request": null,
         "image": null
       },
@@ -8025,8 +8018,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000088606",
-        "completion": "0.000000177212",
+        "prompt": "0.000000049",
+        "completion": "0.000000098",
         "request": null,
         "image": null
       },
@@ -8470,8 +8463,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000966",
-        "completion": "0.000003036",
+        "prompt": "0.0000009646",
+        "completion": "0.0000030316",
         "request": null,
         "image": null
       },
@@ -8487,8 +8480,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 128000,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11347,8 +11340,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.00000175",
+        "prompt": "0.0000006",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -11734,6 +11727,48 @@
       ]
     },
     {
+      "id": "mistralai/devstral-2512",
+      "name": "Mistral: Devstral 2 2512",
+      "provider": "mistralai",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.0000004",
+        "completion": "0.000002",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+file->text",
+        "input_modalities": [
+          "text",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Mistral",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 209715,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
       "id": "relace/relace-search",
       "name": "Relace: Relace Search",
       "provider": "relace",
@@ -12080,6 +12115,49 @@
       "topProvider": {
         "context_length": 131072,
         "max_completion_tokens": 104857,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "max_tokens",
+        "presence_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
+      "id": "mistralai/mistral-large-2512",
+      "name": "Mistral: Mistral Large 3 2512",
+      "provider": "mistralai",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Mistral",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 209715,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13190,8 +13268,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000052",
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -13208,8 +13286,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
