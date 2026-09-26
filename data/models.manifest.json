@@ -3,21 +3,99 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-25T06:52:21.489Z",
-  "validatedAt": "2026-09-25T06:52:21.489Z",
+  "sourceFetchedAt": "2026-09-26T06:53:09.283Z",
+  "validatedAt": "2026-09-26T06:53:09.284Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-25T06:52:21.489Z",
-    "snapshotDate": "2026-09-25"
+    "refreshedAt": "2026-09-26T06:53:09.283Z",
+    "snapshotDate": "2026-09-26"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 460,
+  "recordCount": 458,
   "records": [
+    {
+      "id": "typesafe/jev-router",
+      "name": "TypeSafe: Jev Router",
+      "provider": "typesafe",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "audio",
+          "file",
+          "image",
+          "text",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": []
+    },
+    {
+      "id": "perceptron/perceptron-mk1.5",
+      "name": "Perceptron: Perceptron Mk1.5",
+      "provider": "perceptron",
+      "contextLength": 36864,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000015",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+audio+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 36864,
+        "max_completion_tokens": 8192,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
     {
       "id": "fireworks/ember-1",
       "name": "Fireworks: Ember-1",
@@ -885,7 +963,7 @@
       "id": "xiaomi/mimo-v2.6-pro",
       "name": "Xiaomi: MiMo-V2.6-Pro",
       "provider": "xiaomi",
-      "contextLength": 1048576,
+      "contextLength": 1050000,
       "pricing": {
         "prompt": "0.000000435",
         "completion": "0.00000087",
@@ -1158,7 +1236,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000026",
+        "prompt": "0.00000025",
         "completion": "0.0000035",
         "request": null,
         "image": null
@@ -1208,8 +1286,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.00000049",
+        "prompt": "0.000000035",
+        "completion": "0.00000029",
         "request": null,
         "image": null
       },
@@ -1226,8 +1304,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "context_length": 1040000,
+        "max_completion_tokens": 384000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1589,8 +1667,8 @@
       "provider": "inclusionai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000018",
+        "prompt": "0.000000021",
+        "completion": "0.0000000616",
         "request": null,
         "image": null
       },
@@ -1608,7 +1686,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
+        "context_length": 262144,
         "max_completion_tokens": 32768,
         "is_moderated": false
       },
@@ -1640,8 +1718,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.00000014",
+        "completion": "0.00000042",
         "request": null,
         "image": null
       },
@@ -1659,7 +1737,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1772,94 +1850,6 @@
         "temperature",
         "tool_choice",
         "tools"
-      ]
-    },
-    {
-      "id": "nex-agi/nex-n2.5-mini:free",
-      "name": "Nex AGI: Nex-N2.5-Mini (free)",
-      "provider": "nex-agi",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nex-agi/nex-n2.5-pro:free",
-      "name": "Nex AGI: Nex-N2.5-Pro (free)",
-      "provider": "nex-agi",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
       ]
     },
     {
@@ -2583,8 +2573,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.00000004",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2603,7 +2593,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2684,8 +2674,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.00000004",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2704,7 +2694,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2954,8 +2944,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000005614",
-        "completion": "0.0000017644",
+        "prompt": "0.0000004746",
+        "completion": "0.0000014916",
         "request": null,
         "image": null
       },
@@ -3505,8 +3495,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000462",
-        "completion": "0.000001386",
+        "prompt": "0.000000264",
+        "completion": "0.000000792",
         "request": null,
         "image": null
       },
@@ -3649,7 +3639,7 @@
       "id": "nvidia/nemotron-3.5-lightning",
       "name": "NVIDIA: Nemotron 3.5 Lightning",
       "provider": "nvidia",
-      "contextLength": 262144,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "0.00000008",
         "completion": "0.0000002",
@@ -3917,7 +3907,7 @@
       "provider": "~deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000003",
+        "prompt": "0.000000021",
         "completion": "0.00000032",
         "request": null,
         "image": null
@@ -3969,7 +3959,7 @@
       "provider": "deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.00000003",
+        "prompt": "0.000000021",
         "completion": "0.00000032",
         "request": null,
         "image": null
@@ -4019,7 +4009,7 @@
       "id": "thinkingmachines/inkling-small",
       "name": "Thinking Machines: Inkling Small",
       "provider": "thinkingmachines",
-      "contextLength": 1048576,
+      "contextLength": 524288,
       "pricing": {
         "prompt": "0.00000045",
         "completion": "0.0000012",
@@ -4585,7 +4575,7 @@
       "id": "thinkingmachines/inkling",
       "name": "Thinking Machines: Inkling",
       "provider": "thinkingmachines",
-      "contextLength": 1048576,
+      "contextLength": 524288,
       "pricing": {
         "prompt": "0.000001",
         "completion": "0.00000405",
@@ -4736,8 +4726,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000008845",
-        "completion": "0.0000105346",
+        "prompt": "0.000003",
+        "completion": "0.000015",
         "request": null,
         "image": null
       },
@@ -6045,49 +6035,6 @@
         "tools",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "z-ai/glm-5.2:free",
-      "name": "Z.ai: GLM 5.2 (free)",
-      "provider": "z-ai",
-      "contextLength": 32768,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 29491,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
         "top_p"
       ]
     },
@@ -7417,8 +7364,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000008845",
-        "completion": "0.0000105346",
+        "prompt": "0.0000010301",
+        "completion": "0.000009043",
         "request": null,
         "image": null
       },
@@ -7752,7 +7699,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.00000032",
-        "completion": "0.0000027",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -7771,7 +7718,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 262140,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7967,8 +7914,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000784044",
-        "completion": "0.000001568088",
+        "prompt": "0.000000418818",
+        "completion": "0.000000837636",
         "request": null,
         "image": null
       },
@@ -8018,8 +7965,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000049",
-        "completion": "0.000000098",
+        "prompt": "0.00000004704",
+        "completion": "0.00000009408",
         "request": null,
         "image": null
       },
@@ -8512,8 +8459,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.0000003",
+        "prompt": "0.0000000675",
+        "completion": "0.000000225",
         "request": null,
         "image": null
       },
@@ -19661,44 +19608,6 @@
         "tool_choice",
         "tools",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "anthropic/claude-3-haiku",
-      "name": "Anthropic: Claude 3 Haiku",
-      "provider": "anthropic",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.00000125",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Claude",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 4096,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
