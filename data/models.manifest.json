@@ -3,21 +3,107 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-27T07:21:52.380Z",
-  "validatedAt": "2026-09-27T07:21:52.380Z",
+  "sourceFetchedAt": "2026-09-29T07:41:23.069Z",
+  "validatedAt": "2026-09-29T07:41:23.069Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-09-27T07:21:52.380Z",
-    "snapshotDate": "2026-09-27"
+    "refreshedAt": "2026-09-29T07:41:23.069Z",
+    "snapshotDate": "2026-09-29"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 458,
+  "recordCount": 460,
   "records": [
+    {
+      "id": "anthropic/claude-sonnet-5.5",
+      "name": "Anthropic: Claude Sonnet 5.5",
+      "provider": "anthropic",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Claude",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5.5:batch",
+      "name": "Anthropic: Claude Sonnet 5.5 (batch)",
+      "provider": "anthropic",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Claude",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
     {
       "id": "typesafe/jev-router",
       "name": "TypeSafe: Jev Router",
@@ -1015,8 +1101,8 @@
       "provider": "x-ai",
       "contextLength": 500000,
       "pricing": {
-        "prompt": "0.0000016",
-        "completion": "0.0000048",
+        "prompt": "0.000002",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -1236,8 +1322,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002442",
-        "completion": "0.0000007326",
+        "prompt": "0.00000015808",
+        "completion": "0.0000019584",
         "request": null,
         "image": null
       },
@@ -1254,7 +1340,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1286,8 +1372,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000035",
-        "completion": "0.00000029",
+        "prompt": "0.00000002",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -1304,8 +1390,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1040000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1718,8 +1804,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000035",
-        "completion": "0.00000029",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -1736,8 +1822,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1040000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1850,6 +1936,90 @@
         "temperature",
         "tool_choice",
         "tools"
+      ]
+    },
+    {
+      "id": "nex-agi/nex-n2.5-mini",
+      "name": "Nex AGI: Nex-N2.5-Mini",
+      "provider": "nex-agi",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.000000025",
+        "completion": "0.0000001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "structured_outputs",
+        "temperature",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nex-agi/nex-n2.5-pro",
+      "name": "Nex AGI: Nex-N2.5-Pro",
+      "provider": "nex-agi",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.000000075",
+        "completion": "0.00000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
       ]
     },
     {
@@ -2124,13 +2294,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2170,13 +2339,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2459,8 +2627,10 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "max_completion_tokens",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -2507,6 +2677,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -2515,50 +2686,6 @@
         "seed",
         "stop",
         "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "inclusionai/ling-3.0-flash-fin:free",
-      "name": "inclusionAI: Ling 3.0 Flash Fin (free)",
-      "provider": "inclusionai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "seed",
-        "stop",
         "temperature",
         "tool_choice",
         "tools",
@@ -2573,8 +2700,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.00000002",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -2593,7 +2720,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2674,8 +2801,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.00000015",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2693,8 +2820,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2783,13 +2910,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2944,8 +3070,8 @@
       "provider": "~z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000002737",
-        "completion": "0.0000008602",
+        "prompt": "0.00000019",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -2962,7 +3088,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3031,8 +3157,8 @@
       "provider": "z-ai",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000002737",
-        "completion": "0.0000008602",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -3048,8 +3174,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3130,8 +3256,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000042",
-        "completion": "0.000003",
+        "prompt": "0.0000000749",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -3149,8 +3275,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 131072,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3495,8 +3621,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000024502",
-        "completion": "0.0000035",
+        "prompt": "0.0000004",
+        "completion": "0.0000042",
         "request": null,
         "image": null
       },
@@ -3641,8 +3767,8 @@
       "provider": "nvidia",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.0000002",
+        "prompt": "0.00000006",
+        "completion": "0.00000016",
         "request": null,
         "image": null
       },
@@ -3659,7 +3785,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3836,7 +3962,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -3851,7 +3976,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -3867,13 +3991,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -3907,8 +4030,8 @@
       "provider": "~deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000021",
-        "completion": "0.00000032",
+        "prompt": "0.000000012",
+        "completion": "0.000001",
         "request": null,
         "image": null
       },
@@ -3959,7 +4082,7 @@
       "provider": "deepseek",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.000000021",
+        "prompt": "0.000000018",
         "completion": "0.00000032",
         "request": null,
         "image": null
@@ -4834,13 +4957,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -5251,8 +5373,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.00001",
+        "prompt": "0.000004",
+        "completion": "0.00002",
         "request": null,
         "image": null
       },
@@ -5272,7 +5394,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5462,8 +5584,8 @@
       "provider": "~x-ai",
       "contextLength": 500000,
       "pricing": {
-        "prompt": "0.0000016",
-        "completion": "0.0000048",
+        "prompt": "0.000002",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -5993,8 +6115,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000006496",
-        "completion": "0.0000020416",
+        "prompt": "0.0000003249",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -6011,7 +6133,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7364,8 +7486,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000009",
+        "prompt": "0.0000004",
+        "completion": "0.00001",
         "request": null,
         "image": null
       },
@@ -7483,7 +7605,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7494,6 +7616,7 @@
         "response_format",
         "stop",
         "structured_outputs",
+        "temperature",
         "tool_choice",
         "tools",
         "verbosity"
@@ -7914,8 +8037,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000348",
-        "completion": "0.000000696",
+        "prompt": "0.00000095526",
+        "completion": "0.00000191052",
         "request": null,
         "image": null
       },
@@ -7965,8 +8088,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000469",
-        "completion": "0.0000000938",
+        "prompt": "0.00000014",
+        "completion": "0.00000028",
         "request": null,
         "image": null
       },
@@ -8274,8 +8397,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000095",
-        "completion": "0.000004",
+        "prompt": "0.00000065",
+        "completion": "0.00000341",
         "request": null,
         "image": null
       },
@@ -8410,8 +8533,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000009646",
-        "completion": "0.0000030316",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -8459,8 +8582,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000675",
-        "completion": "0.000000225",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -9842,8 +9965,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000003125",
-        "completion": "0.00000125",
+        "prompt": "0.0000001625",
+        "completion": "0.0000013",
         "request": null,
         "image": null
       },
@@ -9861,8 +9984,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 16384,
+        "context_length": 262144,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12170,8 +12293,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.000000269",
-        "completion": "0.0000004",
+        "prompt": "0.00000028",
+        "completion": "0.00000042",
         "request": null,
         "image": null
       },
@@ -12187,7 +12310,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
+        "context_length": 131072,
         "max_completion_tokens": 65536,
         "is_moderated": false
       },
@@ -12718,8 +12841,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000255",
-        "completion": "0.00000102",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -12735,8 +12858,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 131072,
+        "context_length": 196608,
+        "max_completion_tokens": 176947,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13497,7 +13620,7 @@
       },
       "topProvider": {
         "context_length": 163840,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 147456,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13789,7 +13912,7 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000027",
+        "prompt": "0.0000003",
         "completion": "0.000001",
         "request": null,
         "image": null
@@ -13807,7 +13930,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14982,8 +15105,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.00000004815",
+        "completion": "0.00000019305",
         "request": null,
         "image": null
       },
@@ -14999,8 +15122,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 128000,
+        "max_completion_tokens": 32000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16911,8 +17034,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.000001",
+        "prompt": "0.00000029",
+        "completion": "0.00000114",
         "request": null,
         "image": null
       },
@@ -17782,47 +17905,6 @@
       ]
     },
     {
-      "id": "deepseek/deepseek-r1-distill-llama-70b",
-      "name": "DeepSeek: R1 Distill Llama 70B",
-      "provider": "deepseek",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.0000008",
-        "completion": "0.0000008",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "deepseek-r1"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 7372,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "deepseek/deepseek-r1",
       "name": "DeepSeek: R1",
       "provider": "deepseek",
@@ -17949,8 +18031,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.00000089",
+        "prompt": "0.0000002574",
+        "completion": "0.0000010287",
         "request": null,
         "image": null
       },
@@ -17966,8 +18048,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
-        "max_completion_tokens": 16384,
+        "context_length": 128000,
+        "max_completion_tokens": 16000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -20092,7 +20174,7 @@
       "topProvider": {
         "context_length": 8191,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
