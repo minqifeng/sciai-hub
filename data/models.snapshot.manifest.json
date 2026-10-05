@@ -3,22 +3,320 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Weekly Model Snapshot",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-09-27T07:21:52.380Z",
-  "validatedAt": "2026-09-28T08:00:33.692Z",
+  "sourceFetchedAt": "2026-10-04T07:35:44.810Z",
+  "validatedAt": "2026-10-05T07:58:46.839Z",
   "status": "snapshot",
   "freshness": {
     "cadence": "weekly",
     "freshnessPolicy": "frozen-snapshot",
-    "snapshotTakenAt": "2026-09-28T08:00:33.692Z",
+    "snapshotTakenAt": "2026-10-05T07:58:46.839Z",
     "sourceDatasetId": "models.catalog",
-    "snapshotDate": "2026-09-28"
+    "snapshotDate": "2026-10-05"
   },
   "lineage": {
     "mode": "weekly-snapshot",
     "sourceManifest": "data/models.manifest.json"
   },
-  "recordCount": 458,
+  "recordCount": 466,
   "records": [
+    {
+      "id": "inclusionai/ling-3.1-flash",
+      "name": "inclusionAI: Ling 3.1 Flash",
+      "provider": "inclusionai",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 32768,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "apodex/apodex-1.1-mini:free",
+      "name": "Apodex: Apodex 1.1 Mini (free)",
+      "provider": "apodex",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
+    {
+      "id": "unbiased/pareto-26.10-preview",
+      "name": "Pareto 26.10 Preview",
+      "provider": "unbiased",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.0000008",
+        "completion": "0.0000032",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "max_tokens",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-sol-pro",
+      "name": "OpenAI: GPT-6.1 Sol Pro",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-sol",
+      "name": "OpenAI: GPT-6.1 Sol",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5.5",
+      "name": "Anthropic: Claude Sonnet 5.5",
+      "provider": "anthropic",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Claude",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5.5:batch",
+      "name": "Anthropic: Claude Sonnet 5.5 (batch)",
+      "provider": "anthropic",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "file"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Claude",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "stop",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
     {
       "id": "typesafe/jev-router",
       "name": "TypeSafe: Jev Router",
@@ -50,7 +348,32 @@
         "max_completion_tokens": null,
         "is_moderated": false
       },
-      "supportedParameters": []
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "verbosity"
+      ]
     },
     {
       "id": "perceptron/perceptron-mk1.5",
@@ -486,7 +809,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -527,7 +851,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -569,7 +894,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -610,7 +936,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -652,7 +979,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -693,7 +1021,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -735,7 +1064,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -776,7 +1106,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -866,6 +1197,35 @@
       ]
     },
     {
+      "id": "nvidia/switchyard",
+      "name": "NVIDIA: Switchyard",
+      "provider": "nvidia",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": []
+    },
+    {
       "id": "xiaomi/mimo-v2.6-pro-ultraspeed",
       "name": "Xiaomi: MiMo-V2.6-Pro-UltraSpeed",
       "provider": "xiaomi",
@@ -914,7 +1274,7 @@
       "id": "xiaomi/mimo-v2.6-flash",
       "name": "Xiaomi: MiMo-V2.6-Flash",
       "provider": "xiaomi",
-      "contextLength": 1048576,
+      "contextLength": 1050000,
       "pricing": {
         "prompt": "0.00000014",
         "completion": "0.00000028",
@@ -944,6 +1304,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -957,6 +1318,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -1016,8 +1378,8 @@
       "provider": "x-ai",
       "contextLength": 500000,
       "pricing": {
-        "prompt": "0.0000016",
-        "completion": "0.0000048",
+        "prompt": "0.000002",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -1225,6 +1587,7 @@
       },
       "supportedParameters": [
         "max_tokens",
+        "response_format",
         "temperature",
         "tool_choice",
         "tools",
@@ -1237,8 +1600,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002442",
-        "completion": "0.0000007326",
+        "prompt": "0.0000001901",
+        "completion": "0.0000042",
         "request": null,
         "image": null
       },
@@ -1287,8 +1650,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000035",
-        "completion": "0.00000029",
+        "prompt": "0.000000003",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -1305,8 +1668,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1040000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1365,6 +1728,7 @@
         "max_tokens",
         "min_p",
         "presence_penalty",
+        "repetition_penalty",
         "response_format",
         "seed",
         "stop",
@@ -1407,6 +1771,7 @@
         "max_tokens",
         "min_p",
         "presence_penalty",
+        "repetition_penalty",
         "response_format",
         "seed",
         "stop",
@@ -1455,7 +1820,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1485,7 +1851,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -1497,7 +1863,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1539,7 +1906,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1581,7 +1949,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1719,8 +2088,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000035",
-        "completion": "0.00000029",
+        "prompt": "0.000000003",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -1737,8 +2106,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1040000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1854,6 +2223,90 @@
       ]
     },
     {
+      "id": "nex-agi/nex-n2.5-mini",
+      "name": "Nex AGI: Nex-N2.5-Mini",
+      "provider": "nex-agi",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.000000025",
+        "completion": "0.0000001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "structured_outputs",
+        "temperature",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nex-agi/nex-n2.5-pro",
+      "name": "Nex AGI: Nex-N2.5-Pro",
+      "provider": "nex-agi",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.000000075",
+        "completion": "0.00000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen3",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
       "id": "openai/gpt-6-astra",
       "name": "OpenAI: GPT-6 Astra",
       "provider": "openai",
@@ -1892,7 +2345,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1933,7 +2387,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -1975,7 +2430,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -2016,7 +2472,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -2125,13 +2582,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2171,13 +2627,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2460,8 +2915,10 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "max_completion_tokens",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -2483,54 +2940,8 @@
       "provider": "inclusionai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000018",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "inclusionai/ling-3.0-flash-fin:free",
-      "name": "inclusionAI: Ling 3.0 Flash Fin (free)",
-      "provider": "inclusionai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
+        "prompt": "0.000000042",
+        "completion": "0.0000001232",
         "request": null,
         "image": null
       },
@@ -2553,13 +2964,16 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
         "logprobs",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -2572,10 +2986,10 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "provider": "~z-ai",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.0000000352",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2594,7 +3008,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2673,10 +3087,10 @@
       "id": "z-ai/glm-5.3-flash",
       "name": "Z.ai: GLM 5.3 Flash",
       "provider": "z-ai",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000045",
-        "completion": "0.00000014",
+        "prompt": "0.00000015",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -2694,8 +3108,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 128000,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2784,13 +3198,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -2943,10 +3356,10 @@
       "id": "~z-ai/glm-latest",
       "name": "Z.ai: GLM Latest",
       "provider": "~z-ai",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002737",
-        "completion": "0.0000008602",
+        "prompt": "0.00000005",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -3030,10 +3443,10 @@
       "id": "z-ai/glm-5.3",
       "name": "Z.ai: GLM 5.3",
       "provider": "z-ai",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002737",
-        "completion": "0.0000008602",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -3050,7 +3463,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3496,8 +3909,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000024502",
-        "completion": "0.0000035",
+        "prompt": "0.00000033",
+        "completion": "0.0000042",
         "request": null,
         "image": null
       },
@@ -3640,10 +4053,10 @@
       "id": "nvidia/nemotron-3.5-lightning",
       "name": "NVIDIA: Nemotron 3.5 Lightning",
       "provider": "nvidia",
-      "contextLength": 1000000,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.0000002",
+        "prompt": "0.0000000595",
+        "completion": "0.00000017",
         "request": null,
         "image": null
       },
@@ -3811,8 +4224,8 @@
       "provider": "meta",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.00000035",
+        "completion": "0.0000015",
         "request": null,
         "image": null
       },
@@ -3830,14 +4243,13 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -3852,7 +4264,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -3868,13 +4279,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -3906,10 +4316,10 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "provider": "~deepseek",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000021",
-        "completion": "0.00000032",
+        "prompt": "0.0000000152",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -3958,10 +4368,10 @@
       "id": "deepseek/deepseek-v4-flash-0731",
       "name": "DeepSeek: DeepSeek V4 Flash 0731",
       "provider": "deepseek",
-      "contextLength": 1310720,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000021",
-        "completion": "0.00000032",
+        "prompt": "0.0000000152",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -4578,7 +4988,7 @@
       "provider": "thinkingmachines",
       "contextLength": 524288,
       "pricing": {
-        "prompt": "0.000001",
+        "prompt": "0.00000095",
         "completion": "0.00000405",
         "request": null,
         "image": null
@@ -4598,7 +5008,7 @@
       },
       "topProvider": {
         "context_length": 524288,
-        "max_completion_tokens": 471859,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4727,8 +5137,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
+        "prompt": "0.00000072",
+        "completion": "0.000013",
         "request": null,
         "image": null
       },
@@ -4835,13 +5245,12 @@
         "image": null
       },
       "architecture": {
-        "modality": "text+image+file+audio+video->text",
+        "modality": "text+image+file+video->text",
         "input_modalities": [
           "text",
           "image",
           "video",
-          "file",
-          "audio"
+          "file"
         ],
         "output_modalities": [
           "text"
@@ -4953,7 +5362,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -4994,7 +5404,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5036,7 +5447,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5077,7 +5489,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5107,7 +5520,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5119,7 +5532,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5160,7 +5574,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5202,7 +5617,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5243,7 +5659,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5252,8 +5669,8 @@
       "provider": "openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.00001",
+        "prompt": "0.000004",
+        "completion": "0.00002",
         "request": null,
         "image": null
       },
@@ -5273,7 +5690,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5285,7 +5702,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5326,7 +5744,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5368,7 +5787,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5409,7 +5829,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -5463,8 +5884,8 @@
       "provider": "~x-ai",
       "contextLength": 500000,
       "pricing": {
-        "prompt": "0.0000016",
-        "completion": "0.0000048",
+        "prompt": "0.000002",
+        "completion": "0.000006",
         "request": null,
         "image": null
       },
@@ -5994,8 +6415,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000006496",
-        "completion": "0.0000020416",
+        "prompt": "0.00000038",
+        "completion": "0.00000349",
         "request": null,
         "image": null
       },
@@ -6012,7 +6433,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6074,8 +6495,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000006562",
-        "completion": "0.0000033",
+        "prompt": "0.0000006712",
+        "completion": "0.00000335",
         "request": null,
         "image": null
       },
@@ -6334,8 +6755,8 @@
       "provider": "nvidia",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.0000024",
+        "prompt": "0.0000005",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -6351,8 +6772,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202800,
-        "max_completion_tokens": 182520,
+        "context_length": 262144,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6545,10 +6966,8 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -7310,7 +7729,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -7365,8 +7785,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000009",
+        "prompt": "0.000000576",
+        "completion": "0.000013",
         "request": null,
         "image": null
       },
@@ -7484,7 +7904,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7495,6 +7915,7 @@
         "response_format",
         "stop",
         "structured_outputs",
+        "temperature",
         "tool_choice",
         "tools",
         "verbosity"
@@ -7782,7 +8203,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -7823,7 +8245,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -7865,7 +8288,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -7906,7 +8330,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -7915,8 +8340,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000348",
-        "completion": "0.000000696",
+        "prompt": "0.0000002088",
+        "completion": "0.0000004176",
         "request": null,
         "image": null
       },
@@ -7966,8 +8391,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000469",
-        "completion": "0.0000000938",
+        "prompt": "0.0000000224",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -7984,7 +8409,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8081,10 +8506,8 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
@@ -8133,9 +8556,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
@@ -8181,19 +8602,16 @@
         "is_moderated": true
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "reasoning_effort",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
-        "top_logprobs"
+        "top_logprobs",
+        "verbosity"
       ]
     },
     {
@@ -8411,8 +8829,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000009646",
-        "completion": "0.0000030316",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -9002,7 +9420,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -9011,12 +9428,10 @@
         "response_format",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -9059,7 +9474,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9100,7 +9516,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9142,7 +9559,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9183,7 +9601,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9540,7 +9959,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9581,7 +10001,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9623,7 +10044,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9664,7 +10086,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -9843,8 +10266,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000003125",
-        "completion": "0.00000125",
+        "prompt": "0.00000015",
+        "completion": "0.000001",
         "request": null,
         "image": null
       },
@@ -9862,8 +10285,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 16384,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9965,7 +10388,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10120,7 +10543,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11149,7 +11573,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11506,7 +11931,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11547,7 +11973,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11588,7 +12015,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11630,7 +12058,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11671,7 +12100,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -11866,7 +12296,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -12171,8 +12602,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.000000269",
-        "completion": "0.0000004",
+        "prompt": "0.00000028",
+        "completion": "0.00000042",
         "request": null,
         "image": null
       },
@@ -12188,7 +12619,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
+        "context_length": 131072,
         "max_completion_tokens": 65536,
         "is_moderated": false
       },
@@ -12380,7 +12811,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -12421,7 +12853,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -12461,7 +12894,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -12501,7 +12935,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -12528,7 +12963,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 98304,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12719,8 +13154,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000255",
-        "completion": "0.00000102",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -12736,8 +13171,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 131072,
+        "context_length": 196608,
+        "max_completion_tokens": 176947,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12880,20 +13315,17 @@
         "is_moderated": true
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "top_logprobs",
-        "top_p"
+        "top_p",
+        "verbosity"
       ]
     },
     {
@@ -13108,20 +13540,17 @@
         "is_moderated": true
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "top_logprobs",
-        "top_p"
+        "top_p",
+        "verbosity"
       ]
     },
     {
@@ -13296,7 +13725,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -13337,7 +13767,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -13498,28 +13929,20 @@
       },
       "topProvider": {
         "context_length": 163840,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 147456,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
-        "logprobs",
         "max_tokens",
-        "min_p",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
-        "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -13807,8 +14230,8 @@
         "instruct_type": "deepseek-v3.1"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 163840,
+        "max_completion_tokens": 147456,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13897,8 +14320,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 131072,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14357,7 +14780,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14398,7 +14822,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14440,7 +14865,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14481,7 +14907,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14523,7 +14950,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14564,7 +14992,8 @@
         "seed",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "verbosity"
       ]
     },
     {
@@ -14573,8 +15002,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.000000037",
+        "completion": "0.00000017",
         "request": null,
         "image": null
       },
@@ -14591,7 +15020,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14983,8 +15412,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.00000004815",
+        "completion": "0.00000019305",
         "request": null,
         "image": null
       },
@@ -15000,8 +15429,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 128000,
+        "max_completion_tokens": 32000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15663,7 +16092,7 @@
       "provider": "minimax",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000004",
+        "prompt": "0.00000055",
         "completion": "0.0000022",
         "request": null,
         "image": null
@@ -16145,8 +16574,8 @@
       "provider": "qwen",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000013",
-        "completion": "0.00000052",
+        "prompt": "0.00000012",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -16162,8 +16591,8 @@
         "instruct_type": "qwen3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
+        "context_length": 40960,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16309,6 +16738,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -16321,7 +16751,9 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_a",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -16845,7 +17277,6 @@
         "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "repetition_penalty",
         "response_format",
@@ -16935,15 +17366,10 @@
       },
       "supportedParameters": [
         "frequency_penalty",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
         "response_format",
         "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -17783,47 +18209,6 @@
       ]
     },
     {
-      "id": "deepseek/deepseek-r1-distill-llama-70b",
-      "name": "DeepSeek: R1 Distill Llama 70B",
-      "provider": "deepseek",
-      "contextLength": 8192,
-      "pricing": {
-        "prompt": "0.0000008",
-        "completion": "0.0000008",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "deepseek-r1"
-      },
-      "topProvider": {
-        "context_length": 8192,
-        "max_completion_tokens": 7372,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "deepseek/deepseek-r1",
       "name": "DeepSeek: R1",
       "provider": "deepseek",
@@ -17950,8 +18335,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.00000089",
+        "prompt": "0.0000002574",
+        "completion": "0.0000010287",
         "request": null,
         "image": null
       },
@@ -17967,8 +18352,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
-        "max_completion_tokens": 16384,
+        "context_length": 128000,
+        "max_completion_tokens": 16000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -18117,8 +18502,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.00000032",
+        "prompt": "0.00000022",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -19370,7 +19755,7 @@
       "topProvider": {
         "context_length": 128000,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -20093,7 +20478,7 @@
       "topProvider": {
         "context_length": 8191,
         "max_completion_tokens": 4096,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
