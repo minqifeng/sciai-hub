@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-09T08:11:46.592Z",
-  "validatedAt": "2026-10-09T08:11:46.592Z",
+  "sourceFetchedAt": "2026-10-10T07:55:15.996Z",
+  "validatedAt": "2026-10-10T07:55:15.996Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-09T08:11:46.592Z",
-    "snapshotDate": "2026-10-09"
+    "refreshedAt": "2026-10-10T07:55:15.996Z",
+    "snapshotDate": "2026-10-10"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 469,
+  "recordCount": 458,
   "records": [
     {
       "id": "stepfun/step-5-preview",
@@ -1860,8 +1860,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000198",
-        "completion": "0.000008",
+        "prompt": "0.0000003",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -1878,7 +1878,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1910,8 +1910,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000016",
-        "completion": "0.0000012",
+        "prompt": "0.0000000013",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -3224,16 +3224,13 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
-        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -3248,8 +3245,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000032",
-        "completion": "0.000001157149",
+        "prompt": "0.00000004",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -3268,7 +3265,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3618,8 +3615,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000312",
-        "completion": "0.0000044",
+        "prompt": "0.000000039",
+        "completion": "0.0000048",
         "request": null,
         "image": null
       },
@@ -3636,7 +3633,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3706,7 +3703,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.000000039",
-        "completion": "0.000007",
+        "completion": "0.0000048",
         "request": null,
         "image": null
       },
@@ -4124,8 +4121,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000132",
-        "completion": "0.00000396",
+        "prompt": "0.00000066",
+        "completion": "0.00000198",
         "request": null,
         "image": null
       },
@@ -4270,8 +4267,8 @@
       "provider": "nvidia",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000469",
-        "completion": "0.000000134",
+        "prompt": "0.00000007",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -4288,7 +4285,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4533,8 +4530,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000001096",
-        "completion": "0.000000120667",
+        "prompt": "0.0000000068",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -4585,7 +4582,7 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000137",
+        "prompt": "0.0000000068",
         "completion": "0.00000128",
         "request": null,
         "image": null
@@ -5351,8 +5348,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.000012",
+        "prompt": "0.00000064",
+        "completion": "0.0000135",
         "request": null,
         "image": null
       },
@@ -6584,8 +6581,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000084",
-        "completion": "0.000008",
+        "prompt": "0.00000006",
+        "completion": "0.000007",
         "request": null,
         "image": null
       },
@@ -7952,8 +7949,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000049",
-        "completion": "0.000013",
+        "prompt": "0.0000004",
+        "completion": "0.000015",
         "request": null,
         "image": null
       },
@@ -8235,59 +8232,13 @@
       ]
     },
     {
-      "id": "qwen/qwen3.6-max-preview",
-      "name": "Qwen: Qwen3.6 Max Preview",
-      "provider": "qwen",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.000001027",
-        "completion": "0.000006162",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3.6-27b",
       "name": "Qwen: Qwen3.6 27B",
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000045",
-        "completion": "0.0000027",
+        "prompt": "0.00000032",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -8306,7 +8257,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -8506,8 +8457,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000095526",
-        "completion": "0.00000191052",
+        "prompt": "0.0000009483",
+        "completion": "0.0000018966",
         "request": null,
         "image": null
       },
@@ -8557,7 +8508,7 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000057",
+        "prompt": "0.0000000121",
         "completion": "0.00000128",
         "request": null,
         "image": null
@@ -9043,8 +8994,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.0000003",
+        "prompt": "0.0000000675",
+        "completion": "0.000000225",
         "request": null,
         "image": null
       },
@@ -11128,52 +11079,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-max-thinking",
-      "name": "Qwen: Qwen3 Max Thinking",
-      "provider": "qwen",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000078",
-        "completion": "0.0000039",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "anthropic/claude-opus-4.6",
       "name": "Anthropic: Claude Opus 4.6",
       "provider": "anthropic",
@@ -11405,8 +11310,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000045",
-        "completion": "0.00000225",
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
         "request": null,
         "image": null
       },
@@ -12761,7 +12666,7 @@
       "contextLength": 163840,
       "pricing": {
         "prompt": "0.000000259",
-        "completion": "0.00000042",
+        "completion": "0.0000008",
         "request": null,
         "image": null
       },
@@ -13121,7 +13026,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 98304,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13354,51 +13259,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-vl-32b-instruct",
-      "name": "Qwen: Qwen3 VL 32B Instruct",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000104",
-        "completion": "0.000000416",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "ibm-granite/granite-4.0-h-micro",
       "name": "IBM: Granite 4.0 Micro",
       "provider": "ibm-granite",
@@ -13574,60 +13434,13 @@
       ]
     },
     {
-      "id": "qwen/qwen3-vl-8b-thinking",
-      "name": "Qwen: Qwen3 VL 8B Thinking",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000018",
-        "completion": "0.0000021",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "image",
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-vl-8b-instruct",
       "name": "Qwen: Qwen3 VL 8B Instruct",
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000117",
-        "completion": "0.000000455",
+        "prompt": "0.00000025",
+        "completion": "0.00000075",
         "request": null,
         "image": null
       },
@@ -13644,8 +13457,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -13756,8 +13569,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000024",
+        "prompt": "0.00000029",
+        "completion": "0.000001",
         "request": null,
         "image": null
       },
@@ -13774,26 +13587,21 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "response_format",
-        "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -13935,8 +13743,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000043",
-        "completion": "0.00000175",
+        "prompt": "0.0000005",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -13952,8 +13760,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 198000,
-        "max_completion_tokens": 16384,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14182,53 +13990,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-vl-235b-a22b-thinking",
-      "name": "Qwen: Qwen3 VL 235B A22B Thinking",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-vl-235b-a22b-instruct",
       "name": "Qwen: Qwen3 VL 235B A22B Instruct",
       "provider": "qwen",
@@ -14264,94 +14025,6 @@
         "min_p",
         "presence_penalty",
         "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen3-max",
-      "name": "Qwen: Qwen3 Max",
-      "provider": "qwen",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000078",
-        "completion": "0.0000039",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen3-coder-plus",
-      "name": "Qwen: Qwen3 Coder Plus",
-      "provider": "qwen",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "0.00000065",
-        "completion": "0.00000325",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
         "response_format",
         "seed",
         "stop",
@@ -14472,8 +14145,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14544,50 +14217,6 @@
       ]
     },
     {
-      "id": "qwen/qwen-plus-2025-07-28",
-      "name": "Qwen: Qwen Plus 0728",
-      "provider": "qwen",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.00000078",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "moonshotai/kimi-k2-0905",
       "name": "MoonshotAI: Kimi K2 0905",
       "provider": "moonshotai",
@@ -14623,49 +14252,6 @@
         "seed",
         "stop",
         "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen3-30b-a3b-thinking-2507",
-      "name": "Qwen: Qwen3 30B A3B Thinking 2507",
-      "provider": "qwen",
-      "contextLength": 81920,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000024",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 81920,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
         "temperature",
         "tool_choice",
         "tools",
@@ -15542,18 +15128,14 @@
       },
       "supportedParameters": [
         "frequency_penalty",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "response_format",
-        "seed",
         "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -15689,10 +15271,10 @@
       "id": "qwen/qwen3-235b-a22b-thinking-2507",
       "name": "Qwen: Qwen3 235B A22B Thinking 2507",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 128000,
       "pricing": {
-        "prompt": "0.00000023",
-        "completion": "0.0000023",
+        "prompt": "0.00000045",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -15708,8 +15290,8 @@
         "instruct_type": "qwen3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "context_length": 128000,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15718,8 +15300,6 @@
         "max_tokens",
         "presence_penalty",
         "reasoning",
-        "response_format",
-        "seed",
         "stop",
         "temperature",
         "tool_choice",
@@ -16678,7 +16258,7 @@
       "id": "qwen/qwen3-30b-a3b",
       "name": "Qwen: Qwen3 30B A3B",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 40960,
       "pricing": {
         "prompt": "0.00000012",
         "completion": "0.0000005",
@@ -16722,56 +16302,13 @@
       ]
     },
     {
-      "id": "qwen/qwen3-8b",
-      "name": "Qwen: Qwen3 8B",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000117",
-        "completion": "0.000000455",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": "qwen3"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-14b",
       "name": "Qwen: Qwen3 14B",
       "provider": "qwen",
-      "contextLength": 131072,
+      "contextLength": 40960,
       "pricing": {
-        "prompt": "0.00000012",
-        "completion": "0.00000024",
+        "prompt": "0.0000001",
+        "completion": "0.00000022",
         "request": null,
         "image": null
       },
@@ -16788,7 +16325,7 @@
       },
       "topProvider": {
         "context_length": 40960,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 36864,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16860,49 +16397,6 @@
         "top_a",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "qwen/qwen3-235b-a22b",
-      "name": "Qwen: Qwen3 235B A22B",
-      "provider": "qwen",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000000455",
-        "completion": "0.00000182",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": "qwen3"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 8192,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
