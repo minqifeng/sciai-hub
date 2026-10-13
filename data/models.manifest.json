@@ -3,21 +3,67 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-11T08:02:36.724Z",
-  "validatedAt": "2026-10-11T08:02:36.724Z",
+  "sourceFetchedAt": "2026-10-13T08:43:46.458Z",
+  "validatedAt": "2026-10-13T08:43:46.458Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-11T08:02:36.724Z",
-    "snapshotDate": "2026-10-11"
+    "refreshedAt": "2026-10-13T08:43:46.458Z",
+    "snapshotDate": "2026-10-13"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 458,
+  "recordCount": 459,
   "records": [
+    {
+      "id": "meta/muse-wonder",
+      "name": "Meta: Muse Wonder",
+      "provider": "meta",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.000004",
+        "completion": "0.00002",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video",
+          "file",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
     {
       "id": "stepfun/step-5-preview",
       "name": "StepFun: Step 5 Preview",
@@ -262,7 +308,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1860,8 +1906,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000021912",
-        "completion": "0.00000065736",
+        "prompt": "0.00000025",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -1878,7 +1924,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -1910,8 +1956,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000348",
-        "completion": "0.0000001392",
+        "prompt": "0.0000000441",
+        "completion": "0.00000063",
         "request": null,
         "image": null
       },
@@ -1929,7 +1975,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2348,8 +2394,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.0000000441",
+        "completion": "0.00000063",
         "request": null,
         "image": null
       },
@@ -2678,7 +2724,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -3176,6 +3222,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_completion_tokens",
         "max_tokens",
         "min_p",
@@ -3191,6 +3238,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -3245,8 +3293,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.0000005",
+        "prompt": "0.0000000261",
+        "completion": "0.0000009",
         "request": null,
         "image": null
       },
@@ -3265,7 +3313,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3346,8 +3394,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000005",
+        "prompt": "0.0000000261",
+        "completion": "0.0000009",
         "request": null,
         "image": null
       },
@@ -3365,8 +3413,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": 943717,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3615,8 +3663,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000039",
-        "completion": "0.0000048",
+        "prompt": "0.000000055",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -3702,7 +3750,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000039",
+        "prompt": "0.000000079",
         "completion": "0.0000048",
         "request": null,
         "image": null
@@ -4121,8 +4169,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000066",
-        "completion": "0.00000198",
+        "prompt": "0.00000132",
+        "completion": "0.00000396",
         "request": null,
         "image": null
       },
@@ -4530,8 +4578,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000154",
-        "completion": "0.00000127",
+        "prompt": "0.0000000144",
+        "completion": "0.000000576",
         "request": null,
         "image": null
       },
@@ -4582,7 +4630,7 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000162",
+        "prompt": "0.000000016",
         "completion": "0.00000064",
         "request": null,
         "image": null
@@ -5348,8 +5396,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000008",
-        "completion": "0.00001",
+        "prompt": "0.00000073",
+        "completion": "0.0000135",
         "request": null,
         "image": null
       },
@@ -6921,8 +6969,8 @@
       "provider": "nvidia",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000005",
-        "completion": "0.0000022",
+        "prompt": "0.0000006",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -6938,8 +6986,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 202800,
+        "max_completion_tokens": 182520,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7949,8 +7997,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.0000149",
+        "prompt": "0.00000073",
+        "completion": "0.0000135",
         "request": null,
         "image": null
       },
@@ -8457,8 +8505,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002088",
-        "completion": "0.0000004176",
+        "prompt": "0.00000095526",
+        "completion": "0.00000191052",
         "request": null,
         "image": null
       },
@@ -8508,7 +8556,7 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000003",
+        "prompt": "0.0000000311",
         "completion": "0.00000128",
         "request": null,
         "image": null
@@ -8994,8 +9042,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000675",
-        "completion": "0.000000225",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -9511,8 +9559,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000021",
-        "completion": "0.00000084",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -9528,8 +9576,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 196608,
-        "max_completion_tokens": 176947,
+        "context_length": 204800,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14740,8 +14788,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000037",
-        "completion": "0.00000017",
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -14758,7 +14806,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16897,8 +16945,8 @@
       "provider": "meta-llama",
       "contextLength": 1310720,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.00000018",
+        "completion": "0.00000059",
         "request": null,
         "image": null
       },
@@ -16915,8 +16963,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 327680,
-        "max_completion_tokens": 16384,
+        "context_length": 131072,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -18103,8 +18151,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000022",
-        "completion": "0.0000005",
+        "prompt": "0.00000059",
+        "completion": "0.00000079",
         "request": null,
         "image": null
       },
@@ -18121,7 +18169,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
