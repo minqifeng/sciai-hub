@@ -3,21 +3,242 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-15T06:44:57.884Z",
-  "validatedAt": "2026-10-15T06:44:57.884Z",
+  "sourceFetchedAt": "2026-10-16T06:34:52.298Z",
+  "validatedAt": "2026-10-16T06:34:52.299Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-15T06:44:57.884Z",
-    "snapshotDate": "2026-10-15"
+    "refreshedAt": "2026-10-16T06:34:52.298Z",
+    "snapshotDate": "2026-10-16"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 462,
+  "recordCount": 465,
   "records": [
+    {
+      "id": "moondream/moondream3-preview",
+      "name": "Moondream: Moondream 3 Preview",
+      "provider": "moondream",
+      "contextLength": 32000,
+      "pricing": {
+        "prompt": "0.0000003",
+        "completion": "0.0000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 32000,
+        "max_completion_tokens": 4096,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "temperature",
+        "top_p"
+      ]
+    },
+    {
+      "id": "moondream/moondream3.1-9b-a2b",
+      "name": "Moondream: Moondream 3.1",
+      "provider": "moondream",
+      "contextLength": 32000,
+      "pricing": {
+        "prompt": "0.0000003",
+        "completion": "0.0000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 32000,
+        "max_completion_tokens": 4096,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "temperature",
+        "top_p"
+      ]
+    },
+    {
+      "id": "meta/muse-spark-open",
+      "name": "Meta: Muse Spark Open",
+      "provider": "meta",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000125",
+        "completion": "0.00000425",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video",
+          "file",
+          "audio"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl",
+      "name": "NVIDIA: Nemotron 3.5 Super VL",
+      "provider": "nvidia",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl:free",
+      "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+      "provider": "nvidia",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1000000,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
     {
       "id": "~unbiased/pareto-latest",
       "name": "Pareto Latest",
@@ -617,42 +838,6 @@
         "tools",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "unbiased/pareto-26.10-preview",
-      "name": "Pareto 26.10 Preview",
-      "provider": "unbiased",
-      "contextLength": 1048576,
-      "pricing": {
-        "prompt": "0.0000008",
-        "completion": "0.0000032",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "max_tokens",
-        "temperature",
-        "tool_choice",
-        "tools",
         "top_p"
       ]
     },
@@ -2115,8 +2300,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000225",
-        "completion": "0.000008",
+        "prompt": "0.00000025",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -2133,7 +2318,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2165,8 +2350,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000001368",
-        "completion": "0.000000891",
+        "prompt": "0.000000036",
+        "completion": "0.000000684",
         "request": null,
         "image": null
       },
@@ -2601,8 +2786,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000001368",
-        "completion": "0.000000891",
+        "prompt": "0.000000036",
+        "completion": "0.000000684",
         "request": null,
         "image": null
       },
@@ -3134,10 +3319,10 @@
       "provider": "google",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000075",
-        "completion": "0.00000375",
+        "prompt": "0.000000825",
+        "completion": "0.000004125",
         "request": null,
-        "image": "0.00000075"
+        "image": "0.000000825"
       },
       "architecture": {
         "modality": "text+image+file+audio+video->text",
@@ -3410,7 +3595,7 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000036",
+        "prompt": "0.00000002115",
         "completion": "0.0000009",
         "request": null,
         "image": null
@@ -3511,7 +3696,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000036",
+        "prompt": "0.00000002115",
         "completion": "0.0000009",
         "request": null,
         "image": null
@@ -3564,8 +3749,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.0000002",
+        "prompt": "0.00000005",
+        "completion": "0.00000018",
         "request": null,
         "image": null
       },
@@ -3591,6 +3776,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -3605,6 +3791,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -3780,7 +3967,7 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000006",
+        "prompt": "0.0000000608",
         "completion": "0.0000044",
         "request": null,
         "image": null
@@ -4694,8 +4881,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000144",
-        "completion": "0.000000576",
+        "prompt": "0.00000000999",
+        "completion": "0.000001152",
         "request": null,
         "image": null
       },
@@ -4746,8 +4933,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000016",
-        "completion": "0.00000064",
+        "prompt": "0.0000000111",
+        "completion": "0.00000128",
         "request": null,
         "image": null
       },
@@ -5512,8 +5699,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000045",
-        "completion": "0.000015",
+        "prompt": "0.000000304",
+        "completion": "0.000009463",
         "request": null,
         "image": null
       },
@@ -6745,8 +6932,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000037",
-        "completion": "0.000007",
+        "prompt": "0.00000062",
+        "completion": "0.00000242",
         "request": null,
         "image": null
       },
@@ -8113,8 +8300,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000029",
-        "completion": "0.000024",
+        "prompt": "0.000000294",
+        "completion": "0.000028",
         "request": null,
         "image": null
       },
@@ -8401,8 +8588,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.0000032",
+        "prompt": "0.00000025",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -8421,7 +8608,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14364,7 +14551,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
+        "prompt": "0.00000009",
         "completion": "0.0000011",
         "request": null,
         "image": null
@@ -14382,7 +14569,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -14478,13 +14665,16 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
         "response_format",
+        "structured_outputs",
         "temperature",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
@@ -15918,8 +16108,8 @@
       "provider": "mistralai",
       "contextLength": 256000,
       "pricing": {
-        "prompt": "0.000000075",
-        "completion": "0.0000002",
+        "prompt": "0.00000009375",
+        "completion": "0.00000025",
         "request": null,
         "image": null
       },
@@ -15936,7 +16126,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 128000,
+        "context_length": 256000,
         "max_completion_tokens": 16384,
         "is_moderated": false
       },
@@ -16313,47 +16503,6 @@
         "tools",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "anthropic/claude-sonnet-4",
-      "name": "Anthropic: Claude Sonnet 4",
-      "provider": "anthropic",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000003",
-        "completion": "0.000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Claude",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 64000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -18126,8 +18275,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.00000089",
+        "prompt": "0.0000002574",
+        "completion": "0.0000010287",
         "request": null,
         "image": null
       },
@@ -18143,8 +18292,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 163840,
-        "max_completion_tokens": 16384,
+        "context_length": 128000,
+        "max_completion_tokens": 16000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -18756,8 +18905,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000000509",
-        "completion": "0.000000335",
+        "prompt": "0.00000005",
+        "completion": "0.00000033",
         "request": null,
         "image": null
       },
@@ -18773,8 +18922,8 @@
         "instruct_type": "llama3"
       },
       "topProvider": {
-        "context_length": 80000,
-        "max_completion_tokens": 72000,
+        "context_length": 131072,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
