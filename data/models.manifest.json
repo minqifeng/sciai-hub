@@ -3,21 +3,74 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-17T06:24:05.684Z",
-  "validatedAt": "2026-10-17T06:24:05.685Z",
+  "sourceFetchedAt": "2026-10-18T06:48:43.651Z",
+  "validatedAt": "2026-10-18T06:48:43.651Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-17T06:24:05.684Z",
-    "snapshotDate": "2026-10-17"
+    "refreshedAt": "2026-10-18T06:48:43.651Z",
+    "snapshotDate": "2026-10-18"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 469,
+  "recordCount": 471,
   "records": [
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+      "provider": "deepseek",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "DeepSeek",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 393216,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
     {
       "id": "elorian/glimpse",
       "name": "Elorian: Glimpse",
@@ -386,13 +439,49 @@
       ]
     },
     {
+      "id": "unbiased/pareto-26.10",
+      "name": "Pareto 26.10",
+      "provider": "unbiased",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.0000008",
+        "completion": "0.0000032",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "max_tokens",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
       "id": "~unbiased/pareto-latest",
       "name": "Pareto Latest",
       "provider": "~unbiased",
-      "contextLength": 262144,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000025",
-        "completion": "0.0000075",
+        "prompt": "0.0000008",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -409,13 +498,12 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
+        "context_length": 1048576,
         "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
         "max_tokens",
-        "response_format",
         "temperature",
         "tool_choice",
         "tools",
@@ -2446,8 +2534,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002178",
-        "completion": "0.0000006534",
+        "prompt": "0.00000012",
+        "completion": "0.000008",
         "request": null,
         "image": null
       },
@@ -2496,8 +2584,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000325",
-        "completion": "0.0000004026",
+        "prompt": "0.00000005",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -2523,8 +2611,10 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -2932,8 +3022,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.0000000648",
+        "completion": "0.000000144",
         "request": null,
         "image": null
       },
@@ -2951,7 +3041,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3741,8 +3831,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000488",
-        "completion": "0.0000005578",
+        "prompt": "0.000000048",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -3842,8 +3932,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000488",
-        "completion": "0.0000005578",
+        "prompt": "0.000000048",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -4113,8 +4203,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000069",
-        "completion": "0.0000022044",
+        "prompt": "0.0000000632",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -4636,8 +4726,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "context_length": 1024000,
+        "max_completion_tokens": 384000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5027,8 +5117,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000171",
-        "completion": "0.0000009653",
+        "prompt": "0.00000000688",
+        "completion": "0.000000143616",
         "request": null,
         "image": null
       },
@@ -5079,8 +5169,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000171",
-        "completion": "0.0000009653",
+        "prompt": "0.0000001",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -8494,7 +8584,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.00000027",
-        "completion": "0.0000085378",
+        "completion": "0.000014",
         "request": null,
         "image": null
       },
@@ -10970,8 +11060,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 16384,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15717,7 +15807,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
+        "prompt": "0.00000009",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -17777,7 +17867,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000008",
-        "completion": "0.00000045",
+        "completion": "0.00000035",
         "request": null,
         "image": null
       },
