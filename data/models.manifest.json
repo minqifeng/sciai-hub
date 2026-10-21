@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-20T06:53:15.788Z",
-  "validatedAt": "2026-10-20T06:53:15.788Z",
+  "sourceFetchedAt": "2026-10-21T06:48:53.421Z",
+  "validatedAt": "2026-10-21T06:48:53.421Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-20T06:53:15.788Z",
-    "snapshotDate": "2026-10-20"
+    "refreshedAt": "2026-10-21T06:48:53.421Z",
+    "snapshotDate": "2026-10-21"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 470,
+  "recordCount": 468,
   "records": [
     {
       "id": "minimax/minimax-m3.1-flash:free",
@@ -1066,8 +1066,8 @@
       "provider": "mistralai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000068",
-        "completion": "0.00000209",
+        "prompt": "0.00000136",
+        "completion": "0.00000418",
         "request": null,
         "image": null
       },
@@ -2665,8 +2665,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000005",
-        "completion": "0.000000024",
+        "prompt": "0.000000049",
+        "completion": "0.000000375",
         "request": null,
         "image": null
       },
@@ -3103,8 +3103,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000352",
-        "completion": "0.0000000112",
+        "prompt": "0.000000049",
+        "completion": "0.000000375",
         "request": null,
         "image": null
       },
@@ -3912,8 +3912,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000048",
-        "completion": "0.00000016",
+        "prompt": "0.000000041191",
+        "completion": "0.000000375",
         "request": null,
         "image": null
       },
@@ -4013,8 +4013,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000048",
-        "completion": "0.00000016",
+        "prompt": "0.000000041191",
+        "completion": "0.000000375",
         "request": null,
         "image": null
       },
@@ -4713,8 +4713,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
-        "max_completion_tokens": 131072,
+        "context_length": 1010000,
+        "max_completion_tokens": 909000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5198,8 +5198,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000000392",
-        "completion": "0.00000012",
+        "prompt": "0.000000021",
+        "completion": "0.000000528",
         "request": null,
         "image": null
       },
@@ -5215,8 +5215,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "context_length": 262144,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7249,8 +7249,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000062",
-        "completion": "0.00000242",
+        "prompt": "0.0000000341",
+        "completion": "0.000007",
         "request": null,
         "image": null
       },
@@ -8665,7 +8665,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.000000238",
-        "completion": "0.000016",
+        "completion": "0.000024",
         "request": null,
         "image": null
       },
@@ -9314,8 +9314,8 @@
       "provider": "xiaomi",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000000435",
-        "completion": "0.00000087",
+        "prompt": "0.0000003045",
+        "completion": "0.000000609",
         "request": null,
         "image": null
       },
@@ -9331,8 +9331,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1050000,
+        "max_completion_tokens": 945000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9361,8 +9361,8 @@
       "provider": "xiaomi",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000028",
+        "prompt": "0.000000119",
+        "completion": "0.000000238",
         "request": null,
         "image": null
       },
@@ -9381,8 +9381,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1050000,
+        "max_completion_tokens": 945000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9685,8 +9685,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000966",
-        "completion": "0.000003036",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -9702,8 +9702,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 128000,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10596,8 +10596,8 @@
       "provider": "nvidia",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.00000045",
+        "prompt": "0.0000003",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -10731,8 +10731,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.00000015",
+        "prompt": "0.00000008",
+        "completion": "0.00000013",
         "request": null,
         "image": null
       },
@@ -10750,8 +10750,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 32768,
+        "context_length": 262144,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11122,7 +11122,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000015",
+        "prompt": "0.00000014",
         "completion": "0.000001",
         "request": null,
         "image": null
@@ -11142,7 +11142,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11224,8 +11224,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.00000208",
+        "prompt": "0.0000004",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -11777,8 +11777,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.00000192",
+        "prompt": "0.000001",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -11794,8 +11794,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 198000,
-        "max_completion_tokens": 128000,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16608,51 +16608,6 @@
       ]
     },
     {
-      "id": "google/gemini-2.5-flash:batch",
-      "name": "Google: Gemini 2.5 Flash (batch)",
-      "provider": "google",
-      "contextLength": 1048576,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.00000125",
-        "request": null,
-        "image": "0.00000015"
-      },
-      "architecture": {
-        "modality": "text+image+file+audio+video->text",
-        "input_modalities": [
-          "file",
-          "image",
-          "text",
-          "audio",
-          "video"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Gemini",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 65535,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "google/gemini-2.5-pro",
       "name": "Google: Gemini 2.5 Pro",
       "provider": "google",
@@ -16689,52 +16644,6 @@
         "reasoning",
         "response_format",
         "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "google/gemini-2.5-pro:batch",
-      "name": "Google: Gemini 2.5 Pro (batch)",
-      "provider": "google",
-      "contextLength": 1048576,
-      "pricing": {
-        "prompt": "0.000000625",
-        "completion": "0.000005",
-        "request": null,
-        "image": "0.000000625"
-      },
-      "architecture": {
-        "modality": "text+image+file+audio+video->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file",
-          "audio",
-          "video"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Gemini",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
