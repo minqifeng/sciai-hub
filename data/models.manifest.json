@@ -3,21 +3,189 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-25T07:07:12.609Z",
-  "validatedAt": "2026-10-25T07:07:12.609Z",
+  "sourceFetchedAt": "2026-10-27T07:04:22.746Z",
+  "validatedAt": "2026-10-27T07:04:22.746Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-25T07:07:12.609Z",
-    "snapshotDate": "2026-10-25"
+    "refreshedAt": "2026-10-27T07:04:22.746Z",
+    "snapshotDate": "2026-10-27"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 467,
+  "recordCount": 464,
   "records": [
+    {
+      "id": "openai/gpt-6.1-terra-pro",
+      "name": "OpenAI: GPT-6.1 Terra Pro",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-terra-pro:batch",
+      "name": "OpenAI: GPT-6.1 Terra Pro (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-terra",
+      "name": "OpenAI: GPT-6.1 Terra",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-terra:batch",
+      "name": "OpenAI: GPT-6.1 Terra (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
     {
       "id": "moonshotai/kimi-k3.1-pro",
       "name": "MoonshotAI: Kimi K3.1 Pro",
@@ -50,6 +218,7 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -58,7 +227,8 @@
         "stop",
         "structured_outputs",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_logprobs"
       ]
     },
     {
@@ -160,8 +330,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -1448,7 +1618,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -2711,7 +2881,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001188",
+        "prompt": "0.0000002266",
         "completion": "0.000008",
         "request": null,
         "image": null
@@ -2986,8 +3156,8 @@
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000002",
-        "completion": "0.000012",
+        "prompt": "0.000001",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -3007,11 +3177,10 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
-        "max_completion_tokens",
         "max_tokens",
         "reasoning",
         "reasoning_effort",
@@ -3199,8 +3368,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.000001",
+        "prompt": "0.00000014",
+        "completion": "0.00000042",
         "request": null,
         "image": null
       },
@@ -3218,7 +3387,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4013,8 +4182,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000418",
-        "completion": "0.000000077",
+        "prompt": "0.0000000513",
+        "completion": "0.0000000701",
         "request": null,
         "image": null
       },
@@ -4472,7 +4641,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000079",
+        "prompt": "0.0000000769",
         "completion": "0.0000014",
         "request": null,
         "image": null
@@ -4891,8 +5060,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000066",
-        "completion": "0.00000198",
+        "prompt": "0.00000132",
+        "completion": "0.00000396",
         "request": null,
         "image": null
       },
@@ -5348,8 +5517,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000422",
-        "completion": "0.0000001694",
+        "prompt": "0.0000000475",
+        "completion": "0.0000001568",
         "request": null,
         "image": null
       },
@@ -5400,8 +5569,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000422",
-        "completion": "0.0000001694",
+        "prompt": "0.000000119",
+        "completion": "0.000000238",
         "request": null,
         "image": null
       },
@@ -6165,8 +6334,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000239",
-        "completion": "0.0000108",
+        "prompt": "0.000000159",
+        "completion": "0.0000115",
         "request": null,
         "image": null
       },
@@ -6505,7 +6674,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7480,8 +7649,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000006712",
-        "completion": "0.00000335",
+        "prompt": "0.00000056",
+        "completion": "0.0000031",
         "request": null,
         "image": null
       },
@@ -8815,8 +8984,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000019",
-        "completion": "0.00000894",
+        "prompt": "0.000000159",
+        "completion": "0.0000115",
         "request": null,
         "image": null
       },
@@ -9105,8 +9274,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.000002",
+        "prompt": "0.00000032",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -9125,7 +9294,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9325,8 +9494,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002088",
-        "completion": "0.0000004176",
+        "prompt": "0.00000095526",
+        "completion": "0.00000191052",
         "request": null,
         "image": null
       },
@@ -9376,8 +9545,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000091",
-        "completion": "0.000000182",
+        "prompt": "0.00000005",
+        "completion": "0.00000045",
         "request": null,
         "image": null
       },
@@ -9393,8 +9562,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": 943717,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9467,8 +9636,8 @@
       "provider": "xiaomi",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.0000003045",
-        "completion": "0.000000609",
+        "prompt": "0.00000048",
+        "completion": "0.0000018",
         "request": null,
         "image": null
       },
@@ -9484,8 +9653,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1050000,
-        "max_completion_tokens": 945000,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9509,8 +9678,8 @@
       "provider": "xiaomi",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.000000119",
-        "completion": "0.000000238",
+        "prompt": "0.0000004",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -9529,8 +9698,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1050000,
-        "max_completion_tokens": 945000,
+        "context_length": 1000000,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9832,8 +10001,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000014",
-        "completion": "0.0000044",
+        "prompt": "0.000000966",
+        "completion": "0.000003036",
         "request": null,
         "image": null
       },
@@ -9849,8 +10018,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
-        "max_completion_tokens": 131072,
+        "context_length": 200000,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9881,8 +10050,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000675",
-        "completion": "0.000000225",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -9909,6 +10078,7 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -10141,44 +10311,6 @@
         "max_tokens",
         "reasoning",
         "response_format",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "arcee-ai/trinity-large-thinking",
-      "name": "Arcee AI: Trinity Large Thinking",
-      "provider": "arcee-ai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.0000008",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 80000,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
         "temperature",
         "tool_choice",
         "tools",
@@ -10654,51 +10786,6 @@
       ]
     },
     {
-      "id": "mistralai/mistral-small-2603:batch",
-      "name": "Mistral: Mistral Small 4 (batch)",
-      "provider": "mistralai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.000000075",
-        "completion": "0.0000003",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 209715,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "z-ai/glm-5-turbo",
       "name": "Z.ai: GLM 5 Turbo",
       "provider": "z-ai",
@@ -10906,6 +10993,7 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -11320,8 +11408,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000027",
-        "completion": "0.00000216",
+        "prompt": "0.00000026",
+        "completion": "0.0000026",
         "request": null,
         "image": null
       },
@@ -11340,7 +11428,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11371,8 +11459,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.0000032",
+        "prompt": "0.00000026",
+        "completion": "0.00000208",
         "request": null,
         "image": null
       },
@@ -13377,48 +13465,6 @@
       ]
     },
     {
-      "id": "mistralai/ministral-8b-2512:batch",
-      "name": "Mistral: Ministral 3 8B 2512 (batch)",
-      "provider": "mistralai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.000000075",
-        "completion": "0.000000075",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 209715,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "mistralai/ministral-3b-2512",
       "name": "Mistral: Ministral 3 3B 2512",
       "provider": "mistralai",
@@ -13468,49 +13514,6 @@
       "pricing": {
         "prompt": "0.0000005",
         "completion": "0.0000015",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 209715,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "mistralai/mistral-large-2512:batch",
-      "name": "Mistral: Mistral Large 3 2512 (batch)",
-      "provider": "mistralai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.00000075",
         "request": null,
         "image": null
       },
@@ -14140,50 +14143,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "ibm-granite/granite-4.0-h-micro",
-      "name": "IBM: Granite 4.0 Micro",
-      "provider": "ibm-granite",
-      "contextLength": 131000,
-      "pricing": {
-        "prompt": "0.000000017",
-        "completion": "0.000000112",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131000,
-        "max_completion_tokens": 117900,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
         "top_k",
         "top_logprobs",
         "top_p"
@@ -15282,49 +15241,6 @@
       ]
     },
     {
-      "id": "mistralai/mistral-medium-3.1:batch",
-      "name": "Mistral: Mistral Medium 3.1 (batch)",
-      "provider": "mistralai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.000001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 104857,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "z-ai/glm-4.5v",
       "name": "Z.ai: GLM 4.5V",
       "provider": "z-ai",
@@ -15947,49 +15863,6 @@
       ]
     },
     {
-      "id": "mistralai/codestral-2508:batch",
-      "name": "Mistral: Codestral 2508 (batch)",
-      "provider": "mistralai",
-      "contextLength": 256000,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.00000045",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+file->text",
-        "input_modalities": [
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Mistral",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 256000,
-        "max_completion_tokens": 204800,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "prediction",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-coder-30b-a3b-instruct",
       "name": "Qwen: Qwen3 Coder 30B A3B Instruct",
       "provider": "qwen",
@@ -16035,7 +15908,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
+        "prompt": "0.0000001",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -17506,8 +17379,8 @@
       },
       "topProvider": {
         "context_length": 1047576,
-        "max_completion_tokens": 32768,
-        "is_moderated": true
+        "max_completion_tokens": 942818,
+        "is_moderated": false
       },
       "supportedParameters": [
         "max_completion_tokens",
@@ -17787,8 +17660,8 @@
       "provider": "google",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.00000005",
+        "prompt": "0.00000005",
+        "completion": "0.0000001",
         "request": null,
         "image": null
       },
@@ -17806,7 +17679,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
