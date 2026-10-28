@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-27T07:04:22.746Z",
-  "validatedAt": "2026-10-27T07:04:22.746Z",
+  "sourceFetchedAt": "2026-10-28T07:44:31.265Z",
+  "validatedAt": "2026-10-28T07:44:31.266Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-27T07:04:22.746Z",
-    "snapshotDate": "2026-10-27"
+    "refreshedAt": "2026-10-28T07:44:31.265Z",
+    "snapshotDate": "2026-10-28"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -49,6 +49,7 @@
       },
       "supportedParameters": [
         "include_reasoning",
+        "max_completion_tokens",
         "max_tokens",
         "reasoning",
         "reasoning_effort",
@@ -133,6 +134,7 @@
       },
       "supportedParameters": [
         "include_reasoning",
+        "max_completion_tokens",
         "max_tokens",
         "reasoning",
         "reasoning_effort",
@@ -561,6 +563,54 @@
         "temperature",
         "tool_choice",
         "tools"
+      ]
+    },
+    {
+      "id": "prism-ml/ternary-bonsai-2-9b",
+      "name": "PrismML: Ternary Bonsai 2 9B",
+      "provider": "prism-ml",
+      "contextLength": 262144,
+      "pricing": {
+        "prompt": "0.00000008",
+        "completion": "0.00000013",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Qwen",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 262144,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
       ]
     },
     {
@@ -1376,7 +1426,7 @@
       "id": "inclusionai/ling-3.1-flash",
       "name": "inclusionAI: Ling 3.1 Flash",
       "provider": "inclusionai",
-      "contextLength": 262144,
+      "contextLength": 1000000,
       "pricing": {
         "prompt": "0.000000075",
         "completion": "0.000000225",
@@ -1395,8 +1445,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 1000000,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2881,7 +2931,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002266",
+        "prompt": "0.0000002542",
         "completion": "0.000008",
         "request": null,
         "image": null
@@ -2931,8 +2981,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.000001",
+        "prompt": "0.0000000138",
+        "completion": "0.0000018",
         "request": null,
         "image": null
       },
@@ -3181,6 +3231,7 @@
       },
       "supportedParameters": [
         "include_reasoning",
+        "max_completion_tokens",
         "max_tokens",
         "reasoning",
         "reasoning_effort",
@@ -3617,7 +3668,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -4182,8 +4233,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000513",
-        "completion": "0.0000000701",
+        "prompt": "0.0000000379",
+        "completion": "0.0000000798",
         "request": null,
         "image": null
       },
@@ -4554,8 +4605,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000703",
-        "completion": "0.0000043843",
+        "prompt": "0.0000000699",
+        "completion": "0.0000014",
         "request": null,
         "image": null
       },
@@ -4572,7 +4623,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4641,7 +4692,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000769",
+        "prompt": "0.0000000699",
         "completion": "0.0000014",
         "request": null,
         "image": null
@@ -4740,8 +4791,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.0000002",
-        "completion": "0.0000025",
+        "prompt": "0.000000039",
+        "completion": "0.00000125",
         "request": null,
         "image": null
       },
@@ -4760,7 +4811,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6334,8 +6385,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000159",
-        "completion": "0.0000115",
+        "prompt": "0.000000179",
+        "completion": "0.00002",
         "request": null,
         "image": null
       },
@@ -7569,7 +7620,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000341",
+        "prompt": "0.0000000209",
         "completion": "0.000007",
         "request": null,
         "image": null
@@ -8984,8 +9035,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000159",
-        "completion": "0.0000115",
+        "prompt": "0.000000179",
+        "completion": "0.00002",
         "request": null,
         "image": null
       },
@@ -9224,7 +9275,7 @@
       "contextLength": 262144,
       "pricing": {
         "prompt": "0.0000001",
-        "completion": "0.00000095",
+        "completion": "0.0000009",
         "request": null,
         "image": null
       },
@@ -9274,8 +9325,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.0000032",
+        "prompt": "0.00000045",
+        "completion": "0.0000027",
         "request": null,
         "image": null
       },
@@ -9294,7 +9345,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9545,8 +9596,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000005",
-        "completion": "0.00000045",
+        "prompt": "0.00000014",
+        "completion": "0.00000028",
         "request": null,
         "image": null
       },
@@ -9563,7 +9614,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10001,8 +10052,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.000000966",
-        "completion": "0.000003036",
+        "prompt": "0.0000014",
+        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -10018,8 +10069,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 128000,
+        "context_length": 202752,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10078,7 +10129,6 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
-        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -10875,47 +10925,6 @@
       ]
     },
     {
-      "id": "nvidia/nemotron-3-super-120b-a12b:free",
-      "name": "NVIDIA: Nemotron 3 Super (free)",
-      "provider": "nvidia",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "bytedance-seed/seed-2.0-lite",
       "name": "ByteDance Seed: Seed-2.0-Lite",
       "provider": "bytedance-seed",
@@ -10993,7 +11002,6 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
-        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -19511,8 +19519,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000005",
-        "completion": "0.00000008",
+        "prompt": "0.00000002",
+        "completion": "0.00000004",
         "request": null,
         "image": null
       },
@@ -19529,7 +19537,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
