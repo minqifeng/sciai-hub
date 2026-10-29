@@ -3,21 +3,71 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-28T07:44:31.265Z",
-  "validatedAt": "2026-10-28T07:44:31.266Z",
+  "sourceFetchedAt": "2026-10-29T07:50:19.759Z",
+  "validatedAt": "2026-10-29T07:50:19.759Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-28T07:44:31.265Z",
-    "snapshotDate": "2026-10-28"
+    "refreshedAt": "2026-10-29T07:50:19.759Z",
+    "snapshotDate": "2026-10-29"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 464,
+  "recordCount": 457,
   "records": [
+    {
+      "id": "particle-ai/particle-1",
+      "name": "Particle AI: Particle-1",
+      "provider": "particle-ai",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000025",
+        "completion": "0.000001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
     {
       "id": "openai/gpt-6.1-terra-pro",
       "name": "OpenAI: GPT-6.1 Terra Pro",
@@ -715,7 +765,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2931,7 +2981,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000002542",
+        "prompt": "0.0000001035",
         "completion": "0.000008",
         "request": null,
         "image": null
@@ -2981,8 +3031,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000138",
-        "completion": "0.0000018",
+        "prompt": "0.0000000121",
+        "completion": "0.00000131",
         "request": null,
         "image": null
       },
@@ -3419,8 +3469,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000042",
+        "prompt": "0.000000045",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -3438,7 +3488,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -3753,7 +3803,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -4132,7 +4182,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000006",
-        "completion": "0.00000025",
+        "completion": "0.00000015",
         "request": null,
         "image": null
       },
@@ -4233,8 +4283,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000379",
-        "completion": "0.0000000798",
+        "prompt": "0.0000000457",
+        "completion": "0.0000000742",
         "request": null,
         "image": null
       },
@@ -4334,8 +4384,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000005",
+        "prompt": "0.0000000457",
+        "completion": "0.0000000742",
         "request": null,
         "image": null
       },
@@ -4353,8 +4403,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": 943717,
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6385,8 +6435,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000179",
-        "completion": "0.00002",
+        "prompt": "0.000000192",
+        "completion": "0.000015",
         "request": null,
         "image": null
       },
@@ -6725,7 +6775,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -7620,7 +7670,7 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000209",
+        "prompt": "0.000000006",
         "completion": "0.000007",
         "request": null,
         "image": null
@@ -9035,8 +9085,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000179",
-        "completion": "0.00002",
+        "prompt": "0.0000001824",
+        "completion": "0.0000093388",
         "request": null,
         "image": null
       },
@@ -9596,8 +9646,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000028",
+        "prompt": "0.000000091",
+        "completion": "0.000000182",
         "request": null,
         "image": null
       },
@@ -9613,8 +9663,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -10129,6 +10179,7 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -10878,7 +10929,7 @@
       "id": "nvidia/nemotron-3-super-120b-a12b",
       "name": "NVIDIA: Nemotron 3 Super",
       "provider": "nvidia",
-      "contextLength": 262144,
+      "contextLength": 1048576,
       "pricing": {
         "prompt": "0.0000003",
         "completion": "0.0000024",
@@ -10897,8 +10948,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "context_length": 1048576,
+        "max_completion_tokens": 262144,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -11002,6 +11053,7 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -13930,7 +13982,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -13943,7 +13994,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -14137,22 +14187,12 @@
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -14597,8 +14637,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000055",
-        "completion": "0.0000022",
+        "prompt": "0.0000005",
+        "completion": "0.000002",
         "request": null,
         "image": null
       },
@@ -14614,7 +14654,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
+        "context_length": 202752,
         "max_completion_tokens": 131072,
         "is_moderated": false
       },
@@ -14977,53 +15017,6 @@
       ]
     },
     {
-      "id": "qwen/qwen3-next-80b-a3b-thinking",
-      "name": "Qwen: Qwen3 Next 80B A3B Thinking",
-      "provider": "qwen",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000012",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Qwen3",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "qwen/qwen3-next-80b-a3b-instruct",
       "name": "Qwen: Qwen3 Next 80B A3B Instruct",
       "provider": "qwen",
@@ -15180,7 +15173,7 @@
       },
       "topProvider": {
         "context_length": 163840,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 147456,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16109,7 +16102,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -16122,7 +16114,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -16979,7 +16970,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -16992,51 +16982,8 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_a",
         "top_k",
-        "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/o4-mini-high",
-      "name": "OpenAI: o4 Mini High",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.0000011",
-        "completion": "0.0000044",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -17087,46 +17034,6 @@
       "pricing": {
         "prompt": "0.000001",
         "completion": "0.000004",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "image",
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
-      "id": "openai/o4-mini",
-      "name": "OpenAI: o4 Mini",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.0000011",
-        "completion": "0.0000044",
         "request": null,
         "image": null
       },
@@ -17392,7 +17299,6 @@
       },
       "supportedParameters": [
         "max_completion_tokens",
-        "max_tokens",
         "response_format",
         "seed",
         "structured_outputs",
@@ -17575,44 +17481,6 @@
         "top_k",
         "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/o1-pro",
-      "name": "OpenAI: o1-pro",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.00015",
-        "completion": "0.0006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs"
       ]
     },
     {
@@ -18089,46 +17957,6 @@
       ]
     },
     {
-      "id": "openai/o3-mini-high",
-      "name": "OpenAI: o3 Mini High",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.0000011",
-        "completion": "0.0000044",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+file->text",
-        "input_modalities": [
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
       "id": "aion-labs/aion-rp-llama-3.1-8b",
       "name": "AionLabs: Aion-RP 1.0 (8B)",
       "provider": "aion-labs",
@@ -18248,45 +18076,6 @@
         "top_k",
         "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/o3-mini",
-      "name": "OpenAI: o3 Mini",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.0000011",
-        "completion": "0.0000044",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+file->text",
-        "input_modalities": [
-          "text",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -18529,46 +18318,6 @@
         "tools",
         "top_k",
         "top_p"
-      ]
-    },
-    {
-      "id": "openai/o1",
-      "name": "OpenAI: o1",
-      "provider": "openai",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0.000015",
-        "completion": "0.00006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file->text",
-        "input_modalities": [
-          "text",
-          "image",
-          "file"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 200000,
-        "max_completion_tokens": 100000,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "structured_outputs",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -19519,8 +19268,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.00000004",
+        "prompt": "0.00000005",
+        "completion": "0.00000008",
         "request": null,
         "image": null
       },
@@ -19537,7 +19286,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -19875,8 +19624,6 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
-        "prediction",
         "presence_penalty",
         "response_format",
         "seed",
@@ -19977,51 +19724,6 @@
         "temperature",
         "tool_choice",
         "tools",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openai/gpt-4-turbo",
-      "name": "OpenAI: GPT-4 Turbo",
-      "provider": "openai",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "0.00001",
-        "completion": "0.00003",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "GPT",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 128000,
-        "max_completion_tokens": 4096,
-        "is_moderated": true
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -20428,12 +20130,10 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
         "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
