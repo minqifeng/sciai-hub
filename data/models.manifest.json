@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-29T07:50:19.759Z",
-  "validatedAt": "2026-10-29T07:50:19.759Z",
+  "sourceFetchedAt": "2026-10-30T07:54:18.679Z",
+  "validatedAt": "2026-10-30T07:54:18.679Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-29T07:50:19.759Z",
-    "snapshotDate": "2026-10-29"
+    "refreshedAt": "2026-10-30T07:54:18.679Z",
+    "snapshotDate": "2026-10-30"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 457,
+  "recordCount": 456,
   "records": [
     {
       "id": "particle-ai/particle-1",
@@ -1277,7 +1277,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logit_bias",
         "logprobs",
         "max_tokens",
         "min_p",
@@ -1431,8 +1430,8 @@
       "provider": "mistralai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000136",
-        "completion": "0.00000418",
+        "prompt": "0.0000007",
+        "completion": "0.0000021",
         "request": null,
         "image": null
       },
@@ -2982,7 +2981,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.0000001035",
-        "completion": "0.000008",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -3031,8 +3030,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000121",
-        "completion": "0.00000131",
+        "prompt": "0.0000000339",
+        "completion": "0.00000114",
         "request": null,
         "image": null
       },
@@ -3191,7 +3190,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -3234,7 +3233,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -4283,8 +4282,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000457",
-        "completion": "0.0000000742",
+        "prompt": "0.0000000399",
+        "completion": "0.0000000687",
         "request": null,
         "image": null
       },
@@ -4303,7 +4302,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4384,8 +4383,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000457",
-        "completion": "0.0000000742",
+        "prompt": "0.00000015",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -4403,8 +4402,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "context_length": 1048575,
+        "max_completion_tokens": 943717,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4742,8 +4741,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000699",
-        "completion": "0.0000014",
+        "prompt": "0.00000008",
+        "completion": "0.0000036",
         "request": null,
         "image": null
       },
@@ -4841,8 +4840,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.000000039",
-        "completion": "0.00000125",
+        "prompt": "0.00000015",
+        "completion": "0.000001875",
         "request": null,
         "image": null
       },
@@ -4861,7 +4860,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5084,8 +5083,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1010000,
-        "max_completion_tokens": 909000,
+        "context_length": 1000000,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5618,8 +5617,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000475",
-        "completion": "0.0000001568",
+        "prompt": "0.000000056",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -6400,7 +6399,7 @@
       },
       "topProvider": {
         "context_length": null,
-        "max_completion_tokens": null,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6408,9 +6407,10 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
-        "prediction",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -6426,7 +6426,7 @@
         "top_k",
         "top_logprobs",
         "top_p",
-        "web_search_options"
+        "verbosity"
       ]
     },
     {
@@ -9085,8 +9085,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001824",
-        "completion": "0.0000093388",
+        "prompt": "0.000000151",
+        "completion": "0.0000105634",
         "request": null,
         "image": null
       },
@@ -9375,8 +9375,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000045",
-        "completion": "0.0000027",
+        "prompt": "0.00000032",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -9395,7 +9395,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 81920,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9595,8 +9595,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000095526",
-        "completion": "0.00000191052",
+        "prompt": "0.000000816234",
+        "completion": "0.000001632468",
         "request": null,
         "image": null
       },
@@ -12390,49 +12390,6 @@
       ]
     },
     {
-      "id": "upstage/solar-pro-3",
-      "name": "Upstage: Solar Pro 3",
-      "provider": "upstage",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 117964,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "parallel_tool_calls",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "response_format",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ]
-    },
-    {
       "id": "minimax/minimax-m2-her",
       "name": "MiniMax: MiniMax M2-her",
       "provider": "minimax",
@@ -14964,7 +14921,6 @@
         "max_tokens",
         "reasoning",
         "response_format",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -16970,6 +16926,7 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -16982,7 +16939,9 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_a",
         "top_k",
+        "top_logprobs",
         "top_p"
       ]
     },
