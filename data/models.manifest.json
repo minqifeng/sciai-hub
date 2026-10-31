@@ -3,14 +3,14 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-30T07:54:18.679Z",
-  "validatedAt": "2026-10-30T07:54:18.679Z",
+  "sourceFetchedAt": "2026-10-31T07:46:12.117Z",
+  "validatedAt": "2026-10-31T07:46:12.117Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-30T07:54:18.679Z",
-    "snapshotDate": "2026-10-30"
+    "refreshedAt": "2026-10-31T07:46:12.117Z",
+    "snapshotDate": "2026-10-31"
   },
   "lineage": {
     "mode": "catalog-sync",
@@ -24,8 +24,8 @@
       "provider": "particle-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000025",
-        "completion": "0.000001",
+        "prompt": "0.00000005",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -382,8 +382,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -1776,64 +1776,6 @@
       ]
     },
     {
-      "id": "typesafe/jev-router",
-      "name": "TypeSafe: Jev Router",
-      "provider": "typesafe",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file+audio+video->text",
-        "input_modalities": [
-          "audio",
-          "file",
-          "image",
-          "text",
-          "video"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "min_p",
-        "parallel_tool_calls",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p",
-        "verbosity"
-      ]
-    },
-    {
       "id": "perceptron/perceptron-mk1.5",
       "name": "Perceptron: Perceptron Mk1.5",
       "provider": "perceptron",
@@ -2613,35 +2555,6 @@
       ]
     },
     {
-      "id": "nvidia/switchyard",
-      "name": "NVIDIA: Switchyard",
-      "provider": "nvidia",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": []
-    },
-    {
       "id": "xiaomi/mimo-v2.6-pro-ultraspeed",
       "name": "Xiaomi: MiMo-V2.6-Pro-UltraSpeed",
       "provider": "xiaomi",
@@ -2981,7 +2894,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.0000001035",
-        "completion": "0.000004",
+        "completion": "0.000008",
         "request": null,
         "image": null
       },
@@ -3030,8 +2943,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000339",
-        "completion": "0.00000114",
+        "prompt": "0.0000000155",
+        "completion": "0.000000144",
         "request": null,
         "image": null
       },
@@ -4282,8 +4195,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000399",
-        "completion": "0.0000000687",
+        "prompt": "0.0000000163",
+        "completion": "0.0000001479",
         "request": null,
         "image": null
       },
@@ -4302,7 +4215,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4383,8 +4296,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000005",
+        "prompt": "0.0000000163",
+        "completion": "0.0000001479",
         "request": null,
         "image": null
       },
@@ -4402,8 +4315,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": 943717,
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4741,8 +4654,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000008",
-        "completion": "0.0000036",
+        "prompt": "0.0000000699",
+        "completion": "0.0000014",
         "request": null,
         "image": null
       },
@@ -4840,8 +4753,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.000001875",
+        "prompt": "0.00000004",
+        "completion": "0.0000023",
         "request": null,
         "image": null
       },
@@ -5160,8 +5073,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000132",
-        "completion": "0.00000396",
+        "prompt": "0.00000066",
+        "completion": "0.00000198",
         "request": null,
         "image": null
       },
@@ -5617,7 +5530,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000056",
+        "prompt": "0.000000058",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -6368,65 +6281,6 @@
         "temperature",
         "tools",
         "top_p"
-      ]
-    },
-    {
-      "id": "openrouter/auto-beta",
-      "name": "Auto Router (Beta)",
-      "provider": "openrouter",
-      "contextLength": 2000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file+audio+video->text+image",
-        "input_modalities": [
-          "text",
-          "image",
-          "audio",
-          "file",
-          "video"
-        ],
-        "output_modalities": [
-          "text",
-          "image"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": 65536,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "min_p",
-        "parallel_tool_calls",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p",
-        "verbosity"
       ]
     },
     {
@@ -7716,42 +7570,13 @@
       ]
     },
     {
-      "id": "openrouter/fusion",
-      "name": "OpenRouter: Fusion",
-      "provider": "openrouter",
-      "contextLength": 1000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": []
-    },
-    {
       "id": "moonshotai/kimi-k2.7-code",
       "name": "MoonshotAI: Kimi K2.7 Code",
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000056",
-        "completion": "0.0000031",
+        "prompt": "0.0000006",
+        "completion": "0.0000035",
         "request": null,
         "image": null
       },
@@ -9085,8 +8910,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000151",
-        "completion": "0.0000105634",
+        "prompt": "0.0000001495",
+        "completion": "0.00000715",
         "request": null,
         "image": null
       },
@@ -9375,8 +9200,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000032",
-        "completion": "0.0000032",
+        "prompt": "0.00000045",
+        "completion": "0.0000027",
         "request": null,
         "image": null
       },
@@ -9395,7 +9220,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9595,8 +9420,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000816234",
-        "completion": "0.000001632468",
+        "prompt": "0.0000016",
+        "completion": "0.0000032",
         "request": null,
         "image": null
       },
@@ -9612,8 +9437,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 384000,
+        "context_length": 1048576,
+        "max_completion_tokens": 393216,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9907,60 +9732,6 @@
       ]
     },
     {
-      "id": "openrouter/pareto-code",
-      "name": "Pareto Code Router",
-      "provider": "openrouter",
-      "contextLength": 2000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "min_p",
-        "parallel_tool_calls",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p",
-        "verbosity"
-      ]
-    },
-    {
       "id": "moonshotai/kimi-k2.6",
       "name": "MoonshotAI: Kimi K2.6",
       "provider": "moonshotai",
@@ -10151,8 +9922,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.0000003",
+        "prompt": "0.0000000675",
+        "completion": "0.000000225",
         "request": null,
         "image": null
       },
@@ -12023,8 +11794,8 @@
       "provider": "minimax",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000003",
-        "completion": "0.0000012",
+        "prompt": "0.00000027",
+        "completion": "0.00000095",
         "request": null,
         "image": null
       },
@@ -12040,8 +11811,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
-        "max_completion_tokens": 131072,
+        "context_length": 198000,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12236,57 +12007,6 @@
         "logprobs",
         "max_tokens",
         "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "openrouter/free",
-      "name": "Free Models Router",
-      "provider": "openrouter",
-      "contextLength": 200000,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image->text",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logprobs",
-        "max_completion_tokens",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
         "repetition_penalty",
         "response_format",
         "seed",
@@ -13286,35 +13006,6 @@
       ]
     },
     {
-      "id": "openrouter/bodybuilder",
-      "name": "Body Builder (beta)",
-      "provider": "openrouter",
-      "contextLength": 128000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": []
-    },
-    {
       "id": "openai/gpt-5.1-codex-max",
       "name": "OpenAI: GPT-5.1-Codex-Max",
       "provider": "openai",
@@ -13572,8 +13263,8 @@
       "provider": "deepseek",
       "contextLength": 163840,
       "pricing": {
-        "prompt": "0.00000028",
-        "completion": "0.00000042",
+        "prompt": "0.00000026",
+        "completion": "0.00000038",
         "request": null,
         "image": null
       },
@@ -13589,8 +13280,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 65536,
+        "context_length": 163840,
+        "max_completion_tokens": 147456,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -19818,64 +19509,6 @@
       ]
     },
     {
-      "id": "openrouter/auto",
-      "name": "Auto Router",
-      "provider": "openrouter",
-      "contextLength": 2000000,
-      "pricing": {
-        "prompt": "-1",
-        "completion": "-1",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text+image+file+audio+video->text+image",
-        "input_modalities": [
-          "text",
-          "image",
-          "audio",
-          "file",
-          "video"
-        ],
-        "output_modalities": [
-          "text",
-          "image"
-        ],
-        "tokenizer": "Router",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": null,
-        "max_completion_tokens": null,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "logit_bias",
-        "logprobs",
-        "max_tokens",
-        "min_p",
-        "prediction",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_a",
-        "top_k",
-        "top_logprobs",
-        "top_p",
-        "web_search_options"
-      ]
-    },
-    {
       "id": "openai/gpt-3.5-turbo-16k",
       "name": "OpenAI: GPT-3.5 Turbo 16k",
       "provider": "openai",
@@ -19907,7 +19540,6 @@
         "logit_bias",
         "logprobs",
         "max_completion_tokens",
-        "max_tokens",
         "presence_penalty",
         "response_format",
         "seed",
@@ -20098,6 +19730,373 @@
         "tools",
         "top_logprobs",
         "top_p"
+      ]
+    },
+    {
+      "id": "typesafe/jev-router",
+      "name": "TypeSafe: Jev Router",
+      "provider": "typesafe",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text",
+        "input_modalities": [
+          "audio",
+          "file",
+          "image",
+          "text",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "nvidia/switchyard",
+      "name": "NVIDIA: Switchyard",
+      "provider": "nvidia",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": []
+    },
+    {
+      "id": "openrouter/auto-beta",
+      "name": "Auto Router (Beta)",
+      "provider": "openrouter",
+      "contextLength": 2000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text+image",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio",
+          "file",
+          "video"
+        ],
+        "output_modalities": [
+          "text",
+          "image"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": 65536,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openrouter/fusion",
+      "name": "OpenRouter: Fusion",
+      "provider": "openrouter",
+      "contextLength": 1000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": []
+    },
+    {
+      "id": "openrouter/pareto-code",
+      "name": "Pareto Code Router",
+      "provider": "openrouter",
+      "contextLength": 2000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openrouter/free",
+      "name": "Free Models Router",
+      "provider": "openrouter",
+      "contextLength": 200000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ]
+    },
+    {
+      "id": "openrouter/bodybuilder",
+      "name": "Body Builder (beta)",
+      "provider": "openrouter",
+      "contextLength": 128000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text->text",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": []
+    },
+    {
+      "id": "openrouter/auto",
+      "name": "Auto Router",
+      "provider": "openrouter",
+      "contextLength": 2000000,
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file+audio+video->text+image",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio",
+          "file",
+          "video"
+        ],
+        "output_modalities": [
+          "text",
+          "image"
+        ],
+        "tokenizer": "Router",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": null,
+        "max_completion_tokens": null,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "prediction",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_a",
+        "top_k",
+        "top_logprobs",
+        "top_p",
+        "web_search_options"
       ]
     }
   ]
