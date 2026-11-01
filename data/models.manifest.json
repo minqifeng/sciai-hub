@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-10-31T07:46:12.117Z",
-  "validatedAt": "2026-10-31T07:46:12.117Z",
+  "sourceFetchedAt": "2026-11-01T08:26:56.377Z",
+  "validatedAt": "2026-11-01T08:26:56.377Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-10-31T07:46:12.117Z",
-    "snapshotDate": "2026-10-31"
+    "refreshedAt": "2026-11-01T08:26:56.377Z",
+    "snapshotDate": "2026-11-01"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 456,
+  "recordCount": 452,
   "records": [
     {
       "id": "particle-ai/particle-1",
@@ -2943,8 +2943,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000155",
-        "completion": "0.000000144",
+        "prompt": "0.000000035",
+        "completion": "0.0000005",
         "request": null,
         "image": null
       },
@@ -4195,8 +4195,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000163",
-        "completion": "0.0000001479",
+        "prompt": "0.0000000285",
+        "completion": "0.0000000923",
         "request": null,
         "image": null
       },
@@ -4296,8 +4296,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000163",
-        "completion": "0.0000001479",
+        "prompt": "0.0000000285",
+        "completion": "0.0000000923",
         "request": null,
         "image": null
       },
@@ -4753,8 +4753,8 @@
       "provider": "qwen",
       "contextLength": 1000000,
       "pricing": {
-        "prompt": "0.00000004",
-        "completion": "0.0000023",
+        "prompt": "0.00000015",
+        "completion": "0.000001875",
         "request": null,
         "image": null
       },
@@ -5073,8 +5073,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000066",
-        "completion": "0.00000198",
+        "prompt": "0.000000115",
+        "completion": "0.000004",
         "request": null,
         "image": null
       },
@@ -5091,7 +5091,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5530,7 +5530,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000058",
+        "prompt": "0.0000000434",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -5894,78 +5894,6 @@
         "top_k",
         "top_logprobs",
         "top_p"
-      ]
-    },
-    {
-      "id": "poolside/laguna-s-2.1",
-      "name": "Poolside: Laguna S 2.1",
-      "provider": "poolside",
-      "contextLength": 1048576,
-      "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000018",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 1048576,
-        "max_completion_tokens": 131072,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
-      "id": "poolside/laguna-s-2.1:free",
-      "name": "Poolside: Laguna S 2.1 (free)",
-      "provider": "poolside",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
       ]
     },
     {
@@ -7158,78 +7086,6 @@
       ]
     },
     {
-      "id": "poolside/laguna-xs-2.1",
-      "name": "Poolside: Laguna XS 2.1",
-      "provider": "poolside",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000012",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
-      "id": "poolside/laguna-xs-2.1:free",
-      "name": "Poolside: Laguna XS 2.1 (free)",
-      "provider": "poolside",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 32768,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ]
-    },
-    {
       "id": "anthropic/claude-sonnet-5",
       "name": "Anthropic: Claude Sonnet 5",
       "provider": "anthropic",
@@ -7525,7 +7381,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.000000006",
-        "completion": "0.000007",
+        "completion": "0.0000068",
         "request": null,
         "image": null
       },
@@ -12489,8 +12345,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.00000054",
-        "completion": "0.00000198",
+        "prompt": "0.0000006",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -12506,7 +12362,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 204800,
+        "context_length": 202752,
         "max_completion_tokens": 131072,
         "is_moderated": false
       },
@@ -15194,8 +15050,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.000000022",
+        "completion": "0.000000082",
         "request": null,
         "image": null
       },
@@ -15293,8 +15149,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000018",
-        "completion": "0.00000009",
+        "prompt": "0.00000003",
+        "completion": "0.00000013",
         "request": null,
         "image": null
       },
@@ -15311,7 +15167,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 32768,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
