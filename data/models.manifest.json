@@ -3,21 +3,64 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-11-01T08:26:56.377Z",
-  "validatedAt": "2026-11-01T08:26:56.377Z",
+  "sourceFetchedAt": "2026-11-03T08:50:53.689Z",
+  "validatedAt": "2026-11-03T08:50:53.689Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-11-01T08:26:56.377Z",
-    "snapshotDate": "2026-11-01"
+    "refreshedAt": "2026-11-03T08:50:53.689Z",
+    "snapshotDate": "2026-11-03"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 452,
+  "recordCount": 451,
   "records": [
+    {
+      "id": "z-ai/glm-5.3-flashx-legal",
+      "name": "Z.ai: GLM 5.3 FlashX Legal",
+      "provider": "z-ai",
+      "contextLength": 1048576,
+      "pricing": {
+        "prompt": "0.00000037",
+        "completion": "0.00000125",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+video->text",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1048576,
+        "max_completion_tokens": 131072,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ]
+    },
     {
       "id": "particle-ai/particle-1",
       "name": "Particle AI: Particle-1",
@@ -382,8 +425,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.0000003",
+        "completion": "0.0000012",
         "request": null,
         "image": null
       },
@@ -765,7 +808,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -2739,10 +2782,12 @@
         "reasoning_effort",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -2944,7 +2989,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.000000035",
-        "completion": "0.0000005",
+        "completion": "0.000000315",
         "request": null,
         "image": null
       },
@@ -4654,8 +4699,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000699",
-        "completion": "0.0000014",
+        "prompt": "0.00000008",
+        "completion": "0.0000036",
         "request": null,
         "image": null
       },
@@ -4751,7 +4796,7 @@
       "id": "qwen/qwen3.8-27b",
       "name": "Qwen: Qwen3.8 27B",
       "provider": "qwen",
-      "contextLength": 1000000,
+      "contextLength": 1024000,
       "pricing": {
         "prompt": "0.00000015",
         "completion": "0.000001875",
@@ -5530,7 +5575,7 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000434",
+        "prompt": "0.000000059",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -5582,8 +5627,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000119",
-        "completion": "0.000000238",
+        "prompt": "0.000000059",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -6727,7 +6772,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -6942,7 +6987,7 @@
       "topProvider": {
         "context_length": 500000,
         "max_completion_tokens": 450000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -6952,10 +6997,12 @@
         "reasoning_effort",
         "response_format",
         "seed",
+        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
+        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -7994,7 +8041,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -8766,8 +8813,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001495",
-        "completion": "0.00000715",
+        "prompt": "0.0000001824",
+        "completion": "0.0000093388",
         "request": null,
         "image": null
       },
@@ -9778,8 +9825,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000675",
-        "completion": "0.000000225",
+        "prompt": "0.000000098",
+        "completion": "0.000000295",
         "request": null,
         "image": null
       },
@@ -9798,7 +9845,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 32768,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -9899,6 +9946,7 @@
         "include_reasoning",
         "logit_bias",
         "logprobs",
+        "max_completion_tokens",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -14525,7 +14573,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
+        "prompt": "0.0000001",
         "completion": "0.0000011",
         "request": null,
         "image": null
@@ -14543,7 +14591,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15050,8 +15098,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000022",
-        "completion": "0.000000082",
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -15372,8 +15420,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000007",
-        "completion": "0.00000028",
+        "prompt": "0.00000015",
+        "completion": "0.0000006",
         "request": null,
         "image": null
       },
@@ -15391,7 +15439,7 @@
       "topProvider": {
         "context_length": 262144,
         "max_completion_tokens": 235929,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "frequency_penalty",
@@ -15715,8 +15763,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000055",
+        "prompt": "0.00000014",
+        "completion": "0.0000008",
         "request": null,
         "image": null
       },
@@ -15732,8 +15780,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "context_length": 131072,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -17872,8 +17920,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.00000032",
+        "prompt": "0.0000002",
+        "completion": "0.00000052",
         "request": null,
         "image": null
       },
@@ -17890,7 +17938,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -18335,8 +18383,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000005",
-        "completion": "0.00000033",
+        "prompt": "0.0000000509",
+        "completion": "0.000000335",
         "request": null,
         "image": null
       },
@@ -18352,8 +18400,8 @@
         "instruct_type": "llama3"
       },
       "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "context_length": 80000,
+        "max_completion_tokens": 72000,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -18536,91 +18584,6 @@
         "min_p",
         "presence_penalty",
         "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nousresearch/hermes-3-llama-3.1-70b",
-      "name": "Nous: Hermes 3 70B Instruct",
-      "provider": "nousresearch",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.0000007",
-        "completion": "0.0000007",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "chatml"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "top_k",
-        "top_p"
-      ]
-    },
-    {
-      "id": "nousresearch/hermes-3-llama-3.1-405b",
-      "name": "Nous: Hermes 3 405B Instruct",
-      "provider": "nousresearch",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.000001",
-        "completion": "0.000001",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Llama3",
-        "instruct_type": "chatml"
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 16384,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logit_bias",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
         "seed",
         "stop",
         "structured_outputs",
