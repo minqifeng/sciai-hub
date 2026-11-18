@@ -3,21 +3,361 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-11-17T09:54:36.807Z",
-  "validatedAt": "2026-11-17T09:54:36.808Z",
+  "sourceFetchedAt": "2026-11-18T09:29:43.224Z",
+  "validatedAt": "2026-11-18T09:29:43.225Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-11-17T09:54:36.807Z",
-    "snapshotDate": "2026-11-17"
+    "refreshedAt": "2026-11-18T09:29:43.224Z",
+    "snapshotDate": "2026-11-18"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 470,
+  "recordCount": 478,
   "records": [
+    {
+      "id": "openai/gpt-6.2-astra-pro",
+      "name": "OpenAI: GPT-6.2 Astra Pro",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000008",
+        "completion": "0.00004",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-astra-pro:batch",
+      "name": "OpenAI: GPT-6.2 Astra Pro (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000004",
+        "completion": "0.00002",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-astra",
+      "name": "OpenAI: GPT-6.2 Astra",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000008",
+        "completion": "0.00004",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-astra:batch",
+      "name": "OpenAI: GPT-6.2 Astra (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000004",
+        "completion": "0.00002",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-sol-pro",
+      "name": "OpenAI: GPT-6.2 Sol Pro",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-sol-pro:batch",
+      "name": "OpenAI: GPT-6.2 Sol Pro (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-sol",
+      "name": "OpenAI: GPT-6.2 Sol",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.00001",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.2-sol:batch",
+      "name": "OpenAI: GPT-6.2 Sol (batch)",
+      "provider": "openai",
+      "contextLength": 1050000,
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image+file->text",
+        "input_modalities": [
+          "file",
+          "image",
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "GPT",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 1050000,
+        "max_completion_tokens": 128000,
+        "is_moderated": true
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools",
+        "verbosity"
+      ]
+    },
     {
       "id": "tencent/hy4-flash",
       "name": "Tencent: Hy4 flash",
@@ -4304,8 +4644,8 @@
       "provider": "~openai",
       "contextLength": 1050000,
       "pricing": {
-        "prompt": "0.00001",
-        "completion": "0.00005",
+        "prompt": "0.000008",
+        "completion": "0.00004",
         "request": null,
         "image": null
       },
@@ -4603,8 +4943,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000042",
+        "prompt": "0.000000051",
+        "completion": "0.000000567",
         "request": null,
         "image": null
       },
@@ -4622,7 +4962,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 393216,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -5986,8 +6326,8 @@
       "provider": "qwen",
       "contextLength": 1024000,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.000001875",
+        "prompt": "0.00000006",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -8774,8 +9114,8 @@
       "provider": "moonshotai",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.0000035",
+        "prompt": "0.0000007",
+        "completion": "0.00000375",
         "request": null,
         "image": null
       },
@@ -10770,10 +11110,10 @@
       "id": "xiaomi/mimo-v2.5-pro",
       "name": "Xiaomi: MiMo-V2.5-Pro",
       "provider": "xiaomi",
-      "contextLength": 1024000,
+      "contextLength": 262144,
       "pricing": {
-        "prompt": "0.000000435",
-        "completion": "0.00000087",
+        "prompt": "0.00000048",
+        "completion": "0.0000018",
         "request": null,
         "image": null
       },
@@ -10789,8 +11129,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1024000,
-        "max_completion_tokens": 131072,
+        "context_length": 262144,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -12402,8 +12742,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000026",
-        "completion": "0.0000026",
+        "prompt": "0.0000003",
+        "completion": "0.0000024",
         "request": null,
         "image": null
       },
@@ -12422,7 +12762,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 81920,
+        "max_completion_tokens": 65536,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15555,7 +15895,7 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000009",
+        "prompt": "0.0000001",
         "completion": "0.0000011",
         "request": null,
         "image": null
@@ -15573,7 +15913,7 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 235929,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -15742,8 +16082,8 @@
       "provider": "mistralai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
+        "prompt": "0.00000044",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -16184,8 +16524,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000075",
-        "completion": "0.0000003",
+        "prompt": "0.000000018",
+        "completion": "0.00000009",
         "request": null,
         "image": null
       },
@@ -16202,7 +16542,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16429,8 +16769,11 @@
         "is_moderated": true
       },
       "supportedParameters": [
+        "frequency_penalty",
         "max_tokens",
+        "response_format",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -17017,8 +17360,8 @@
       "provider": "mistralai",
       "contextLength": 256000,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000003",
+        "prompt": "0.000000075",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -17035,8 +17378,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 32768,
-        "max_completion_tokens": 26214,
+        "context_length": 128000,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -17287,8 +17630,8 @@
       "provider": "mistralai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.000002",
+        "prompt": "0.00000044",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -18240,7 +18583,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000008",
-        "completion": "0.00000035",
+        "completion": "0.00000045",
         "request": null,
         "image": null
       },
