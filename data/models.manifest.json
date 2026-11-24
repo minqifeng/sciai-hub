@@ -3,20 +3,20 @@
   "schemaVersion": "1.0.0",
   "sourceName": "OpenRouter Model Catalog",
   "sourceUrl": "https://openrouter.ai/api/v1/models",
-  "sourceFetchedAt": "2026-11-22T09:05:33.222Z",
-  "validatedAt": "2026-11-22T09:05:33.222Z",
+  "sourceFetchedAt": "2026-11-24T11:50:38.933Z",
+  "validatedAt": "2026-11-24T11:50:38.933Z",
   "status": "live",
   "freshness": {
     "cadence": "daily",
     "freshnessPolicy": "live-catalog",
-    "refreshedAt": "2026-11-22T09:05:33.222Z",
-    "snapshotDate": "2026-11-22"
+    "refreshedAt": "2026-11-24T11:50:38.933Z",
+    "snapshotDate": "2026-11-24"
   },
   "lineage": {
     "mode": "catalog-sync",
     "generator": ".github/scripts/sync-models.js"
   },
-  "recordCount": 476,
+  "recordCount": 473,
   "records": [
     {
       "id": "thinkingmachines/inkling-2-mini",
@@ -615,16 +615,26 @@
         "is_moderated": false
       },
       "supportedParameters": [
+        "frequency_penalty",
         "include_reasoning",
+        "logit_bias",
+        "logprobs",
         "max_completion_tokens",
         "max_tokens",
+        "min_p",
+        "presence_penalty",
         "reasoning",
+        "repetition_penalty",
         "response_format",
+        "seed",
         "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
       ]
     },
     {
@@ -1900,8 +1910,8 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000253",
-        "completion": "0.0000088",
+        "prompt": "0.0000002403",
+        "completion": "0.0000084023",
         "request": null,
         "image": null
       },
@@ -1930,6 +1940,7 @@
         "logprobs",
         "max_tokens",
         "min_p",
+        "parallel_tool_calls",
         "presence_penalty",
         "reasoning",
         "reasoning_effort",
@@ -2095,8 +2106,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000006",
+        "prompt": "0.00000003",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -3155,10 +3166,10 @@
       "id": "inclusionai/ling-3.1-flash",
       "name": "inclusionAI: Ling 3.1 Flash",
       "provider": "inclusionai",
-      "contextLength": 1000000,
+      "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000006",
-        "completion": "0.00000018",
+        "prompt": "0.000000075",
+        "completion": "0.000000225",
         "request": null,
         "image": null
       },
@@ -3174,7 +3185,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1000000,
+        "context_length": 1048576,
         "max_completion_tokens": 262144,
         "is_moderated": false
       },
@@ -3185,9 +3196,10 @@
         "max_tokens",
         "presence_penalty",
         "reasoning",
-        "repetition_penalty",
+        "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -4658,7 +4670,7 @@
       "contextLength": 1048576,
       "pricing": {
         "prompt": "0.0000000999",
-        "completion": "0.000008",
+        "completion": "0.000005",
         "request": null,
         "image": null
       },
@@ -4707,8 +4719,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000036",
-        "completion": "0.0000005",
+        "prompt": "0.00000003",
+        "completion": "0.0000002",
         "request": null,
         "image": null
       },
@@ -4726,7 +4738,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 943718,
+        "max_completion_tokens": 393216,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -4867,7 +4879,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -4910,7 +4922,7 @@
       "topProvider": {
         "context_length": 1050000,
         "max_completion_tokens": 128000,
-        "is_moderated": true
+        "is_moderated": false
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5145,8 +5157,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000498",
-        "completion": "0.0000001992",
+        "prompt": "0.00000014",
+        "completion": "0.00000042",
         "request": null,
         "image": null
       },
@@ -5803,7 +5815,7 @@
       "topProvider": {
         "context_length": 1000000,
         "max_completion_tokens": 128000,
-        "is_moderated": false
+        "is_moderated": true
       },
       "supportedParameters": [
         "include_reasoning",
@@ -5966,8 +5978,8 @@
       "provider": "~z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000473",
-        "completion": "0.0000000729",
+        "prompt": "0.0000000356",
+        "completion": "0.0000000815",
         "request": null,
         "image": null
       },
@@ -6067,8 +6079,8 @@
       "provider": "z-ai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000015",
-        "completion": "0.0000005",
+        "prompt": "0.00000012",
+        "completion": "0.00000038",
         "request": null,
         "image": null
       },
@@ -6086,8 +6098,8 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 1048575,
-        "max_completion_tokens": 943717,
+        "context_length": 1048576,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -6622,6 +6634,46 @@
       ]
     },
     {
+      "id": "dots-studio/dots-3-note-preview:free",
+      "name": "Dots Studio: Dots3-Note Preview (free)",
+      "provider": "dots-studio",
+      "contextLength": 512000,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0",
+        "request": null,
+        "image": null
+      },
+      "architecture": {
+        "modality": "text+image->text",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "tokenizer": "Other",
+        "instruct_type": null
+      },
+      "topProvider": {
+        "context_length": 512000,
+        "max_completion_tokens": 460800,
+        "is_moderated": false
+      },
+      "supportedParameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ]
+    },
+    {
       "id": "google/gemini-3.7-flash",
       "name": "Google: Gemini 3.7 Flash",
       "provider": "google",
@@ -6809,8 +6861,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000132",
-        "completion": "0.00000396",
+        "prompt": "0.000000111",
+        "completion": "0.00000444",
         "request": null,
         "image": null
       },
@@ -6951,7 +7003,7 @@
       "provider": "nvidia",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.00000007",
+        "prompt": "0.00000005",
         "completion": "0.0000002",
         "request": null,
         "image": null
@@ -7314,8 +7366,8 @@
       "provider": "~deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000044",
-        "completion": "0.000000132",
+        "prompt": "0.000000047",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -7332,7 +7384,7 @@
       },
       "topProvider": {
         "context_length": 1048576,
-        "max_completion_tokens": 131072,
+        "max_completion_tokens": 943718,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -7366,7 +7418,7 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000000443",
+        "prompt": "0.000000047",
         "completion": "0.0000003",
         "request": null,
         "image": null
@@ -7725,6 +7777,7 @@
         "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
@@ -7917,7 +7970,7 @@
       "id": "thinkingmachines/inkling",
       "name": "Thinking Machines: Inkling",
       "provider": "thinkingmachines",
-      "contextLength": 524288,
+      "contextLength": 1048576,
       "pricing": {
         "prompt": "0.000001",
         "completion": "0.00000405",
@@ -7966,7 +8019,7 @@
       "provider": "moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.000000192",
+        "prompt": "0.0000002",
         "completion": "0.000016",
         "request": null,
         "image": null
@@ -8791,8 +8844,8 @@
       "provider": "tencent",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.00000014",
-        "completion": "0.00000058",
+        "prompt": "0.000000132",
+        "completion": "0.000000528",
         "request": null,
         "image": null
       },
@@ -8809,27 +8862,21 @@
       },
       "topProvider": {
         "context_length": 262144,
-        "max_completion_tokens": 235929,
+        "max_completion_tokens": 128000,
         "is_moderated": false
       },
       "supportedParameters": [
-        "frequency_penalty",
         "include_reasoning",
         "max_completion_tokens",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "reasoning_effort",
-        "repetition_penalty",
         "response_format",
-        "seed",
         "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
+        "tools"
       ]
     },
     {
@@ -9687,7 +9734,7 @@
       "id": "stepfun/step-3.7-flash",
       "name": "StepFun: Step 3.7 Flash",
       "provider": "stepfun",
-      "contextLength": 262144,
+      "contextLength": 256000,
       "pricing": {
         "prompt": "0.0000002",
         "completion": "0.00000115",
@@ -9717,18 +9764,14 @@
         "include_reasoning",
         "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
         "reasoning_effort",
-        "repetition_penalty",
         "response_format",
-        "seed",
         "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
         "top_logprobs",
         "top_p"
       ]
@@ -10488,8 +10531,8 @@
       "provider": "~moonshotai",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000001824",
-        "completion": "0.0000110055",
+        "prompt": "0.00000019",
+        "completion": "0.0000106066",
         "request": null,
         "image": null
       },
@@ -10725,8 +10768,8 @@
       "provider": "qwen",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000001",
-        "completion": "0.0000009",
+        "prompt": "0.00000005",
+        "completion": "0.0000007",
         "request": null,
         "image": null
       },
@@ -10996,8 +11039,8 @@
       "provider": "deepseek",
       "contextLength": 1048576,
       "pricing": {
-        "prompt": "0.0000009",
-        "completion": "0.0000015",
+        "prompt": "0.00000128",
+        "completion": "0.00000256",
         "request": null,
         "image": null
       },
@@ -11089,47 +11132,6 @@
         "tools",
         "top_a",
         "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "xiaomi/mimo-v2.5-pro",
-      "name": "Xiaomi: MiMo-V2.5-Pro",
-      "provider": "xiaomi",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.00000048",
-        "completion": "0.0000018",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 235929,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "include_reasoning",
-        "logprobs",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
         "top_logprobs",
         "top_p"
       ]
@@ -11455,8 +11457,8 @@
       "provider": "google",
       "contextLength": 262144,
       "pricing": {
-        "prompt": "0.0000000675",
-        "completion": "0.000000225",
+        "prompt": "0.00000009",
+        "completion": "0.0000003",
         "request": null,
         "image": null
       },
@@ -12254,7 +12256,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -12269,7 +12270,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -13532,11 +13532,8 @@
       "supportedParameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
         "seed",
         "stop",
@@ -13545,7 +13542,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -13772,8 +13768,8 @@
       "provider": "z-ai",
       "contextLength": 204800,
       "pricing": {
-        "prompt": "0.0000004",
-        "completion": "0.00000175",
+        "prompt": "0.0000006",
+        "completion": "0.0000022",
         "request": null,
         "image": null
       },
@@ -13789,7 +13785,7 @@
         "instruct_type": null
       },
       "topProvider": {
-        "context_length": 202752,
+        "context_length": 204800,
         "max_completion_tokens": 131072,
         "is_moderated": false
       },
@@ -14569,7 +14565,6 @@
         "frequency_penalty",
         "include_reasoning",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -14583,7 +14578,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -14879,51 +14873,6 @@
         "tool_choice",
         "tools",
         "verbosity"
-      ]
-    },
-    {
-      "id": "moonshotai/kimi-k2-thinking",
-      "name": "MoonshotAI: Kimi K2 Thinking",
-      "provider": "moonshotai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.0000025",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 98304,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
       ]
     },
     {
@@ -15914,51 +15863,6 @@
       ]
     },
     {
-      "id": "moonshotai/kimi-k2-0905",
-      "name": "MoonshotAI: Kimi K2 0905",
-      "provider": "moonshotai",
-      "contextLength": 262144,
-      "pricing": {
-        "prompt": "0.0000006",
-        "completion": "0.0000025",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 262144,
-        "max_completion_tokens": 98304,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "logprobs",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
       "id": "nousresearch/hermes-4-405b",
       "name": "Nous: Hermes 4 405B",
       "provider": "nousresearch",
@@ -16402,8 +16306,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000009",
-        "completion": "0.00000036",
+        "prompt": "0.00000005",
+        "completion": "0.00000025",
         "request": null,
         "image": null
       },
@@ -16501,8 +16405,8 @@
       "provider": "openai",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.000000075",
-        "completion": "0.0000003",
+        "prompt": "0.00000003",
+        "completion": "0.00000013",
         "request": null,
         "image": null
       },
@@ -16519,7 +16423,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 65536,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -16788,7 +16692,6 @@
       "supportedParameters": [
         "frequency_penalty",
         "logit_bias",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "repetition_penalty",
@@ -16800,7 +16703,6 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
         "top_p"
       ]
     },
@@ -17105,47 +17007,6 @@
         "tools",
         "top_k",
         "top_logprobs",
-        "top_p"
-      ]
-    },
-    {
-      "id": "moonshotai/kimi-k2",
-      "name": "MoonshotAI: Kimi K2 0711",
-      "provider": "moonshotai",
-      "contextLength": 131072,
-      "pricing": {
-        "prompt": "0.00000057",
-        "completion": "0.0000023",
-        "request": null,
-        "image": null
-      },
-      "architecture": {
-        "modality": "text->text",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "tokenizer": "Other",
-        "instruct_type": null
-      },
-      "topProvider": {
-        "context_length": 131072,
-        "max_completion_tokens": 98304,
-        "is_moderated": false
-      },
-      "supportedParameters": [
-        "frequency_penalty",
-        "max_tokens",
-        "presence_penalty",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
         "top_p"
       ]
     },
@@ -18557,7 +18418,7 @@
       "contextLength": 131072,
       "pricing": {
         "prompt": "0.00000008",
-        "completion": "0.00000045",
+        "completion": "0.00000016",
         "request": null,
         "image": null
       },
@@ -18575,7 +18436,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 117964,
+        "max_completion_tokens": 16384,
         "is_moderated": false
       },
       "supportedParameters": [
@@ -19902,8 +19763,8 @@
       "provider": "meta-llama",
       "contextLength": 131072,
       "pricing": {
-        "prompt": "0.00000002",
-        "completion": "0.00000004",
+        "prompt": "0.00000005",
+        "completion": "0.00000008",
         "request": null,
         "image": null
       },
@@ -19920,7 +19781,7 @@
       },
       "topProvider": {
         "context_length": 131072,
-        "max_completion_tokens": 16384,
+        "max_completion_tokens": 117964,
         "is_moderated": false
       },
       "supportedParameters": [
